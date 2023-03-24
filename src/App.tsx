@@ -3,7 +3,7 @@ import './App.scss';
 
 function App() {
   return (
-    <div>
+    <div className={'m-auto bg-blue-200'}>
       App
     </div>
   );
