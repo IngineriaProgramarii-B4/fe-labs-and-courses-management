@@ -6,12 +6,17 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import UserInfoModal from "../UserInfoModal/UserInfoModal";
 
 const items: MenuProps["items"] = [
   {
     label: "Navigation One",
     key: "mail",
     icon: <MailOutlined />,
+  },
+  {
+    label: <UserInfoModal userType= "ok" firstName= "ok" lastName= "ok" username= "ok" email= "ok" />,
+    key: "user info"
   },
   {
     label: "Navigation Two",
