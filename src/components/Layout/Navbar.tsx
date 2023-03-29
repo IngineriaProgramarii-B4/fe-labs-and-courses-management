@@ -22,7 +22,7 @@ function Navbar() {
       <Menu.Item key={"Catalog"}>
         <Link to="/catalog">Catalog</Link>
       </Menu.Item>
-      <Menu.Item disabled style={{marginLeft: "auto", cursor: "pointer"}}>
+      <Menu.Item disabled style={{marginLeft: "auto", cursor: "default"}}>
         <UserInfoModal userType={"teacher"} firstName={"Olariu"} lastName={"Florin"} username={"olariuflorin"} email={"olariuflorin@gmail.com"} />
       </Menu.Item>
     </Menu>

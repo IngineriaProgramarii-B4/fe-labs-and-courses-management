@@ -56,7 +56,7 @@ function UserInfoModal({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className={`${className}`}>
+    <div className={`${className} cursor-pointer`}>
       <Avatar icon={<i className={"fa-solid fa-user"}/>} shape={"square"} size={32} onClick={() => setIsModalOpen(true)}/>
       <Modal
         title={"User Profile"}
