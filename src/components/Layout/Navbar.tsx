@@ -1,75 +1,12 @@
 import React, { useState } from "react";
 import { Menu, MenuProps } from "antd";
-import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import UserInfoModal from "../UserInfoModal/UserInfoModal";
-
-const items: MenuProps["items"] = [
-  {
-    label: "Navigation One",
-    key: "mail",
-    icon: <MailOutlined />,
-  },
-  {
-    label: <UserInfoModal userType= "ok" firstName= "ok" lastName= "ok" username= "ok" email= "ok" />,
-    key: "user info"
-  },
-  {
-    label: "Navigation Two",
-    key: "app",
-    icon: <AppstoreOutlined />,
-    disabled: true,
-  },
-  {
-    label: "Navigation Three - Submenu",
-    key: "SubMenu",
-    icon: <SettingOutlined />,
-    children: [
-      {
-        type: "group",
-        label: "Item 1",
-        children: [
-          {
-            label: "Option 1",
-            key: "setting:1",
-          },
-          {
-            label: "Option 2",
-            key: "setting:2",
-          },
-        ],
-      },
-      {
-        type: "group",
-        label: "Item 2",
-        children: [
-          {
-            label: "Option 3",
-            key: "setting:3",
-          },
-          {
-            label: "Option 4",
-            key: "setting:4",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: <Link to="/catalog">Catalog</Link>,
-    key: "alipay",
-  },
-];
 
 function Navbar() {
   const [current, setCurrent] = useState("mail");
 
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
 
@@ -78,8 +15,17 @@ function Navbar() {
       onClick={onClick}
       selectedKeys={[current]}
       mode="horizontal"
-      items={items}
-    />
+    >
+      <Menu.Item key={"Home"}>
+        <Link to="/home">Home</Link>
+      </Menu.Item>
+      <Menu.Item key={"Catalog"}>
+        <Link to="/catalog">Catalog</Link>
+      </Menu.Item>
+      <Menu.Item disabled style={{marginLeft: "auto", cursor: "pointer"}}>
+        <UserInfoModal userType={"teacher"} firstName={"Olariu"} lastName={"Florin"} username={"olariuflorin"} email={"olariuflorin@gmail.com"} />
+      </Menu.Item>
+    </Menu>
   );
 }
 
