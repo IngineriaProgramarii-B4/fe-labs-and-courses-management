@@ -1,17 +1,19 @@
 @media only screen and (min-width: 768px) {
   body {
-    font-size: 1.1rem;
+    background: url("../../img/temporary_bg.jpg") center no-repeat;
+    background-size: cover;
+    font-size: 0.9rem;
     font-family: "Sora", sans-serif;
   }
   table {
     border-collapse: collapse;
     width: 100%;
+    border: 0.25rem solid rgb(59 130 246 / 0.6);
   }
   td {
-    padding: 8px;
     text-align: center;
     border-bottom: 1px solid #ddd;
-    padding: 1.5rem;
+    padding: 1.3rem;
   }
 
   th {
