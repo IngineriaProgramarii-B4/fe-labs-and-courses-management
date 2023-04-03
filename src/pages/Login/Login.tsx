@@ -1,9 +1,7 @@
-import React from 'react';
+import React from "react";
 
 function Login() {
-  return (
-    <div>Login (Bafta George)</div>
-  );
+  return <div>Login</div>;
 }
 
 export default Login;
