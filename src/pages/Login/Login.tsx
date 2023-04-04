@@ -36,12 +36,12 @@ function Login() {
         <div className='info'>
             <input type="checkbox" />
             <a href='#' className='rememberMe'>Remember me</a>
-            <a href='#' className='forgotPass'>Forgot password?</a>
+            <a href='http://localhost:3000/resetPassword' className='forgotPass'>Forgot password?</a>
         </div>
         
         <div className='registerContainer'>
           <p style={{ marginRight: '10px' }}>You don't have an account?</p>
-          <Button className='registerButton' htmlType="submit">Register</Button>
+          <Button  className='registerButton' htmlType="submit"><a href='http://localhost:3000/register'>Register</a></Button>
         </div>
       </div>   
       </Form>
