@@ -16,11 +16,14 @@ function Navbar() {
       <Menu.Item key={"Home"}>
         <Link to="/home">Home</Link>
       </Menu.Item>
+      <Menu.Item key={"Network"}>
+        <Link to="/network">Network</Link>
+      </Menu.Item>
       <Menu.Item key={"Catalog"}>
         <Link to="/catalog">Catalog</Link>
       </Menu.Item>
       <Menu.Item disabled style={{ marginLeft: "auto", cursor: "default" }}>
-        <UserInfoModal userType={"student"} avatar={mockedAvatar} />
+        <UserInfoModal avatar={mockedAvatar} />
       </Menu.Item>
     </Menu>
   );

@@ -32,7 +32,7 @@ function UserInfoInput({
 
   return (
     <div className={"flex h-[2rem]"}>
-      <p className={"my-auto w-[5.5rem] text-end"}>{title}:</p>
+      <p className={"my-auto w-[8.5rem] text-end"}>{title}:</p>
       {!isInEditMode ? (
         <p className={"my-auto ml-3"}>{value}</p>
       ) : (
@@ -59,36 +59,28 @@ type UserDataType = {
   semester?: number;
 };
 
-const getDefaultUserData = (userType: "admin" | "student" | "teacher") => {
+const getDefaultUserData = () => {
   const userData: UserDataType = {
     firstName: "",
     lastName: "",
     username: "",
     email: "",
   };
-  if (userType === "student") {
-    userData.registrationNumber = "";
-    userData.semester = 0;
-  }
-
   return userData;
 };
 
 type UserInfoModalProps = {
-  userType: "admin" | "student" | "teacher";
   avatar?: string;
   className?: string;
 };
 
-function UserInfoModal({ userType, avatar, className }: UserInfoModalProps) {
+function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [userData, setUserData] = useState<UserDataType>(
-    getDefaultUserData(userType)
-  );
+  const [userData, setUserData] = useState<UserDataType>(getDefaultUserData());
   const [newUsername, setNewUsername] = useState(userData.username);
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState(avatar);
@@ -108,20 +100,29 @@ function UserInfoModal({ userType, avatar, className }: UserInfoModalProps) {
   const avatarIconClickHandler = () => {
     setIsLoading(true);
     //mocking request data
-    setUserData({
-      firstName: "Olariu",
-      lastName: "Florin",
-      username: "olariuflorin",
-      email: "olariuflorin@gmail.com",
-      registrationNumber: "1234567890",
-      semester: 3,
-    });
+    fetch("http://localhost:8080/api/v1/users?username=florin02")
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data[0]);
+      });
     setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
 
   const onSave = () => {
     setIsEditing(false);
+
+    const {email, username, ...sentUser} = userData
+    const newUser = { ...sentUser, email: newEmail, username: newUsername };
+
+    fetch("http://localhost:8080/api/v1/updated/student", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
     toast.success("User profile updated");
   };
 
@@ -207,59 +208,23 @@ function UserInfoModal({ userType, avatar, className }: UserInfoModalProps) {
           <Divider dashed />
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
-              <UserInfoInput
-                title={"First name"}
-                value={userData.firstName}
-                type={"text"}
-                isEditing={isEditing}
-              />
-              <UserInfoInput
-                title={"Last name"}
-                value={userData.lastName}
-                type={"text"}
-                isEditing={isEditing}
-              />
-              <UserInfoInput
-                title={"Username"}
-                value={newUsername}
-                setValue={setNewUsername}
-                type={"text"}
-                isEditing={isEditing}
-              />
-              <UserInfoInput
-                title={"Email"}
-                value={newEmail}
-                setValue={setNewEmail}
-                type={"email"}
-                isEditing={isEditing}
-              />
-              {userType === "student" && (
-                <>
-                  {userData.registrationNumber && (
-                    <UserInfoInput
-                      title={"Registration"}
-                      value={userData.registrationNumber}
-                      type={"text"}
-                      isEditing={isEditing}
-                    />
-                  )}
-                  {userData.semester && (
-                    <>
-                      <UserInfoInput
-                        title={"Year"}
-                        value={Math.ceil(userData.semester / 2).toString()}
-                        type={"text"}
-                        isEditing={isEditing}
-                      />
-                      <UserInfoInput
-                        title={"Semester"}
-                        value={(((userData.semester + 1) % 2) + 1).toString()}
-                        type={"text"}
-                        isEditing={isEditing}
-                      />
-                    </>
-                  )}
-                </>
+              {Object.entries(userData).map(([key, val]) =>
+                key !== "username" && key !== "email" ? (
+                  <UserInfoInput
+                    title={key}
+                    value={`${val}`}
+                    type={"text"}
+                    isEditing={isEditing}
+                  />
+                ) : (
+                  <UserInfoInput
+                    title={key}
+                    value={key === "username" ? newUsername : newEmail}
+                    type={"text"}
+                    isEditing={isEditing}
+                    setValue={key === "username" ? setNewUsername : setNewEmail}
+                  />
+                )
               )}
             </Space>
           ) : (
