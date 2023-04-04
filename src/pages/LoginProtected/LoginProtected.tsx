@@ -7,11 +7,12 @@ function LoginProtected() {
   if (!isLoggedIn) {
     // user is not authenticated
     return <Navigate to="/login" />;
+  
   }
   return <>
-    <Navbar />
-    <Outlet />
-  </>
+      <Navbar />
+      <Outlet />
+      </>
 }
 
 export default LoginProtected;

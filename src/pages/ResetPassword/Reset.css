@@ -1,0 +1,53 @@
+.appBg{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(53.46deg, #0091d9 1.15%, #ffffff 101.52%);
+    background-size: cover ;  
+    justify-content: flex-start;
+    align-items: center;
+ 
+ }
+ 
+ /* Reset */
+ 
+ .resetForm{
+     background-color: rgb(255, 255, 255,0.33);
+     box-shadow: 0px 8px 32px 0 rgb(0,0,255,0.33);
+     backdrop-filter: blur(3px);
+     font-size: 1.1rem;
+     margin-left: 5rem;
+     padding: 10%;
+     border-radius: 16px;
+ }
+ 
+ .titluForm{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100%;
+ }
+ 
+ .resetButton{
+     border-radius: 0%;
+ }
+ 
+ @media screen and (max-width: 600px) {
+ 
+    .resetForm {
+         margin: auto;
+    }
+ }
+ 
+ /* @media screen and (max-width: 329px) {
+     .titluForm {
+         font-size: smaller;
+         margin: auto;
+     }
+ } */
+ 
+ @media screen and (max-width: 410px) {
+     .resetForm {
+         font-size: 0.8rem;
+     }
+ }
