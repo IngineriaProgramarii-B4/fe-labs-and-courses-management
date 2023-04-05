@@ -22,6 +22,9 @@ function Navbar() {
       <Menu.Item key={"Catalog"}>
         <Link to="/catalog">Catalog</Link>
       </Menu.Item>
+      <Menu.Item key={"Teachers"}>
+        <Link to="/teachers">Teachers</Link>
+      </Menu.Item>
       <Menu.Item disabled style={{ marginLeft: "auto", cursor: "default" }}>
         <UserInfoModal avatar={mockedAvatar} />
       </Menu.Item>

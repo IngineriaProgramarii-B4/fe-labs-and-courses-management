@@ -6,7 +6,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
-import NetworkCard from "../components/UserInfoModal/NetworkCard";
+import NetworkCard from "../components/NetworkCard/NetworkCard";
+import CoursesCard from "../components/CoursesCard/CoursesCard";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/network",
         element: <NetworkCard />,
+      },
+      {
+        path: "/teachers",
+        element: <CoursesCard />,
       },
       {
         path: "/",
