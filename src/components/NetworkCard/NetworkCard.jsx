@@ -29,11 +29,6 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const capitalizeString = (str) => {
-  const str2 = str.charAt(0).toUpperCase() + str.slice(1);
-  return str2;
-};
-
 export default function NetworkCard() {
   const [users, setUsers] = useState([]);
 

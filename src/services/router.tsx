@@ -7,7 +7,7 @@ import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
-import CoursesCard from "../components/CoursesCard/CoursesCard";
+import { TeacherInfoCard } from "../components/TeacherInfo/TeacherInfoCard";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/teachers",
-        element: <CoursesCard />,
+        element: <TeacherInfoCard />,
       },
       {
         path: "/",
