@@ -6,22 +6,27 @@ function UserInfo({ title, value }) {
   return (
     <div className={"flex h-[2rem]"}>
       <p className={"my-auto w-[8.5rem] text-end text-gray-500"}>{title}:</p>
-      <p className={"my-auto ml-3"}>{Array.isArray(value) ? value.map((course, index) => course + (index !== value.length - 1 ? ", " : "")) : value}</p>
+      <p className={"my-auto ml-3"}>
+        {Array.isArray(value)
+          ? value.map(
+              (course, index) =>
+                course + (index !== value.length - 1 ? ", " : "")
+            )
+          : value}
+      </p>
     </div>
   );
 }
 
-
-function Title({username, firstname, lastname}) {
+function Title({ username, firstname, lastname }) {
   return (
-    <div style={{textAlign: "center", fontWeight: "bold"}}>
+    <div style={{ textAlign: "center", fontWeight: "bold" }}>
       <div>{firstname + " " + lastname}</div>
       <div>@{username}</div>
       <Divider />
     </div>
   );
 }
-
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,18 +41,20 @@ export default function NetworkCard() {
     fetch("http://localhost:8080/api/v1/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
-  }, []);
+  });
 
   const renderCard = (user) => {
     return (
-      <Card style={{flexBasis: '30%', marginTop: '10px'}}>
-        <Title username={user.username} firstname={user.firstname} lastname={user.lastname}/>
-          {Object.entries(user).map(([key, value]) => {
-            if (["username", "firstname", "lastname"].indexOf(key) === -1)
-              return (
-                <UserInfo title={key} value={value}/>
-              );
-          })}
+      <Card style={{ flexBasis: "30%", marginTop: "10px" }}>
+        <Title
+          username={user.username}
+          firstname={user.firstname}
+          lastname={user.lastname}
+        />
+        {Object.entries(user).map(([key, value]) => {
+          if (["username", "firstname", "lastname"].indexOf(key) === -1)
+            return key !== "id" ? <UserInfo title={key} value={value} /> : "";
+        })}
       </Card>
     );
   };

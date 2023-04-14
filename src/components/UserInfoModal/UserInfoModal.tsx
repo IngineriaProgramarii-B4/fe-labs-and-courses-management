@@ -57,6 +57,7 @@ type UserDataType = {
   registrationNumber?: string;
   year?: number;
   semester?: number;
+  type: number;
 };
 
 const getDefaultUserData = () => {
@@ -65,6 +66,7 @@ const getDefaultUserData = () => {
     lastName: "",
     username: "",
     email: "",
+    type: -1,
   };
   return userData;
 };
@@ -100,7 +102,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const avatarIconClickHandler = () => {
     setIsLoading(true);
     //mocking request data
-    fetch("http://localhost:8080/api/v1/users?username=florin02")
+    fetch("http://localhost:8080/api/v1/users?username=stefan.ciobaca")
       .then((res) => res.json())
       .then((data) => {
         setUserData(data[0]);
@@ -112,11 +114,21 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const onSave = () => {
     setIsEditing(false);
 
-    const {email, username, ...sentUser} = userData
+    const { email, username, ...sentUser } = userData;
     const newUser = { ...sentUser, email: newEmail, username: newUsername };
 
-    fetch("http://localhost:8080/api/v1/updated/student", {
-      method: "POST",
+    let endPoint = "http://localhost:8080/api/v1/";
+
+    if (userData.type === 0) {
+      endPoint += "admin";
+    } else if (userData.type === 1) {
+      endPoint += "teacher";
+    } else if (userData.type === 2) {
+      endPoint += "student";
+    }
+    console.log(endPoint)
+    fetch(endPoint, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -209,14 +221,14 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
               {Object.entries(userData).map(([key, val]) =>
-                key !== "username" && key !== "email" ? (
+                key !== "username" && key !== "email" && key !== "id" ? (
                   <UserInfoInput
                     title={key}
                     value={`${val}`}
                     type={"text"}
                     isEditing={isEditing}
                   />
-                ) : (
+                ) : key !== "id" ? (
                   <UserInfoInput
                     title={key}
                     value={key === "username" ? newUsername : newEmail}
@@ -224,6 +236,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
                     isEditing={isEditing}
                     setValue={key === "username" ? setNewUsername : setNewEmail}
                   />
+                ) : (
+                  ""
                 )
               )}
             </Space>

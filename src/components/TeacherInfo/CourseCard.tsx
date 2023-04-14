@@ -111,7 +111,7 @@ function CourseCard(course: courseData) {
 function CoursesCard({ name, teachedCourses }: teacherDataProps) {
   return (
     <Card type="inner" title={name} style={{ width: "80%", margin: "auto" }}>
-      <div style={{ display: "flex", padding: "15px" }}>
+      <div style={{ display: "flex", padding: "15px", flexWrap: "wrap" }}>
         {teachedCourses.map((teachedCourse) => {
           return <CourseCard {...teachedCourse}></CourseCard>;
         })}
