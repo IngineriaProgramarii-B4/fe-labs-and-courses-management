@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios"
 
 type UserInfoInputProps = {
   title: string;
@@ -87,6 +88,14 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState(avatar);
 
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8080/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
+  })
+
   const uploadButton = (
     <div className={"flex flex-col justify-center items-center"}>
       <i className={"fas fa-plus font-s text-3xl"} />
@@ -101,12 +110,13 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const avatarIconClickHandler = () => {
     setIsLoading(true);
-    //mocking request data
-    fetch("http://localhost:8080/api/v1/users?username=stefan.ciobaca")
-      .then((res) => res.json())
+
+    axiosInstance.get("/users?username=stefan.ciobaca")
+      .then((res) => res.data)
       .then((data) => {
         setUserData(data[0]);
       });
+
     setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
@@ -117,24 +127,20 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     const { email, username, ...sentUser } = userData;
     const newUser = { ...sentUser, email: newEmail, username: newUsername };
 
-    let endPoint = "http://localhost:8080/api/v1/";
+    let endPoint = "";
 
     if (userData.type === 0) {
-      endPoint += "admin";
+      endPoint += "/admin";
     } else if (userData.type === 1) {
-      endPoint += "teacher";
+      endPoint += "/teacher";
     } else if (userData.type === 2) {
-      endPoint += "student";
+      endPoint += "/student";
     }
-    console.log(endPoint)
-    fetch(endPoint, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
+
+    axiosInstance.put(endPoint, newUser)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+
     toast.success("User profile updated");
   };
 
