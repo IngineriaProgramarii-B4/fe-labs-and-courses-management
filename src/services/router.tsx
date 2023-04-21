@@ -34,11 +34,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/login"} />,
       },
       {
         path: "/index",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/login"} />,
       },
       {
         path: "/test",
