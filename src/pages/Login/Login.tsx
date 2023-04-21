@@ -4,14 +4,43 @@ import type { FC } from 'react';
 import {Button, Form,Input, message, Typography } from "antd";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import "./Login.css";
+import api from './api';
+import { useNavigate} from 'react-router-dom';
+interface LoginFormData{
+  myEmail: string;
+  myPassword: string;
+}
 
 function Login() {
-  const login=()=>{
-    message.success("Login Successful");
-  }
+  const navigate = useNavigate();
+  const login = async (values: LoginFormData) => {
+    try {
+      const response = await api.post('/api/v1/auth/login', {
+        email: values.myEmail,
+        password: values.myPassword,
+      });
+  
+      console.log(response.data);
+      if (response.data && response.data.accessToken) {
+        // Salvează tokenul JWT în local storage sau într-un alt loc adecvat
+        localStorage.setItem('token', response.data.accessToken);
+        message.success('Login Successful');
+        navigate('/Home');
+      } else {
+        message.error('Login failed');
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        message.error('Login failed: ' + error.message);
+      } else {
+        message.error('Login failed');
+      }
+    }
+  };
+  
   return (
     <div className="appBg">
-      <Form className="loginForm" onFinish={login}>
+      <Form className="loginForm" onFinish={values => login(values)}>
         <Typography.Title className='titluForm'>Welcome Back!</Typography.Title>
         <Form.Item rules={[
           {
