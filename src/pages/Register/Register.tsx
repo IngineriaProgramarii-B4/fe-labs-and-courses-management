@@ -1,8 +1,17 @@
-import { CascaderProps, Typography } from 'antd';
+import { CascaderProps, Typography,message } from 'antd';
 import "./RegisterPage.css"
 import { AutoComplete, Button, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, } from 'antd';
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
+import api from "../Login/api";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+interface RegisterFormData {
+  ID: string;
+  email: string;
+  password: string;
+  confirm: string;
+}
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -38,28 +47,41 @@ const tailFormItemLayout = {
 };
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
+
+const register = async (values: RegisterFormData) => {
+  try {
+    const response = await api.post("/api/v1/auth/register", {
+      userId: values.ID,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (response.status === 200) {
+      message.success("Registration Successful");
+      // Redirecționează utilizatorul la pagina de autentificare pentru a se conecta
+      navigate("/login");
+    } else {
+      message.error("Registration failed");
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      message.error("Registration failed: " + error.message);
+    } else {
+      message.error("Registration failed");
+    }
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Server response:", error.response);
+  }
+}
+};
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="40">+40</Option>
-      </Select>
-    </Form.Item>
-  );
 
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
 
   const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
 
@@ -84,7 +106,7 @@ const App: React.FC = () => {
         {...formItemLayout}
         form={form}
         name="register"
-        onFinish={onFinish}
+        onFinish={register}
         initialValues={{ residence: [''], prefix: '40' }}
         style={{ maxWidth: 600 }}
         scrollToFirstError
@@ -152,13 +174,7 @@ const App: React.FC = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item className='PullUp'
-          name="phone"
-          label="Phone Number"
-          rules={[{ required: true, message: 'Please input your phone number!' }]}
-        >
-          <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-        </Form.Item>
+       
 
         <Form.Item className='PullUp'
           {...tailFormItemLayout}>
