@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./Catalog.css";
+import axios from "axios";
 
 interface Grade {
   value: number;
@@ -68,6 +69,21 @@ function Catalog() {
     setEvDateValue(event.target.value);
   };
 
+  async function fetchGrades() {
+    try {
+      const response = await axios.get("http://localhost:8081/api/v1/catalog");
+      const data = response.data;
+      console.log(data);
+      const allGrades = [];
+      for (let i = 0; i < data.entries.length; i++) {
+        allGrades.push(...data.entries[i].grades);
+      }
+      setGrades(allGrades);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const handleAddGrade = () => {
     if (subjectName && gradeValue) {
       const gradesData: GradesData = {
@@ -88,26 +104,31 @@ function Catalog() {
         id: 0,
       };
 
-      fetch(`http://localhost:8081/api/v1/catalog/students/0/grades`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(gradesData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
+      axios
+        .post(
+          "http://localhost:8081/api/v1/catalog/students/1/grades",
+          gradesData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
           setSubjectName("");
           setGradeValue(0);
-          window.location.reload();
+
+          fetchGrades();
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
   const handleDeleteGrade = (id: number) => {
-    fetch(`http://localhost:8081/api/v1/catalog/students/0/grades/${id}`, {
+    fetch(`http://localhost:8081/api/v1/catalog/students/1/grades/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +137,7 @@ function Catalog() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        window.location.reload();
+        fetchGrades();
       })
       .catch((error) => console.error(error));
   };
@@ -126,33 +147,29 @@ function Catalog() {
     updatedGradeValue: number,
     updatedEvDateValue: string
   ) => {
-    fetch(
-      `http://localhost:8081/api/v1/catalog/students/0/grades/${id}?value=${updatedGradeValue}&evaluationDate=${updatedEvDateValue}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+    axios
+      .put(
+        `http://localhost:8081/api/v1/catalog/students/1/grades/${id}?value=${updatedGradeValue}&evaluationDate=${updatedEvDateValue}`,
+        {
+          value: updatedGradeValue,
+          evaluationDate: updatedEvDateValue,
         },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        window.location.reload();
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        fetchGrades();
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
-    async function fetchGrades() {
-      const response = await fetch("http://localhost:8081/api/v1/catalog");
-      const data = await response.json();
-      const allGrades = data.entries.flatMap(
-        (student: Student) => student.grades
-      );
-      setGrades(allGrades);
-    }
-
     fetchGrades();
   }, []);
 
@@ -213,8 +230,8 @@ function Catalog() {
           </thead>
 
           <tbody>
-            {grades.map((grade, index) => (
-              <tr key={index}>
+            {grades.map((grade) => (
+              <tr key={grade.id}>
                 <td>
                   <img
                     src={require("../../img/trash.png")}
