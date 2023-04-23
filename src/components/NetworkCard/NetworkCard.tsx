@@ -92,3 +92,5 @@ export default function NetworkCard() {
 
   return <div className="flex flex-wrap">{users.map(renderCard)}</div>;
 }
+
+export type { UserDataType };
