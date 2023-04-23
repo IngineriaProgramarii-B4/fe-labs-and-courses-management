@@ -37,7 +37,7 @@ describe("AddGrade component", () => {
     const dateInput = screen.getByPlaceholderText("Date of evaluation...");
     const addButtonInModal = screen.getByRole("button", { name: /Add/ });
 
-    fireEvent.change(subjectInput, { target: { value: "Math" } });
+    fireEvent.change(subjectInput, { target: { value: "IP" } });
     fireEvent.change(gradeInput, { target: { value: "8" } });
     fireEvent.change(dateInput, { target: { value: "2022-01-01" } });
 
@@ -49,7 +49,7 @@ describe("AddGrade component", () => {
         {
           value: 8,
           subject: {
-            name: "Math",
+            name: "IP",
             teachers: [
               {
                 idProf: 0,

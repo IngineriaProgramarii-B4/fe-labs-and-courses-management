@@ -1,6 +1,0 @@
-projectKey=catalog-fe-1
-serverUrl=http://localhost:9000
-serverVersion=10.0.0.68432
-dashboardUrl=http://localhost:9000/dashboard?id=catalog-fe-1
-ceTaskId=AYeulzRCVoiy_YwHvOb5
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYeulzRCVoiy_YwHvOb5
