@@ -29,7 +29,7 @@ function Catalog() {
   async function fetchGrades() {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/v1/catalog/students/8"
+        "http://localhost:8081/api/v1/catalog/students/1"
       );
       const data = response.data;
       console.log(data);
@@ -40,7 +40,7 @@ function Catalog() {
       console.log("all grades:", allGrades);
       setGrades(allGrades);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
 
