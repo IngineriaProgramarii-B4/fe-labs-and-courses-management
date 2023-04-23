@@ -46,9 +46,10 @@ function Login() {
           {
             required:true,
             type:"email",
+          
             message:"Please enter valid email",
           },
-        ]}  name={'myEmail'}>
+        ]}  name={'myEmail'} >
           <Input placeholder='Enter your email'/>
         </Form.Item >
 

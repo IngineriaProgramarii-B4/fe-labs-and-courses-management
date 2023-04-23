@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import api from "../Login/api";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { router } from '../../services/router';
 interface RegisterFormData {
   ID: string;
   email: string;
@@ -46,9 +47,8 @@ const tailFormItemLayout = {
   },
 };
 
-const App: React.FC = () => {
+const Register: React.FC = () => {
   const navigate = useNavigate();
-
 const register = async (values: RegisterFormData) => {
   try {
     const response = await api.post("/api/v1/auth/register", {
@@ -100,7 +100,6 @@ const register = async (values: RegisterFormData) => {
 
   return (
     <div>
-
       <div className="top-bar"></div>
       <Form className='Formular'
         {...formItemLayout}
@@ -137,8 +136,8 @@ const register = async (values: RegisterFormData) => {
         </Form.Item>
 
         <Form.Item className='PullUp'
-          name="password"
-          label="Password"
+          name="Parola"
+          label="Parola"
           rules={[
             {
               required: true,
@@ -152,8 +151,8 @@ const register = async (values: RegisterFormData) => {
         </Form.Item>
 
         <Form.Item className='PullUp'
-          name="confirm"
-          label="Confirm Password"
+          name="Confirma"
+          label="Confirma"
           dependencies={['password']}
           hasFeedback
           rules={[
@@ -193,4 +192,4 @@ const register = async (values: RegisterFormData) => {
   );
 };
 
-export default App;
+export default Register;
