@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios"
 
 type UserInfoInputProps = {
   title: string;
@@ -57,6 +58,7 @@ type UserDataType = {
   registrationNumber?: string;
   year?: number;
   semester?: number;
+  type: number;
 };
 
 const getDefaultUserData = () => {
@@ -65,6 +67,7 @@ const getDefaultUserData = () => {
     lastName: "",
     username: "",
     email: "",
+    type: -1,
   };
   return userData;
 };
@@ -85,6 +88,14 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState(avatar);
 
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8080/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
+  })
+
   const uploadButton = (
     <div className={"flex flex-col justify-center items-center"}>
       <i className={"fas fa-plus font-s text-3xl"} />
@@ -99,12 +110,13 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const avatarIconClickHandler = () => {
     setIsLoading(true);
-    //mocking request data
-    fetch("http://localhost:8080/api/v1/users?username=florin02")
-      .then((res) => res.json())
+
+    axiosInstance.get("/users?username=stefan.ciobaca")
+      .then((res) => res.data)
       .then((data) => {
         setUserData(data[0]);
       });
+
     setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
@@ -112,17 +124,23 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const onSave = () => {
     setIsEditing(false);
 
-    const {email, username, ...sentUser} = userData
+    const { email, username, ...sentUser } = userData;
     const newUser = { ...sentUser, email: newEmail, username: newUsername };
 
-    fetch("http://localhost:8080/api/v1/updated/student", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
+    let endPoint = "";
+
+    if (userData.type === 0) {
+      endPoint += "/admin";
+    } else if (userData.type === 1) {
+      endPoint += "/teacher";
+    } else if (userData.type === 2) {
+      endPoint += "/student";
+    }
+
+    axiosInstance.put(endPoint, newUser)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+
     toast.success("User profile updated");
   };
 
@@ -209,14 +227,14 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
               {Object.entries(userData).map(([key, val]) =>
-                key !== "username" && key !== "email" ? (
+                key !== "username" && key !== "email" && key !== "id" ? (
                   <UserInfoInput
                     title={key}
                     value={`${val}`}
                     type={"text"}
                     isEditing={isEditing}
                   />
-                ) : (
+                ) : key !== "id" ? (
                   <UserInfoInput
                     title={key}
                     value={key === "username" ? newUsername : newEmail}
@@ -224,6 +242,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
                     isEditing={isEditing}
                     setValue={key === "username" ? setNewUsername : setNewEmail}
                   />
+                ) : (
+                  ""
                 )
               )}
             </Space>
