@@ -61,7 +61,7 @@ export function ModalFooter({
 
 type UserProfileAvatarProps = {
   isEditing: boolean;
-  avatar: string | undefined;
+  avatar?: string;
   newAvatar: string | null;
   setNewAvatar: (val: string) => void;
 };
@@ -157,7 +157,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
         setUserData(data[0]);
       });
 
-    setTimeout(() => setIsLoading(false), 1000);
+    // setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
 
