@@ -34,10 +34,6 @@
     }
   }
 
-  .Formular {
-      /* background-color: red; */
-  }
-
   .Formular.animate {
     top: 50%;
   }

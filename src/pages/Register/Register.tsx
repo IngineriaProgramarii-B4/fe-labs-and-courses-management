@@ -1,12 +1,9 @@
-import { CascaderProps, Typography,message } from 'antd';
+import { Button, Form, Input,Select,Typography,message } from 'antd';
 import "./RegisterPage.css"
-import { AutoComplete, Button, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, } from 'antd';
-import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import React from 'react';
 import api from "../Login/api";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { router } from '../../services/router';
 interface RegisterFormData {
   ID: string;
   email: string;
@@ -77,26 +74,8 @@ const register = async (values: RegisterFormData) => {
 };
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
-  };
 
-
-
-  const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
-
-  const onWebsiteChange = (value: string) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
+ 
 
   return (
     <div>
@@ -136,8 +115,8 @@ const register = async (values: RegisterFormData) => {
         </Form.Item>
 
         <Form.Item className='PullUp'
-          name="Parola"
-          label="Parola"
+          name="password"
+          label="password"
           rules={[
             {
               required: true,
@@ -151,8 +130,8 @@ const register = async (values: RegisterFormData) => {
         </Form.Item>
 
         <Form.Item className='PullUp'
-          name="Confirma"
-          label="Confirma"
+          name="confirm"
+          label="confirm"
           dependencies={['password']}
           hasFeedback
           rules={[

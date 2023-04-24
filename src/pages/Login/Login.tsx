@@ -1,8 +1,5 @@
 import React from 'react';
-import { memo } from 'react';
-import type { FC } from 'react';
 import {Button, Form,Input, message, Typography } from "antd";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import "./Login.css";
 import api from './api';
 import { useNavigate} from 'react-router-dom';

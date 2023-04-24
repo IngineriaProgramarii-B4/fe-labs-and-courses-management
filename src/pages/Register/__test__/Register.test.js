@@ -28,8 +28,8 @@ test('renders form with expected fields', () => {
     );
     const idField = screen.getByLabelText(/id/i);
     const emailField = screen.getByLabelText(/e-mail/i);
-    const passwordField = screen.getByLabelText(/parola/i);
-    const confirmPasswordField = screen.getByLabelText(/confirma/i);
+    const passwordField = screen.getByLabelText(/password/i);
+    const confirmPasswordField = screen.getByLabelText(/confirm/i);
     const registerButton = screen.getByRole('button', { name: /register/i });
     const alreadyHaveAccount = screen.getByText(/already have an account?/i);
     const logIn = screen.getByRole('link', { name: 'Sign in' });
@@ -89,25 +89,20 @@ test('error message if the confirm password field is empty', async () => {
             <Register />
         </Router>
     );
-    fireEvent.change(screen.getByLabelText('Parola'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'password' } });
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
     await screen.findByText('Please confirm your password!');
 });
 
-// test('success message and redirect to the login page when registration is successful', async () => {
-//     const mockApiPost = jest.spyOn(api, 'post').mockResolvedValue({ status: 200 });
-//     const mockNavigate = jest.fn();
-//     jest.mock('react-router-dom', () => ({
-//       useNavigate: () => mockNavigate,
-//     }));
-//     render(
-//         <Router>
-//             <Register />
-//         </Router>
-//     );
-//     fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123' } });
-//     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@example.com' } });
-//     fireEvent.change(screen.getByLabelText('Parola'), { target: { value: 'password' } });
-//     fireEvent.change(screen.getByLabelText('Confirma'), { target: { value: 'password' }});
-// });
+test('error message when passwords do not match', async () => {
+    render(
+        <Router>
+            <Register />
+        </Router>
+    );
+    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'different_password' } });
+    fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
+    await screen.findByText('The two passwords that you entered do not match!');
+});
 
