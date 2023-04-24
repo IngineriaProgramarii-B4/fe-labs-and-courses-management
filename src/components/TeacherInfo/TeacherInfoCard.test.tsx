@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import CoursesCard, { CourseCard } from "./CourseCard";
+import CoursesCard, { CourseCard,CourseInputInfo } from "./CourseCard";
 import TeacherInfoCard from "./TeacherInfoCard";
 
 window.matchMedia =
@@ -62,8 +62,29 @@ describe("CourseCard", () => {
     );
 
     // tests
+    expect(screen.getByText(courseData.courseTitle)).toBeInTheDocument();
+    
+    // if (courseData.hasExam) {
+    //   expect(screen.getByText(/Has Exam/)).toHaveTextContent(/yes/i);
+    // }
+    // if (courseData.hasPartialExam) {
+    //   expect(screen.getByText(/Has Partial Exam/)).toHaveTextContent(/no/i);
+    // }
+    // if (courseData.hasHomeworkNotation) {
+    //   expect(screen.getByText(/Has Homework Notation/)).toHaveTextContent(/yes/i);
+    // }
+    // if (courseData.hasLaboratoryGrading) {
+    //   expect(screen.getByText(/Has Laboratory Grading/)).toHaveTextContent(/no/i);
+    // }
+    // if (courseData.hasPresentGrading) {
+    //   expect(screen.getByText(/Has Present Grading/)).toHaveTextContent(/yes/i);
+    // }
+    expect(screen.getByText(courseData.noOfCredits)).toBeInTheDocument();
+    expect(screen.getByText(courseData.finalGrade)).toBeInTheDocument();
   });
 });
+
+
 
 describe("CoursesCard", () => {
   const teachersData = [
@@ -93,80 +114,20 @@ describe("CoursesCard", () => {
     );
 
     //tests
+    expect(screen.getByText(teachersData[0].name)).toBeInTheDocument();
+    expect(screen.getByText(teachersData[0].taughtSubjects[0].courseTitle)).toBeInTheDocument();
+
+    
+    const examText = teachersData[0].taughtSubjects[0].hasExam ? "yes" : "no";
+    expect(screen.getByText(/Has exam/i)).toBeInTheDocument();
+    expect(screen.findByDisplayValue(examText)).toHaveValue(examText);
+
+
+    expect(screen.getByText(/Has partial exam/i)).toBeInTheDocument();
+    expect(screen.getByText(/Has homework notation/i)).toBeInTheDocument();
+    expect(screen.getByText(/Has laboratory grading/i)).toBeInTheDocument();
+    expect(screen.getByText(/Has present grading/i)).toBeInTheDocument();
   });
+
 });
 
-// test("should be editable when in edit mode", () => {
-//   const setValueMock = jest.fn();
-//   render(
-//     <CourseCard
-//         name={"name"}
-//         courseTitle={"Ingineria Programarii"}
-//         hasExam={true}
-//         hasPartialExam={true}
-//         hasHomeworkNotation={true}
-//         hasLaboratoryGrading={true}
-//         hasPresentGrading={true}
-//         noOfCredits={"no"}
-//         finalGrade={"final"}
-//     />
-//   );
-// });
-
-// describe("TeacherInfoCard", () => {
-//   test("renders course cards with correct data", () => {
-//     const teachersData = [
-//       {
-//         name: "Iftene Adrian",
-//         teachedCourses: [
-//           {
-//             courseTitle: "Ingineria Programarii",
-//             hasExam: true,
-//             hasPartialExam: false,
-//             hasHomeworkNotation: true,
-//             hasLaboratoryGrading: false,
-//             hasPresentGrading: true,
-//             noOfCredits: "5",
-//             finalGrade: "Gauss",
-//           }
-//         ],
-//       },
-//     ];
-//
-//     const { getByText } = render(<TeacherInfoCard />);
-//
-//   //Check if the teacher's name is displayed
-//     expect(getByText("Iftene Adrian")).toBeInTheDocument();
-//
-//   //Check if each course's title is displayed
-//     expect(getByText("Ingineria Programarii")).toBeInTheDocument();
-//     expect(getByText("Nume curs 2")).toBeInTheDocument();
-//     expect(getByText("Nume curs 3")).toBeInTheDocument();
-//
-//     //Check if each course's grading properties are displayed
-//     const hasExamElement = screen.queryByText('Has Exam');
-//     expect(hasExamElement).toBeInTheDocument();
-//
-//     if (hasExamElement) {
-//         expect(hasExamElement).toHaveTextContent('yes');
-//      }
-//
-//   expect(screen.queryByText('Has Partial Exam')).toBeInTheDocument();
-//   expect(screen.queryByText('no')).toBeInTheDocument();
-//
-//   expect(screen.queryByText('Has Homework Notation')).toBeInTheDocument();
-//   expect(screen.queryByText('yes')).toBeInTheDocument();
-//
-//   expect(screen.queryByText('Has Laboratory Grading')).toBeInTheDocument();
-//   expect(screen.queryByText('no')).toBeInTheDocument();
-//
-//   expect(screen.queryByText('Has Present Grading')).toBeInTheDocument();
-//   expect(screen.queryByText('yes')).toBeInTheDocument();
-//
-//   expect(screen.queryByText('Final Grade')).toBeInTheDocument();
-//   expect(screen.queryByText('Gauss')).toBeInTheDocument();
-//
-//   expect(screen.queryByText('Number of Credits')).toBeInTheDocument();
-//   expect(screen.queryByText('5')).toBeInTheDocument();
-//   });
-// });
