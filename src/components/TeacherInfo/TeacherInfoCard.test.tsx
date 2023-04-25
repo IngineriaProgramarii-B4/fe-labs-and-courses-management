@@ -118,15 +118,14 @@ describe("CoursesCard", () => {
     expect(screen.getByText(teachersData[0].taughtSubjects[0].courseTitle)).toBeInTheDocument();
 
     
-    const examText = teachersData[0].taughtSubjects[0].hasExam ? "yes" : "no";
+    // const examText = teachersData[0].taughtSubjects[0].hasExam ? "yes" : "no";
     expect(screen.getByText(/Has exam/i)).toBeInTheDocument();
-    expect(screen.findByDisplayValue(examText)).toHaveValue(examText);
-
-
     expect(screen.getByText(/Has partial exam/i)).toBeInTheDocument();
     expect(screen.getByText(/Has homework notation/i)).toBeInTheDocument();
     expect(screen.getByText(/Has laboratory grading/i)).toBeInTheDocument();
     expect(screen.getByText(/Has present grading/i)).toBeInTheDocument();
+    expect(screen.getAllByText("yes")).toHaveLength(3);
+    expect(screen.getAllByText("no")).toHaveLength(2);
   });
 
 });
