@@ -20,7 +20,7 @@ export default function DeleteGrade(props: {
   };
 
   const handleDeleteGrade = (id: number) => {
-    fetch(`http://localhost:8081/api/v1/catalog/students/8/grades/${id}`, {
+    fetch(`http://localhost:8081/api/v1/catalog/students/1/grades/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,14 @@ export default function DeleteGrade(props: {
         centered={true}
         width={400}
       >
-        <Button danger={true} onClick={() => handleDeleteGrade(props.id)}>
+        <p>Are you sure you want to delete this grade?</p>
+        <Button
+          danger={true}
+          onClick={() => {
+            handleDeleteGrade(props.id);
+            setIsModalOpen(false);
+          }}
+        >
           Delete
         </Button>
       </Modal>

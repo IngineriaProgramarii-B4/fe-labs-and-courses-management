@@ -76,7 +76,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
 
       axios
         .post(
-          "http://localhost:8081/api/v1/catalog/students/8/grades",
+          "http://localhost:8081/api/v1/catalog/students/1/grades",
           gradesData,
           {
             headers: {
@@ -115,22 +115,25 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
           wrapperCol={{ span: 14 }}
           style={{ maxWidth: 600 }}
         >
-          <Form.Item label="Subject">
+          <Form.Item label="Subject" htmlFor="subjectName">
             <Input
               onChange={handleSubjectNameChange}
               placeholder="Subject name..."
+              id="subjectName"
             />
           </Form.Item>
-          <Form.Item label="Grade">
+          <Form.Item label="Grade" htmlFor="gradeValue">
             <Input
               onChange={handleGradeValueChange}
               placeholder="Grade value..."
+              id="gradeValue"
             />
           </Form.Item>
-          <Form.Item label="Date">
+          <Form.Item label="Date" htmlFor="date">
             <Input
               onChange={handleEvDateChange}
               placeholder="Date of evaluation..."
+              id="date"
             />
           </Form.Item>
           <Form.Item>
