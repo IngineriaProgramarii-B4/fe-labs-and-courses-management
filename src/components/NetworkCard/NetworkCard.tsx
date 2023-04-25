@@ -25,7 +25,7 @@ export default function NetworkCard() {
   useEffect(() => {
     /* Fetch data from server */
     const axiosInstance = axios.create({
-        baseURL: "http://localhost:8080/api/v1",
+        baseURL: "http://localhost:8090/api/v1",
         headers: {
           "Content-Type": "application/json"
         }
@@ -33,7 +33,19 @@ export default function NetworkCard() {
     );
     axiosInstance.get("/users")
       .then((res) => res.data)
-      .then((data) => setUsers(data))
+      .then((data) => {
+        // @ts-ignore
+        setUsers(data.map(item => {
+          const {firstname, lastname, ...tmp} = item
+          return {
+            ...tmp,
+            firstName: firstname,
+            lastName: lastname
+          }
+
+        }));
+        console.log(users);
+      })
       .catch((err) => {
         if (err.response?.status === 404) {
           console.error(err);
@@ -71,7 +83,7 @@ export default function NetworkCard() {
       }
     ];
 
-    setUsers(USERS);
+    // setUsers(USERS);
   }, []);
 
   const renderCard = (user: UserDataType) => {

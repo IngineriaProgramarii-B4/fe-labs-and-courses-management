@@ -8,6 +8,8 @@ import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
 import { TeacherInfoCard } from "../components/TeacherInfo/TeacherInfoCard";
+import RemindersCard from "../components/RemindersCard/RemindersCard";
+import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +36,13 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Navigate to={"/home"} />,
+      },
+      {
+        path: "/reminders",
+        element:     <RemindersContextProvider>
+
+        <RemindersCard />
+        </RemindersContextProvider>,
       },
       {
         path: "/index",
