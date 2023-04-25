@@ -155,6 +155,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
       .then((res) => res.data)
       .then((data) => {
         setUserData(data[0]);
+        setIsLoading(false);
       });
 
     // setTimeout(() => setIsLoading(false), 1000);

@@ -1,39 +1,28 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import CoursesCard, { CourseCard,CourseInputInfo } from "./CourseCard";
+import CoursesCard, { CourseCard } from "./CourseCard";
 import TeacherInfoCard from "./TeacherInfoCard";
 
-window.matchMedia =
-  window.matchMedia ||
-  function () {
-    return {
-      matches: false,
-      addListener: function () {},
-      removeListener: function () {},
-    };
-  };
+describe("TeacherInfoCard", () => {
+  test("renders the card title", () => {
+    render(<TeacherInfoCard />);
+    const cardTitle = screen.getByText(/Teachers/i);
+    expect(cardTitle).toBeInTheDocument();
+  });
 
-// Don't test yet
-// describe("TeacherInfoCard", () => {
-//   test("renders the card title", () => {
-//     render(<TeacherInfoCard />);
-//     const cardTitle = screen.getByText(/Teachers/i);
-//     expect(cardTitle).toBeInTheDocument();
-//   });
-//
-//   test("renders the teacher name", () => {
-//     render(<TeacherInfoCard />);
-//     expect(screen.getByText(/Iftene Adrian/i)).toBeInTheDocument();
-//   });
-//
-//   test("renders the course titles", () => {
-//     render(<TeacherInfoCard />);
-//     expect(screen.getByText(/Ingineria Programarii/i)).toBeInTheDocument();
-//     expect(screen.getByText(/Nume curs 2/i)).toBeInTheDocument();
-//     expect(screen.getByText(/Nume curs 3/i)).toBeInTheDocument();
-//   });
-// });
+  test("renders the teacher name", () => {
+    render(<TeacherInfoCard />);
+    expect(screen.getByText(/Iftene Adrian/i)).toBeInTheDocument();
+  });
+
+  // test("renders the course titles", () => {
+  //   render(<TeacherInfoCard />);
+  //   expect(screen.getByText(/Ingineria Programarii/i)).toBeInTheDocument();
+  //   expect(screen.getByText(/Nume curs 2/i)).toBeInTheDocument();
+  //   expect(screen.getByText(/Nume curs 3/i)).toBeInTheDocument();
+  // });
+});
 
 describe("CourseCard", () => {
   const courseData = {
@@ -48,22 +37,11 @@ describe("CourseCard", () => {
   };
 
   test("should render properly", () => {
-    render(
-      <CourseCard
-        courseTitle={courseData.courseTitle}
-        hasExam={courseData.hasExam}
-        hasPartialExam={courseData.hasPartialExam}
-        hasHomeworkNotation={courseData.hasHomeworkNotation}
-        hasLaboratoryGrading={courseData.hasLaboratoryGrading}
-        hasPresentGrading={courseData.hasPresentGrading}
-        noOfCredits={courseData.noOfCredits}
-        finalGrade={courseData.finalGrade}
-      />
-    );
+    render(<CourseCard {...courseData} />);
 
     // tests
     expect(screen.getByText(courseData.courseTitle)).toBeInTheDocument();
-    
+
     // if (courseData.hasExam) {
     //   expect(screen.getByText(/Has Exam/)).toHaveTextContent(/yes/i);
     // }
@@ -83,8 +61,6 @@ describe("CourseCard", () => {
     expect(screen.getByText(courseData.finalGrade)).toBeInTheDocument();
   });
 });
-
-
 
 describe("CoursesCard", () => {
   const teachersData = [
@@ -115,9 +91,10 @@ describe("CoursesCard", () => {
 
     //tests
     expect(screen.getByText(teachersData[0].name)).toBeInTheDocument();
-    expect(screen.getByText(teachersData[0].taughtSubjects[0].courseTitle)).toBeInTheDocument();
+    expect(
+      screen.getByText(teachersData[0].taughtSubjects[0].courseTitle)
+    ).toBeInTheDocument();
 
-    
     // const examText = teachersData[0].taughtSubjects[0].hasExam ? "yes" : "no";
     expect(screen.getByText(/Has exam/i)).toBeInTheDocument();
     expect(screen.getByText(/Has partial exam/i)).toBeInTheDocument();
@@ -127,6 +104,4 @@ describe("CoursesCard", () => {
     expect(screen.getAllByText("yes")).toHaveLength(3);
     expect(screen.getAllByText("no")).toHaveLength(2);
   });
-
 });
-
