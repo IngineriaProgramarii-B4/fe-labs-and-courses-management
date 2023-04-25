@@ -29,6 +29,31 @@ describe("UserHeader", () => {
   });
 });
 
+describe("UserInfoFields", () => {
+  const userInfo = {
+    title: "dianacuzic",
+    value: "Diana",
+  };
+
+  test("should render properly", () => {
+    render(
+      <UserInfoFields
+        title={userInfo.title}
+        value={userInfo.value}
+      />
+    );
+
+    expect(screen.getByText(userInfo.title + ":" )).toBeInTheDocument();
+    expect(screen.getByText(userInfo.value)).toBeInTheDocument();
+
+    // !!pot fi valori multiple (in cazul in care value: string[])
+
+    // userInfo.value && userInfo.value[0] &&
+    // expect(screen.getByText(new RegExp(userInfo.value[0], "i"))).toBeInTheDocument();
+
+  });
+});
+
 describe("NetworkCard dummy", () => {
   const networkData = [
     {
