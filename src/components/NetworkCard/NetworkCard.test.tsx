@@ -1,10 +1,15 @@
 /* eslint-disable jest/no-conditional-expect */
+/* eslint-disable testing-library/no-unnecessary-act */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import NetworkCard, { UserDataType } from "./NetworkCard";
-import UserHeader, { UserHeaderProps } from "./UserHeader";
+import NetworkCard from "./NetworkCard";
+import UserHeader from "./UserHeader";
 import UserInfoFields from "./UserInfoFields";
+import axios, { AxiosInstance } from "axios";
+
+jest.mock("axios");
+const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
 
 describe("UserHeader", () => {
   const userData = {
@@ -36,26 +41,20 @@ describe("UserInfoFields", () => {
   };
 
   test("should render properly", () => {
-    render(
-      <UserInfoFields
-        title={userInfo.title}
-        value={userInfo.value}
-      />
-    );
+    render(<UserInfoFields title={userInfo.title} value={userInfo.value} />);
 
-    expect(screen.getByText(userInfo.title + ":" )).toBeInTheDocument();
+    expect(screen.getByText(userInfo.title + ":")).toBeInTheDocument();
     expect(screen.getByText(userInfo.value)).toBeInTheDocument();
 
     // !!pot fi valori multiple (in cazul in care value: string[])
 
     // userInfo.value && userInfo.value[0] &&
     // expect(screen.getByText(new RegExp(userInfo.value[0], "i"))).toBeInTheDocument();
-
   });
 });
 
-describe("NetworkCard dummy", () => {
-  const networkData = [
+describe("NetworkCard", () => {
+  const mockedNetworkData = [
     {
       email: "diana.cuzic@gmail.com",
       firstName: "Diana",
@@ -84,10 +83,41 @@ describe("NetworkCard dummy", () => {
     },
   ];
 
-  test("should render properly", () => {
-    render(<NetworkCard />);
+  function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
+    const instance = axios.create();
+    return {
+      ...instance,
+      get: jest.fn(),
+      put: jest.fn(),
+    } as unknown as jest.Mocked<AxiosInstance>;
+  }
 
-    networkData.forEach((data) => {
+  let axiosInstance: jest.Mocked<AxiosInstance>;
+  beforeEach(() => {
+    axiosInstance = createMockedAxiosInstance();
+
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.get.mockResolvedValue({
+      data: [mockedNetworkData],
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("should render properly", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    await act(async () => {
+      render(<NetworkCard />);
+    });
+
+    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
+    mockedNetworkData.forEach((data) => {
       expect(screen.getByText(data.email)).toBeInTheDocument();
       expect(screen.getByText(data.firstName)).toBeInTheDocument();
       expect(screen.getByText(data.lastName)).toBeInTheDocument();

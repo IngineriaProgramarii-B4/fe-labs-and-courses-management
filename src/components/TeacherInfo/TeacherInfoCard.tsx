@@ -26,55 +26,17 @@ function TeacherInfoCard() {
 
     axiosInstance
       .get("/teachers")
-      .then((res) => console.log(res))
+      .then((res) => res.data)
+      .then((data) => setTeacherInfo(data[0] as teacherDataProps[]))
       .catch((err) => console.error(err));
-
-    // DUMMY DATA
-    const teachersData: teacherDataProps[] = [
-      {
-        name: "Iftene Adrian",
-        taughtSubjects: [
-          {
-            courseTitle: "Ingineria Programarii",
-            hasExam: true,
-            hasPartialExam: false,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: false,
-            hasPresentGrading: true,
-            noOfCredits: "5",
-            finalGrade: "Gauss",
-          },
-          {
-            courseTitle: "Nume curs 2",
-            hasExam: false,
-            hasPartialExam: true,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: true,
-            hasPresentGrading: false,
-            noOfCredits: "4",
-            finalGrade: "AVG",
-          },
-          {
-            courseTitle: "Nume curs 3",
-            hasExam: false,
-            hasPartialExam: true,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: true,
-            hasPresentGrading: false,
-            noOfCredits: "4",
-            finalGrade: "AVG",
-          },
-        ],
-      },
-    ];
-    setTeacherInfo(teachersData);
   }, []);
 
   return (
     <Card title="Teachers">
-      {teacherInfo.map((teacher) => {
+      {teacherInfo.map((teacher, index) => {
         return (
           <CoursesCard
+            key={index}
             name={teacher.name}
             taughtSubjects={teacher.taughtSubjects}
           />
