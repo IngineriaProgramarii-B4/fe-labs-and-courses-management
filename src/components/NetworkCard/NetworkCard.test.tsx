@@ -57,24 +57,24 @@ describe("NetworkCard", () => {
   const mockedNetworkData = [
     {
       email: "diana.cuzic@gmail.com",
-      firstName: "Diana",
-      lastName: "Cuzic",
+      firstname: "Diana",
+      lastname: "Cuzic",
       username: "dianacuzic",
       office: "P1",
       department: "Secretary",
     },
     {
       email: "stefan.ciobaca@uaic.com",
-      firstName: "Stefan",
-      lastName: "Ciobaca",
+      firstname: "Stefan",
+      lastname: "Ciobaca",
       username: "stefan.ciobaca",
       title: "Prof",
       taughtSubjects: ["PA", "PF", "Logica"],
     },
     {
       email: "florin.eugen@uaic.ro",
-      firstName: "Florin",
-      lastName: "Rotaru",
+      firstname: "Florin",
+      lastname: "Rotaru",
       username: "florin02",
       year: 2,
       semester: 4,
@@ -98,7 +98,7 @@ describe("NetworkCard", () => {
 
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     axiosInstance.get.mockResolvedValue({
-      data: [mockedNetworkData],
+      data: mockedNetworkData,
       status: 200,
       statusText: "OK",
       config: {},
@@ -119,8 +119,8 @@ describe("NetworkCard", () => {
     await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
     mockedNetworkData.forEach((data) => {
       expect(screen.getByText(data.email)).toBeInTheDocument();
-      expect(screen.getByText(data.firstName)).toBeInTheDocument();
-      expect(screen.getByText(data.lastName)).toBeInTheDocument();
+      expect(screen.getByText(data.firstname)).toBeInTheDocument();
+      expect(screen.getByText(data.lastname)).toBeInTheDocument();
       data.year && expect(screen.getByText(data.year)).toBeInTheDocument();
       data.semester &&
         expect(screen.getByText(data.semester)).toBeInTheDocument();
