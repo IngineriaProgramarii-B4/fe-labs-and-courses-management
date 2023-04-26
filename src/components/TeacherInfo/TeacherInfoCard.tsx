@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "antd";
-import {CoursesCard, courseData } from "./CourseCard";
+import CoursesCard, {courseData } from "./CourseCard";
 import axios from "axios";
 
 export type teacherDataProps = {
@@ -28,7 +28,26 @@ function TeacherInfoCard() {
     axiosInstance
       .get("/teachers")
       .then((res) => res.data)
-      .then((data) => setTeacherInfo(data[0] as teacherDataProps[]))
+      .then((data) => {
+        console.log(data)
+        setTeacherInfo(data.map((item: { firstname: any; lastname: any; taughtSubjects: any[]; }) => {
+          return {
+            name: item.firstname + " " + item.lastname,
+            taughtSubjects: item.taughtSubjects.map((sub: string) => {
+              return {
+                courseTitle: sub,
+                hasExam: false,
+                hasPartialExam: true,
+                hasHomeworkNotation: true,
+                hasLaboratoryGrading: true,
+                hasPresentGrading: false,
+                noOfCredits: "4",
+                finalGrade: "AVG"
+              }
+            })
+          }
+        }))
+      })
       .catch((err) => console.error(err));
 
     // DUMMY DATA
@@ -69,12 +88,12 @@ function TeacherInfoCard() {
         ]
       }
     ];
-    setTeacherInfo(teachersData);
+    // setTeacherInfo(teachersData);
   }, []);
 
   return (
     <Card title="Teachers">
-      {teacherInfo.map((teacher) => {
+      {teacherInfo.map((teacher: teacherDataProps) => {
         return (<CoursesCard name={teacher.name} taughtSubjects={teacher.taughtSubjects}></CoursesCard>);
       })}
     </Card>

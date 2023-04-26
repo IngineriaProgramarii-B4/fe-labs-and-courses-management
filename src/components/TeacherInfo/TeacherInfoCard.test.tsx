@@ -7,41 +7,11 @@ import axios, { AxiosInstance } from "axios";
 
 jest.mock("axios");
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
-const mockedTeachersData: teacherDataProps[] = [
+const mockedTeachersData = [
   {
-    name: "Iftene Adrian",
-    taughtSubjects: [
-      {
-        courseTitle: "Ingineria Programarii",
-        hasExam: true,
-        hasPartialExam: false,
-        hasHomeworkNotation: true,
-        hasLaboratoryGrading: false,
-        hasPresentGrading: true,
-        noOfCredits: "5",
-        finalGrade: "Gauss",
-      },
-      {
-        courseTitle: "Nume curs 2",
-        hasExam: false,
-        hasPartialExam: true,
-        hasHomeworkNotation: true,
-        hasLaboratoryGrading: true,
-        hasPresentGrading: false,
-        noOfCredits: "4",
-        finalGrade: "AVG",
-      },
-      {
-        courseTitle: "Nume curs 3",
-        hasExam: false,
-        hasPartialExam: true,
-        hasHomeworkNotation: true,
-        hasLaboratoryGrading: true,
-        hasPresentGrading: false,
-        noOfCredits: "4",
-        finalGrade: "AVG",
-      },
-    ],
+    firstname: "Iftene",
+    lastname: "Adrian",
+    taughtSubjects: ["Ingineria Programarii", "Nume curs 2", "Nume curs 3"],
   },
 ];
 
@@ -61,7 +31,7 @@ describe("TeacherInfoCard", () => {
 
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     axiosInstance.get.mockResolvedValue({
-      data: [mockedTeachersData],
+      data: mockedTeachersData,
       status: 200,
       statusText: "OK",
       config: {},
