@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Card } from "antd";
-import { CoursesCard, courseData } from "./CourseCard";
+import {CoursesCard, courseData } from "./CourseCard";
 import axios from "axios";
 
-type teacherDataProps = {
+export type teacherDataProps = {
   name: string;
   taughtSubjects: courseData[];
 };
@@ -17,7 +17,6 @@ function TeacherInfoCard() {
   ]);
 
   useEffect(() => {
-
     const axiosInstance = axios.create({
         baseURL: "http://localhost:8090/api/v1",
         headers: {
@@ -26,9 +25,11 @@ function TeacherInfoCard() {
       }
     );
 
-    axiosInstance.get("/teachers")
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+    axiosInstance
+      .get("/teachers")
+      .then((res) => res.data)
+      .then((data) => setTeacherInfo(data[0] as teacherDataProps[]))
+      .catch((err) => console.error(err));
 
     // DUMMY DATA
     const teachersData: teacherDataProps[] = [
@@ -80,4 +81,4 @@ function TeacherInfoCard() {
   );
 }
 
-export { TeacherInfoCard, type teacherDataProps };
+export default TeacherInfoCard;

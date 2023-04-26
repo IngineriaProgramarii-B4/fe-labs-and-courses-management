@@ -1,13 +1,13 @@
 import { Divider } from "antd";
 import React from "react"
 
-type UserHeaderProps = {
+export type UserHeaderProps = {
   username: string;
   firstname: string;
   lastname: string;
 }
 
-export default function UserHeader({ username, firstname, lastname } : UserHeaderProps) {
+function UserHeader({ username, firstname, lastname } : UserHeaderProps) {
   return (
     <div style={{ textAlign: "center", fontWeight: "bold" }}>
       <div>{firstname + " " + lastname}</div>
@@ -16,5 +16,4 @@ export default function UserHeader({ username, firstname, lastname } : UserHeade
     </div>
   );
 }
-
-export type {UserHeaderProps}
+export default UserHeader;

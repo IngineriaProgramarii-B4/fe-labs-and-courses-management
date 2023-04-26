@@ -4,7 +4,7 @@ import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
 import axios from "axios";
 
-type UserDataType = {
+export type UserDataType = {
   firstName: string;
   lastName: string;
   username: string;
@@ -19,7 +19,7 @@ type UserDataType = {
   title?: string;
 };
 
-export default function NetworkCard() {
+function NetworkCard() {
   const [users, setUsers] = useState<UserDataType[]>([]);
 
   useEffect(() => {
@@ -96,7 +96,11 @@ export default function NetworkCard() {
         />
         {Object.entries(user).map(([key, value]) => {
           if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)
-            return key !== "id" ? <UserInfoFields title={key} value={value} /> : "";
+            return key !== "id" ? (
+              <UserInfoFields title={key} value={value} />
+            ) : (
+              ""
+            );
         })}
       </Card>
     );
@@ -104,3 +108,5 @@ export default function NetworkCard() {
 
   return <div className="flex flex-wrap">{users.map(renderCard)}</div>;
 }
+
+export default NetworkCard;

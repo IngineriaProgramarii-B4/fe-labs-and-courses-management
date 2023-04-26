@@ -11,7 +11,7 @@ describe("UserInfoInput", () => {
     expect(screen.getByText("value")).toBeInTheDocument();
   });
 
-  test("should be editable", () => {
+  test("should be editable when in edit mode", () => {
     const setValueMock = jest.fn();
     render(
       <UserInfoInput
@@ -27,5 +27,18 @@ describe("UserInfoInput", () => {
     fireEvent.change(inputField, { target: { value: "test value" } });
     expect(setValueMock).toHaveBeenCalledTimes(1);
     expect(setValueMock).toHaveBeenCalledWith("test value");
+  });
+
+  test("should not be editable when not in edit mode", () => {
+    render(
+      <UserInfoInput
+        title={"title"}
+        value={"value"}
+        isEditing={false}
+        setValue={() => {}}
+      />
+    );
+    const inputField = screen.queryByRole("textbox");
+    expect(inputField).not.toBeInTheDocument();
   });
 });

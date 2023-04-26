@@ -5,7 +5,7 @@ import UserAvatar from "./UserAvatar";
 
 describe("UserAvatar", () => {
   test("should render the user placeholder icon", () => {
-    render(<UserAvatar avatarClickHandler={() => {}} />);
+    render(<UserAvatar onClick={() => {}} />);
     const userAvatar = screen.getByTestId("user-placeholder-avatar");
 
     expect(userAvatar).toBeInTheDocument();
@@ -13,7 +13,7 @@ describe("UserAvatar", () => {
   });
 
   test("should render a custom user avatar", () => {
-    render(<UserAvatar avatar={"testImage"} avatarClickHandler={() => {}} />);
+    render(<UserAvatar avatar={"testImage"} onClick={() => {}} />);
     const userAvatar = screen.getByAltText("Avatar");
 
     expect(userAvatar).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("UserAvatar", () => {
 
   test("should call the onClick function when clicked", () => {
     const mockOnClick = jest.fn();
-    render(<UserAvatar avatarClickHandler={mockOnClick} />);
+    render(<UserAvatar onClick={mockOnClick} />);
     const userAvatar = screen.getByTestId("user-avatar");
     fireEvent.click(userAvatar);
 

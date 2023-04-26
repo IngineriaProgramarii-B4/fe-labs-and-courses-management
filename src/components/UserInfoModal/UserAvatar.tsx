@@ -3,10 +3,10 @@ import React from "react";
 
 type UserAvatarProps = {
   avatar?: string;
-  avatarClickHandler: () => void;
+  onClick: () => void;
 };
 
-function UserAvatar({ avatar, avatarClickHandler }: UserAvatarProps) {
+function UserAvatar({ avatar, onClick }: UserAvatarProps) {
   return (
     <Avatar
       icon={
@@ -21,7 +21,7 @@ function UserAvatar({ avatar, avatarClickHandler }: UserAvatarProps) {
       }
       shape={"square"}
       size={32}
-      onClick={avatarClickHandler}
+      onClick={onClick}
       data-testid={"user-avatar"}
     />
   );
