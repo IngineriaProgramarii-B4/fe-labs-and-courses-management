@@ -8,6 +8,8 @@ import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
 import { TeacherInfoCard } from "../components/TeacherInfo/TeacherInfoCard";
+import SubjectAlex from "../pages/Subject/SubjectAlex";
+import SubjectAna from "../pages/Subject/SubjectAna";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ export const router = createBrowserRouter([
       {
         path: "/catalog",
         element: <Catalog />,
+      },
+      {
+        path: "/subjectAlex",
+        element: <SubjectAlex />,
+      },
+      {
+        path: "/subjectAna",
+        element: <SubjectAna />,
       },
     ],
   },
