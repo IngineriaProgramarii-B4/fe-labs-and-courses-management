@@ -1,0 +1,90 @@
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    /* background-color: blue; */
+  }
+  
+.Formular {
+    /* background-color: blue; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px; 
+    width: 80%; 
+    
+  }
+
+  .PullUp{
+    animation: slide-up 1.5s ease-out;
+  }
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .Formular.animate {
+    top: 50%;
+  }
+
+  .Formular .ant-btn-primary {
+    color: black;
+    width: 100%;
+    text-align: center;
+  }
+
+  
+  .Formular .ant-btn-primary:focus, .Formular .ant-btn-primary:hover {
+    border-color: none;
+    box-shadow: none;
+  }
+  
+  
+  .Formular .ant-form-item {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .Formular .ant-form-item-label {
+    flex: 1;
+    text-align: left;
+    font-family: sans-serif;
+    color: gray;
+  }
+  
+  .Formular .ant-form-item-control {
+    flex: 2;
+    text-align: center;
+  }
+  
+  .Formular .ant-typography a:hover {
+    color: rgb(12, 88, 159);
+  }
+  
+  .TitluForm {
+    /* background-color: brown; */
+    margin-bottom: 32px;
+    margin-top: 0;
+    text-align: center;
+    animation: slide-in 1s ease-out;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }

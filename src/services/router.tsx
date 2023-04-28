@@ -8,7 +8,8 @@ import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
 import { TeacherInfoCard } from "../components/TeacherInfo/TeacherInfoCard";
-
+import Register from "../pages/Register/Register";
+import Reset from "../pages/ResetPassword/Reset";
 export const router = createBrowserRouter([
   {
     path: "*",
@@ -33,11 +34,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/login"} />,
       },
       {
         path: "/index",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/login"} />,
       },
       {
         path: "/test",
@@ -52,5 +53,14 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    index: true
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/resetPassword",
+    element: <Reset />
   },
 ]);

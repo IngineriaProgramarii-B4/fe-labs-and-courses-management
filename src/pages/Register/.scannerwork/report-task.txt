@@ -1,0 +1,6 @@
+projectKey=IP-sign-register
+serverUrl=http://localhost:9000
+serverVersion=10.0.0.68432
+dashboardUrl=http://localhost:9000/dashboard?id=IP-sign-register
+ceTaskId=AYe07vr16BrNeoy9ykQX
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYe07vr16BrNeoy9ykQX
