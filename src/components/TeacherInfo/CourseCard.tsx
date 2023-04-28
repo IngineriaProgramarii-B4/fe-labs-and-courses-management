@@ -9,7 +9,7 @@ type CourseInputInfoProps = {
   setValue: (val: string) => void;
 };
 
-function CourseInputInfo({
+export function CourseInputInfo({
   title,
   type,
   value,
@@ -42,18 +42,18 @@ function CourseInputInfo({
   );
 }
 
-type courseData = {
+export type courseData = {
   courseTitle: string;
   hasExam: boolean;
   hasPartialExam: boolean;
   hasHomeworkNotation: boolean;
   hasLaboratoryGrading: boolean;
   hasPresentGrading: boolean;
-  noOfCredits: "1" | "4" | "5" | "6";
+  noOfCredits: string;
   finalGrade: string;
 };
 
-function CourseCard(course: courseData) {
+export function CourseCard(course: courseData) {
   return (
     <Card
       title={course.courseTitle}
@@ -108,16 +108,16 @@ function CourseCard(course: courseData) {
   );
 }
 
-function CoursesCard({ name, teachedCourses }: teacherDataProps) {
+function CoursesCard({ name, taughtSubjects }: teacherDataProps) {
   return (
     <Card type="inner" title={name} style={{ width: "80%", margin: "auto" }}>
-      <div style={{ display: "flex", padding: "15px" }}>
-        {teachedCourses.map((teachedCourse) => {
-          return <CourseCard {...teachedCourse}></CourseCard>;
+      <div style={{ display: "flex", padding: "15px", flexWrap: "wrap" }}>
+        {taughtSubjects.map((taughtSubject) => {
+          return <CourseCard {...taughtSubject} />;
         })}
       </div>
     </Card>
   );
 }
 
-export { CoursesCard, type courseData };
+export default CoursesCard;
