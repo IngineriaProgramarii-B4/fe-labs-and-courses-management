@@ -1,26 +1,60 @@
 import { useEffect, useState } from "react";
 import { Card } from "antd";
-import {CoursesCard, courseData} from "./CourseCard";
+import CoursesCard, {courseData } from "./CourseCard";
+import axios from "axios";
 
-type teacherDataProps = {
+export type teacherDataProps = {
   name: string;
-  teachedCourses: courseData[];
+  taughtSubjects: courseData[];
 };
 
 function TeacherInfoCard() {
   const [teacherInfo, setTeacherInfo] = useState<teacherDataProps[]>([
     {
       name: "",
-      teachedCourses: [],
-    },
+      taughtSubjects: []
+    }
   ]);
 
   useEffect(() => {
-    // TODO : fetch data from db for this specific user
+    const axiosInstance = axios.create({
+        baseURL: "http://localhost:8090/api/v1",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    axiosInstance
+      .get("/teachers")
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data)
+        setTeacherInfo(data.map((item: { firstname: any; lastname: any; taughtSubjects: any[]; }) => {
+          return {
+            name: item.firstname + " " + item.lastname,
+            taughtSubjects: item.taughtSubjects.map((sub: string) => {
+              return {
+                courseTitle: sub,
+                hasExam: false,
+                hasPartialExam: true,
+                hasHomeworkNotation: true,
+                hasLaboratoryGrading: true,
+                hasPresentGrading: false,
+                noOfCredits: "4",
+                finalGrade: "AVG"
+              }
+            })
+          }
+        }))
+      })
+      .catch((err) => console.error(err));
+
+    // DUMMY DATA
     const teachersData: teacherDataProps[] = [
       {
         name: "Iftene Adrian",
-        teachedCourses: [
+        taughtSubjects: [
           {
             courseTitle: "Ingineria Programarii",
             hasExam: true,
@@ -29,7 +63,7 @@ function TeacherInfoCard() {
             hasLaboratoryGrading: false,
             hasPresentGrading: true,
             noOfCredits: "5",
-            finalGrade: "Gauss",
+            finalGrade: "Gauss"
           },
           {
             courseTitle: "Nume curs 2",
@@ -39,7 +73,7 @@ function TeacherInfoCard() {
             hasLaboratoryGrading: true,
             hasPresentGrading: false,
             noOfCredits: "4",
-            finalGrade: "AVG",
+            finalGrade: "AVG"
           },
           {
             courseTitle: "Nume curs 3",
@@ -49,20 +83,21 @@ function TeacherInfoCard() {
             hasLaboratoryGrading: true,
             hasPresentGrading: false,
             noOfCredits: "4",
-            finalGrade: "AVG",
-          },
-        ],
-      },
+            finalGrade: "AVG"
+          }
+        ]
+      }
     ];
-    setTeacherInfo(teachersData);
+    // setTeacherInfo(teachersData);
   }, []);
 
   return (
     <Card title="Teachers">
-      {teacherInfo.map((teacher) => {
-       return( <CoursesCard name={teacher.name} teachedCourses={teacher.teachedCourses}></CoursesCard>);
+      {teacherInfo.map((teacher: teacherDataProps) => {
+        return (<CoursesCard name={teacher.name} taughtSubjects={teacher.taughtSubjects}></CoursesCard>);
       })}
     </Card>
   );
 }
-export {TeacherInfoCard, type teacherDataProps};
+
+export default TeacherInfoCard;
