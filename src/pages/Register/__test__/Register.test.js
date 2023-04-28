@@ -1,6 +1,35 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Register from '../Register';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { LocationProvider } from 'react-router-dom';
+import { waitFor } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import { message } from 'antd';
+
+jest.spyOn(message, 'success').mockImplementation(() => {});
+
+afterEach(() => {
+    message.success.mockRestore();
+  });
+  
+
+jest.mock('antd', () => {
+    const originalModule = jest.requireActual('antd');
+  
+    return {
+      ...originalModule,
+      message: {
+        ...originalModule.message,
+        success: jest.fn(),
+        error: jest.fn(),
+      },
+    };
+  });
+  
+jest.mock('@ant-design/icons/lib/components/IconFont', () => {
+    return () => null;
+  });
 
 global.matchMedia = global.matchMedia || function () {
     return {
@@ -106,3 +135,57 @@ test('error message when passwords do not match', async () => {
     await screen.findByText('The two passwords that you entered do not match!');
 });
 
+//teste noi
+test('error message if the password does not meet the required pattern', async () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'weakpassword' } });
+    fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
+    await screen.findByText('The password must contain at least 8 characters, at least one digit, at least one special symbol and at least one capital letter');
+  });
+  
+
+  const server = setupServer(
+    rest.post('/api/v1/auth/register', (req, res, ctx) => {
+      return res(ctx.status(200));
+    })
+  );
+  
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
+  
+  /*
+  test('successful registration and navigate to login page', async () => {
+    const { container } = render(
+      <Router>
+        <Register />
+      </Router>
+    );
+  
+    fireEvent.change(screen.getByLabelText('ID'), { target: { value: 'test-id' } });
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@email.com' } });
+    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'P@ssw0rd!' } });
+    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'P@ssw0rd!' } });
+  
+    fireEvent.click(screen.getByRole('button', { name: 'Register' }));
+  
+    console.log('Before waitFor message.success'); // Adaugă un log înainte de waitFor
+  
+    await waitFor(() => {
+        expect(message.success).toHaveBeenCalled();
+      }, { timeout: 5000 });
+  
+    console.log('After waitFor message.success'); // Adaugă un log după waitFor
+  
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/login');
+    }, { timeout: 5000 });
+  });
+  */
+  
+
+  

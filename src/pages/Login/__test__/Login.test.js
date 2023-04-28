@@ -10,7 +10,49 @@ global.matchMedia = global.matchMedia || function () {
       removeListener: jest.fn(),
     };
   };
+//test nou
+  test('check register button functionality', () => {
+    render(<Router><Login /></Router>);
+    const registerButton = screen.getByRole('button', { name: /register/i });
+    const registerLink = registerButton.querySelector('a');
+  
+    expect(registerButton).toBeInTheDocument();
+    expect(registerLink).toHaveAttribute('href', 'http://localhost:3000/register');
+  });
 
+  //test nou
+  test('display error message if login fails', async () => {
+    const apiPostSpy = jest.spyOn(api, 'post').mockRejectedValue(new Error('Login failed'));
+  
+    render(<Router><Login /></Router>);
+    const emailInput = screen.getByPlaceholderText(/enter your email/i);
+    const passwordInput = screen.getByPlaceholderText(/enter your password/i);
+    const loginButton = screen.getByRole('button', { name: /login/i });
+  
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
+    fireEvent.click(loginButton);
+  
+    const errorMessage = await screen.findByText(/login failed: login failed/i);
+    expect(errorMessage).toBeInTheDocument();
+  
+    apiPostSpy.mockRestore();
+  });
+  
+  test('validate password input', async () => {
+    render(<Router><Login /></Router>);
+    const passwordInput = screen.getByPlaceholderText(/enter your password/i);
+    const loginButton = screen.getByRole('button', { name: /login/i });
+  
+    fireEvent.change(passwordInput, { target: { value: '' } });
+    fireEvent.click(loginButton);
+  
+    const passwordError = await screen.findByText(/please enter your password/i);
+    expect(passwordError).toBeInTheDocument();
+  });
+  
+  
+  
   test ('should render welcome back title', () => {
     render(
         <Router>
@@ -89,5 +131,10 @@ test('validate email input', async () => {
     apiPostSpy.mockRestore();
     setItemSpy.mockRestore();
   });
+  
+  
+  
+  
+  
   
   
