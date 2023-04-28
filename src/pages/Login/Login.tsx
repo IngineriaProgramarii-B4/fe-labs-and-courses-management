@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Form,Input, message, Typography } from "antd";
-import "./Login.css";
+import styles from './Login.module.scss';
 import api from './api';
 import { useNavigate} from 'react-router-dom';
 interface LoginFormData{
@@ -14,15 +14,23 @@ function Login() {
 
   const isAuthenticated = () => {
     const token = localStorage.getItem('token');
+    if (token !== null && token !== "") {
+      setTokenChecked(true);
+      return true;
+    }
     setTokenChecked(true);
-    return token !== null && token !== "";
+    return false;
   };
+  
 
   React.useEffect(() => {
     if (isAuthenticated()) {
       navigate('/Home');
+    } else {
+      setTokenChecked(true);
     }
   });
+  
   const login = async (values: LoginFormData) => {
     try {
       const response = await api.post('/api/v1/auth/login', {
@@ -49,10 +57,10 @@ function Login() {
   };
   
   return (
-    <div className="appBg">
+    <div className={styles.appBg}>
       {tokenChecked ? (
-      <Form className="loginForm" onFinish={values => login(values)}>
-        <Typography.Title className='titluForm'>Welcome Back!</Typography.Title>
+      <Form className={styles.loginForm} onFinish={values => login(values)}>
+        <Typography.Title className={styles.titluForm}>Welcome Back!</Typography.Title>
         <Form.Item rules={[
           {
             required:true,
@@ -73,16 +81,16 @@ function Login() {
         <Input.Password placeholder='Enter your password'/>
       </Form.Item>
       <div>
-        <Button className="LoginButton"  type="primary" htmlType="submit" block>Login</Button>
-        <div className='info'>
+        <Button className={styles.LoginButton}  type="primary" htmlType="submit" block>Login</Button>
+        <div className={styles.info}>
             <input type="checkbox" />
-            <a href='#' className='rememberMe'> Remember me</a>
-            <a href='http://localhost:3000/resetPassword' className='forgotPass'>Forgot password?</a>
+            <a href='#' className={styles.rememberMe}> Remember me</a>
+            <a href='http://localhost:3000/resetPassword' className={styles.forgotPass}>Forgot password?</a>
         </div>
         
-        <div className='registerContainer'>
+        <div className={styles.registerContainer}>
           <p style={{ marginRight: '10px' }}>You don't have an account?</p>
-          <Button  className='registerButton' htmlType="submit"><a href='http://localhost:3000/register'>Register</a></Button>
+          <Button  className={styles.registerButton} htmlType="submit"><a href='http://localhost:3000/register'>Register</a></Button>
         </div>
       </div>   
       </Form>) : (

@@ -1,18 +1,15 @@
 import React from 'react';
-import { memo } from 'react';
-import type { FC } from 'react';
 import {Button, Form,Input, message, Typography } from "antd";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import "./Reset.css";
+import styles from './Reset.module.scss';
 
 function Reset() {
   const reset=()=>{
     message.success("Reset Successful");
   }
   return (
-    <div className="appBg">
-      <Form className="resetForm" onFinish={reset}>
-        <Typography.Title className='titluForm'>Reset your password!</Typography.Title>
+    <div className={styles.appBg}>
+      <Form className={styles.resetForm} onFinish={reset}>
+        <Typography.Title className={styles.titluForm}>Reset your password!</Typography.Title>
         <Form.Item rules={[
           {
             required:true,
@@ -42,7 +39,7 @@ function Reset() {
         <Input.Password placeholder='Enter your password'/>
       </Form.Item>
       <div>
-        <Button className="LoginButton"  type="primary" htmlType="submit" block>Reset Password</Button>
+        <Button className={styles.LoginButton}  type="primary" htmlType="submit" block>Reset Password</Button>
       </div>   
       </Form>
     </div>

@@ -1,5 +1,5 @@
 import { Button, Form, Input,Select,Typography,message } from 'antd';
-import "./RegisterPage.css"
+import styles from './RegisterPage.module.scss';
 import React from 'react';
 import api from "../Login/api";
 import { useNavigate } from "react-router-dom";
@@ -10,16 +10,6 @@ interface RegisterFormData {
   password: string;
   confirm: string;
 }
-
-const { Option } = Select;
-const { Title } = Typography;
-
-interface DataNodeType {
-  value: string;
-  label: string;
-  children?: DataNodeType[];
-}
-
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -79,8 +69,8 @@ const register = async (values: RegisterFormData) => {
 
   return (
     <div>
-      <div className="top-bar"></div>
-      <Form className='Formular'
+      <div className={styles.topBar}></div>
+      <Form className={styles.Formular}
         {...formItemLayout}
         form={form}
         name="register"
@@ -89,15 +79,16 @@ const register = async (values: RegisterFormData) => {
         style={{ maxWidth: 600 }}
         scrollToFirstError
       >
-        <Typography.Title className='TitluForm'>Welcome Back!</Typography.Title>
-        <Form.Item className='PullUp'
+        <Typography.Title className={styles.TitluForm}>Welcome Back!</Typography.Title>
+        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="ID"
           label="ID"
+          
           rules={[{ required: true, message: 'Please input your ID!', whitespace: true }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item className='PullUp'
+        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="email"
           label="E-mail"
           rules={[
@@ -114,7 +105,7 @@ const register = async (values: RegisterFormData) => {
           <Input />
         </Form.Item>
 
-        <Form.Item className='PullUp'
+        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="password"
           label="password"
           rules={[
@@ -133,7 +124,7 @@ const register = async (values: RegisterFormData) => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item className='PullUp'
+        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="confirm"
           label="confirm"
           dependencies={['password']}
@@ -158,9 +149,9 @@ const register = async (values: RegisterFormData) => {
 
        
 
-        <Form.Item className='PullUp'
+        <Form.Item className={styles.PullUp}
           {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit"  >
+          <Button type="primary" htmlType="submit" className={styles.btnRegister} >
             Register
           </Button>
           <Typography.Text style={{ marginTop: '16px' }}>
