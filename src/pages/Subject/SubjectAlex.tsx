@@ -29,8 +29,6 @@ const normFile = (e: any) => {
 };
 
 
-
-
 const { Meta } = Card;
 
 interface Subject {
@@ -42,7 +40,7 @@ interface Subject {
   credits: number;
 }
 
-function SubjectAlex() {
+function SubjectAlex () {
   const [showList, setShowList] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
@@ -82,6 +80,9 @@ function SubjectAlex() {
     fetchData();
   }, [cards]);
 
+ 
+
+
   const [SubjectModal, setSubjectModal] = useState(false);
   const [AddModal, setAddModal] =  useState(false);
 
@@ -108,7 +109,7 @@ function SubjectAlex() {
       id: cards.length + 1,
       title: `Materie ${cards.length + 1}`,
       image:
-        "https://asterdio.com/wp-content/uploads/2021/02/Blog-Object-Oriented-Programming.jpg",
+        "https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg",
       description: "Descriere materie noua",
       year: 0,
       semester: 0,
@@ -138,7 +139,7 @@ function SubjectAlex() {
 
   const initializeSubjecEditProperties = (title: string) => {
     const currentSubject = cards.filter((card: Subject) => card.title === title);
-    console.log(currentSubject[0]);
+    // console.log(currentSubject[0]);
     setTitleEdit(currentSubject[0].title);
     setYearEdit(currentSubject[0].year);
     setSemesterEdit(currentSubject[0].semester);
@@ -198,40 +199,13 @@ function SubjectAlex() {
     const result = await axios.put(
       `http://localhost:8090/api/v1/subjects/subjectTitle=${title}`, editSubjectProperties
     )
-    console.log(result)
+    // console.log(result)
   }
-
-
-
 
 
   return (
     <>
-      <div className="app-container">
-        {/*<header className="app-header">
-          <button
-            className="courses-button"
-            onMouseEnter={() => setShowList(true)}
-            onMouseLeave={() => setShowList(false)}
-          >
-            Courses
-          </button>
-          {showList && (
-            <ul
-              className="courses-list"
-              onMouseEnter={() => setShowList(true)}
-              onMouseLeave={() => setShowList(false)}
-            >
-              <li onClick={() => handleClick("materie")}>Materie 1</li>
-              <li onClick={() => handleClick("materie")}>Materie 2</li>
-              <li onClick={() => handleClick("materie")}>Materie 3</li>
-              <li onClick={() => handleClick("materie")}>Materie 4</li>
-              <li onClick={() => handleClick("materie")}>Materie 5</li>
-              <li onClick={() => handleClick("materie")}>Materie 6</li>
-            </ul>
-          )}
-        </header>*/}
-        <body>
+        <body className="=app-container">
           <div className="container cardgrid">
             {cards.map((card) => (
               <div className="card-wrapper" key={card.id}>
@@ -239,8 +213,7 @@ function SubjectAlex() {
                 <Card
                   onClick={() => handleClick(card.title)}
                   hoverable
-                  style={{ width: 240 }}
-                  cover={<img alt={card.title} src={"https://asterdio.com/wp-content/uploads/2021/02/Blog-Object-Oriented-Programming.jpg"} />}
+                  cover={<img alt={card.title} src={"https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg"} />}
                   actions={[
                     <Button data-testid="edit-button" type="text" key="edit" onClick={(event) => { 
                       initializeSubjecEditProperties(card.title);
@@ -251,8 +224,9 @@ function SubjectAlex() {
                       Delete
                     </Button>,
                   ]}
+                  style={{ width: 300 }}
                 >
-                  <Meta title={card.title} description={card.description} />
+                  <Meta title={card.title} description={card.description.substring(0, 100)}/>
                 </Card>
                 </div>
               </div>
@@ -286,7 +260,7 @@ function SubjectAlex() {
                     setSubjectModal(false)}>
                     Cancel
                   </Button>,
-                  <Button key="submit" type="default" onClick={() => submitChangesToSubject(titleEdit)}>
+                  <Button data-testid="submit-button" key="submit" type="default" onClick={() => submitChangesToSubject(titleEdit)}>
                     Submit
                   </Button>,
                 ]}
@@ -508,7 +482,6 @@ function SubjectAlex() {
               </Modal>
           </div>
         </body>
-      </div>
     </>
   );
 }

@@ -5,13 +5,15 @@ import SubjectAlex from "../SubjectAlex";
 
 describe("SubjectAlex", () => {
   test("renders subject cards", async () => {
-    render(<SubjectAlex />);
+    render(<SubjectAlex/>);
+
     const cards = await screen.findAllByTestId("subject-card");
     expect(cards.length).toBeGreaterThan(0);
   });
 
   test("opens subject modal on add card button click", async () => {
-    render(<SubjectAlex />);
+    render(<SubjectAlex/>);
+
 
     const addCardButton = await screen.findByTestId("add-card-button");
     fireEvent.click(addCardButton);
@@ -22,4 +24,21 @@ describe("SubjectAlex", () => {
     const subjectModalTitle = await screen.findByTestId("add-card-title");
     expect(subjectModalTitle).toBeInTheDocument();
   });
+
+  // test("opens edit form on edit button click", async () => {
+
+  //   render(<SubjectAlex/>);
+
+  //   const editButton = await screen.findAllByTestId("edit-button");
+  //   fireEvent.click(editButton[0]);
+
+  //   const descriptionInput = await screen.findByLabelText("Description");
+  //   fireEvent.change(descriptionInput, { target: { value: "New Description" } });
+
+  //   const submitButton = await screen.findByTestId("submit-button");
+  //   fireEvent.click(submitButton);
+
+  //   const updatedTitle = await screen.findAllByText("New Description");
+  //   expect(updatedTitle[0]).toBeInTheDocument();
+  // });
 });
