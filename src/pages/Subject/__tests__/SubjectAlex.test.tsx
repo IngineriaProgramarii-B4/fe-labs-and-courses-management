@@ -14,7 +14,6 @@ describe("SubjectAlex", () => {
   test("opens subject modal on add card button click", async () => {
     render(<SubjectAlex/>);
 
-
     const addCardButton = await screen.findByTestId("add-card-button");
     fireEvent.click(addCardButton);
 
