@@ -11,7 +11,7 @@ describe("DeleteGrade component", () => {
   test("clicking delete button shows confirmation modal", () => {
     render(<DeleteGrade {...props} />);
 
-    fireEvent.click(screen.getByAltText("trash-img"));
+    fireEvent.click(screen.getByTestId("trash_img"));
 
     expect(screen.getByText("Delete Grade")).toBeInTheDocument();
     expect(
@@ -30,7 +30,7 @@ describe("DeleteGrade component", () => {
 
     render(<DeleteGrade {...props} />);
 
-    fireEvent.click(screen.getByAltText("trash-img"));
+    fireEvent.click(screen.getByTestId("trash_img"));
     fireEvent.click(screen.getByRole("button", { name: "Delete" }));
 
     await waitFor(() => {

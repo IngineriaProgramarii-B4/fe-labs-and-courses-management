@@ -14,13 +14,13 @@ describe("UpdateGrade component", () => {
 
   it("should render a button to open the modal", () => {
     render(<UpdateGrade fetchGrades={() => {}} id={0} />);
-    const editButton = screen.getByAltText("bntu");
+    const editButton = screen.getByTestId("edit_img");
     expect(editButton).toBeInTheDocument();
   });
 
   it("should render a modal when the button is clicked", () => {
     render(<UpdateGrade fetchGrades={() => {}} id={0} />);
-    const editButton = screen.getByAltText("bntu");
+    const editButton = screen.getByTestId("edit_img");
     fireEvent.click(editButton);
     const modal = screen.getByRole("dialog", { name: /Update Grade/ });
     expect(modal).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe("UpdateGrade component", () => {
     mockedAxios.put.mockResolvedValue({ data: {} });
 
     render(<UpdateGrade fetchGrades={() => {}} id={0} />);
-    const editButton = screen.getByAltText("bntu");
+    const editButton = screen.getByTestId("edit_img");
     fireEvent.click(editButton);
     const gradeInput = screen.getByPlaceholderText("New grade value...");
     const dateInput = screen.getByPlaceholderText("New date of evaluation...");

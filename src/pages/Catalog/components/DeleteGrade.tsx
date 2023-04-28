@@ -1,6 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { Modal, Button } from "antd";
+import styles from "../Catalog.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function DeleteGrade(props: {
   id: number;
@@ -36,14 +39,23 @@ export default function DeleteGrade(props: {
 
   return (
     <>
-      <img
+      {/* <img
         src={require("../../../img/trash.png")}
-        alt="trash-img"
-        className="trash-img"
+        alt="trash_img"
+        className={styles.trash_img}
         onClick={() => {
           showModal();
         }}
-      />
+      /> */}
+      <div
+        data-testId="trash_img"
+        className={styles.trash_img}
+        onClick={() => {
+          showModal();
+        }}
+      >
+        <FontAwesomeIcon icon={faTrash} style={{ color: "#ff7878" }} />
+      </div>
       <Modal
         title="Delete Grade"
         open={isModalOpen}
