@@ -39,6 +39,7 @@ global.matchMedia = global.matchMedia || function () {
     apiPostSpy.mockRestore();
   });
   
+  //test nou
   test('validate password input', async () => {
     render(<Router><Login /></Router>);
     const passwordInput = screen.getByPlaceholderText(/enter your password/i);
