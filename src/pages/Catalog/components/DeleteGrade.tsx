@@ -39,14 +39,6 @@ export default function DeleteGrade(props: {
 
   return (
     <>
-      {/* <img
-        src={require("../../../img/trash.png")}
-        alt="trash_img"
-        className={styles.trash_img}
-        onClick={() => {
-          showModal();
-        }}
-      /> */}
       <div
         data-testId="trash_img"
         className={styles.trash_img}
@@ -65,16 +57,20 @@ export default function DeleteGrade(props: {
         centered={true}
         width={400}
       >
-        <p>Are you sure you want to delete this grade?</p>
-        <Button
-          danger={true}
-          onClick={() => {
-            handleDeleteGrade(props.id);
-            setIsModalOpen(false);
-          }}
-        >
-          Delete
-        </Button>
+        <p className={styles.delete_grade_text}>
+          Are you sure you want to delete this grade?
+        </p>
+        <div className={styles.action_btn}>
+          <Button
+            danger={true}
+            onClick={() => {
+              handleDeleteGrade(props.id);
+              setIsModalOpen(false);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
       </Modal>
     </>
   );

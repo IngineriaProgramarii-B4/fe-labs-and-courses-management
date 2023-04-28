@@ -90,6 +90,13 @@
     font-size: 0.7rem;
     color: white;
   }
+  .delete_grade_text {
+    margin-bottom: 1rem;
+  }
+  .action_btn {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 @media (max-width: 568px) {
   body {
@@ -177,4 +184,7 @@
 .trash_img,
 .edit_img {
   min-width: 0.8rem;
+}
+.delete_grade_text {
+  margin-bottom: 1rem;
 }

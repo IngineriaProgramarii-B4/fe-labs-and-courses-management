@@ -60,15 +60,6 @@ export default function UpdateGrade(props: {
   };
   return (
     <>
-      {/* <img
-        src={require("../../../img/edit.png")}
-        alt="bntu"
-        className={styles.trash_img}
-        onClick={() => {
-          console.log("grade id:", props.id);
-          showModal();
-        }}
-      /> */}
       <div
         data-testId="edit_img"
         className={styles.edit_img}
@@ -106,17 +97,17 @@ export default function UpdateGrade(props: {
               placeholder="New date of evaluation..."
             />
           </Form.Item>
-          <Form.Item>
-            <Button
-              onClick={() => {
-                handleUpdateGrade(props.id);
-                setIsModalOpen(false);
-              }}
-            >
-              Update
-            </Button>
-          </Form.Item>
         </Form>
+        <div className={styles.action_btn}>
+          <Button
+            onClick={() => {
+              handleUpdateGrade(props.id);
+              setIsModalOpen(false);
+            }}
+          >
+            Update
+          </Button>
+        </div>
       </Modal>
     </>
   );
