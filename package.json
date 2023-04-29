@@ -34,9 +34,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "test": "react-scripts test --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject",
-    "test:coverage": "npm test -- --env=jsdom --coverage --watchAll=false"
+    "test:coverage": "npm test -- --env=jsdom --coverage --watchAll=false",
+    "test:sonar": "react-scripts test --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter"
   },
   "eslintConfig": {
     "extends": [
@@ -57,8 +58,10 @@
     ]
   },
   "devDependencies": {
+    "jest-sonar-reporter": "^2.0.0",
     "jest": "^27.5.1",
     "prettier": "2.8.7",
+    "sonarqube-scanner": "^3.0.1",
     "tailwindcss": "^3.2.7"
   },
   "jest": {

@@ -53,7 +53,7 @@ function Catalog() {
       <div className={styles.catalog_wrapper}>
         <AddGrade fetchGrades={fetchGrades} />
         <h5 className={styles.username}>{studentName}'s Grades</h5>
-        <table>
+        <table className={styles.catalog_table}>
           <thead>
             <tr>
               <th></th>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Catalog\__tests__\CatalogComponent.test.tsx">
+    <testCase name="renders student&apos;s name and grades table" duration="691"/>
+  </file>
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Catalog\__tests__\DeleteGradeComponent.test.tsx">
+    <testCase name="DeleteGrade component clicking delete button shows confirmation modal" duration="905"/>
+    <testCase name="DeleteGrade component clicking delete button and confirming should delete grade and close modal" duration="491"/>
+  </file>
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx">
+    <testCase name="SubjectAna component renders course title" duration="38"/>
+    <testCase name="SubjectAna component write src picture" duration="564"/>
+    <testCase name="SubjectAna component clicking &apos;View Full Description&apos; shows the modal" duration="18"/>
+    <testCase name="SubjectAna component Modal opening" duration="216"/>
+    <testCase name="SubjectAna component should render the modal with edit and close buttons" duration="513"/>
+    <testCase name="SubjectAna component should show the edit textarea when Edit button is clicked" duration="321"/>
+    <testCase name="SubjectAna component should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="196"/>
+  </file>
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx">
+    <testCase name="UpdateGrade component should render a button to open the modal" duration="379"/>
+    <testCase name="UpdateGrade component should render a modal when the button is clicked" duration="2433"/>
+    <testCase name="UpdateGrade component should submit the form data when the update button is clicked" duration="704"/>
+  </file>
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Catalog\__tests__\AddGradeComponent.test.tsx">
+    <testCase name="AddGrade component should render a button to open the modal" duration="884"/>
+    <testCase name="AddGrade component should render a modal when the button is clicked" duration="1326"/>
+    <testCase name="AddGrade component should submit the form data when the add button is clicked" duration="1437"/>
+  </file>
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
+    <testCase name="Accordion should render Acoordion component" duration="136"/>
+    <testCase name="Accordion renders the Accordion component with the correct props" duration="38"/>
+  </file>
+  <file path="E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx">
+    <testCase name="SubjectAlex renders subject cards" duration="1280">
+      <failure message="AxiosError: Network Error"><![CDATA[AxiosError: Network Error
+    at XMLHttpRequest.handleError (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\axios\lib\adapters\xhr.js:154:14)
+    at XMLHttpRequest.invokeTheCallbackFunction (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\generated\EventHandlerNonNull.js:18:28)
+    at XMLHttpRequest.<anonymous> (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\helpers\create-event-accessor.js:35:32)
+    at innerInvokeEventListeners (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:338:25)
+    at invokeEventListeners (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:274:3)
+    at XMLHttpRequestImpl._dispatch (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:221:9)
+    at fireAnEvent (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\helpers\events.js:18:36)
+    at requestErrorSteps (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\xhr\xhr-utils.js:131:3)
+    at Object.dispatchError (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\xhr\xhr-utils.js:60:3)
+    at Request.<anonymous> (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\xhr\XMLHttpRequest-impl.js:655:18)
+    at Request.emit (node:events:525:35)
+    at ClientRequest.<anonymous> (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\living\helpers\http-request.js:121:14)
+    at ClientRequest.emit (node:events:513:28)
+    at Socket.socketErrorListener (node:_http_client:496:9)
+    at Socket.emit (node:events:513:28)
+    at emitErrorNT (node:internal/streams/destroy:151:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+      <failure message="Error: Unable to find an element by: [data-testid=&quot;subject-card&quot;]"><![CDATA[Error: Unable to find an element by: [data-testid="subject-card"]
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="app-container"
+    >
+      <body>
+        <div
+          class="container cardgrid"
+        >
+          <div
+            class="card-wrapper add-card"
+          >
+            <div
+              class="ant-card ant-card-bordered ant-card-hoverable css-dev-only-do-not-override-mxhywb"
+              style="width: 240px; padding: 40px;"
+            >
+              <div
+                class="ant-card-cover"
+              >
+                <div
+                  class="add-card-cover"
+                >
+                  <span
+                    aria-label="plus"
+                    class="anticon anticon-plus"
+                    role="img"
+                    style="font-size: 40px;"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="plus"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <defs />
+                      <path
+                        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                      />
+                      <path
+                        d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="ant-card-meta"
+                >
+                  <div
+                    class="ant-card-meta-detail"
+                  >
+                    <div
+                      class="ant-card-meta-title"
+                    >
+                      <div
+                        class="card-meta-title"
+                        style="font-size: 13px;"
+                      >
+                        Add a new subject
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </div>
+  </div>
+</body>
+    at waitForWrapper (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
+    at findAllByTestId (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
+    at Object.<anonymous> (E:\Facultate\IP_proiect\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx:9:32)
+    at Promise.then.completed (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (E:\Facultate\IP_proiect\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
+  </file>
+</testExecutions>

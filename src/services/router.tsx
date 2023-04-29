@@ -7,6 +7,9 @@ import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
+
+import SubjectAlex from "../pages/Subject/SubjectAlex";
+import SubjectAna from "../pages/Subject/SubjectAna";
 import RemindersCard from "../components/RemindersCard/RemindersCard";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import TeacherInfoCard from "../components/TeacherInfo/TeacherInfoCard";
@@ -39,10 +42,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/reminders",
-        element:     <RemindersContextProvider>
-
-        <RemindersCard />
-        </RemindersContextProvider>,
+        element: (
+          <RemindersContextProvider>
+            <RemindersCard />
+          </RemindersContextProvider>
+        ),
       },
       {
         path: "/index",
@@ -55,6 +59,14 @@ export const router = createBrowserRouter([
       {
         path: "/catalog",
         element: <Catalog />,
+      },
+      {
+        path: "/subjectAlex",
+        element: <SubjectAlex />,
+      },
+      {
+        path: "/subjectAna",
+        element: <SubjectAna />,
       },
     ],
   },

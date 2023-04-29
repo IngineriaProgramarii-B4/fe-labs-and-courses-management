@@ -1,0 +1,92 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-header {
+  background-color: #4cb0da;
+  padding: 20px;
+}
+
+.courses-button {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4cb0da;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-left: 100px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.courses-button:hover {
+  background-color: rgba(15, 104, 136, 0.8);
+  opacity: 0.8;
+}
+
+.courses-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: calc(100% -20px);
+  left: 72px;
+  width: 200px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.courses-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.courses-list li:hover {
+  background-color: #f5f5f5;
+}
+.buttons-container li {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 100px;
+  margin-bottom: 50px;
+  height: 50px;
+  font-size: 30px;
+  top: 150px;
+  text-decoration: none;
+}
+
+.buttons-container li:hover::after {
+  width: 100%;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.cardgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  text-align: center;
+  row-gap: 50px;
+}
+
+.card-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-custom-style {
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+}
