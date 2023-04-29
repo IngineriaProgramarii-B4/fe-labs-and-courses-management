@@ -1,4 +1,4 @@
-@media only screen and (min-width: 568px) {
+@media (min-width: 568px) {
   body {
     background: url("../../img/temporary_bg.jpg") center no-repeat;
     background-size: cover;
@@ -30,14 +30,12 @@
   tr:hover {
     background-color: rgba(158, 213, 255, 0.25);
   }
-  .catalog-wrapper {
+  .catalog_wrapper {
     padding: 0rem 20rem;
     margin-top: 2rem;
     margin-bottom: 5rem;
   }
-  .grade {
-  }
-  .grade-value {
+  .grade_value {
     padding: 0.5rem 0.75rem;
     border: 0.1rem solid rgba(84, 84, 84, 0.5);
     border-radius: 0.85rem;
@@ -53,42 +51,38 @@
     background: white;
   }
 
-  .trash-img,
-  .edit-img {
+  .trash_img,
+  .edit_img {
     width: 1rem;
   }
 
-  .trash-img {
+  .trash_img {
     padding-bottom: 0.35rem;
   }
 
-  .edit-img {
+  .edit_img {
     opacity: 0.8;
   }
 
-  .trash-img:hover {
+  .trash_img:hover {
     cursor: pointer;
     opacity: 0.8;
   }
-  .edit-img:hover {
+  .edit_img:hover {
     opacity: 0.5;
     cursor: pointer;
   }
-  .subject-value,
-  .date-value {
+  .subject_value,
+  .date_value {
     font-weight: 200;
   }
-  .add-grade-input {
-    width: 8rem;
-    padding: 0.2rem;
-  }
 
-  .form-field {
+  .form_field {
     display: flex;
     flex-direction: column;
   }
 
-  .add-button {
+  .add_button {
     padding: 0.5rem 0.25rem;
     background: rgb(59 130 246 / 0.85);
     margin-top: 0.5rem;
@@ -96,8 +90,15 @@
     font-size: 0.7rem;
     color: white;
   }
+  .delete_grade_text {
+    margin-bottom: 1rem;
+  }
+  .action_btn {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
-@media only screen and (max-width: 568px) {
+@media (max-width: 568px) {
   body {
     font-size: 0.9rem;
     font-family: "Sora", sans-serif;
@@ -127,12 +128,10 @@
   tr:hover {
     background-color: rgba(158, 213, 255, 0.25);
   }
-  .catalog-wrapper {
+  .catalog_wrapper {
     margin-top: 2rem;
   }
-  .grade {
-  }
-  .grade-value {
+  .grade_value {
     padding: 0.5rem 0.75rem;
     border: 0.1rem solid rgba(84, 84, 84, 0.5);
     border-radius: 0.85rem;
@@ -141,22 +140,17 @@
     font-weight: 200;
   }
 
-  .subject-value,
-  .date-value {
+  .subject_value,
+  .date_value {
     font-weight: 200;
   }
 
-  .add-grade-input {
-    width: 5rem;
-    padding: 0.2rem;
-  }
-
-  .form-field {
+  .form_field {
     display: flex;
     flex-direction: column;
   }
 
-  .add-button {
+  .add_button {
     padding: 0.25rem 0.125rem;
     background: rgb(59 130 246 / 0.85);
     margin-top: 0.25rem;
@@ -165,42 +159,32 @@
     color: white;
   }
 
-  .edit-img {
+  .edit_img {
     opacity: 0.8;
   }
 
-  .trash-img:hover {
+  .trash_img:hover {
     cursor: pointer;
     opacity: 0.8;
   }
-  .edit-img:hover {
+  .edit_img:hover {
     opacity: 0.5;
     cursor: pointer;
   }
-  .trash-img {
+  .trash_img {
     margin-bottom: 0.2rem;
   }
 }
 
-.add-grade-wrapper {
-  display: flex;
-  background-color: rgba(158, 213, 255, 0.75);
-  padding: 1rem;
-  justify-content: space-between;
-  position: relative;
-}
-
-.add-button:hover {
+.add_button:hover {
   background: rgb(59 130 246 / 0.95);
   cursor: pointer;
 }
 
-.add-button-wrapper {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.trash-img,
-.edit-img {
+.trash_img,
+.edit_img {
   min-width: 0.8rem;
+}
+.delete_grade_text {
+  margin-bottom: 1rem;
 }
