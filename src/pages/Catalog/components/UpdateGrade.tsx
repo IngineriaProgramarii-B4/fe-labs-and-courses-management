@@ -2,7 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { Modal, Button, Input, Form } from "antd";
 import axios from "axios";
-import "../Catalog.css";
+import styles from "../Catalog.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdateGrade(props: {
   fetchGrades: () => void;
@@ -58,15 +60,16 @@ export default function UpdateGrade(props: {
   };
   return (
     <>
-      <img
-        src={require("../../../img/edit.png")}
-        alt="bntu"
-        className="trash-img"
+      <div
+        data-testId="edit_img"
+        className={styles.edit_img}
         onClick={() => {
           console.log("grade id:", props.id);
           showModal();
         }}
-      />
+      >
+        <FontAwesomeIcon icon={faPenToSquare} style={{ color: "#849ed0" }} />
+      </div>
       <Modal
         title="Update Grade"
         open={isModalOpen}
@@ -94,17 +97,17 @@ export default function UpdateGrade(props: {
               placeholder="New date of evaluation..."
             />
           </Form.Item>
-          <Form.Item>
-            <Button
-              onClick={() => {
-                handleUpdateGrade(props.id);
-                setIsModalOpen(false);
-              }}
-            >
-              Update
-            </Button>
-          </Form.Item>
         </Form>
+        <div className={styles.action_btn}>
+          <Button
+            onClick={() => {
+              handleUpdateGrade(props.id);
+              setIsModalOpen(false);
+            }}
+          >
+            Update
+          </Button>
+        </div>
       </Modal>
     </>
   );

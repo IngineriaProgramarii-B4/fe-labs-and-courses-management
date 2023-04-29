@@ -1,10 +1,10 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import "./Catalog.css";
+import React, { useState, useEffect } from "react";
+import "./Catalog.module.scss";
 import axios from "axios";
 import AddGrade from "./components/AddGrade";
 import UpdateGrade from "./components/UpdateGrade";
 import DeleteGrade from "./components/DeleteGrade";
+import styles from "./Catalog.module.scss";
 
 interface Grade {
   value: number;
@@ -50,9 +50,9 @@ function Catalog() {
 
   return (
     <>
-      <div className="catalog-wrapper">
+      <div className={styles.catalog_wrapper}>
         <AddGrade fetchGrades={fetchGrades} />
-        <h5 className="username">{studentName}'s Grades</h5>
+        <h5 className={styles.username}>{studentName}'s Grades</h5>
         <table>
           <thead>
             <tr>
@@ -71,16 +71,20 @@ function Catalog() {
                   <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
                 </td>
                 <td>
-                  <span className="subject-value">{grade.subject.name}</span>
+                  <span className={styles.subject_value}>
+                    {grade.subject.name}
+                  </span>
                 </td>
-                <td className="grade">
-                  <span className="grade-value">
+                <td className={styles.grade}>
+                  <span className={styles.grade_value}>
                     {" "}
                     <em>{grade.value}</em>
                   </span>
                 </td>
                 <td>
-                  <span className="date-value">{grade.evaluationDate}</span>
+                  <span className={styles.date_value}>
+                    {grade.evaluationDate}
+                  </span>
                 </td>
               </tr>
             ))}
