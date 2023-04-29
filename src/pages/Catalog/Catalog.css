@@ -107,7 +107,7 @@
     width: 100%;
   }
   td {
-    padding: 8px;
+    /*padding: 8px;*/
     text-align: center;
     border-bottom: 1px solid #ddd;
     padding: 1.5rem;
