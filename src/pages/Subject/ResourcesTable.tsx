@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Table, Button, Modal, Space } from "antd";
+import { Popconfirm, Table, Button, Modal, Space, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import { Form, Input } from "antd";
+import FileTransfer from "./FileTransfer";
 
 import "./Accordion.css";
 
 interface DataType {
   key: React.Key;
   title: string;
-  location: string;
   timeStamp: string;
+  type: string;
 }
 
 interface ResourcesTableProps {
@@ -31,17 +32,40 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
     }
   };
 
+  const handleGetFile = async (fileName: string) => {
+    try {
+      const file = data.find((item) => item.title === fileName);
+      if (!file) return console.log("File not found");
+      const res = await axios.get(
+        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources/file=${fileName}`,
+        {
+          responseType: "arraybuffer",
+        }
+      );
+      const blob = new Blob([res.data], { type: file.type });
+
+      const url = window.URL.createObjectURL(blob);
+      // const link = document.createElement("a");
+      // link.href = url;
+      // link.setAttribute("download", file.title);
+      // link.click();
+      window.open(url);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const columns: ColumnsType<DataType> = [
     {
       title: "Resource Title",
       dataIndex: "title",
       key: "title",
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
+      render: (text) => (
+        <Typography.Link onClick={() => handleGetFile(text)}>
+          {text}
+        </Typography.Link>
+      ),
     },
     {
       title: "Timestamp",
@@ -52,32 +76,18 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       title: "Action",
       key: "action",
       render: (_, record: any) => (
-        <Space size="middle">
-          <a
-            onClick={() => {
-              setOldTitle(record.title);
-              setTitleInput(record.title);
-              setLocationInput(record.location);
-              setAction("edit");
-              showModal();
-            }}
-          >
-            Edit
-          </a>
-          <Popconfirm
-            okButtonProps={{ className: "okbutton" }}
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        </Space>
+        <Popconfirm
+          okButtonProps={{ className: "okbutton" }}
+          title="Sure to delete?"
+          onConfirm={() => handleDelete(record.key)}
+        >
+          <a>Delete</a>
+        </Popconfirm>
       ),
     },
   ];
-  const [data, setData] = useState<DataType[]>();
+  const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [action, setAction] = useState<"add" | "edit">("add");
 
   const fetchData = () => {
     setLoading(true);
@@ -90,8 +100,8 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           return {
             key: item.title,
             title: item.title,
-            location: item.location,
             timeStamp: item.timeStamp,
+            type: item.type,
           };
         });
         setData(resModify);
@@ -118,87 +128,44 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
     setIsModalOpen(false);
   };
 
-  const handleSave = async () => {
-    const resource = {
-      title: titleInput,
-      location: locationInput,
-    };
-    try {
-      await axios.post(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources`,
-        resource
-      );
-      fetchData();
-    } catch (error) {
-      console.log(error);
-    }
-    setIsModalOpen(false);
-    setLocationInput("");
-    setTitleInput("");
-  };
-
-  const handleUpdate = async () => {
-    const resource = {
-      title: titleInput,
-      location: locationInput,
-    };
-    try {
-      await axios.put(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources/title=${oldTitle}`,
-        resource
-      );
-      fetchData();
-    } catch (error) {
-      console.log(error);
-    }
-    setIsModalOpen(false);
-    setLocationInput("");
-    setTitleInput("");
-  };
-
-  const [titleInput, setTitleInput] = useState("");
-  const [locationInput, setLocationInput] = useState("");
-  const [oldTitle, setOldTitle] = useState("");
-
+  const [clearFileList, setClearFileList] = useState(false);
   return (
     <div>
       <Button
         type="primary"
         className="add-button"
         onClick={() => {
-          setAction("add");
           showModal();
         }}
       >
         Add resource
       </Button>
       <Modal
-        title={action === "add" ? "Add Resource" : "Edit Resource"}
-        okButtonProps={{ className: "okbutton" }}
+        title={"Add resource"}
         open={isModalOpen}
-        okText={action === "add" ? "Add" : "Edit"}
-        onOk={action === "add" ? handleSave : handleUpdate}
-        onCancel={handleCancel}
+        onCancel={() => {
+          setClearFileList(clearFileList ? false : true);
+          handleCancel();
+        }}
+        footer={
+          <Button
+            className="okbutton"
+            key="ok"
+            type="primary"
+            onClick={() => {
+              setClearFileList(clearFileList ? false : true);
+              handleCancel();
+            }}
+          >
+            Ok
+          </Button>
+        }
       >
-        <Form
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 10 }}
-          layout="horizontal"
-          style={{ maxWidth: 600 }}
-        >
-          <Form.Item label="Title">
-            <Input
-              value={titleInput}
-              onChange={(e) => setTitleInput(e.target.value)}
-            />
-          </Form.Item>
-          <Form.Item label="Location">
-            <Input
-              value={locationInput}
-              onChange={(e) => setLocationInput(e.target.value)}
-            />
-          </Form.Item>
-        </Form>
+        <FileTransfer
+          component={props.component}
+          title={props.title}
+          clearFileList={clearFileList}
+        />
       </Modal>
       <Table
         columns={columns}
