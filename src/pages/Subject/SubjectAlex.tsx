@@ -16,6 +16,7 @@ import {
 } from 'antd';
 import axios from "axios";
 import { Row, Col } from "antd";
+import PhotoUpload from "./PhotoUpload";
 
 
 const { RangePicker } = DatePicker;
@@ -45,6 +46,8 @@ function SubjectAlex () {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
+  const [photoModal, setPhotoModal] = useState(false);
+  const [photoModalTitle, setPhotoModalTitle] = useState<string>("");
 
   const [form] = Form.useForm()
 
@@ -182,10 +185,18 @@ function SubjectAlex () {
 
   const addNewSubject = async () => {
     console.log(addSubjectProperties);
-    setAddModal(false);
     const result = await axios.post(
       `http://localhost:8090/api/v1/subjects`, addSubjectProperties
       );
+    // while there is no response from the server, the modal will not close
+
+    while(result === undefined) {
+      console.log("Waiting for response from server");
+    }
+
+    setAddModal(false);
+    setPhotoModalTitle(addSubjectProperties.title);
+    setPhotoModal(true);
     console.log(result)
   }
 
@@ -480,6 +491,12 @@ function SubjectAlex () {
                   </Form.Item>
                 </Form>
               </Modal>
+
+              <PhotoUpload
+                modalOpen={photoModal}
+                setModalOpen={setPhotoModal}
+                title={photoModalTitle}
+              />
           </div>
         </body>
     </>
