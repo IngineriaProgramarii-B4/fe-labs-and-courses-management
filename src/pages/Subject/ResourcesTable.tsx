@@ -145,6 +145,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         open={isModalOpen}
         onCancel={() => {
           setClearFileList(clearFileList ? false : true);
+          fetchData();
           handleCancel();
         }}
         footer={
@@ -154,6 +155,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
             type="primary"
             onClick={() => {
               setClearFileList(clearFileList ? false : true);
+              fetchData();
               handleCancel();
             }}
           >
