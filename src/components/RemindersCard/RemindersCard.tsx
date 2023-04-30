@@ -1,34 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Card } from "antd";
 import ReminderItem from "./ReminderItem";
-import AddReminder from "./AddReminder";
+import AddReminderModal from "./AddReminderModal";
 import { Divider } from "antd/lib";
-import { RemindersContext } from "./RemindersContext";
+import { RemindersContext, ReminderDataProps } from "./RemindersContext";
 
-export type ReminderDataProps = {
-  dueDateTime: string;
-  title: string;
-  description: string;
-}
+const uuid = require("uuid");
 
-export function RemindersCardBody({ reminders }: {reminders: ReminderDataProps[]}) {
+export function RemindersCardBody({reminders} : {reminders : ReminderDataProps[]}) {
+  const [isModalAddReminderOpen, setIsModalAddReminderOpen] = useState<boolean>(false);
   return (
-    <Card title="Your Reminders" className="w-1/2 m-auto">
-      <AddReminder />
-      {
-        reminders.map((reminder : ReminderDataProps) => <>
-          <ReminderItem dueDateTime={reminder.dueDateTime} description={reminder.description}
-                        title={reminder.title} />
-          <Divider />
-        </>)
-      }
-    </Card>
-  );
+    <div className="w-1/1 mt-8">
+      <AddReminderModal isModalAddReminderOpen={isModalAddReminderOpen} setIsModalAddReminderOpen={setIsModalAddReminderOpen} />
+      <div className="w-2/3 m-auto">
+        <button onClick={() => setIsModalAddReminderOpen(true)}
+                className="w-8 h-8 mb-1 font-bold text-white bg-green-600 rounded hover:bg-green-500">+
+        </button>
+        <Card title="Your Reminders">
+          {
+            reminders.map((reminder: ReminderDataProps) => <>
+              <ReminderItem dueDateTime={reminder.dueDateTime} description={reminder.description}
+                            title={reminder.title} reminderId={reminder.reminderId} key={uuid.v4()} />
+              <Divider key={uuid.v4()} />
+            </>)
+          }
+        </Card>
+      </div>
+    </div>
+  )
 }
 
 export default function RemindersCard() {
   // @ts-ignore
   const { reminders } = useContext(RemindersContext);
-  return <RemindersCardBody reminders={reminders} />
+  // @ts-ignore
+  return (
+    <RemindersCardBody reminders={reminders}/>
+  )
 }
 

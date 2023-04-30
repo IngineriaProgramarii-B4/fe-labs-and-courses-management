@@ -31,7 +31,7 @@ function Navbar() {
       <Menu.Item key={"Reminders"}>
         <Link to="/reminders">Reminders</Link>
       </Menu.Item>
-      <Menu.Item disabled style={{ marginLeft: "auto", cursor: "default" }}>
+      <Menu.Item key={"User Info"} disabled style={{ marginLeft: "auto", cursor: "default" }}>
         <UserInfoModal avatar={mockedAvatar} />
       </Menu.Item>
     </Menu>

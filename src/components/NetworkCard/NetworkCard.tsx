@@ -1,4 +1,4 @@
-import { Card, Divider } from "antd";
+import { Card } from "antd";
 import { useEffect, useState } from "react";
 import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
