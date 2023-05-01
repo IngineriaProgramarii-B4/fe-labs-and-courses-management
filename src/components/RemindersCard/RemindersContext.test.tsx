@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Button, Card, DatePicker, Form, Input, Divider } from "antd";
-import { RemindersContext, ReminderDataProps } from "./RemindersContext";
+import RemindersContextProvider, { RemindersContext, ReminderDataProps } from "./RemindersContext";
 
 const mockedRemindersData: ReminderDataProps[] = [
   {
@@ -44,4 +44,17 @@ describe("RemindersContext", () => {
     );
   });
 
+});
+
+test("should render properly", () => {
+  render(
+    <RemindersContextProvider>
+          <div></div>
+    </RemindersContextProvider>);
+  mockedRemindersData.forEach((data) => {
+    expect(screen.getByText(data.reminderId)).toBeInTheDocument();
+    expect(screen.getByText(data.dueDateTime)).toBeInTheDocument();
+    expect(screen.getByText(data.title)).toBeInTheDocument();
+    expect(screen.getByText(data.description)).toBeInTheDocument();
+   });
 });
