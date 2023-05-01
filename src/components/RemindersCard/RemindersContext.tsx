@@ -29,7 +29,7 @@ export default function RemindersContextProvider({ children }) {
   }, []);
 
   const saveNewReminder = () => {
-    axiosInstance.post("/reminder", {
+    axiosInstance.post("/reminders", {
       title,
       description,
       dueDateTime: date,

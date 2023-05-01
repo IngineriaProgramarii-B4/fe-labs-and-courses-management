@@ -32,7 +32,7 @@ function Navbar() {
         <Link to="/reminders">Reminders</Link>
       </Menu.Item>
       <Menu.Item key={"User Info"} disabled style={{ marginLeft: "auto", cursor: "default" }}>
-        <UserInfoModal avatar={mockedAvatar} />
+          <UserInfoModal avatar={mockedAvatar} />
       </Menu.Item>
     </Menu>
   );
