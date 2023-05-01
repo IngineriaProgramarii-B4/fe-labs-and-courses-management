@@ -6,6 +6,8 @@ import "./SubjectAna.css";
 import { Modal, Button, Input } from "antd";
 
 import { useSearchParams } from "react-router-dom";
+import EvalPieChart from "./PieChart";
+import EvalComponentDescription from "./EvalComponentDescription";
 
 interface MyVerticallyCenteredModalProps {
   title: string;
@@ -15,6 +17,7 @@ interface MyVerticallyCenteredModalProps {
   setDescription: (description: string) => void;
   subject: any;
 }
+
 const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
   props
 ) => {
@@ -117,9 +120,7 @@ const Course: React.FC<MyVerticallyCenteredModalProps> = (props) => {
 };
 
 function SubjectAna() {
-  const [showList, setShowList] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const title = "Course Title";
   const [description, setDescription] = useState<string>("");
   const [subject, setSubject] = useState<any>();
@@ -144,15 +145,6 @@ function SubjectAna() {
     };
     fetchData();
   }, [subject]);
-
-  const handleClick = (path: string) => {
-    setSelectedCourse(path);
-    setShowList(false);
-    /*  if (selectedCourse !== null) {
-      setSelectedCourse(null);
-    }
-    */
-  };
 
   return (
     <div className="app-container">
@@ -184,7 +176,36 @@ function SubjectAna() {
               subject={subject}
             />
           </div>
+          <div className="evaluation-container">
+            <h1 className = "evaluation-title">Evaluation</h1>
+            <div className="evaluation-body">
+              <div className="evaluation-text">
+              <MyVerticallyCenteredModal
+              //data-testid="modal-course-description"
+              title={title}
+              description={description!}
+              modalShow={modalShow}
+              setModalShow={setModalShow}
+              setDescription={setDescription}
+              subject={subject}
+            />
+                <EvalComponentDescription
+              title={`TEST`}
+              description={description!}
+              subject={subject}
+              type='exam' 
+              modalShow={modalShow}
+              setModalShow={setModalShow}
+              setDescription={setDescription}
+            />
+              </div>
+              <div className="evaluation-piechart">
+                <EvalPieChart />
+              </div>
+            </div>
+          </div>
           <div className="material-container">
+            <h1>Resources</h1>
             <Accordion components={accordionData} title={subjectTitle} />
           </div>
         </div>
