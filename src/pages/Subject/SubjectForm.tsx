@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Button, Modal, Form, Input, Row, Col, Select } from "antd";
+import { Button, Modal, Form, Input, Row, Col, Select, UploadFile } from "antd";
+import PhotoUpload from "./PhotoUpload";
 const { TextArea } = Input;
 
 interface SubjectFormProps {
@@ -15,6 +16,10 @@ interface SubjectFormProps {
   credits: number;
   setCredits: (credits: number) => void;
   resetFields: boolean;
+  upFile: File | null;
+  setUpFile: (upFile: File) => void;
+  fileList: UploadFile[];
+  setFileList: (fileList: UploadFile[]) => void;
 }
 
 const SubjectForm: React.FC<SubjectFormProps> = (props) => {
@@ -131,6 +136,25 @@ const SubjectForm: React.FC<SubjectFormProps> = (props) => {
             rows={4}
             value={props.description}
             onChange={(event) => props.setDescription(event.target.value)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Subject image"
+          name="image"
+          rules={[
+            {
+              required: props.action === "add" ? true : false,
+              message: "Please input the image of the subject!",
+            },
+          ]}
+        >
+          <PhotoUpload
+            title={props.title}
+            upFile={props.upFile}
+            setUpFile={props.setUpFile}
+            fileList={props.fileList}
+            setFileList={props.setFileList}
           />
         </Form.Item>
       </Form>

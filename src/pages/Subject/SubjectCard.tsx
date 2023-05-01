@@ -1,7 +1,7 @@
 import axios from "axios";
 import FormModal from "./FormModal";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button, Modal } from "antd";
 const { Meta } = Card;
 const { confirm } = Modal;
@@ -17,11 +17,13 @@ interface Subject {
 
 interface SubjectCardProps {
   card: Subject;
+  isModified: boolean;
+  setIsModified: (isModified: boolean) => void;
 }
 
 const SubjectCard: React.FC<SubjectCardProps> = (props) => {
-  const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [SubjectModal, setSubjectModal] = useState(false);
+  const [cardImg, setCardImg] = useState<string>("");
 
   const handleClick = (title: string) => {
     window.location.href = `http://localhost:3000/subjectana?subject=${title}`;
@@ -33,7 +35,6 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
   };
 
   const editSubjectModal = (subject: Subject) => {
-    setSelectedSubject(subject);
     setSubjectModal(true);
   };
 
@@ -55,6 +56,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         axios.delete(
           `http://localhost:8090/api/v1/subjects/subjectTitle=${title}`
         );
+        props.setIsModified(props.isModified ? false : true);
       },
       onCancel() {
         console.log("Cancel");
@@ -62,19 +64,36 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
     });
   };
 
+  const getImage = async (title: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8090/api/v1/subjects/subjectTitle=${title}`
+      );
+      if (!response.data.image) {
+        return "https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg";
+      }
+      const img = await axios.get(
+        `http://localhost:8090/api/v1/subjects/subjectTitle=${title}/image`,
+        { responseType: "arraybuffer" }
+      );
+      const imgBlob = new Blob([img.data], { type: response.data.image.type });
+      const imgUrl = URL.createObjectURL(imgBlob);
+      setCardImg(imgUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getImage(props.card.title);
+  }, [props.card]);
+
   return (
     <>
       <Card
         onClick={() => handleClick(props.card.title)}
         hoverable
-        cover={
-          <img
-            alt={props.card.title}
-            src={
-              "https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg"
-            }
-          />
-        }
+        cover={<img alt={props.card.title} src={cardImg} />}
         actions={[
           <Button
             data-testid="edit-button"
@@ -112,6 +131,8 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         year={props.card.year}
         semester={props.card.semester}
         credits={props.card.credits}
+        isModified={props.isModified}
+        setIsModified={props.setIsModified}
       />
     </>
   );

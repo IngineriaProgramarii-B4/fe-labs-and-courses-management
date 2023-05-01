@@ -1,6 +1,7 @@
+import axios from "axios";
 import SubjectForm from "./SubjectForm";
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Input, Row, Col, Select } from "antd";
+import { Button, Modal, Form, Input, Row, Col, Select, UploadFile } from "antd";
 const { TextArea } = Input;
 
 interface FormModalProps {
@@ -13,6 +14,8 @@ interface FormModalProps {
   year: number;
   semester: number;
   credits: number;
+  isModified: boolean;
+  setIsModified: (isModified: boolean) => void;
 }
 
 const FormModal: React.FC<FormModalProps> = (props) => {
@@ -24,6 +27,63 @@ const FormModal: React.FC<FormModalProps> = (props) => {
   const [semesterForm, setSemesterForm] = useState<number>(props.semester);
   const [creditsForm, setCreditsForm] = useState<number>(props.credits);
   const [resetFields, setResetFields] = useState<boolean>(false);
+  const [upFile, setUpFile] = useState<File | null>(null);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const handleFileUpload = async () => {
+    try {
+      if (!upFile) return;
+      const formData = new FormData();
+      formData.append("image", upFile as Blob);
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
+      const res = await axios.put(
+        `http://localhost:8090/api/v1/subjects/subjectTitle=${titleForm}/image`,
+        formData,
+        config
+      );
+      console.log(res);
+      setFileList([]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitSubject = async () => {
+    const subject = {
+      title: titleForm,
+      description: descriptionForm,
+      year: yearForm,
+      semester: semesterForm,
+      credits: creditsForm,
+      components: [],
+      evaluations: [],
+    };
+    if (props.action === "add") {
+      try {
+        if (!upFile) return;
+        await axios.post("http://localhost:8090/api/v1/subjects", subject);
+        await handleFileUpload();
+        props.setIsModified(props.isModified ? false : true);
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (props.action === "edit") {
+      try {
+        await axios.put(
+          `http://localhost:8090/api/v1/subjects/subjectTitle=${props.title}`,
+          subject
+        );
+        if (upFile) await handleFileUpload();
+        props.setIsModified(props.isModified ? false : true);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <>
@@ -35,12 +95,15 @@ const FormModal: React.FC<FormModalProps> = (props) => {
           <Button
             key="cancel"
             onClick={() => {
+              console.log("Cancel");
               setTitleForm(props.title);
               setDescriptionForm(props.description);
               setYearForm(props.year);
               setSemesterForm(props.semester);
               setCreditsForm(props.credits);
               setResetFields(resetFields ? false : true);
+              setUpFile(null);
+              setFileList([]);
               props.setSubjectModal(false);
             }}
           >
@@ -50,7 +113,16 @@ const FormModal: React.FC<FormModalProps> = (props) => {
           <Button
             key="submit"
             type="default"
-            onClick={() => props.setSubjectModal(false)}
+            onClick={() => {
+              submitSubject();
+              setTitleForm(props.title);
+              setDescriptionForm(props.description);
+              setYearForm(props.year);
+              setSemesterForm(props.semester);
+              setCreditsForm(props.credits);
+              setResetFields(resetFields ? false : true);
+              props.setSubjectModal(false);
+            }}
           >
             Submit
           </Button>,
@@ -69,6 +141,10 @@ const FormModal: React.FC<FormModalProps> = (props) => {
           credits={creditsForm}
           setCredits={setCreditsForm}
           resetFields={resetFields}
+          upFile={upFile}
+          setUpFile={setUpFile}
+          fileList={fileList}
+          setFileList={setFileList}
         />
       </Modal>
     </>
