@@ -70,7 +70,10 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         `http://localhost:8090/api/v1/subjects/subjectTitle=${title}`
       );
       if (!response.data.image) {
-        return "https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg";
+        setCardImg(
+          "https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg"
+        );
+        return;
       }
       const img = await axios.get(
         `http://localhost:8090/api/v1/subjects/subjectTitle=${title}/image`,
