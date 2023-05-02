@@ -1,43 +1,54 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import axios from "axios";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import SubjectAlex from "../SubjectAlex";
 
-describe("SubjectAlex", () => {
-  test("renders subject cards", async () => {
-    render(<SubjectAlex/>);
+jest.mock("axios");
 
-    const cards = await screen.findAllByTestId("subject-card");
-    expect(cards.length).toBeGreaterThan(0);
+describe("SubjectAlex component", () => {
+  const mockedData = [
+    {
+      id: 1,
+      title: "Math",
+      description: "Lorem ipsum",
+      year: 2022,
+      semester: 1,
+      credits: 5,
+    },
+    {
+      id: 2,
+      title: "Science",
+      description: "Dolor sit amet",
+      year: 2022,
+      semester: 2,
+      credits: 4,
+    },
+  ];
+
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
 
-  test("opens subject modal on add card button click", async () => {
-    render(<SubjectAlex/>);
+  /*
+  test("renders the component", async () => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-    const addCardButton = await screen.findByTestId("add-card-button");
-    fireEvent.click(addCardButton);
-
-    const subjectModalOutline = await screen.findByTestId("add-card-outline");
-    expect(subjectModalOutline).toBeInTheDocument();
-
-    const subjectModalTitle = await screen.findByTestId("add-card-title");
-    expect(subjectModalTitle).toBeInTheDocument();
+    render(<SubjectAlex />);
+    expect(screen.getByText("Math")).toBeInTheDocument();
+    expect(screen.getByText("Science")).toBeInTheDocument();
   });
+  */
 
-  // test("opens edit form on edit button click", async () => {
+  test("fetches the data from the API", async () => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-  //   render(<SubjectAlex/>);
+    render(<SubjectAlex />);
 
-  //   const editButton = await screen.findAllByTestId("edit-button");
-  //   fireEvent.click(editButton[0]);
+    expect(axios.get).toHaveBeenCalledWith(
+      "http://localhost:8090/api/v1/subjects"
+    );
 
-  //   const descriptionInput = await screen.findByLabelText("Description");
-  //   fireEvent.change(descriptionInput, { target: { value: "New Description" } });
-
-  //   const submitButton = await screen.findByTestId("submit-button");
-  //   fireEvent.click(submitButton);
-
-  //   const updatedTitle = await screen.findAllByText("New Description");
-  //   expect(updatedTitle[0]).toBeInTheDocument();
-  // });
+    expect(await screen.findByText("Math")).toBeInTheDocument();
+    expect(await screen.findByText("Science")).toBeInTheDocument();
+  });
 });

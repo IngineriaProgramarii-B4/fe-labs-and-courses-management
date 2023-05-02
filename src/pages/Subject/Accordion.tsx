@@ -99,6 +99,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
       </Collapse>
       {comps.length < 3 ? (
         <Button
+          data-testid="add-button"
           className="add-button second"
           type="primary"
           onClick={showAddModal}
@@ -108,6 +109,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
       ) : null}
 
       <Modal
+        data-testid="modal"
         title="Add Component"
         okButtonProps={{ className: "okbutton" }}
         open={isAddModalOpen}

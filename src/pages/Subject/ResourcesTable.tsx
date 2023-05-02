@@ -132,15 +132,17 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
   return (
     <div>
       <Button
+        data-testid="add-button"
         type="primary"
         className="add-button"
         onClick={() => {
           showModal();
         }}
       >
-        Add resource
+        Add resources
       </Button>
       <Modal
+        data-testid="modal"
         title={"Add resource"}
         open={isModalOpen}
         onCancel={() => {
