@@ -5,7 +5,7 @@ import { Modal } from "antd";
 
 type voidFn = () => void
 
-function ModalFooter({ saveNewReminder, onCancel }: { saveNewReminder: voidFn, onCancel: voidFn }) {
+export function ModalFooter({ saveNewReminder, onCancel }: { saveNewReminder: voidFn, onCancel: voidFn }) {
   return (
     <>
       <Button onClick={onCancel}>

@@ -31,3 +31,12 @@ describe("RemindersCardBody", () => {
   });
 });
 
+test("should render properly", () => {
+  render(<RemindersCard />);
+  mockedRemindersData.forEach((data) => {
+    expect(screen.getByText(data.reminderId)).toBeInTheDocument();
+    expect(screen.getByText(data.dueDateTime)).toBeInTheDocument();
+    expect(screen.getByText(data.title)).toBeInTheDocument();
+    expect(screen.getByText(data.description)).toBeInTheDocument();
+   });
+});
