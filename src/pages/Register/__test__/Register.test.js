@@ -135,7 +135,7 @@ test('error message when passwords do not match', async () => {
     await screen.findByText('The two passwords that you entered do not match!');
 });
 
-//teste noi
+//test nou
 test('error message if the password does not meet the required pattern', async () => {
     render(
       <Router>
@@ -158,34 +158,31 @@ test('error message if the password does not meet the required pattern', async (
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
   
-  /*
-  test('successful registration and navigate to login page', async () => {
-    const { container } = render(
+ //test nou
+  test('should display error message if server returns an error', async () => {
+    server.use(
+      rest.post('/api/v1/auth/register', (req, res, ctx) => {
+        return res(ctx.status(500), ctx.json({ message: 'Server Error' }));
+      })
+    );
+  
+    render(
       <Router>
         <Register />
       </Router>
     );
   
-    fireEvent.change(screen.getByLabelText('ID'), { target: { value: 'test-id' } });
-    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@email.com' } });
-    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'P@ssw0rd!' } });
-    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'P@ssw0rd!' } });
+    fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123456' } });
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@test.com' } });
+    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'Test@1234' } });
+    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'Test@1234' } });
   
-    fireEvent.click(screen.getByRole('button', { name: 'Register' }));
-  
-    console.log('Before waitFor message.success'); // Adaugă un log înainte de waitFor
+    fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
   
     await waitFor(() => {
-        expect(message.success).toHaveBeenCalled();
-      }, { timeout: 5000 });
-  
-    console.log('After waitFor message.success'); // Adaugă un log după waitFor
-  
-    await waitFor(() => {
-      expect(window.location.pathname).toBe('/login');
-    }, { timeout: 5000 });
+      expect(message.error).toHaveBeenCalledWith('Registration failed: Network Error');
+    });
   });
-  */
   
 
   
