@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "antd";
 import CoursesCard, {courseData } from "./CourseCard";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export type teacherDataProps = {
   name: string;
@@ -16,6 +17,8 @@ function TeacherInfoCard() {
     }
   ]);
 
+  const {id} = useParams()
+
   useEffect(() => {
     const axiosInstance = axios.create({
         baseURL: "http://localhost:8090/api/v1",
@@ -26,7 +29,7 @@ function TeacherInfoCard() {
     );
 
     axiosInstance
-      .get("/teachers")
+      .get(`/teachers?id=${id}`)
       .then((res) => res.data)
       .then((data) => {
         console.log(data)
@@ -49,54 +52,14 @@ function TeacherInfoCard() {
         }))
       })
       .catch((err) => console.error(err));
-
-    // DUMMY DATA
-    const teachersData: teacherDataProps[] = [
-      {
-        name: "Iftene Adrian",
-        taughtSubjects: [
-          {
-            courseTitle: "Ingineria Programarii",
-            hasExam: true,
-            hasPartialExam: false,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: false,
-            hasPresentGrading: true,
-            noOfCredits: "5",
-            finalGrade: "Gauss"
-          },
-          {
-            courseTitle: "Nume curs 2",
-            hasExam: false,
-            hasPartialExam: true,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: true,
-            hasPresentGrading: false,
-            noOfCredits: "4",
-            finalGrade: "AVG"
-          },
-          {
-            courseTitle: "Nume curs 3",
-            hasExam: false,
-            hasPartialExam: true,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: true,
-            hasPresentGrading: false,
-            noOfCredits: "4",
-            finalGrade: "AVG"
-          }
-        ]
-      }
-    ];
-    // setTeacherInfo(teachersData);
   }, []);
 
   return (
-    <Card title="Teachers">
+    <div className="m-auto mt-8 w-2/3">
       {teacherInfo.map((teacher: teacherDataProps) => {
         return (<CoursesCard name={teacher.name} taughtSubjects={teacher.taughtSubjects}></CoursesCard>);
       })}
-    </Card>
+    </div>
   );
 }
 

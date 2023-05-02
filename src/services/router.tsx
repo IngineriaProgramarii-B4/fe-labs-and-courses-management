@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
@@ -33,8 +33,8 @@ export const router = createBrowserRouter([
         element: <NetworkCard />
       },
       {
-        path: "/teachers",
-        element: <TeacherInfoCard />
+        path: "/teachers/:id",
+        element: <TeacherInfoCard/>
       },
       {
         path: "/",

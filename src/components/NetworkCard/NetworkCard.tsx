@@ -6,6 +6,7 @@ import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
 
 export type UserDataType = {
+  id: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -57,7 +58,7 @@ function NetworkCard() {
   }, [isUserModified]);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap justify-center items-center">
       {users.map(renderCard)}
     </div>
   );
@@ -65,7 +66,7 @@ function NetworkCard() {
 
 const renderCard = (user: UserDataType) => {
   return (
-    <Card className="m-10 w-200" key={`${user.username}-1234`}>
+    <Card className="m-10 w-80 h-96" key={`${user.username}-1234`}>
       <UserHeader
         username={user.username}
         firstname={user.firstName}
@@ -74,7 +75,7 @@ const renderCard = (user: UserDataType) => {
       {Object.entries(user).map(([key, value]) => {
         if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)
           return key !== "id" ? (
-            <UserInfoFields title={key} value={value} />
+            <UserInfoFields title={key} value={value} id={user.id}/>
           ) : (
             ""
           );

@@ -25,9 +25,6 @@ function Navbar() {
       <Menu.Item key={"Catalog"}>
         <Link to="/catalog">Catalog</Link>
       </Menu.Item>
-      <Menu.Item key={"Teachers"}>
-        <Link to="/teachers">Teachers</Link>
-      </Menu.Item>
       <Menu.Item key={"Reminders"}>
         <Link to="/reminders">Reminders</Link>
       </Menu.Item>

@@ -36,12 +36,13 @@ describe("UserHeader", () => {
 
 describe("UserInfoFields", () => {
   const userInfo = {
-    title: "dianacuzic",
+    id: "1",
+    title: "lastName",
     value: "Diana",
   };
 
   test("should render properly", () => {
-    render(<UserInfoFields title={userInfo.title} value={userInfo.value} />);
+    render(<UserInfoFields title={userInfo.title} value={userInfo.value} id={userInfo.id}/>);
 
     expect(screen.getByText(userInfo.title + ":")).toBeInTheDocument();
     expect(screen.getByText(userInfo.value)).toBeInTheDocument();
@@ -56,6 +57,7 @@ describe("UserInfoFields", () => {
 describe("NetworkCard", () => {
   const mockedNetworkData = [
     {
+      id: "1",
       email: "diana.cuzic@gmail.com",
       firstname: "Diana",
       lastname: "Cuzic",
@@ -64,6 +66,7 @@ describe("NetworkCard", () => {
       department: "Secretary",
     },
     {
+      id: "2",
       email: "stefan.ciobaca@uaic.com",
       firstname: "Stefan",
       lastname: "Ciobaca",
@@ -72,6 +75,7 @@ describe("NetworkCard", () => {
       taughtSubjects: ["PA", "PF", "Logica"],
     },
     {
+      id: "3",
       email: "florin.eugen@uaic.ro",
       firstname: "Florin",
       lastname: "Rotaru",
