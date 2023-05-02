@@ -85,7 +85,7 @@ function Login() {
         <div className={styles.info}>
             <input type="checkbox" />
             <a href='#' className={styles.rememberMe}> Remember me</a>
-            <a href='http://localhost:3000/resetPassword' className={styles.forgotPass}>Forgot password?</a>
+            <a href='http://localhost:3000/sendMail' className={styles.forgotPass}>Forgot password?</a>
         </div>
         
         <div className={styles.registerContainer}>

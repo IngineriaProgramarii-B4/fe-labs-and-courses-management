@@ -88,11 +88,13 @@
 .formItem {
   width: 100%;
   margin-bottom: 16px;
+  text-align: center; 
 }
 
 .btnRegister {
   color: black;
-  width: 150%;
+  width: 200%;
+  // transform: translateX(-50%);
   text-align: center;
 }
 
@@ -104,4 +106,9 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.signInOption {
+  width: 200%;
+  text-align: center;
 }

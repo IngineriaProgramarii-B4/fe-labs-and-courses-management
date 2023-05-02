@@ -10,15 +10,6 @@ function Reset() {
     <div className={styles.appBg}>
       <Form className={styles.resetForm} onFinish={reset}>
         <Typography.Title className={styles.titluForm}>Reset your password!</Typography.Title>
-        <Form.Item rules={[
-          {
-            required:true,
-            type:"email",
-            message:"Please enter valid email",
-          },
-        ]}  name={'myEmail'}>
-          <Input placeholder='Enter your email'/>
-        </Form.Item >
 
       <Form.Item rules={[
           {
@@ -26,7 +17,7 @@ function Reset() {
             message:"Please enter your new password",
           },
         ]} name={'myPassword'}>
-        <Input.Password placeholder='Enter your password'/>
+        <Input.Password placeholder='Enter your new password'/>
       </Form.Item>
 
       <Form.Item rules={[
@@ -36,10 +27,10 @@ function Reset() {
           },
         ]} name={'myPassword'}>
 
-        <Input.Password placeholder='Enter your password'/>
+        <Input.Password placeholder='Confirm your new password'/>
       </Form.Item>
       <div>
-        <Button className={styles.LoginButton}  type="primary" htmlType="submit" block>Reset Password</Button>
+        <Button className={styles.resetButton}  type="primary" htmlType="submit" block>Reset Password</Button>
       </div>   
       </Form>
     </div>

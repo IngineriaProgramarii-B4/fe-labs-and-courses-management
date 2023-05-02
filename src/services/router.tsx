@@ -10,6 +10,7 @@ import NetworkCard from "../components/NetworkCard/NetworkCard";
 import { TeacherInfoCard } from "../components/TeacherInfo/TeacherInfoCard";
 import Register from "../pages/Register/Register";
 import Reset from "../pages/ResetPassword/Reset";
+import SendMail from "../pages/SendEmail/SendMail";
 export const router = createBrowserRouter([
   {
     path: "*",
@@ -62,5 +63,9 @@ export const router = createBrowserRouter([
   {
     path: "/resetPassword",
     element: <Reset />
+  },
+  {
+    path: "/sendMail",
+    element: <SendMail />
   },
 ]);

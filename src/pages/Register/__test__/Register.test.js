@@ -57,8 +57,8 @@ test('renders form with expected fields', () => {
     );
     const idField = screen.getByLabelText(/id/i);
     const emailField = screen.getByLabelText(/e-mail/i);
-    const passwordField = screen.getByLabelText(/password/i);
-    const confirmPasswordField = screen.getByLabelText(/confirm/i);
+    const passwordField = screen.getByPlaceholderText(/please input your password!/i);
+    const confirmPasswordField = screen.getByPlaceholderText(/please confirm your password!/i);
     const registerButton = screen.getByRole('button', { name: /register/i });
     const alreadyHaveAccount = screen.getByText(/already have an account?/i);
     const logIn = screen.getByRole('link', { name: 'Sign in' });
@@ -118,9 +118,9 @@ test('error message if the confirm password field is empty', async () => {
             <Register />
         </Router>
     );
-    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByPlaceholderText('Please confirm your password!'), { target: { value: 'password' } });
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
-    await screen.findByText('Please confirm your password!');
+    await screen.getByPlaceholderText('Please confirm your password!');
 });
 
 test('error message when passwords do not match', async () => {
@@ -129,8 +129,8 @@ test('error message when passwords do not match', async () => {
             <Register />
         </Router>
     );
-    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'password' } });
-    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'different_password' } });
+    fireEvent.change(screen.getByPlaceholderText('Please input your password!'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByPlaceholderText('Please confirm your password!'), { target: { value: 'different_password' } });
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
     await screen.findByText('The two passwords that you entered do not match!');
 });
@@ -142,34 +142,23 @@ test('error message if the password does not meet the required pattern', async (
         <Register />
       </Router>
     );
-    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'weakpassword' } });
+    fireEvent.change(screen.getByPlaceholderText('Please input your password!'), { target: { value: 'weakpassword' } });
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
     await screen.findByText('The password must contain at least 8 characters, at least one digit, at least one special symbol and at least one capital letter');
   });
   
 
-  const server = setupServer(
-    rest.post('/api/v1/auth/register', (req, res, ctx) => {
-      return res(ctx.status(200));
-    })
-  );
-  
-  beforeAll(() => server.listen());
-  afterEach(() => server.resetHandlers());
-  afterAll(() => server.close());
-  
-  /*
-  test('successful registration and navigate to login page', async () => {
+  test('successful registration and navigate to login page', async () => { 
     const { container } = render(
       <Router>
         <Register />
       </Router>
     );
   
-    fireEvent.change(screen.getByLabelText('ID'), { target: { value: 'test-id' } });
+    fireEvent.change(screen.getByLabelText('ID'), { target: { value: '1111111' } });
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@email.com' } });
-    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'P@ssw0rd!' } });
-    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'P@ssw0rd!' } });
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'P@ssw0rd!' } });
+    fireEvent.change(screen.getByLabelText('Confirm password'), { target: { value: 'P@ssw0rd!' } });
   
     fireEvent.click(screen.getByRole('button', { name: 'Register' }));
   
@@ -177,15 +166,27 @@ test('error message if the password does not meet the required pattern', async (
   
     await waitFor(() => {
         expect(message.success).toHaveBeenCalled();
-      }, { timeout: 5000 });
+      }),
   
     console.log('After waitFor message.success'); // Adaugă un log după waitFor
   
-    await waitFor(() => {
+    await waitFor ( () => {
       expect(window.location.pathname).toBe('/login');
-    }, { timeout: 5000 });
-  });
-  */
+    })
+  })
+
+
+  // const server = setupServer(
+  //   rest.post('/api/v1/auth/register', (req, res, ctx) => {
+  //     return res(ctx.status(200));
+  //   })
+  // );
+  
+  // beforeAll(() => server.listen());
+  // afterEach(() => server.resetHandlers());
+  // afterAll(() => server.close());
+
+
   
 
   

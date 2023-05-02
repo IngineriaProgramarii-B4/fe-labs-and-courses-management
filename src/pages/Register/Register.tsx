@@ -1,4 +1,4 @@
-import { Button, Form, Input,Select,Typography,message } from 'antd';
+import { Button, Form, Input, Select, Typography, message } from 'antd';
 import styles from './RegisterPage.module.scss';
 import React from 'react';
 import api from "../Login/api";
@@ -36,36 +36,33 @@ const tailFormItemLayout = {
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
-const register = async (values: RegisterFormData) => {
-  try {
-    const response = await api.post("/api/v1/auth/register", {
-      userId: values.ID,
-      email: values.email,
-      password: values.password,
-    });
+  const register = async (values: RegisterFormData) => {
+    try {
+      const response = await api.post("/api/v1/auth/register", {
+        userId: values.ID,
+        email: values.email,
+        password: values.password,
+      });
 
-    if (response.status === 200) {
-      message.success("Registration Successful");
-      // Redirecționează utilizatorul la pagina de autentificare pentru a se conecta
-      navigate("/login");
-    } else {
-      message.error("Registration failed");
+      if (response.status === 200) {
+        message.success("Registration Successful");
+        // Redirecționează utilizatorul la pagina de autentificare pentru a se conecta
+        navigate("/login");
+      } else {
+        message.error("Registration failed");
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        message.error("Registration failed: " + error.message);
+      } else {
+        message.error("Registration failed");
+      }
+      if (axios.isAxiosError(error) && error.response) {
+        console.error("Server response:", error.response);
+      }
     }
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      message.error("Registration failed: " + error.message);
-    } else {
-      message.error("Registration failed");
-    }
-    if (axios.isAxiosError(error) && error.response) {
-      console.error("Server response:", error.response);
-  }
-}
-};
+  };
   const [form] = Form.useForm();
-
-
- 
 
   return (
     <div>
@@ -83,10 +80,9 @@ const register = async (values: RegisterFormData) => {
         <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="ID"
           label="ID"
-          
           rules={[{ required: true, message: 'Please input your ID!', whitespace: true }]}
         >
-          <Input />
+          <Input placeholder='Please input your ID' />
         </Form.Item>
         <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="email"
@@ -102,12 +98,12 @@ const register = async (values: RegisterFormData) => {
             },
           ]}
         >
-          <Input />
+          <Input placeholder='Please input your E-mail!' />
         </Form.Item>
 
         <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="password"
-          label="password"
+          label="Password"
           rules={[
             {
               required: true,
@@ -121,12 +117,12 @@ const register = async (values: RegisterFormData) => {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password placeholder='Please input your password!' />
         </Form.Item>
 
         <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
           name="confirm"
-          label="confirm"
+          label="Confirm password"
           dependencies={['password']}
           hasFeedback
           rules={[
@@ -144,19 +140,22 @@ const register = async (values: RegisterFormData) => {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder='Please confirm your password!' />
         </Form.Item>
-
-       
 
         <Form.Item className={styles.PullUp}
           {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit" className={styles.btnRegister} >
             Register
           </Button>
-          <Typography.Text style={{ marginTop: '16px' }}>
-            Already have an account? <a href="/login">Sign in</a>
+
+          <Typography.Text >
+            <div className={styles.signInOption}>
+               Already have an account? <a href="/login">Sign in</a>
+            </div>
+           
           </Typography.Text>
+          
         </Form.Item>
 
       </Form>
