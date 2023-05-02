@@ -184,5 +184,22 @@ test('error message if the password does not meet the required pattern', async (
     });
   });
   
-
+/*
+  test('should display success message after registration', async () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
   
+    fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123456' } });
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@test.com' } });
+    fireEvent.change(screen.getByLabelText('password'), { target: { value: 'Test@1234' } });
+    fireEvent.change(screen.getByLabelText('confirm'), { target: { value: 'Test@1234' } });
+  
+    fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
+  
+    await waitFor(() => {
+      expect(message.success).toHaveBeenCalledWith('Registration Successful');
+    });
+  });*/

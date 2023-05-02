@@ -2,7 +2,8 @@
     display: flex;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(53.46deg, #0091d9 1.15%, #ffffff 101.52%);
+    // background: linear-gradient(53.46deg, #0091d9 1.15%, #ffffff 101.52%);
+    background: url("../../img/temporary_bg.jpg") center no-repeat;
     background-size: cover ;  
     justify-content: flex-start;
     align-items: center;
@@ -29,7 +30,8 @@
  }
  
  .resetButton{
-     border-radius: 0%;
+    background-color: #0097db;
+    border-radius: 0%;
  }
  
  @media screen and (max-width: 600px) {

@@ -39,7 +39,7 @@ function Reset() {
         <Input.Password placeholder='Enter your password'/>
       </Form.Item>
       <div>
-        <Button className={styles.LoginButton}  type="primary" htmlType="submit" block>Reset Password</Button>
+        <Button className={styles.resetButton}  type="primary" htmlType="submit" block>Reset Password</Button>
       </div>   
       </Form>
     </div>
