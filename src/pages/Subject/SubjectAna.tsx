@@ -7,7 +7,6 @@ import { Modal, Button, Input } from "antd";
 
 import { useSearchParams } from "react-router-dom";
 import EvalPieChart from "./PieChart";
-import EvalComponentDescription from "./EvalComponentDescription";
 
 interface MyVerticallyCenteredModalProps {
   title: string;
@@ -54,35 +53,35 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
       footer={
         editing
           ? [
-              <Button key="close" onClick={() => setEditing(false)}>
-                Close
-              </Button>,
-              <Button
-                data-testid="save-modal"
-                key="save"
-                type="default"
-                onClick={handleSave}
-              >
-                Save
-              </Button>,
-            ]
+            <Button key="close" onClick={() => setEditing(false)}>
+              Close
+            </Button>,
+            <Button
+              data-testid="save-modal"
+              key="save"
+              type="default"
+              onClick={handleSave}
+            >
+              Save
+            </Button>,
+          ]
           : [
-              <Button
-                data-testid="close-modal"
-                key="close"
-                onClick={() => props.setModalShow(false)}
-              >
-                Close
-              </Button>,
-              <Button
-                data-testid="edit-modal"
-                key="edit"
-                type="default"
-                onClick={handleEdit}
-              >
-                Edit
-              </Button>,
-            ]
+            <Button
+              data-testid="close-modal"
+              key="close"
+              onClick={() => props.setModalShow(false)}
+            >
+              Close
+            </Button>,
+            <Button
+              data-testid="edit-modal"
+              key="edit"
+              type="default"
+              onClick={handleEdit}
+            >
+              Edit
+            </Button>,
+          ]
       }
     >
       <h2 className="modal-title">{props.title}</h2>
@@ -119,6 +118,9 @@ const Course: React.FC<MyVerticallyCenteredModalProps> = (props) => {
   );
 };
 
+
+let [evaluationsArray, setEvaluationsArray] = [[], []];
+
 function SubjectAna() {
   const [modalShow, setModalShow] = useState(false);
   const title = "Course Title";
@@ -142,9 +144,11 @@ function SubjectAna() {
       });
       setAccordionData(accData);
       setDescription(result.data.description);
+      evaluationsArray = result.data.evaluations;
+      console.log(result.data.evaluations);
     };
     fetchData();
-  }, [subject]);
+  }, [subjectTitle]);
 
   return (
     <div className="app-container">
@@ -178,22 +182,9 @@ function SubjectAna() {
           </div>
           <div className="evaluation-container">
             <h1 className="evaluation-title">Evaluation</h1>
-            <div className="evaluation-body">
-              <div className="evaluation-text">
-                <EvalComponentDescription
-                  title={`TEST`}
-                  description={description!}
-                  subject={subject}
-                  type="exam"
-                  modalShow={modalShow}
-                  setModalShow={setModalShow}
-                  setDescription={setDescription}
-                />
-              </div>
               <div className="evaluation-piechart">
-                <EvalPieChart />
+                <EvalPieChart/>
               </div>
-            </div>
           </div>
           <div className="material-container">
             <h1>Resources</h1>
@@ -207,4 +198,5 @@ function SubjectAna() {
 }
 
 export { Course, MyVerticallyCenteredModal };
+export { evaluationsArray};
 export default SubjectAna;

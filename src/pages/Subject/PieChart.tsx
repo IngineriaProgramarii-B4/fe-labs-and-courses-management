@@ -1,28 +1,68 @@
 import {PieChart} from 'react-minimal-pie-chart';
+import { evaluationsArray } from './SubjectAna';
+import { useState } from 'react';
 
-function EvalPieChart() {
-
-  const dataMock = [
-      { title: 'One', value: 10, color: '#0000ff' },
-      { title: 'Two', value: 15, color: '#000099' },
-      { title: 'Three', value: 20, color: '#000033' },
-  ];
+function EvalPieChart(props : any) {
+  
+  const colors = ['#0000ff', '#000099', '#000033'];
+  function createPieChartData(evaluationsArray: { component: string; value: number; }[]) {
+    let evalData = [];
+    for (let i = 0; i < evaluationsArray.length; i++) {
+      evalData.push({
+        title: evaluationsArray[i].component,
+        value: evaluationsArray[i].value,
+        color: colors[i],
+      });
+    }
+    return evalData;
+  }
+  
+  
+  const [selectedSegment, setSelectedSegment] = useState<{ component: string, value: number, description: string } | null>(null);
+  function handleSegmentClick(index: number) {
+    const clickedEvaluation = evaluationsArray[index];
+    setSelectedSegment(clickedEvaluation);
+  }
 
 
   return (
-    <PieChart
-      data={dataMock}
-      lineWidth={25}
-      paddingAngle={5}
-      label={({ dataEntry }) => dataEntry.value}
-      labelStyle={(index) => ({
-        fill: dataMock[index].color,
-        fontSize: '5px',
-        fontFamily: 'sans-serif',
-      })}
-      radius={42}
-      labelPosition={112}
-    />
+    <div className="evaluation-body">
+      <PieChart
+        data={createPieChartData(evaluationsArray)}
+
+        lineWidth={25}
+        paddingAngle={3}
+        label={({ dataEntry }) => dataEntry.value}
+        labelStyle={(index) => ({
+          fill: colors[index],
+          fontSize: '0.35rem',
+          fontFamily: 'sans-serif',
+        })}
+        radius={40}
+        labelPosition={110}
+        totalValue={1} 
+        animate={true}
+        animationDuration={400}
+        background='#00000'
+        onClick={(_, index) => {
+          //afiseaza descrierea componentei
+          console.log(`Selected index: ${index}`)
+          console.log(evaluationsArray)
+          handleSegmentClick(index)
+          console.log(selectedSegment)
+
+        }
+        }
+      />
+      <div className="evaluation-description">
+        { selectedSegment ? (
+          <p>{selectedSegment.description}</p>
+        ) : (
+          <p>Select a segment to view its description</p>
+        )
+        } 
+      </div>
+    </div>
   );
 }
 
