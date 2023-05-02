@@ -1,43 +1,22 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  findAllByAltText,
+} from "@testing-library/react";
 import Accordion from "../Accordion";
 import axios, { AxiosInstance } from "axios";
+import MockAdapter from "axios-mock-adapter";
 
-//  jest.mock("axios");
+//jest.mock("axios");
 //  const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
+const mockAxios = new MockAdapter(axios);
+beforeEach(() => {
+  jest.resetAllMocks();
+});
 
 describe("Accordion", () => {
-  // function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
-  //   const instance = axios.create();
-  //   return {
-  //     ...instance,
-  //     get: jest.fn(),
-  //     put: jest.fn(),
-  //   } as unknown as jest.Mocked<AxiosInstance>;
-  // }
-
-  // let axiosInstance: jest.Mocked<AxiosInstance>;
-  // beforeEach(() => {
-  //   axiosInstance = createMockedAxiosInstance();
-
-  //   axiosInstanceMock.create.mockReturnValue(axiosInstance);
-  //   axiosInstance.get.mockResolvedValue({
-  //     data: [
-  //       {
-  //         title:"Course Title",
-
-  //       },
-  //     ],
-  //     status: 200,
-  //     statusText: "OK",
-  //     config: {},
-  //     headers: {},
-  //   });
-  // });
-
-  // afterEach(() => {
-  //   jest.clearAllMocks();
-  // });
-
   test("should render Acoordion component", async () => {
     //axiosInstanceMock.create.mockReturnValue(axiosInstance);
     render(<Accordion components={["Course"]} title={"Maths"} />);
@@ -47,14 +26,61 @@ describe("Accordion", () => {
     expect(accordionElement).toBeInTheDocument();
   });
 
-  it("renders the Accordion component with the correct props", () => {
+  test("renders the Accordion component with the correct props", () => {
     const components = ["Course"];
     const title = "Maths";
-    const { getByTestId } = render(
-      <Accordion components={components} title={title} />
-    );
+    render(<Accordion components={components} title={title} />);
   });
+
+  test("should  open the modal for the new component", async () => {
+    render(<Accordion components={["Course"]} title={"Maths"} />);
+    const addComponent = screen.getByTestId("add-button");
+    fireEvent.click(addComponent);
+    const modal = screen.getByTestId("modal");
+    expect(modal).toBeInTheDocument();
+  });
+  /*
+  test("should  open the modal for the new resource", async () => {
+    render(<Accordion components={["Course"]} title={"Maths"} />);
+    const addComponent = screen.getByTestId("add-button");
+    fireEvent.click(addComponent);
+    const modal = screen.getByTestId("modal");
+    expect(modal).toBeInTheDocument();
+  });
+  */
 });
+
+// function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
+//   const instance = axios.create();
+//   return {
+//     ...instance,
+//     get: jest.fn(),
+//     put: jest.fn(),
+//   } as unknown as jest.Mocked<AxiosInstance>;
+// }
+
+// let axiosInstance: jest.Mocked<AxiosInstance>;
+// beforeEach(() => {
+//   axiosInstance = createMockedAxiosInstance();
+
+//   axiosInstanceMock.create.mockReturnValue(axiosInstance);
+//   axiosInstance.get.mockResolvedValue({
+//     data: [
+//       {
+//         title:"Course Title",
+
+//       },
+//     ],
+//     status: 200,
+//     statusText: "OK",
+//     config: {},
+//     headers: {},
+//   });
+// });
+
+// afterEach(() => {
+//   jest.clearAllMocks();
+// });
 
 // import React from "react";
 // import { shallow, ShallowWrapper } from "enzyme";
