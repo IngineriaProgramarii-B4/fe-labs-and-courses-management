@@ -177,27 +177,18 @@ function SubjectAna() {
             />
           </div>
           <div className="evaluation-container">
-            <h1 className = "evaluation-title">Evaluation</h1>
+            <h1 className="evaluation-title">Evaluation</h1>
             <div className="evaluation-body">
               <div className="evaluation-text">
-              <MyVerticallyCenteredModal
-              //data-testid="modal-course-description"
-              title={title}
-              description={description!}
-              modalShow={modalShow}
-              setModalShow={setModalShow}
-              setDescription={setDescription}
-              subject={subject}
-            />
                 <EvalComponentDescription
-              title={`TEST`}
-              description={description!}
-              subject={subject}
-              type='exam' 
-              modalShow={modalShow}
-              setModalShow={setModalShow}
-              setDescription={setDescription}
-            />
+                  title={`TEST`}
+                  description={description!}
+                  subject={subject}
+                  type="exam"
+                  modalShow={modalShow}
+                  setModalShow={setModalShow}
+                  setDescription={setDescription}
+                />
               </div>
               <div className="evaluation-piechart">
                 <EvalPieChart />
