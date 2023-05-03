@@ -58,3 +58,30 @@ test("should render properly", () => {
     expect(screen.getByText(data.description)).toBeInTheDocument();
    });
 });
+
+//ReminderItem tests
+
+// const mockReminderData = {
+//   reminderId: "12345dsvfdsaz",
+//   dueDateTime: "02/05/2023",
+//   title: "Task title",
+//   description: "IP"
+// };
+
+// describe("ReminderItem", () => {
+//   test("should render the reminder data", () => {
+//     render(<ReminderItem {...mockReminderData} />);
+//     expect(screen.getByText(mockReminderData.title)).toBeInTheDocument();
+//     expect(screen.getByText(mockReminderData.description)).toBeInTheDocument();
+//     expect(screen.getByText(mockReminderData.dueDateTime)).toBeInTheDocument();
+//   });
+
+  // test("should open delete confirmation modal", () => {
+  //   render(<ReminderItem {...mockReminderData} />);
+  //   const deleteButton = screen.getByTitle("Delete Reminder");
+  //   fireEvent.click(deleteButton);
+  //   const modal = screen.getByRole("dialog");
+  //   expect(modal).toBeInTheDocument();
+  //   expect(screen.getByText("Are you sure you want to delete this reminder?")).toBeInTheDocument();
+  // });
+//});
