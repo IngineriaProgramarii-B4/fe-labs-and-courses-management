@@ -34,11 +34,11 @@ describe("SubjectAlex component", () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
     render(<SubjectAlex />);
-    const test1 = await screen.findByText("Math");
-    const test2 = await screen.findByText("Science");
+    const card1 = await screen.findByText("Math");
+    const card2 = await screen.findByText("Science");
 
-    expect(test2).toBeInTheDocument();
-    expect(test1).toBeInTheDocument();
+    expect(card1).toBeInTheDocument();
+    expect(card2).toBeInTheDocument();
   });
   
 
