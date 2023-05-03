@@ -13,6 +13,8 @@ const { Panel } = Collapse;
 interface AccordionProps {
   components: string[];
   title: string;
+  isModified: boolean;
+  setIsModified: (isModified: boolean) => void;
 }
 
 const Accordion: React.FC<AccordionProps> = (props) => {
@@ -44,13 +46,14 @@ const Accordion: React.FC<AccordionProps> = (props) => {
     const newComponent = {
       type: chosenComponent,
       numberWeeks: numberOfWeeks,
+      resources: []
     };
     try {
       await axios.post(
         `http://localhost:8090/api/v1/subjects/${props.title}/components`,
         newComponent
       );
-      props.components.push(chosenComponent);
+      props.setIsModified(props.isModified ? false : true);
       setChosenComponent("");
       setNumberOfWeeks(0);
       setIsAddModalOpen(false);
@@ -64,8 +67,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
       await axios.delete(
         `http://localhost:8090/api/v1/subjects/${props.title}/components/type=${componentToDelete}`
       );
-      props.components.splice(props.components.indexOf(componentToDelete), 1);
-      console.log(props.components);
+      props.setIsModified(props.isModified ? false : true);
     } catch (error) {
       console.log(error);
     }
