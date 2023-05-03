@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Catalog.module.scss";
 import axios from "axios";
 import AddGrade from "./components/AddGrade";
 import UpdateGrade from "./components/UpdateGrade";
 import DeleteGrade from "./components/DeleteGrade";
 import styles from "./Catalog.module.scss";
+import DropdownMenuSubject from "./components/DropdownMenuSubject";
+import DropdownMenuSem from "./components/DropdownMenuSem";
 
 interface Grade {
   value: number;
@@ -26,6 +27,8 @@ function Catalog() {
   const studentName = "User";
 
   const [grades, setGrades] = useState<Grade[]>([]);
+  const [userType, setUserType] = useState<string>("student");
+
   async function fetchGrades() {
     try {
       const response = await axios.get(
@@ -46,13 +49,16 @@ function Catalog() {
 
   useEffect(() => {
     fetchGrades();
+    setUserType("teacher");
   }, []);
 
   return (
     <>
       <div className={styles.catalog_wrapper}>
-        <AddGrade fetchGrades={fetchGrades} />
+        {userType === "teacher" && <AddGrade fetchGrades={fetchGrades} />}
         <h5 className={styles.username}>{studentName}'s Grades</h5>
+        <DropdownMenuSubject />
+        <DropdownMenuSem />
         <table className={styles.catalog_table}>
           <thead>
             <tr>
@@ -64,11 +70,15 @@ function Catalog() {
           </thead>
 
           <tbody>
-            {grades.map((grade, index) => (
-              <tr key={index}>
+            {grades.map((grade) => (
+              <tr key={grade.id}>
                 <td>
-                  <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
-                  <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                  {userType === "teacher" && (
+                    <>
+                      <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
+                      <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                    </>
+                  )}
                 </td>
                 <td>
                   <span className={styles.subject_value}>

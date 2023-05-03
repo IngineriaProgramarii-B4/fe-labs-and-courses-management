@@ -21,7 +21,7 @@ describe("Catalog", () => {
     });
   });
 
-  test("renders grades correctly", async () => {
+  test("fetches and stores response data correctly", async () => {
     const mockGrades = [
       {
         value: 8,
@@ -66,5 +66,9 @@ describe("Catalog", () => {
     await waitFor(() => {
       expect(screen.getByText("2023-04-01")).toBeInTheDocument();
     });
+
+    expect(axios.get).toHaveReturnedWith(
+      Promise.resolve({ data: { grades: mockGrades } })
+    );
   });
 });
