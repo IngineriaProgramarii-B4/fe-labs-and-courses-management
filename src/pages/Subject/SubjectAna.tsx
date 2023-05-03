@@ -4,122 +4,16 @@ import Accordion from "./Accordion";
 import axios from "axios";
 import "./SubjectAna.css";
 import { Modal, Button, Input } from "antd";
-
 import { useSearchParams } from "react-router-dom";
+import EvalPieChart from "./PieChart";
+import Course from "./Course";
+import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 
-interface MyVerticallyCenteredModalProps {
-  title: string;
-  description: string;
-  modalShow: boolean;
-  setModalShow: (show: boolean) => void;
-  setDescription: (description: string) => void;
-  subject: any;
-}
-const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
-  props
-) => {
-  const [inputDescription, setInputDescription] = useState(props.description);
-  const [editing, setEditing] = useState(false);
 
-  const handleOk = () => {
-    props.setDescription(inputDescription);
-    props.setModalShow(false);
-  };
-
-  const handleEdit = () => {
-    setEditing(true);
-  };
-
-  const handleSave = async () => {
-    //props.setDescription(inputDescription);
-    setEditing(false);
-    props.subject.description = inputDescription;
-    console.log(props.subject);
-    const result = await axios.put(
-      `http://localhost:8090/api/v1/subjects/subjectTitle=${props.subject.title}`,
-      props.subject
-    );
-    //setInputDescription(props.subject.description);
-  };
-
-  return (
-    <Modal
-      data-testid="course-modal"
-      open={props.modalShow}
-      onCancel={() => props.setModalShow(false)}
-      centered
-      footer={
-        editing
-          ? [
-              <Button key="close" onClick={() => setEditing(false)}>
-                Close
-              </Button>,
-              <Button
-                data-testid="save-modal"
-                key="save"
-                type="default"
-                onClick={handleSave}
-              >
-                Save
-              </Button>,
-            ]
-          : [
-              <Button
-                data-testid="close-modal"
-                key="close"
-                onClick={() => props.setModalShow(false)}
-              >
-                Close
-              </Button>,
-              <Button
-                data-testid="edit-modal"
-                key="edit"
-                type="default"
-                onClick={handleEdit}
-              >
-                Edit
-              </Button>,
-            ]
-      }
-    >
-      <h2 className="modal-title">{props.title}</h2>
-      {editing ? (
-        <Input.TextArea
-          data-testid="input-description"
-          value={inputDescription}
-          onChange={(e) => setInputDescription(e.target.value)}
-          placeholder="Enter description"
-          autoSize={{ minRows: 4, maxRows: 8 }}
-        />
-      ) : (
-        <p>{props.description}</p>
-      )}
-    </Modal>
-  );
-};
-
-const Course: React.FC<MyVerticallyCenteredModalProps> = (props) => {
-  return (
-    <div>
-      <h1 style={{ fontWeight: 600, fontSize: 20 }}>{props.title}</h1>
-      <p className="course-description">
-        {props.description.substring(0, 500)}...
-      </p>
-      <p
-        data-testid="more description"
-        onClick={() => props.setModalShow(true)}
-        style={{ textDecoration: "none", cursor: "pointer" }}
-      >
-        View Full Description
-      </p>
-    </div>
-  );
-};
+let [evaluationsArray, setEvaluationsArray] = [[], []];
 
 function SubjectAna() {
-  const [showList, setShowList] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const title = "Course Title";
   const [description, setDescription] = useState<string>("");
   const [subject, setSubject] = useState<any>();
@@ -130,29 +24,43 @@ function SubjectAna() {
   );
   const [accordionData, setAccordionData] = useState<string[]>([]);
 
+  const [isModified, setIsModified] = useState<boolean>(false);
+
+    const [imgSrc, setImgSrc] = useState<string>("");
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get<any>(
         `http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}`
       );
       setSubject(result.data);
-      const accData = result.data.components.map((component: any) => {
+      setDescription(result.data.description);
+
+      if(!result.data.image) {
+        setImgSrc("https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg");
+      }
+      else {
+        const img = await axios.get(
+          `http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
+          { responseType: "arraybuffer" }
+        );
+        const imgBlob = new Blob([img.data], { type: result.data.image.type });
+        const imgUrl = URL.createObjectURL(imgBlob);
+        setImgSrc(imgUrl);
+      }
+
+      const resultComponents = await axios.get<any>(
+        `http://localhost:8090/api/v1/subjects/${subjectTitle}/components`
+      );
+      const accData = resultComponents.data.map((component: any) => {
         return component.type;
       });
       setAccordionData(accData);
-      setDescription(result.data.description);
+      evaluationsArray = result.data.evaluations;
+      // console.log(result.data.evaluations);
     };
     fetchData();
-  }, [subject]);
-
-  const handleClick = (path: string) => {
-    setSelectedCourse(path);
-    setShowList(false);
-    /*  if (selectedCourse !== null) {
-      setSelectedCourse(null);
-    }
-    */
-  };
+  }, [isModified]);
 
   return (
     <div className="app-container">
@@ -161,7 +69,7 @@ function SubjectAna() {
         <div className="main-content">
           <img
             data-testid="image"
-            src="https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg"
+            src={imgSrc}
             alt="Couse image"
             className="img"
           />
@@ -182,10 +90,24 @@ function SubjectAna() {
               setModalShow={setModalShow}
               setDescription={setDescription}
               subject={subject}
+              isModified={isModified}
+              setIsModified={setIsModified}
             />
           </div>
+          <div className="evaluation-container">
+            <h1 className="evaluation-title">Evaluation</h1>
+              <div className="evaluation-piechart">
+                <EvalPieChart/>
+              </div>
+          </div>
           <div className="material-container">
-            <Accordion components={accordionData} title={subjectTitle} />
+            <h1>Resources</h1>
+            <Accordion 
+              components={accordionData} 
+              title={subjectTitle}
+              isModified={isModified}
+              setIsModified={setIsModified}   
+            />
           </div>
         </div>
       </div>
@@ -194,5 +116,5 @@ function SubjectAna() {
   );
 }
 
-export { Course, MyVerticallyCenteredModal };
+export { evaluationsArray};
 export default SubjectAna;

@@ -1,8 +1,8 @@
-.app-container {
+/* .app-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
+} */
 
 .app-header {
   background-color: #4cb0da;
@@ -87,9 +87,10 @@
   grid-column-end: span 2;
 }
 
-/* .main-container {
-  
-  } */
+.main-container {
+  padding: 1rem 0 5rem 0;
+  }
+
 .accordion {
   display: grid;
   grid-template-rows: max-content;
@@ -220,4 +221,38 @@
 .course-description {
   max-width: 500px;
   word-wrap: break-word;
+}
+
+
+/* *** evaluation **** */
+
+.evaluation-container {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: span 2;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.evaluation-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.evaluation-body {
+  display:grid;
+  grid-gap: 20px;
+  grid-template-rows: 1;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.evaluation-piechart {
+  display: block;
+  height: fit-content;
 }
