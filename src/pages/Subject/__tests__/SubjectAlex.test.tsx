@@ -29,15 +29,18 @@ describe("SubjectAlex component", () => {
     jest.resetAllMocks();
   });
 
-  /*
+  
   test("renders the component", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
     render(<SubjectAlex />);
-    expect(screen.getByText("Math")).toBeInTheDocument();
-    expect(screen.getByText("Science")).toBeInTheDocument();
+    const test1 = await screen.findByText("Math");
+    const test2 = await screen.findByText("Science");
+
+    expect(test2).toBeInTheDocument();
+    expect(test1).toBeInTheDocument();
   });
-  */
+  
 
   test("fetches the data from the API", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
