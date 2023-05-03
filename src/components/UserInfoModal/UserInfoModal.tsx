@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Divider, Modal, Space, Spin, Tooltip, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -137,7 +137,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
 
   // @ts-ignore
-  const {isUserModified, setIsUserModified} = useContext(UserContext)
+  const { setIsUserModified} = useContext(UserContext)
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8090/api/v1",

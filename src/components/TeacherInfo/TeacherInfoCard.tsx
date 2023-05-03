@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Card } from "antd";
 import CoursesCard, {courseData } from "./CourseCard";
 import axios from "axios";
 import { useParams } from "react-router-dom";

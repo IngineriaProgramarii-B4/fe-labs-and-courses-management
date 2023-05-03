@@ -6,13 +6,13 @@ import RemindersCard, { RemindersCardBody } from "./RemindersCard";
 
 const mockedRemindersData: ReminderDataProps[] = [
   {
-    reminderId: "dfsf123gddfg",
+    id: "dfsf123gddfg",
     dueDateTime: "01/06/2023",
     title: "Task 1",
     description: "Finish a book"
   },
   {
-    reminderId: "dfssfdgdf345fbcxz",
+    id: "dfssfdgdf345fbcxz",
     dueDateTime: "01/05/2023",
     title: "Task 2",
     description: "Feed Linux"
@@ -34,7 +34,7 @@ describe("RemindersCardBody", () => {
 test("should render properly", () => {
   render(<RemindersCard />);
   mockedRemindersData.forEach((data) => {
-    expect(screen.getByText(data.reminderId)).toBeInTheDocument();
+    expect(screen.getByText(data.id)).toBeInTheDocument();
     expect(screen.getByText(data.dueDateTime)).toBeInTheDocument();
     expect(screen.getByText(data.title)).toBeInTheDocument();
     expect(screen.getByText(data.description)).toBeInTheDocument();

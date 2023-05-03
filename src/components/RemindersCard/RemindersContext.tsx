@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 export const RemindersContext = createContext({});
 export type ReminderDataProps = {
-  reminderId: string;
+  id: string;
   dueDateTime: string;
   title: string;
   description: string;
@@ -16,16 +16,22 @@ export default function RemindersContextProvider({ children }) {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [reminders, setReminders] = useState<ReminderDataProps[]>([]);
-  const [isModalDeleteReminderOpen, setIsModalDeleteReminderOpen] = useState<boolean>(false)
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8090/api/v1",
     headers: { "Content-Type": "application/json" }
   });
-  useEffect(() => {
+  console.log(reminders)
+  const getData = () => {
     axiosInstance.get("/reminders/loggeduser") // TODO: get the reminders of the actual connected user
-      .then((res: { data: ReminderDataProps[]; }) => res.data)
-      .then((data: ReminderDataProps[]) => setReminders(data))
-      .catch((err: any) => console.error(err));
+      .then(res => res.data)
+      .then(data => {
+        setReminders(data);
+      })
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   const saveNewReminder = () => {
@@ -36,22 +42,19 @@ export default function RemindersContextProvider({ children }) {
       creatorUsername: "loggeduser" //TODO: change the username to the current logged user
     })
       .then(() => {
-        console.log("Resource updated");
-        axiosInstance.get("/reminders/loggeduser") // TODO: get the reminders of the actual connected user
-          .then(res => res.data)
-          .then(data => setReminders(data))
-          .catch(err => console.error(err));
+        getData();
       })
       .catch((err) => console.error(err));
   };
 
-  const deleteReminder = (reminderId : string) => {
-    toast.success("Reminder deleted");
-
+  const deleteReminder = (reminderId: string) => {
     // TODO delete the reminder
-    // axiosInstance.delete(`/reminders/${reminderId}`)
-    //   .then((res) => console.log(res))
-    //   .catch(err => console.error(err))
+    axiosInstance.delete(`/reminders/${reminderId}`)
+      .then((res) => {
+        toast.success("Reminder deleted");
+        getData();
+      })
+      .catch(err => console.error(err));
   };
 
   return (
@@ -68,8 +71,7 @@ export default function RemindersContextProvider({ children }) {
         setReminders,
         axiosInstance,
         deleteReminder,
-        setIsModalDeleteReminderOpen,
-        isModalDeleteReminderOpen
+        getData
       }}>
       {children}
     </RemindersContext.Provider>

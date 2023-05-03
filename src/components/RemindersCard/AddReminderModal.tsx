@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
-import { Form, Input, Button, DatePicker, ConfigProvider } from "antd";
+import React, { useContext } from "react";
+import { Form, Input, Button, DatePicker, ConfigProvider, Modal } from "antd";
 import { RemindersContext } from "./RemindersContext";
-import { Modal } from "antd";
 
 type voidFn = () => void
 

@@ -2,16 +2,17 @@ import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { RemindersContext, ReminderDataProps } from "./RemindersContext";
+import { RemindersContext } from "./RemindersContext";
 import { toast } from "react-toastify";
 
-export default function ReminderItem({ dueDateTime, title, description, reminderId }: ReminderDataProps) {
+// @ts-ignore
+export default function ReminderItem({ dueDateTime, title, description, id, deleteReminder } ) {
   const [newDescription, setNewDescription] = useState(description);
   const [newDueDate, setNewDueDate] = useState(dueDateTime);
   const [editableDescription, setEditableDescription] = useState(false);
   const [editableDueDate, setEditableDueDate] = useState(false);
   // @ts-ignore
-  const { setIsModalDeleteReminderOpen, isModalDeleteReminderOpen, deleteReminder } = useContext(RemindersContext);
+  const [ isModalDeleteReminderOpen, setIsModalDeleteReminderOpen  ] = useState(false);
 
   return (
     <>
@@ -30,8 +31,9 @@ export default function ReminderItem({ dueDateTime, title, description, reminder
             }}>Cancel</Button>
 
             <Button danger onClick={() => {
-              deleteReminder(reminderId);
+              console.log(id)
               setIsModalDeleteReminderOpen(false);
+              deleteReminder();
             }}>Ok</Button>
           </>
         }
@@ -40,6 +42,8 @@ export default function ReminderItem({ dueDateTime, title, description, reminder
         <h1 className="font-semibold text-base">{title}</h1>
         <FontAwesomeIcon icon={faTrash} className="cursor-pointer ml-auto hover:text-red-500"
                          onClick={() => {
+
+                           console.log(id)
                            setIsModalDeleteReminderOpen(true);
                          }} />
       </div>

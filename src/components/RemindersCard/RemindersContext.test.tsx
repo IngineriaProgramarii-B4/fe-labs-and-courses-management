@@ -5,13 +5,13 @@ import RemindersContextProvider, { RemindersContext, ReminderDataProps } from ".
 
 const mockedRemindersData: ReminderDataProps[] = [
   {
-    reminderId: "24534dsvfdsaz",
+    id: "24534dsvfdsaz",
     dueDateTime: "01/06/2023",
     title: "Task 1",
     description: "Finish a book"
   },
   {
-    reminderId: "876534dswet2vfdsaz",
+    id: "876534dswet2vfdsaz",
     dueDateTime: "01/05/2023",
     title: "Task 2",
     description: "Feed Linux"
@@ -52,7 +52,7 @@ test("should render properly", () => {
           <div></div>
     </RemindersContextProvider>);
   mockedRemindersData.forEach((data) => {
-    expect(screen.getByText(data.reminderId)).toBeInTheDocument();
+    expect(screen.getByText(data.id)).toBeInTheDocument();
     expect(screen.getByText(data.dueDateTime)).toBeInTheDocument();
     expect(screen.getByText(data.title)).toBeInTheDocument();
     expect(screen.getByText(data.description)).toBeInTheDocument();

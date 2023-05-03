@@ -7,6 +7,7 @@ import NetworkCard from "./NetworkCard";
 import UserHeader from "./UserHeader";
 import UserInfoFields from "./UserInfoFields";
 import axios, { AxiosInstance } from "axios";
+import { BrowserRouter } from "react-router-dom";
 
 jest.mock("axios");
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
@@ -117,7 +118,11 @@ describe("NetworkCard", () => {
   test("should render properly", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     await act(async () => {
-      render(<NetworkCard />);
+      render(
+      <BrowserRouter>
+        <NetworkCard />
+      </BrowserRouter>
+      );
     });
 
     await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
