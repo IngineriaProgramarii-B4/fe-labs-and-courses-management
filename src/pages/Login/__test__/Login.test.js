@@ -80,7 +80,7 @@ test('renders form with expected fields', () => {
     expect(passwordField).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
     expect(rememberMe).toBeInTheDocument();
-    expect(forgotPassword).toHaveAttribute('href', 'http://localhost:3000/resetPassword');
+    expect(forgotPassword).toHaveAttribute('href', 'http://localhost:3000/sendMail');
   });
 // Testează validarea input-ului de email
 test('validate email input', async () => {
@@ -132,10 +132,3 @@ test('validate email input', async () => {
     apiPostSpy.mockRestore();
     setItemSpy.mockRestore();
   });
-  
-  
-  
-  
-  
-  
-  
