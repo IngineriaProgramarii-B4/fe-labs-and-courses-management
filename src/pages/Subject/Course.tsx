@@ -14,7 +14,7 @@ const Course: React.FC<MyVerticallyCenteredModalProps> = (props) => {
     <div>
       <h1 style={{ fontWeight: 600, fontSize: 20 }}>{props.title}</h1>
       <p //className="course-description"
-        className="items-center max-w-sm:150px  max-w-md:300px  max-w-lg:400px"
+        className="items-center max-w-sm:150px  max-w-md:300px  max-w-lg:400px break-words"
       >
         {props.description.substring(0, 500)}...
       </p>

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Collapse, Button, Modal, Input, Form, Select, Popconfirm } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Collapse, Modal, Input, Form, Select, Popconfirm } from "antd";
 import ResourcesTable from "./ResourcesTable";
 //import "./Accordion.css";
 const { Panel } = Collapse;
@@ -70,6 +72,26 @@ const Accordion: React.FC<AccordionProps> = (props) => {
 
   return (
     <div data-testid="accordion-1">
+      {comps.length < 3 ? (
+        <FontAwesomeIcon
+          data-testid="add-button"
+          onClick={showAddModal}
+          icon={faPlus}
+          className="mb-10 px-10 hover:text-blue-500"
+          size="2x"
+        />
+      ) : /*<Button
+          data-testid="add-button"
+          //className="add-button second"
+          className="bg-blue-500 hover:bg-blue-600 text-white mb-12 mt-4"
+          type="primary"
+          onClick={showAddModal}
+        >
+          Add Component
+        </Button>
+        */
+      null}
+
       <Collapse accordion={true} ghost>
         {comps.map((component) => {
           return (
@@ -84,31 +106,18 @@ const Accordion: React.FC<AccordionProps> = (props) => {
                   deleteComponent();
                 }}
               >
-                <Button
-                  //className="add-button"
-                  className="bg-blue-500 hover:bg-blue-600 text-white mb-12"
-                  type="primary"
+                <FontAwesomeIcon
                   onClick={() => setComponentToDelete(component)}
-                >
-                  Delete Component
-                </Button>
+                  icon={faTrash}
+                  className="mb-10 px-10 float-right hover:text-red-500 "
+                  size="2x"
+                />
               </Popconfirm>
               <ResourcesTable component={component} title={props.title} />
             </Panel>
           );
         })}
       </Collapse>
-      {comps.length < 3 ? (
-        <Button
-          data-testid="add-button"
-          //className="add-button second"
-          className="bg-blue-500 hover:bg-blue-600 text-white mb-12 mt-4"
-          type="primary"
-          onClick={showAddModal}
-        >
-          Add Component
-        </Button>
-      ) : null}
 
       <Modal
         data-testid="modal"

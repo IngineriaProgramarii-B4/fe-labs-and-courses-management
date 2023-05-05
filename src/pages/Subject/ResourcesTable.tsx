@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Popconfirm, Table, Button, Modal, Typography } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolderPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ColumnsType } from "antd/es/table";
 import FileTransfer from "./FileTransfer";
 
@@ -82,7 +84,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           title="Sure to delete?"
           onConfirm={() => handleDelete(record.key)}
         >
-          <a>Delete</a>
+          <FontAwesomeIcon icon={faTrash} className="hover:text-red-500 " />
         </Popconfirm>
       ),
     },
@@ -132,17 +134,15 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
   const [clearFileList, setClearFileList] = useState(false);
   return (
     <div>
-      <Button
+      <FontAwesomeIcon
         data-testid="add-button"
-        type="primary"
-        //className="add-button"
-        className="bg-blue-500 hover:bg-blue-600 text-white mb-12"
         onClick={() => {
           showModal();
         }}
-      >
-        Add resources
-      </Button>
+        icon={faFolderPlus}
+        size="2x"
+        className=" px-10 hover:text-blue-500"
+      />
       <Modal
         data-testid="modal"
         title={"Add resource"}
