@@ -1,13 +1,8 @@
 import axios from "axios";
-//Import Ant Components
 import React, { useEffect, useState } from "react";
 import { Collapse, Button, Modal, Input, Form, Select, Popconfirm } from "antd";
-
-import "./Accordion.css"; // Import the CSS file for styling
-
 import ResourcesTable from "./ResourcesTable";
-import { Components } from "antd/es/date-picker/generatePicker";
-
+//import "./Accordion.css";
 const { Panel } = Collapse;
 
 interface AccordionProps {
@@ -46,7 +41,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
     const newComponent = {
       type: chosenComponent,
       numberWeeks: numberOfWeeks,
-      resources: []
+      resources: [],
     };
     try {
       await axios.post(
@@ -75,19 +70,23 @@ const Accordion: React.FC<AccordionProps> = (props) => {
 
   return (
     <div data-testid="accordion-1">
-      <Collapse className="main-accordion" accordion={true} ghost>
+      <Collapse accordion={true} ghost>
         {comps.map((component) => {
           return (
             <Panel header={component} key={component}>
               <Popconfirm
-                okButtonProps={{ className: "okbutton" }}
+                // okButtonProps={{ className: "okbutton" }}
+                okButtonProps={{
+                  className: "bg-blue-500 hover:bg-blue-600 text-white",
+                }}
                 title="Sure to delete?"
                 onConfirm={() => {
                   deleteComponent();
                 }}
               >
                 <Button
-                  className="add-button"
+                  //className="add-button"
+                  className="bg-blue-500 hover:bg-blue-600 text-white mb-12"
                   type="primary"
                   onClick={() => setComponentToDelete(component)}
                 >
@@ -102,7 +101,8 @@ const Accordion: React.FC<AccordionProps> = (props) => {
       {comps.length < 3 ? (
         <Button
           data-testid="add-button"
-          className="add-button second"
+          //className="add-button second"
+          className="bg-blue-500 hover:bg-blue-600 text-white mb-12 mt-4"
           type="primary"
           onClick={showAddModal}
         >
@@ -113,7 +113,10 @@ const Accordion: React.FC<AccordionProps> = (props) => {
       <Modal
         data-testid="modal"
         title="Add Component"
-        okButtonProps={{ className: "okbutton" }}
+        // okButtonProps={{ className: "okbutton" }}
+        okButtonProps={{
+          className: "bg-blue-500 hover:bg-blue-600 text-white",
+        }}
         open={isAddModalOpen}
         onCancel={hideAddModal}
         onOk={saveComponent}

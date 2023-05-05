@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Upload, Typography, Space } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import React, { useState } from "react";

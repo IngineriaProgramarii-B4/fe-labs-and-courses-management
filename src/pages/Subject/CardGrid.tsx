@@ -1,16 +1,7 @@
-import axios from "axios";
-import "./SubjectAlex.css";
+//import "./SubjectAlex.css";
 import SubjectCard from "./SubjectCard";
 import AddSubjectCard from "./AddSubjectCard";
 import React, { useState, useEffect } from "react";
-import { Card, Button, Modal, Form, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { Select } from "antd";
-import { Row, Col } from "antd";
-import PhotoUpload from "./PhotoUpload";
-const { TextArea } = Input;
-const { Meta } = Card;
-
 interface Subject {
   id: number;
   title: string;
@@ -35,9 +26,14 @@ const CardGrid: React.FC<CardGridProps> = (props) => {
   }, [props.cards]);
 
   return (
-    <div className="container cardgrid">
+    //<div className="container cardgrid">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8 py-8 items-center text-center">
       {cardGrid.map((card) => (
-        <div className="card-wrapper" key={card.id}>
+        // <div className="card-wrapper" key={card.id}>
+        <div
+          className=" grid content-center justify-center items-center"
+          key={card.id}
+        >
           <div data-testid="subject-card">
             <SubjectCard
               card={card}

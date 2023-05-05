@@ -1,7 +1,7 @@
 import axios from "axios";
 import CardGrid from "./CardGrid";
 import React, { useEffect, useState } from "react";
-import "./SubjectAlex.css";
+//import "./SubjectAlex.css";
 
 interface Subject {
   id: number;
@@ -32,7 +32,9 @@ function SubjectAlex() {
 
   return (
     <>
-      <div className="=app-container">
+      <div //className="=app-container"
+        className="grid gap-8 px-8 py-8 items-center text-center"
+      >
         <CardGrid
           cards={cards}
           setCards={setCards}

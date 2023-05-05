@@ -1,12 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Table, Button, Modal, Space, Typography } from "antd";
+import { Popconfirm, Table, Button, Modal, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { PlusOutlined } from "@ant-design/icons";
-import { Form, Input } from "antd";
 import FileTransfer from "./FileTransfer";
 
-import "./Accordion.css";
+//import "./Accordion.css";
 
 interface DataType {
   key: React.Key;
@@ -77,7 +75,10 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       key: "action",
       render: (_, record: any) => (
         <Popconfirm
-          okButtonProps={{ className: "okbutton" }}
+          //okButtonProps={{ className: "okbutton" }}
+          okButtonProps={{
+            className: "bg-blue-500 hover:bg-blue-600 text-white",
+          }}
           title="Sure to delete?"
           onConfirm={() => handleDelete(record.key)}
         >
@@ -134,7 +135,8 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       <Button
         data-testid="add-button"
         type="primary"
-        className="add-button"
+        //className="add-button"
+        className="bg-blue-500 hover:bg-blue-600 text-white mb-12"
         onClick={() => {
           showModal();
         }}
@@ -152,7 +154,8 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         }}
         footer={
           <Button
-            className="okbutton"
+            //className="okbutton"
+            className="bg-blue-500 hover:bg-blue-600 text-white"
             key="ok"
             type="primary"
             onClick={() => {

@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import { InboxOutlined, FileOutlined } from "@ant-design/icons";
-import { Space, Typography, UploadProps } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
 
