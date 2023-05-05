@@ -13,7 +13,9 @@ import SubjectAna from "../pages/Subject/SubjectAna";
 import RemindersCard from "../components/RemindersCard/RemindersCard";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import TeacherInfoCard from "../components/TeacherInfo/TeacherInfoCard";
-
+import Register from "../pages/Register/Register";
+import Reset from "../pages/ResetPassword/Reset";
+import SendMail from "../pages/SendEmail/SendMail";
 export const router = createBrowserRouter([
   {
     path: "*",
@@ -25,7 +27,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        index: true,
         element: <Home />,
       },
       {
@@ -38,8 +39,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/login"} />,
       },
+
       {
         path: "/reminders",
         element: (
@@ -50,7 +52,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/index",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/login"} />,
       },
       {
         path: "/test",
@@ -72,6 +74,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
+    index: true,
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/resetPassword",
+    element: <Reset />,
+  },
+  {
+    path: "/sendMail",
+    element: <SendMail />,
   },
 ]);
