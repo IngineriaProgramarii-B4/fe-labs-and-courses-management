@@ -1,7 +1,8 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import ResourcesTable from "../ResourcesTable";
-import { Course, MyVerticallyCenteredModal } from "../SubjectAna";
+import Course from "../Course";
+import MyVerticallyCenteredModal from "../MyVerticallyCenteredModal";
 import userEvent from "@testing-library/user-event";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 

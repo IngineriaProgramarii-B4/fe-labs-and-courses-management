@@ -18,8 +18,9 @@ beforeEach(() => {
 
 describe("Accordion", () => {
   test("should render Acoordion component", async () => {
+    
     //axiosInstanceMock.create.mockReturnValue(axiosInstance);
-    render(<Accordion components={["Course"]} title={"Maths"} />);
+    render(<Accordion components={["Course"]} title={"Maths"} isModified={false} setIsModified={jest.fn} />);
     //screen.debug();
     //await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
     const accordionElement = screen.getByTestId("accordion-1");
@@ -29,11 +30,11 @@ describe("Accordion", () => {
   test("renders the Accordion component with the correct props", () => {
     const components = ["Course"];
     const title = "Maths";
-    render(<Accordion components={components} title={title} />);
+    render(<Accordion components={components} title={title} isModified={false} setIsModified={jest.fn}/>);
   });
 
   test("should  open the modal for the new component", async () => {
-    render(<Accordion components={["Course"]} title={"Maths"} />);
+    render(<Accordion components={["Course"]} title={"Maths"} isModified={false} setIsModified={jest.fn} />);
     const addComponent = screen.getByTestId("add-button");
     fireEvent.click(addComponent);
     const modal = screen.getByTestId("modal");
