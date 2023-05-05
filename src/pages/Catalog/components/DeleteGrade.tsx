@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

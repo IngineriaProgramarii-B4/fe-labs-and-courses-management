@@ -1,43 +1,114 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import axios from "axios";
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import SubjectAlex from "../SubjectAlex";
+import SubjectCard from '../SubjectCard';
 
-describe("SubjectAlex", () => {
-  test("renders subject cards", async () => {
-    render(<SubjectAlex/>);
+jest.mock("axios");
 
-    const cards = await screen.findAllByTestId("subject-card");
-    expect(cards.length).toBeGreaterThan(0);
+describe("SubjectAlex component", () => {
+  const mockedData = [
+    {
+      id: 1,
+      title: "Math",
+      description: "Lorem ipsum",
+      year: 2022,
+      semester: 1,
+      credits: 5,
+    },
+    {
+      id: 2,
+      title: "Science",
+      description: "Dolor sit amet",
+      year: 2022,
+      semester: 2,
+      credits: 4,
+    },
+  ];
+
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
 
-  test("opens subject modal on add card button click", async () => {
-    render(<SubjectAlex/>);
+  
+  test("renders the component", async () => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-    const addCardButton = await screen.findByTestId("add-card-button");
-    fireEvent.click(addCardButton);
+    render(<SubjectAlex />);
+    const card1 = await screen.findByText("Math");
+    const card2 = await screen.findByText("Science");
 
-    const subjectModalOutline = await screen.findByTestId("add-card-outline");
-    expect(subjectModalOutline).toBeInTheDocument();
+    expect(card1).toBeInTheDocument();
+    expect(card2).toBeInTheDocument();
+  });
+  
 
-    const subjectModalTitle = await screen.findByTestId("add-card-title");
-    expect(subjectModalTitle).toBeInTheDocument();
+  test("fetches the data from the API", async () => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
+
+    render(<SubjectAlex />);
+
+    expect(axios.get).toHaveBeenCalledWith(
+      "http://localhost:8090/api/v1/subjects"
+    );
+
+    expect(await screen.findByText("Math")).toBeInTheDocument();
+    expect(await screen.findByText("Science")).toBeInTheDocument();
   });
 
-  // test("opens edit form on edit button click", async () => {
+  test("'no' button doesn't delete the card", async() => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-  //   render(<SubjectAlex/>);
+    render(<SubjectAlex />);
+    const deleteButton = await screen.findAllByText("Delete");
+    fireEvent.click(deleteButton[0]);
 
-  //   const editButton = await screen.findAllByTestId("edit-button");
-  //   fireEvent.click(editButton[0]);
+    expect(await screen.findByText("Are you sure you wish to delete this subject?")).toBeInTheDocument();
+    expect(await screen.findByText("You can't revert your actions")).toBeInTheDocument();
+    
+    const noButton = await screen.findByText("No");
+    const yesButton = await screen.findByText("Yes");
 
-  //   const descriptionInput = await screen.findByLabelText("Description");
-  //   fireEvent.change(descriptionInput, { target: { value: "New Description" } });
+    expect(noButton).toBeInTheDocument;
+    expect(yesButton).toBeInTheDocument;
 
-  //   const submitButton = await screen.findByTestId("submit-button");
-  //   fireEvent.click(submitButton);
+    fireEvent.click(noButton);
+    
+    const card1 = await screen.findByText("Math");
+    expect(card1).toBeInTheDocument();
 
-  //   const updatedTitle = await screen.findAllByText("New Description");
-  //   expect(updatedTitle[0]).toBeInTheDocument();
-  // });
+  });
+
+
+  test("delete button trigger axios.delete", async() => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
+    (axios.delete as jest.Mock).mockResolvedValue({});
+
+    render(<SubjectAlex />);
+    const deleteButton = await screen.findAllByText("Delete");
+    fireEvent.click(deleteButton[0]);
+    
+    const yesButton = await screen.findByText("Yes");
+
+    expect(yesButton).toBeInTheDocument;
+
+    fireEvent.click(yesButton);
+    
+    expect(axios.delete).toHaveBeenCalledTimes(1);
+
+  });
+
+  test("edit button opens form", async() => {
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
+
+    render(<SubjectAlex />);
+    const editButton = await screen.findAllByText("Edit");
+    expect(editButton[0]).toBeInTheDocument;
+    fireEvent.click(editButton[0]);
+    
+    const formTitle = await screen.findByText("Edit Subject");
+    expect(formTitle).toBeInTheDocument;
+
+  });
+  
 });

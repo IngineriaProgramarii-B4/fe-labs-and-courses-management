@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Input, Form } from "antd";
 import axios from "axios";
 import styles from "../Catalog.module.scss";
@@ -45,7 +44,6 @@ export default function UpdateGrade(props: {
         },
         {
           headers: {
-            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
           },
         }
