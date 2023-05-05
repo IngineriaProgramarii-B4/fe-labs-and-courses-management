@@ -3,11 +3,9 @@ import Accordion from "./Accordion";
 import axios from "axios";
 //import "./SubjectAna.css";
 import { useSearchParams } from "react-router-dom";
-import EvalPieChart from "./PieChart";
+import PieChart from "./PieChart";
 import Course from "./Course";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
-
-let [evaluationsArray, setEvaluationsArray] = [[], []];
 
 function SubjectAna() {
   const [modalShow, setModalShow] = useState(false);
@@ -54,7 +52,6 @@ function SubjectAna() {
         return component.type;
       });
       setAccordionData(accData);
-      evaluationsArray = result.data.evaluations;
       // console.log(result.data.evaluations);
     };
     fetchData();
@@ -116,7 +113,7 @@ function SubjectAna() {
               // className="evaluation-piechart"
               className="block max-h-fit"
             >
-              <EvalPieChart />
+              <PieChart title={subjectTitle}/>
             </div>
           </div>
           <div //className="material-container"
@@ -139,5 +136,5 @@ function SubjectAna() {
   );
 }
 
-export { evaluationsArray };
+
 export default SubjectAna;
