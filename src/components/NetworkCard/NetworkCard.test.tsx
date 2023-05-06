@@ -135,12 +135,10 @@ describe("NetworkCard", () => {
   });
 });
 
-// describe("NetworkCard", () => {
-//   it("should handle error when fetching data", async () => {
-//     const error = new Error("404 Not Found");
-//     (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce({ response: { status: 404 }, error });
+test("should handle error when fetching data", async () => {
+  const error = new Error("404 Haven't found users that match the requirements");
+  (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce({ response: { status: 404 }});
 
-//     const { getByText } = render(<NetworkCard />);
-//     await waitFor(() => expect(getByText("Error occurred")).toBeInTheDocument());
-//   });
-// });
+  const networkCard = screen.queryByTestId('network-card');
+  expect(networkCard).toBeNull();
+});
