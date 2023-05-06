@@ -132,3 +132,38 @@ test('validate email input', async () => {
     apiPostSpy.mockRestore();
     setItemSpy.mockRestore();
   });
+
+  jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+  
+    return {
+      ...originalModule,
+      useNavigate: jest.fn(),
+    };
+  });
+  test('redirect to home if user is authenticated', () => {
+    const navigateSpy = jest.fn();
+    const useNavigate = require('react-router-dom').useNavigate;
+    useNavigate.mockReturnValue(navigateSpy);
+  
+    localStorage.setItem('token', 'fake-jwt-token');
+  
+    render(<Router><Login /></Router>);
+  
+    expect(navigateSpy).toHaveBeenCalledWith('/Home');
+    localStorage.removeItem('token');
+    useNavigate.mockRestore();
+  });
+  
+  test('no redirect if user is not authenticated', () => {
+    const navigateSpy = jest.fn();
+    const useNavigate = require('react-router-dom').useNavigate;
+    useNavigate.mockReturnValue(navigateSpy);
+  
+    localStorage.removeItem('token');
+  
+    render(<Router><Login /></Router>);
+  
+    expect(navigateSpy).not.toHaveBeenCalledWith('/Home');
+    useNavigate.mockRestore();
+  });
