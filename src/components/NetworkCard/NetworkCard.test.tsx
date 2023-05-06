@@ -134,3 +134,13 @@ describe("NetworkCard", () => {
     });
   });
 });
+
+// describe("NetworkCard", () => {
+//   it("should handle error when fetching data", async () => {
+//     const error = new Error("404 Not Found");
+//     (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce({ response: { status: 404 }, error });
+
+//     const { getByText } = render(<NetworkCard />);
+//     await waitFor(() => expect(getByText("Error occurred")).toBeInTheDocument());
+//   });
+// });
