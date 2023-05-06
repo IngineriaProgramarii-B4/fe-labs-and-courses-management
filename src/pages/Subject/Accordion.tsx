@@ -2,15 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import {
-  Collapse,
-  Modal,
-  Input,
-  Form,
-  Select,
-  Popconfirm,
-  InputNumber,
-} from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Collapse, Modal, Input, Form, Select, InputNumber } from "antd";
 import ResourcesTable from "./ResourcesTable";
 //import "./Accordion.css";
 const { Panel } = Collapse;
@@ -87,6 +80,15 @@ const Accordion: React.FC<AccordionProps> = (props) => {
     }
   };
 
+  const handleCancel = () => {
+    setIsModalOpen2(false);
+  };
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+
+  const showModal2 = () => {
+    setIsModalOpen2(true);
+  };
+
   const deleteComponent = async () => {
     try {
       await axios.delete(
@@ -124,21 +126,38 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         {comps.map((component) => {
           return (
             <Panel header={component} key={component}>
-              <Popconfirm
-                // okButtonProps={{ className: "okbutton" }}
-                okType="danger"
-                title="Sure to delete?"
-                onConfirm={() => {
-                  deleteComponent();
-                }}
-              >
+              <div>
                 <FontAwesomeIcon
-                  onClick={() => setComponentToDelete(component)}
+                  onClick={() => {
+                    setComponentToDelete(component);
+                    showModal2();
+                  }}
                   icon={faTrash}
                   className="mb-10 px-10 float-right hover:text-red-500 "
                   size="2x"
                 />
-              </Popconfirm>
+                <Modal
+                  visible={isModalOpen2}
+                  onOk={() => {
+                    deleteComponent();
+                    setIsModalOpen2(false);
+                  }}
+                  onCancel={handleCancel}
+                  okType="danger"
+                  okText="Yes"
+                  cancelText="No"
+                  closable={false}
+                >
+                  <div className="font-bold text-center mb-5 text-xl">
+                    <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
+                    Are you sure you wish to delete this resource?
+                  </div>
+                  <div className="text-center">
+                    You can't revert your actions
+                  </div>
+                </Modal>
+              </div>
+
               <ResourcesTable component={component} title={props.title} />
             </Panel>
           );

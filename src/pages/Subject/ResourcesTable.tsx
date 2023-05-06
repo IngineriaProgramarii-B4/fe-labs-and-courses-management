@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Table, Button, Modal, Typography } from "antd";
+import { Table, Button, Modal, Typography } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ColumnsType } from "antd/es/table";
@@ -76,6 +77,34 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       title: "Action",
       key: "action",
       render: (_, record: any) => (
+        <div>
+          <FontAwesomeIcon
+            onClick={() => {
+              showModal2();
+            }}
+            icon={faTrash}
+            className="hover:text-red-500 "
+          />
+          <Modal
+            visible={isModalOpen2}
+            onOk={() => {
+              handleDelete(record.key);
+              setIsModalOpen2(false);
+            }}
+            onCancel={handleCancel}
+            okType="danger"
+            okText="Yes"
+            cancelText="No"
+            closable={false}
+          >
+            <div className="font-bold text-center mb-5 text-xl">
+              <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
+              Are you sure you wish to delete this resource?
+            </div>
+            <div className="text-center">You can't revert your actions</div>
+          </Modal>
+        </div>
+        /*
         <Popconfirm
           //okButtonProps={{ className: "okbutton" }}
           okType="danger"
@@ -84,6 +113,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         >
           <FontAwesomeIcon icon={faTrash} className="hover:text-red-500 " />
         </Popconfirm>
+        */
       ),
     },
   ];
@@ -119,14 +149,19 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
     fetchData();
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const showModal1 = () => {
+    setIsModalOpen1(true);
+  };
+  const showModal2 = () => {
+    setIsModalOpen2(true);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setIsModalOpen1(false);
+    setIsModalOpen2(false);
   };
 
   const [clearFileList, setClearFileList] = useState(false);
@@ -135,7 +170,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       <FontAwesomeIcon
         data-testid="add-button"
         onClick={() => {
-          showModal();
+          showModal1();
         }}
         icon={faFolderPlus}
         size="2x"
@@ -144,7 +179,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       <Modal
         data-testid="modal"
         title={"Add resource"}
-        open={isModalOpen}
+        open={isModalOpen1}
         onCancel={() => {
           setClearFileList(clearFileList ? false : true);
           fetchData();
