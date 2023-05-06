@@ -98,7 +98,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
         ]}
       />
       {selectedComponent !== "" && (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center overflow-hidden">
           <Space>
             <h1
               style={{ fontWeight: 600, fontSize: 20 }}
@@ -111,7 +111,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
               }}
             />
           </Space>
-          <p>{descriptions[selectedComponent]}</p>
+          <p className="max-w-sm">{descriptions[selectedComponent]}</p>
           <EvaluationEdit
             subjectTitle={props.title}
             title={selectedComponent}
