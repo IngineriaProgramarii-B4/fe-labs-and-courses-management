@@ -150,7 +150,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
                 >
                   <div className="font-bold text-center mb-5 text-xl">
                     <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
-                    Are you sure you wish to delete this resource?
+                    Are you sure you wish to delete this component?
                   </div>
                   <div className="text-center">
                     You can't revert your actions
