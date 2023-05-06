@@ -2,10 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Collapse, Modal, Input, Form, Select, Popconfirm } from "antd";
+import {
+  Collapse,
+  Modal,
+  Input,
+  Form,
+  Select,
+  Popconfirm,
+  InputNumber,
+} from "antd";
 import ResourcesTable from "./ResourcesTable";
 //import "./Accordion.css";
 const { Panel } = Collapse;
+const { TextArea } = Input;
 
 interface AccordionProps {
   components: string[];
@@ -21,6 +30,8 @@ const Accordion: React.FC<AccordionProps> = (props) => {
   const [numberOfWeeks, setNumberOfWeeks] = useState<number>(0);
   const [componentToDelete, setComponentToDelete] = useState<string>("");
   const [comps, setComps] = useState<string[]>([]);
+  const [percentage, setPercentage] = useState<number>(0);
+  const [evalDescription, setEvalDescription] = useState<string>("");
 
   useEffect(() => {
     setComps(props.components);
@@ -36,6 +47,8 @@ const Accordion: React.FC<AccordionProps> = (props) => {
   };
 
   const hideAddModal = () => {
+    setPercentage(0);
+    setEvalDescription("");
     setIsAddModalOpen(false);
   };
 
@@ -50,6 +63,21 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         `http://localhost:8090/api/v1/subjects/${props.title}/components`,
         newComponent
       );
+
+      if (percentage !== 0 && evalDescription !== "") {
+        const newEvaluation = {
+          component: chosenComponent,
+          description: evalDescription,
+          value: percentage,
+        };
+        await axios.post(
+          `http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`,
+          newEvaluation
+        );
+        setPercentage(0);
+        setEvalDescription("");
+      }
+
       props.setIsModified(props.isModified ? false : true);
       setChosenComponent("");
       setNumberOfWeeks(0);
@@ -132,7 +160,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         okText="Add"
       >
         <Form>
-          <Form.Item label="Component Type">
+          <Form.Item label="Component Type" required={true}>
             <Select
               placeholder="Select a component"
               value={chosenComponent === "" ? undefined : chosenComponent}
@@ -145,11 +173,27 @@ const Accordion: React.FC<AccordionProps> = (props) => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Number of Weeks">
+          <Form.Item label="Number of Weeks" required={true}>
             <Input
               placeholder="Number of weeks"
               value={numberOfWeeks === 0 ? undefined : numberOfWeeks}
               onChange={(e: any) => setNumberOfWeeks(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item label="Percentage of Final Grade" required={false}>
+            <InputNumber
+              value={percentage === 0 ? 0 : percentage}
+              step={0.01}
+              min={0.01}
+              max={1}
+              onChange={(value: any) => setPercentage(value)}
+            />
+          </Form.Item>
+          <Form.Item label="Evaluation Description" required={false}>
+            <TextArea
+              rows={4}
+              value={evalDescription === "" ? undefined : evalDescription}
+              onChange={(e: any) => setEvalDescription(e.target.value)}
             />
           </Form.Item>
         </Form>

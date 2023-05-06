@@ -71,13 +71,13 @@ function SubjectAna() {
         <div //className="main-content"
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         >
-          <div className="grid grid-cols-1 gap-32 mg:grid-cols-2 lg:grid-cols-2 items-center  shadow shadow hover:shadow-inner">
+          <div className="p-8 bg-white rounded-lg grid grid-cols-1 gap-32 mg:grid-cols-2 lg:grid-cols-2 items-center  shadow shadow hover:shadow-inner">
             <img
               data-testid="image"
               src={imgSrc}
               alt="Couse image"
               //className="img"
-              className=" w-full row-start-1"
+              className="rounded-lg w-full row-start-1"
             />
             <div data-testid="subjectAna-1">
               <Course
@@ -102,7 +102,7 @@ function SubjectAna() {
             </div>
           </div>
           <div //className="evaluation-container"
-            className="grid grid-cols-1 justify-center mt-20 items-center shadow shadow hover:shadow-inner mb-20"
+            className="p-8 bg-white rounded-lg grid grid-cols-1 justify-center mt-20 items-center shadow shadow hover:shadow-inner mb-20"
           >
             <h1 //className="evaluation-title"
               className="grid items-center justify-center content-center text-2xl font-bold"
@@ -113,11 +113,15 @@ function SubjectAna() {
               // className="evaluation-piechart"
               className="block max-h-fit"
             >
-              <PieChart title={subjectTitle}/>
+              <PieChart
+                title={subjectTitle}
+                isModified={isModified}
+                setIsModified={setIsModified}
+              />
             </div>
           </div>
           <div //className="material-container"
-            className="grid grid-rows-max justify-self-start px-10 shadow shadow hover:shadow-inner"
+            className=" p-8 bg-white rounded-lg grid grid-rows-max justify-self-start px-10 shadow shadow hover:shadow-inner"
           >
             <h1 className="grid mb-10 items-center justify-center content-center text-2xl font-bold">
               Resources
@@ -135,6 +139,5 @@ function SubjectAna() {
     </div>
   );
 }
-
 
 export default SubjectAna;
