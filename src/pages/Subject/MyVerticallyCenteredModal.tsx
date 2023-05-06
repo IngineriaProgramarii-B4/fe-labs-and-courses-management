@@ -55,10 +55,11 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
                 Close
               </Button>,
               <Button
-                className="bg-blue-500 hover:bg-blue-600 text-white"
+                className="bg-buttonBlue hover:bg-hoverBlue"
+                style={{ color: "white" }}
                 data-testid="save-modal"
                 key="save"
-                type="default"
+                type="primary"
                 onClick={handleSave}
               >
                 Save
@@ -73,10 +74,11 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
                 Close
               </Button>,
               <Button
-                className="bg-blue-500 hover:bg-blue-600 text-white"
+                className="bg-buttonBlue hover:bg-hoverBlue"
+                style={{ color: "white" }}
                 data-testid="edit-modal"
                 key="edit"
-                type="default"
+                type="primary"
                 onClick={handleEdit}
               >
                 Edit

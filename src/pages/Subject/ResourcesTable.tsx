@@ -78,9 +78,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       render: (_, record: any) => (
         <Popconfirm
           //okButtonProps={{ className: "okbutton" }}
-          okButtonProps={{
-            className: "bg-blue-500 hover:bg-blue-600 text-white",
-          }}
+          okType="danger"
           title="Sure to delete?"
           onConfirm={() => handleDelete(record.key)}
         >
@@ -155,7 +153,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         footer={
           <Button
             //className="okbutton"
-            className="bg-blue-500 hover:bg-blue-600 text-white"
+            className="bg-buttonBlue hover:bg-hoverBlue"
             key="ok"
             type="primary"
             onClick={() => {

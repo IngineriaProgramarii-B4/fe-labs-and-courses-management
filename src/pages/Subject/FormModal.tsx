@@ -110,9 +110,9 @@ const FormModal: React.FC<FormModalProps> = (props) => {
           </Button>,
 
           <Button
-            className="bg-blue-500 hover:bg-blue-600 text-white"
+            className="bg-buttonBlue hover:bg-hoverBlue"
             key="submit"
-            type="default"
+            type="primary"
             onClick={() => {
               submitSubject();
               setTitleForm(props.title);

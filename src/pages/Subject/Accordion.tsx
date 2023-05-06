@@ -126,9 +126,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
             <Panel header={component} key={component}>
               <Popconfirm
                 // okButtonProps={{ className: "okbutton" }}
-                okButtonProps={{
-                  className: "bg-blue-500 hover:bg-blue-600 text-white",
-                }}
+                okType="danger"
                 title="Sure to delete?"
                 onConfirm={() => {
                   deleteComponent();
@@ -152,7 +150,8 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         title="Add Component"
         // okButtonProps={{ className: "okbutton" }}
         okButtonProps={{
-          className: "bg-blue-500 hover:bg-blue-600 text-white",
+          className: "bg-buttonBlue hover:bg-hoverBlue",
+          style: { color: "white" },
         }}
         open={isAddModalOpen}
         onCancel={hideAddModal}

@@ -70,8 +70,9 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
           Close
         </Button>,
         <Button
-          className="bg-blue-500 hover:bg-blue-600 text-white"
+          className="bg-buttonBlue hover:bg-hoverBlue"
           key="save"
+          type="primary"
           onClick={handleSave}
         >
           Save
