@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
@@ -13,11 +13,11 @@ import SubjectAna from "../pages/Subject/SubjectAna";
 import RemindersCard from "../components/RemindersCard/RemindersCard";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import TeacherInfoCard from "../components/TeacherInfo/TeacherInfoCard";
-
+import React from "react";
 export const router = createBrowserRouter([
   {
     path: "*",
-    element: <NotFound />,
+    element: <NotFound />
   },
   {
     path: "/",
@@ -26,19 +26,19 @@ export const router = createBrowserRouter([
       {
         path: "/home",
         index: true,
-        element: <Home />,
+        element: <Home />
       },
       {
         path: "/network",
-        element: <NetworkCard />,
+        element: <NetworkCard />
       },
       {
-        path: "/teachers",
-        element: <TeacherInfoCard />,
+        path: "/teachers/:id",
+        element: <TeacherInfoCard/>
       },
       {
         path: "/",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/home"} />
       },
       {
         path: "/reminders",
@@ -46,32 +46,32 @@ export const router = createBrowserRouter([
           <RemindersContextProvider>
             <RemindersCard />
           </RemindersContextProvider>
-        ),
+        )
       },
       {
         path: "/index",
-        element: <Navigate to={"/home"} />,
+        element: <Navigate to={"/home"} />
       },
       {
         path: "/test",
-        element: <div>test</div>,
+        element: <div>test</div>
       },
       {
         path: "/catalog",
-        element: <Catalog />,
+        element: <Catalog />
       },
       {
         path: "/subjectAlex",
-        element: <SubjectAlex />,
+        element: <SubjectAlex />
       },
       {
         path: "/subjectAna",
-        element: <SubjectAna />,
-      },
-    ],
+        element: <SubjectAna />
+      }
+    ]
   },
   {
     path: "/login",
-    element: <Login />,
-  },
+    element: <Login />
+  }
 ]);

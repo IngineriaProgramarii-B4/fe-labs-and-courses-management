@@ -11,7 +11,7 @@ function UserHeader({ username, firstname, lastname } : UserHeaderProps) {
   return (
     <div style={{ textAlign: "center", fontWeight: "bold" }}>
       <div>{firstname + " " + lastname}</div>
-      <div>@{username}</div>
+      <div className="text-gray-500">@{username}</div>
       <Divider />
     </div>
   );
