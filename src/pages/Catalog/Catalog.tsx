@@ -6,6 +6,7 @@ import DeleteGrade from "./components/DeleteGrade";
 import styles from "./Catalog.module.scss";
 import DropdownMenuSubject from "./components/DropdownMenuSubject";
 import DropdownMenuSem from "./components/DropdownMenuSem";
+import { useParams } from "react-router-dom";
 
 interface Grade {
   value: number;
@@ -25,6 +26,7 @@ interface Grade {
 
 function Catalog() {
   const studentName = "User";
+  const id = useParams()
 
   const [grades, setGrades] = useState<Grade[]>([]);
   const [userType, setUserType] = useState<string>("student");
@@ -32,7 +34,7 @@ function Catalog() {
   async function fetchGrades() {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/v1/catalog/students/1"
+        `http://localhost:8090/api/v1/students/${id}`
       );
       const data = response.data;
       console.log(data);

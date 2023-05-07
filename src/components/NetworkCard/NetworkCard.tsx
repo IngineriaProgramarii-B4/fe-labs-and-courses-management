@@ -7,6 +7,7 @@ import { UserContext } from "../UserContext/UserContext";
 
 export type UserDataType = {
   id: string;
+  type: number;
   firstName: string;
   lastName: string;
   username: string;
@@ -71,6 +72,8 @@ const renderCard = (user: UserDataType) => {
         username={user.username}
         firstname={user.firstName}
         lastname={user.lastName}
+        id={user.id}
+        type={user.type}
       />
       {Object.entries(user).map(([key, value]) => {
         if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)

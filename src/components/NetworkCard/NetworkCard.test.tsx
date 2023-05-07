@@ -14,18 +14,23 @@ const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
 
 describe("UserHeader", () => {
   const userData = {
+    id: "string",
     username: "dianacuzic",
     firstname: "Diana",
     lastname: "Cuzic",
+    type: 0
   };
 
   test("should render properly", () => {
     render(
+      <BrowserRouter>
       <UserHeader
+        id={userData.id}
         username={userData.username}
         firstname={userData.firstname}
         lastname={userData.lastname}
-      />
+        type={userData.type}
+      /></BrowserRouter>
     );
 
     expect(screen.getByText("@" + userData.username)).toBeInTheDocument();
