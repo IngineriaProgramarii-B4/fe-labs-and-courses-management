@@ -167,3 +167,19 @@ test('validate email input', async () => {
     expect(navigateSpy).not.toHaveBeenCalledWith('/Home');
     useNavigate.mockRestore();
   });
+
+  test('toggle remember me checkbox', () => {
+    render(<Router><Login /></Router>);
+    const rememberMeCheckbox = screen.getByRole('checkbox', { name: /remember me/i });
+  
+    expect(rememberMeCheckbox.checked).toEqual(false);
+  
+    fireEvent.click(rememberMeCheckbox);
+    expect(rememberMeCheckbox.checked).toEqual(true);
+  
+    fireEvent.click(rememberMeCheckbox);
+    expect(rememberMeCheckbox.checked).toEqual(false);
+  });
+  
+  
+  

@@ -1,11 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from '../Register';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { LocationProvider } from 'react-router-dom';
-import { waitFor } from '@testing-library/react';
+import { message } from 'antd';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { message } from 'antd';
 
 jest.spyOn(message, 'success').mockImplementation(() => {});
 
@@ -38,6 +36,7 @@ global.matchMedia = global.matchMedia || function () {
         removeListener: jest.fn(),
     };
 };
+
 
 test('should render welcome back title', () => {
     render(
@@ -180,41 +179,22 @@ test('error message if the password does not meet the required pattern', async (
       expect(message.error).toHaveBeenCalledWith('Registration failed: Network Error');
     });
   });
-/*
-  test('successful registration and navigate to login page', async () => { 
+
+  test('should navigate to login page after successful registration', async () => {
     const { container } = render(
       <Router>
         <Register />
       </Router>
     );
   
-    fireEvent.change(screen.getByLabelText('ID'), { target: { value: '1111111' } });
-    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@email.com' } });
-    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'P@ssw0rd!' } });
-    fireEvent.change(screen.getByLabelText('Confirm password'), { target: { value: 'P@ssw0rd!' } });
+    fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123456' } });
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@test.com' } });
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'Test@1234' } });
+    fireEvent.change(screen.getByLabelText('Confirm password'), { target: { value: 'Test@1234' } });
   
-    fireEvent.click(screen.getByRole('button', { name: 'Register' }));
-  
-    console.log('Before waitFor message.success'); // Adaugă un log înainte de waitFor
+    fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
   
     await waitFor(() => {
-        expect(message.success).toHaveBeenCalled();
-      }),
-  
-    console.log('After waitFor message.success'); // Adaugă un log după waitFor
-  
-    await waitFor ( () => {
-      expect(window.location.pathname).toBe('/login');
-    })
-  })
-*/
-
-  // const server = setupServer(
-  //   rest.post('/api/v1/auth/register', (req, res, ctx) => {
-  //     return res(ctx.status(200));
-  //   })
-  // );
-  
-  // beforeAll(() => server.listen());
-  // afterEach(() => server.resetHandlers());
-  // afterAll(() => server.close());
+      expect(container.querySelector('a[href="/login"]')).toBeInTheDocument();
+    });
+  });
