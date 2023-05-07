@@ -1,4 +1,4 @@
-import { Card, Divider } from "antd";
+import { Card } from "antd";
 import { useEffect, useState } from "react";
 import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
@@ -106,7 +106,7 @@ function NetworkCard() {
     );
   };
 
-  return <div className="flex flex-wrap">{users.map(renderCard)}</div>;
+  return <div data-testid="network-card" className="flex flex-wrap">{users.map(renderCard)}</div>;
 }
 
 export default NetworkCard;
