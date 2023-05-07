@@ -198,3 +198,5 @@ test('error message if the password does not meet the required pattern', async (
       expect(container.querySelector('a[href="/login"]')).toBeInTheDocument();
     });
   });
+
+  
