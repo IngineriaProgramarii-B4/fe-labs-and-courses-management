@@ -24,6 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 user-sonarqube-scanner.js
+coverage
 
 # sonar
 .scannerwork
