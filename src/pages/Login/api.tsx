@@ -9,11 +9,30 @@ const instance = axios.create({
 
 export const sendResetEmail = async (email: string): Promise<string> => {
   try {
-    const response = await instance.post('/api/v1/auth/sendMail', { email });
+    const response = await instance.post('/api/v1/auth/password-reset-request', { email });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
+
+export const resetPassword = async (
+  newPassword: string,
+  token: string
+): Promise<void> => {
+  try {
+    console.log(`/api/v1/auth/reset-password?token=${token}`);
+    await instance.post(`/api/v1/auth/reset-password?token=${token}`, {
+      newPassword,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
 export default instance;
+

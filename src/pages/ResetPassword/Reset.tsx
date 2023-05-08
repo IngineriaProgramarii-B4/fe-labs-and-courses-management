@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Form,Input, message, Typography } from "antd";
 import styles from './Reset.module.scss';
+import  {resetPassword}  from '../Login/api';
 
 interface ResetValues {
   myPassword: string;
+  confirmPassword: string;
+  token: string;
 }
 
 function Reset() {
@@ -14,23 +17,18 @@ function Reset() {
     const tokenParam = urlParams.get('token');
     if (tokenParam) {
       setToken(tokenParam);
+
     }
   }, []);
 
   const reset = async (values: ResetValues) => {
     const newPassword = values.myPassword;
-    const response = await fetch('/api/resetPassword', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token, newPassword }),
-    });
-
-    if (response.ok) {
-      message.success('Reset Successful');
-    } else {
-      message.error('Reset Failed');
+    try {
+      console.log(token);
+      await resetPassword(newPassword, token);
+      message.success("Reset Successful");
+    } catch (error) {
+      message.error("Reset Failed");
     }
   };
 
@@ -45,6 +43,10 @@ function Reset() {
               required:true,
               message:"Please enter your new password",
             },
+            {
+              pattern: /^(?=.*[!@#$%^&*()])(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+              message: 'The password must contain at least 8 characters, at least one digit, at least one special symbol and at least one capital letter',
+            }
           ]} name={'myPassword'}>
           <Input.Password placeholder='Enter your new password'/>
         </Form.Item>
@@ -54,7 +56,15 @@ function Reset() {
               required:true,
               message:"Please confirm your new password",
             },
-          ]} name={'myPassword'}>
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              },
+            }),
+          ]} name={'confirmPassword'}>
 
           <Input.Password placeholder='Confirm your new password'/>
         </Form.Item>
