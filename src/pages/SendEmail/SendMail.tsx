@@ -2,11 +2,19 @@ import React from 'react';
 import { Button, Form, Input, message, Typography } from "antd";
 import styles from './SendMail.module.scss';
 import { Link } from 'react-router-dom';
+import { sendResetEmail } from '../Login/api';
 
 function SendMail() {
-  const reset = () => {
-    message.success("Reset Successful");
-  }
+  const reset = async (values: { myEmail: string }) => {
+    try {
+      await sendResetEmail(values.myEmail);
+      message.success("Reset Successful");
+    } catch (error) {
+      message.error("Error sending reset email");
+    }
+  };
+
+
   return (
     <div className={styles.appBg}>
       <Form className={styles.resetForm} onFinish={reset}>
@@ -25,9 +33,11 @@ function SendMail() {
         </Form.Item>
         <div>
           
-            <Button className={styles.resetButton} type="primary" htmlType="submit" block>
-              <Link to='/resetPassword'>Reset Password</Link>
-            </Button>
+        <Button className={styles.resetButton} type="primary" htmlType="submit" block>
+  Reset Password
+</Button>
+
+
           
         </div>
       </Form>

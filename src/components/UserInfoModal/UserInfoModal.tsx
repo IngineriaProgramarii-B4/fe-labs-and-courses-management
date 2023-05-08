@@ -38,7 +38,7 @@ type ModalFooterProps = {
 
 export function ModalFooter({
   isEditing,
-  onLogout,
+  onLogout, // <-- Change this line
   onCancel,
   onSave,
 }: ModalFooterProps) {
@@ -125,6 +125,7 @@ type UserInfoModalProps = {
   className?: string;
 };
 
+
 function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -147,6 +148,12 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     },
   });
 
+  //AICI AM ADAUGAT FUNCTIA CARE SA NE AJUTE LA DELOGARE
+  const logout = () => {
+    // Șterge tokenul JWT din local storage sau dintr-un alt loc adecvat
+    localStorage.removeItem('token');
+  };
+  
   useEffect(() => {
     setNewUsername(userData.username);
     setNewEmail(userData.email);
@@ -201,7 +208,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onLogout = () => {
-    localStorage.removeItem('token');
+   //AICI AM MODIFICAT
+    logout();
 
     navigate("/login");
   };

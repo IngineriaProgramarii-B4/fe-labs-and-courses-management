@@ -46,7 +46,7 @@ const Register: React.FC = () => {
 
       if (response.status === 200) {
         message.success("Registration Successful");
-        // Redirecționează utilizatorul la pagina de autentificare pentru a se conecta
+
         navigate("/login");
       } else {
         message.error("Registration failed");

@@ -83,10 +83,17 @@ function Login() {
       <div>
         <Button className={styles.LoginButton}  type="primary" htmlType="submit" block>Login</Button>
         <div className={styles.info}>
-            <input type="checkbox" />
-            <a href='#' className={styles.rememberMe}> Remember me</a>
-            <a href='http://localhost:3000/sendMail' className={styles.forgotPass}>Forgot password?</a>
-        </div>
+  <input type="checkbox" id="rememberMeCheckbox" />
+  <label htmlFor="rememberMeCheckbox">
+    <a className={styles.rememberMe} href="#">
+      Remember me
+    </a>
+  </label>
+  <a className="forgotPass" href="http://localhost:3000/sendMail">
+    Forgot password?
+  </a>
+</div>
+
         
         <div className={styles.registerContainer}>
           <p style={{ marginRight: '10px' }}>You don't have an account?</p>

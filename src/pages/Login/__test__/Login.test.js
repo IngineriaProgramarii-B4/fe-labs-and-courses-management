@@ -132,3 +132,52 @@ test('validate email input', async () => {
     apiPostSpy.mockRestore();
     setItemSpy.mockRestore();
   });
+
+  jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+  
+    return {
+      ...originalModule,
+      useNavigate: jest.fn(),
+    };
+  });
+  test('redirect to home if user is authenticated', () => {
+    const navigateSpy = jest.fn();
+    const useNavigate = require('react-router-dom').useNavigate;
+    useNavigate.mockReturnValue(navigateSpy);
+  
+    localStorage.setItem('token', 'fake-jwt-token');
+  
+    render(<Router><Login /></Router>);
+  
+    expect(navigateSpy).toHaveBeenCalledWith('/Home');
+    localStorage.removeItem('token');
+    useNavigate.mockRestore();
+  });
+  
+  test('no redirect if user is not authenticated', () => {
+    const navigateSpy = jest.fn();
+    const useNavigate = require('react-router-dom').useNavigate;
+    useNavigate.mockReturnValue(navigateSpy);
+  
+    localStorage.removeItem('token');
+  
+    render(<Router><Login /></Router>);
+  
+    expect(navigateSpy).not.toHaveBeenCalledWith('/Home');
+    useNavigate.mockRestore();
+  });
+
+  test('toggle remember me checkbox', () => {
+    render(<Router><Login /></Router>);
+    const rememberMeCheckbox = screen.getByRole('checkbox', { name: /remember me/i });
+  
+    expect(rememberMeCheckbox.checked).toEqual(false);
+  
+    fireEvent.click(rememberMeCheckbox);
+    expect(rememberMeCheckbox.checked).toEqual(true);
+  
+    fireEvent.click(rememberMeCheckbox);
+    expect(rememberMeCheckbox.checked).toEqual(false);
+  });
+
