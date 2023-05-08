@@ -1,68 +1,65 @@
 import { useEffect, useState } from "react";
-import { Card } from "antd";
-import {CoursesCard, courseData} from "./CourseCard";
+import CoursesCard, {courseData } from "./CourseCard";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-type teacherDataProps = {
+export type teacherDataProps = {
   name: string;
-  teachedCourses: courseData[];
+  taughtSubjects: courseData[];
 };
 
 function TeacherInfoCard() {
   const [teacherInfo, setTeacherInfo] = useState<teacherDataProps[]>([
     {
       name: "",
-      teachedCourses: [],
-    },
+      taughtSubjects: []
+    }
   ]);
 
+  const {id} = useParams()
+
   useEffect(() => {
-    // TODO : fetch data from db for this specific user
-    const teachersData: teacherDataProps[] = [
-      {
-        name: "Iftene Adrian",
-        teachedCourses: [
-          {
-            courseTitle: "Ingineria Programarii",
-            hasExam: true,
-            hasPartialExam: false,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: false,
-            hasPresentGrading: true,
-            noOfCredits: "5",
-            finalGrade: "Gauss",
-          },
-          {
-            courseTitle: "Nume curs 2",
-            hasExam: false,
-            hasPartialExam: true,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: true,
-            hasPresentGrading: false,
-            noOfCredits: "4",
-            finalGrade: "AVG",
-          },
-          {
-            courseTitle: "Nume curs 3",
-            hasExam: false,
-            hasPartialExam: true,
-            hasHomeworkNotation: true,
-            hasLaboratoryGrading: true,
-            hasPresentGrading: false,
-            noOfCredits: "4",
-            finalGrade: "AVG",
-          },
-        ],
-      },
-    ];
-    setTeacherInfo(teachersData);
+    const axiosInstance = axios.create({
+        baseURL: "http://localhost:8090/api/v1",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    axiosInstance
+      .get(`/teachers?id=${id}`)
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data)
+        setTeacherInfo(data.map((item: { firstname: any; lastname: any; taughtSubjects: any[]; }) => {
+          return {
+            name: item.firstname + " " + item.lastname,
+            taughtSubjects: item.taughtSubjects.map((sub: string) => {
+              return {
+                courseTitle: sub,
+                hasExam: false,
+                hasPartialExam: true,
+                hasHomeworkNotation: true,
+                hasLaboratoryGrading: true,
+                hasPresentGrading: false,
+                noOfCredits: "4",
+                finalGrade: "AVG"
+              }
+            })
+          }
+        }))
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   return (
-    <Card title="Teachers">
-      {teacherInfo.map((teacher) => {
-       return( <CoursesCard name={teacher.name} teachedCourses={teacher.teachedCourses}></CoursesCard>);
+    <div className="m-auto mt-8 w-2/3">
+      {teacherInfo.map((teacher: teacherDataProps) => {
+        return (<CoursesCard name={teacher.name} taughtSubjects={teacher.taughtSubjects}></CoursesCard>);
       })}
-    </Card>
+    </div>
   );
 }
-export {TeacherInfoCard, type teacherDataProps};
+
+export default TeacherInfoCard;

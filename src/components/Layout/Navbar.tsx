@@ -16,17 +16,20 @@ function Navbar() {
       <Menu.Item key={"Home"}>
         <Link to="/home">Home</Link>
       </Menu.Item>
+      <Menu.Item key={"Subjects"}>
+        <Link to="/subjectalex">Subjects</Link>
+      </Menu.Item>
       <Menu.Item key={"Network"}>
         <Link to="/network">Network</Link>
       </Menu.Item>
       <Menu.Item key={"Catalog"}>
         <Link to="/catalog">Catalog</Link>
       </Menu.Item>
-      <Menu.Item key={"Teachers"}>
-        <Link to="/teachers">Teachers</Link>
+      <Menu.Item key={"Reminders"}>
+        <Link to="/reminders">Reminders</Link>
       </Menu.Item>
-      <Menu.Item disabled style={{ marginLeft: "auto", cursor: "default" }}>
-        <UserInfoModal avatar={mockedAvatar} />
+      <Menu.Item key={"User Info"} disabled style={{ marginLeft: "auto", cursor: "default" }}>
+          <UserInfoModal avatar={mockedAvatar} />
       </Menu.Item>
     </Menu>
   );

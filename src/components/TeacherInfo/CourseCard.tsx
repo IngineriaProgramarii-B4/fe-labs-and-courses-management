@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Input, Card } from "antd";
+import React, { useState } from "react";
+import { Input, Card, Divider } from "antd";
 import { teacherDataProps } from "./TeacherInfoCard";
 
 type CourseInputInfoProps = {
@@ -9,12 +9,12 @@ type CourseInputInfoProps = {
   setValue: (val: string) => void;
 };
 
-function CourseInputInfo({
-  title,
-  type,
-  value,
-  setValue,
-}: CourseInputInfoProps) {
+export function CourseInputInfo({
+                                  title,
+                                  type,
+                                  value,
+                                  setValue
+                                }: CourseInputInfoProps) {
   const [isEditing, setIsEditing] = useState(false);
   return (
     <div className={"flex"}>
@@ -22,7 +22,7 @@ function CourseInputInfo({
       {!isEditing ? (
         <div className={"flex"} onClick={() => setIsEditing(false)}>
           <p className={"my-auto ml-2"}>{value}</p>
-          <i className={"fa-solid fa-pencil"} />
+          <i className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"} />
         </div>
       ) : (
         <div>
@@ -42,82 +42,90 @@ function CourseInputInfo({
   );
 }
 
-type courseData = {
+export type courseData = {
   courseTitle: string;
   hasExam: boolean;
   hasPartialExam: boolean;
   hasHomeworkNotation: boolean;
   hasLaboratoryGrading: boolean;
   hasPresentGrading: boolean;
-  noOfCredits: "1" | "4" | "5" | "6";
+  noOfCredits: string;
   finalGrade: string;
 };
 
-function CourseCard(course: courseData) {
+export function CourseCard(course: courseData) {
   return (
-    <Card
-      title={course.courseTitle}
-      bordered={false}
-      style={{ margin: "auto" }}
+    <div
     >
+      <h1 className="font-semibold text-base">{course.courseTitle}</h1>
       <div style={{ padding: "10px" }}>
         <CourseInputInfo
           title={"Has Exam"}
           value={course.hasExam ? "yes" : "no"}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
         <CourseInputInfo
           title={"Has Partial Exam"}
           value={course.hasPartialExam ? "yes" : "no"}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
         <CourseInputInfo
           title={"Has Homework Notation"}
           value={course.hasHomeworkNotation ? "yes" : "no"}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
         <CourseInputInfo
           title={"Has Laboratory Grading"}
           value={course.hasLaboratoryGrading ? "yes" : "no"}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
         <CourseInputInfo
           title={"Has Present Grading"}
           value={course.hasPresentGrading ? "yes" : "no"}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
         <CourseInputInfo
           title={"Final Grade"}
           value={course.finalGrade}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
         <CourseInputInfo
           title={"Number of Credits"}
           value={course.noOfCredits}
-          setValue={() => {}}
+          setValue={() => {
+          }}
           type={"text"}
         />
       </div>
-    </Card>
+    </div>
   );
 }
 
-function CoursesCard({ name, teachedCourses }: teacherDataProps) {
+function CoursesCard({ name, taughtSubjects }: teacherDataProps) {
   return (
-    <Card type="inner" title={name} style={{ width: "80%", margin: "auto" }}>
-      <div style={{ display: "flex", padding: "15px" }}>
-        {teachedCourses.map((teachedCourse) => {
-          return <CourseCard {...teachedCourse}></CourseCard>;
+    <Card title={name}>
+      <div className="flex flex-col">
+        {taughtSubjects.map((taughtSubject) => {
+          return <>
+            <CourseCard {...taughtSubject} />
+            <Divider />
+          </>;
         })}
       </div>
     </Card>
   );
 }
 
-export { CoursesCard, type courseData };
+export default CoursesCard;

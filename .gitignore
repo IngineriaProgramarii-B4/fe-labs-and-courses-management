@@ -22,3 +22,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+user-sonarqube-scanner.js
+coverage
+
+# sonar
+.scannerwork
+sonarqube-scanner.js

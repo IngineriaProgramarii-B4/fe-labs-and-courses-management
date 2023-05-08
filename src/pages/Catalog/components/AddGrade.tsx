@@ -1,6 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Input, Form } from "antd";
+import styles from "../Catalog.module.scss";
 import axios from "axios";
 
 interface GradesData {
@@ -136,17 +136,17 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
               id="date"
             />
           </Form.Item>
-          <Form.Item>
-            <Button
-              onClick={() => {
-                handleAddGrade();
-                setIsModalOpen(false);
-              }}
-            >
-              Add
-            </Button>
-          </Form.Item>
         </Form>
+        <div className={styles.action_btn}>
+          <Button
+            onClick={() => {
+              handleAddGrade();
+              setIsModalOpen(false);
+            }}
+          >
+            Add
+          </Button>
+        </div>
       </Modal>
     </>
   );

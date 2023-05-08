@@ -1,10 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import "./Catalog.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AddGrade from "./components/AddGrade";
 import UpdateGrade from "./components/UpdateGrade";
 import DeleteGrade from "./components/DeleteGrade";
+import styles from "./Catalog.module.scss";
+import DropdownMenuSubject from "./components/DropdownMenuSubject";
+import DropdownMenuSem from "./components/DropdownMenuSem";
 
 interface Grade {
   value: number;
@@ -26,6 +27,8 @@ function Catalog() {
   const studentName = "User";
 
   const [grades, setGrades] = useState<Grade[]>([]);
+  const [userType, setUserType] = useState<string>("student");
+
   async function fetchGrades() {
     try {
       const response = await axios.get(
@@ -46,14 +49,17 @@ function Catalog() {
 
   useEffect(() => {
     fetchGrades();
+    setUserType("teacher");
   }, []);
 
   return (
     <>
-      <div className="catalog-wrapper">
-        <AddGrade fetchGrades={fetchGrades} />
-        <h5 className="username">{studentName}'s Grades</h5>
-        <table>
+      <div className={styles.catalog_wrapper}>
+        {userType === "teacher" && <AddGrade fetchGrades={fetchGrades} />}
+        <h5 className={styles.username}>{studentName}'s Grades</h5>
+        <DropdownMenuSubject />
+        <DropdownMenuSem />
+        <table className={styles.catalog_table}>
           <thead>
             <tr>
               <th></th>
@@ -64,23 +70,31 @@ function Catalog() {
           </thead>
 
           <tbody>
-            {grades.map((grade, index) => (
-              <tr key={index}>
+            {grades.map((grade) => (
+              <tr key={grade.id}>
                 <td>
-                  <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
-                  <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                  {userType === "teacher" && (
+                    <>
+                      <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
+                      <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                    </>
+                  )}
                 </td>
                 <td>
-                  <span className="subject-value">{grade.subject.name}</span>
+                  <span className={styles.subject_value}>
+                    {grade.subject.name}
+                  </span>
                 </td>
-                <td className="grade">
-                  <span className="grade-value">
+                <td className={styles.grade}>
+                  <span className={styles.grade_value}>
                     {" "}
                     <em>{grade.value}</em>
                   </span>
                 </td>
                 <td>
-                  <span className="date-value">{grade.evaluationDate}</span>
+                  <span className={styles.date_value}>
+                    {grade.evaluationDate}
+                  </span>
                 </td>
               </tr>
             ))}
