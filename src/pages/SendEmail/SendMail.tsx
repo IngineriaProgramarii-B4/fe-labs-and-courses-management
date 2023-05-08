@@ -14,6 +14,7 @@ function SendMail() {
     }
   };
 
+
   return (
     <div className={styles.appBg}>
       <Form className={styles.resetForm} onFinish={reset}>
@@ -35,6 +36,7 @@ function SendMail() {
         <Button className={styles.resetButton} type="primary" htmlType="submit" block>
   Reset Password
 </Button>
+
 
           
         </div>

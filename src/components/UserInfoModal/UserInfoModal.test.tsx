@@ -26,7 +26,7 @@ describe("ModalTitle", () => {
     expect(screen.getByText("User Profile")).toBeInTheDocument();
     const pencilIcon = screen.getByTestId("pencil-icon");
     expect(pencilIcon).toBeInTheDocument();
-    expect(pencilIcon).toHaveClass("fa-solid", "fa-pencil");
+    expect(pencilIcon).toHaveClass("fa-solid", "fa-pen-to-square");
   });
 
   test("should not render a pencil icon when in edit mode", () => {

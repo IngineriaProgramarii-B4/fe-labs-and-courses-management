@@ -180,6 +180,4 @@ test('validate email input', async () => {
     fireEvent.click(rememberMeCheckbox);
     expect(rememberMeCheckbox.checked).toEqual(false);
   });
-  
-  
-  
+

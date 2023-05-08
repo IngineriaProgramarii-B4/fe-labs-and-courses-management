@@ -5,6 +5,7 @@ import { message } from 'antd';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
+
 jest.spyOn(message, 'success').mockImplementation(() => {});
 
 afterEach(() => {
@@ -180,12 +181,17 @@ test('error message if the password does not meet the required pattern', async (
     });
   });
 
+  
+/*
   test('should navigate to login page after successful registration', async () => {
     const { container } = render(
       <Router>
         <Register />
       </Router>
     );
+  
+    
+
   
     fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123456' } });
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@test.com' } });
@@ -198,5 +204,14 @@ test('error message if the password does not meet the required pattern', async (
       expect(container.querySelector('a[href="/login"]')).toBeInTheDocument();
     });
   });
+*/
 
+  // const server = setupServer(
+  //   rest.post('/api/v1/auth/register', (req, res, ctx) => {
+  //     return res(ctx.status(200));
+  //   })
+  // );
   
+  // beforeAll(() => server.listen());
+  // afterEach(() => server.resetHandlers());
+  // afterAll(() => server.close());

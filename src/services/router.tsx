@@ -1,5 +1,6 @@
 import {Navigate} from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
+
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/Login/Login";
@@ -31,12 +32,10 @@ const PrivateRouteComponent: React.FC<PrivateRouteProps> = ({
   return isAuthenticated() ? <Component /> : <Navigate to="/login" replace />;
 };
 
-
-
 export const router = createBrowserRouter([
   {
     path: "*",
-    element: <NotFound />,
+    element: <NotFound />
   },
   {
     path: "/",
@@ -57,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Navigate to={"/login"} />,
+        index: true,
+        element: <Login />
+      },
+      
       },
 
       {
@@ -66,10 +69,11 @@ export const router = createBrowserRouter([
       {
         path: "/index",
         element: <Navigate to={"/login"} />,
+
       },
       {
         path: "/test",
-        element: <div>test</div>,
+        element: <div>test</div>
       },
       {
         path: "/catalog",
@@ -89,6 +93,19 @@ export const router = createBrowserRouter([
     path: "/login",
     index: true,
     element: <Login />,
+    index: true
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/resetPassword",
+    element: <Reset />
+  },
+  {
+    path: "/sendMail",
+    element: <SendMail />
   },
   {
     path: "/register",

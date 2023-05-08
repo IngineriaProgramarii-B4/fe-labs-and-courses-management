@@ -34,6 +34,7 @@ function Reset() {
     }
   };
 
+
   return (
     <div className={styles.appBg}>
       <Form className={styles.resetForm} onFinish={reset}>
@@ -60,9 +61,11 @@ function Reset() {
         <div>
           <Button className={styles.resetButton}  type="primary" htmlType="submit" block>Reset Password</Button>
         </div>   
+
       </Form>
     </div>
   );
 }
 
 export default Reset;
+

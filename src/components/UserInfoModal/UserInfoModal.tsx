@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Divider, Modal, Space, Spin, Tooltip, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import React from "react";
 import UserAvatar from "./UserAvatar";
 import UserInfoInput from "./UserInfoInput";
+import { UserContext } from "../UserContext/UserContext";
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -19,7 +19,7 @@ export function ModalTitle({ isEditing, setIsEditing }: ModalTitleProps) {
       {!isEditing && (
         <Tooltip title={"Edit user"}>
           <i
-            className={"fa-solid fa-pencil ml-2 cursor-pointer"}
+            className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"}
             onClick={() => setIsEditing(true)}
             data-testid={"pencil-icon"}
           />
@@ -97,6 +97,7 @@ export function UserProfileAvatar({
 }
 
 type UserDataType = {
+  id: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -109,6 +110,7 @@ type UserDataType = {
 
 const getDefaultUserData = () => {
   const userData: UserDataType = {
+    id: "",
     firstName: "",
     lastName: "",
     username: "",
@@ -135,6 +137,9 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
 
+  // @ts-ignore
+  const { setIsUserModified} = useContext(UserContext)
+
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8090/api/v1",
     headers: {
@@ -158,7 +163,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     setIsLoading(true);
 
     axiosInstance
-      .get("/users?username=stefan.ciobaca")
+      .get("/users?username=stefan.ciobacaaaa")
       .then((res) => res.data)
       .then((data) => {
         setUserData(data[0]);
@@ -170,6 +175,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onSave = () => {
+    setIsUserModified(true)
     setIsEditing(false);
 
     const { email, username, ...sentUser } = userData;
@@ -184,16 +190,17 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     } else if (userData.type === 2) {
       endPoint += "/student";
     }
+    endPoint += `/${newUser.id}`
 
     axiosInstance
-      .put(endPoint, newUser)
-      .then((res) => console.log(res))
+      .patch(endPoint, newUser)
       .catch((err) => console.error(err));
 
     toast.success("User profile updated");
   };
 
   const onCancel = () => {
+    setIsUserModified(false)
     setIsEditing(false);
     setNewUsername(userData.username);
     setNewEmail(userData.email);
@@ -203,6 +210,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const onLogout = () => {
    //AICI AM MODIFICAT
     logout();
+
     navigate("/login");
   };
 

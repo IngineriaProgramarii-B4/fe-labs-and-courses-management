@@ -46,6 +46,7 @@ const Register: React.FC = () => {
 
       if (response.status === 200) {
         message.success("Registration Successful");
+
         navigate("/login");
       } else {
         message.error("Registration failed");

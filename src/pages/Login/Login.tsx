@@ -93,6 +93,7 @@ function Login() {
     Forgot password?
   </a>
 </div>
+
         
         <div className={styles.registerContainer}>
           <p style={{ marginRight: '10px' }}>You don't have an account?</p>
