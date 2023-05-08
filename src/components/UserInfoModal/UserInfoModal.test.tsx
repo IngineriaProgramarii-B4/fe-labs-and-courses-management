@@ -216,7 +216,7 @@ describe("UserInfoModal", () => {
       fireEvent.click(userAvatar);
     });
 
-    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
     // eslint-disable-next-line testing-library/no-debugging-utils
     // screen.debug();
     expect(screen.getByText("User Profile")).toBeInTheDocument();

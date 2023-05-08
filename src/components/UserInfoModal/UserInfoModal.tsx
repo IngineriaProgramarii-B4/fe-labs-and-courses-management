@@ -37,11 +37,11 @@ type ModalFooterProps = {
 };
 
 export function ModalFooter({
-  isEditing,
-  onLogout,
-  onCancel,
-  onSave,
-}: ModalFooterProps) {
+                              isEditing,
+                              onLogout,
+                              onCancel,
+                              onSave
+                            }: ModalFooterProps) {
   if (isEditing) {
     return (
       <>
@@ -67,11 +67,11 @@ type UserProfileAvatarProps = {
 };
 
 export function UserProfileAvatar({
-  isEditing,
-  avatar,
-  newAvatar,
-  setNewAvatar,
-}: UserProfileAvatarProps) {
+                                    isEditing,
+                                    avatar,
+                                    newAvatar,
+                                    setNewAvatar
+                                  }: UserProfileAvatarProps) {
   return (
     <div
       className={
@@ -115,7 +115,7 @@ const getDefaultUserData = () => {
     lastName: "",
     username: "",
     email: "",
-    type: -1,
+    type: -1
   };
   return userData;
 };
@@ -135,16 +135,17 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newUsername, setNewUsername] = useState(userData.username);
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
+  const [loggedUser, setLoggedUser] = useState<string>("");
 
   // @ts-ignore
-  const { setIsUserModified} = useContext(UserContext)
+  const { setIsUserModified } = useContext(UserContext);
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8090/api/v1",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
-    },
+      Accept: "application/json"
+    }
   });
 
   useEffect(() => {
@@ -154,21 +155,28 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const onAvatarClick = () => {
     setIsLoading(true);
-
-    axiosInstance
-      .get("/users?username=stefan.ciobacaaaa")
-      .then((res) => res.data)
-      .then((data) => {
-        setUserData(data[0]);
-        setIsLoading(false);
-      });
+    const token = localStorage.getItem("token");
+    axiosInstance.post("/users/loggedUser", token)
+      .then(res => res.data)
+      .then(data => {
+        setLoggedUser(data.username);
+      })
+      .then(() => {
+      axiosInstance
+        .get(`/users?username=${loggedUser}`)
+        .then((res) => res.data)
+        .then((data) => {
+          setUserData(data[0]);
+          setIsLoading(false);
+        });
+    })
+      .catch(err => console.error(err));
 
     // setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
-
   const onSave = () => {
-    setIsUserModified(true)
+    setIsUserModified(true);
     setIsEditing(false);
 
     const { email, username, ...sentUser } = userData;
@@ -183,7 +191,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     } else if (userData.type === 2) {
       endPoint += "/student";
     }
-    endPoint += `/${newUser.id}`
+    endPoint += `/${newUser.id}`;
 
     axiosInstance
       .patch(endPoint, newUser)
@@ -193,7 +201,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onCancel = () => {
-    setIsUserModified(false)
+    setIsUserModified(false);
     setIsEditing(false);
     setNewUsername(userData.username);
     setNewEmail(userData.email);
