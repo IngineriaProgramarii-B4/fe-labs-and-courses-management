@@ -201,7 +201,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onLogout = () => {
-    //ToDo: logic for logging out
+    localStorage.removeItem('token');
+
     navigate("/login");
   };
 

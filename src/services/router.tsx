@@ -7,6 +7,10 @@ import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
+import { TeacherInfoCard } from "../components/TeacherInfo/TeacherInfoCard";
+import Register from "../pages/Register/Register";
+import Reset from "../pages/ResetPassword/Reset";
+import SendMail from "../pages/SendEmail/SendMail";
 
 import SubjectAlex from "../pages/Subject/SubjectAlex";
 import SubjectAna from "../pages/Subject/SubjectAna";
@@ -72,6 +76,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />
-  }
+    element: <Login />,
+    index: true
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/resetPassword",
+    element: <Reset />
+  },
+  {
+    path: "/sendMail",
+    element: <SendMail />
+  },
 ]);
