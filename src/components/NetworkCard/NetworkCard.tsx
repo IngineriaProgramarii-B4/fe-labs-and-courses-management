@@ -52,8 +52,6 @@ function NetworkCard() {
         }
       });
 
-    // DUMMY DATA
-
     const USERS: UserDataType[] = [
       {
         email: "diana.cuzic@gmail.com",
