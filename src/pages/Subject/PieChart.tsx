@@ -117,7 +117,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
             title={selectedComponent}
             description={descriptions[selectedComponent]}
             value={value}
-            isVisibile={isModalOpen}
+            isVisible={isModalOpen}
             setIsVisible={setIsModalOpen}
             isModified={props.isModified}
             setIsModified={props.setIsModified}

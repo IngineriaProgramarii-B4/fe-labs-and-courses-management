@@ -10,7 +10,7 @@ interface EvaluationEditProps {
   setIsModified: (isModified: boolean) => void;
   description: string;
   value: number;
-  isVisibile: boolean;
+  isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
   resetFields: boolean;
   setResetFields: (resetFields: boolean) => void;
@@ -53,7 +53,7 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
   return (
     <Modal
       title={`Edit ${props.title}`}
-      open={props.isVisibile}
+      open={props.isVisible}
       onCancel={() => {
         props.setIsVisible(false);
         props.setResetFields(props.resetFields ? false : true);
@@ -65,6 +65,7 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
           onClick={() => {
             props.setIsVisible(false);
             props.setResetFields(props.resetFields ? false : true);
+            console.log(props.isVisible);
           }}
         >
           Close
