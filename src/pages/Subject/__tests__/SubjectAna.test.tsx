@@ -1,23 +1,19 @@
-import { render, screen, fireEvent, waitFor, getByTestId } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  getByTestId,
+} from "@testing-library/react";
 import SubjectAna from "../SubjectAna";
 import { BrowserRouter as Router } from "react-router-dom";
 import Course from "../Course";
-import MockAdapter from "axios-mock-adapter/types";
 import axios from "axios";
 import { act } from "react-dom/test-utils";
 
+jest.mock("axios");
+
 describe("SubjectAna component", () => {
-
-  let mockAxios: MockAdapter;
-
-  beforeEach(() => {
-    mockAxios = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mockAxios.restore();
-  });
-
   it("should set the subject and description state variables when data is returned from the API", async () => {
     const subjectTitle = "testSubject";
     const subjectData = {
@@ -31,9 +27,7 @@ describe("SubjectAna component", () => {
     };
     const expectedDescription = subjectData.description;
 
-    mockAxios
-      .onGet(`http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}`)
-      .reply(200, subjectData);
+    (axios.get as jest.Mock).mockResolvedValueOnce({ data: subjectData });
 
     await act(async () => {
       render(<SubjectAna />);
@@ -42,7 +36,6 @@ describe("SubjectAna component", () => {
     expect(screen.getByTestId("subjectAna-1")).toBeInTheDocument();
     expect(screen.getByText(expectedDescription)).toBeInTheDocument();
   });
-
 
   // titlu cursului este afisat corect
   test("renders course title", () => {
@@ -73,7 +66,7 @@ describe("SubjectAna component", () => {
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute(
       "src",
-      "https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg"
+      "https://blog.planview.com/wp-content/uploads/2020/01/Top-6-Software-Development-Methodologies.jpg"
     );
   });
 
