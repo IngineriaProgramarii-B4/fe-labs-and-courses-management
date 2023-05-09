@@ -7,8 +7,9 @@ import { sendResetEmail } from '../Login/api';
 function SendMail() {
   const reset = async (values: { myEmail: string }) => {
     try {
-      await sendResetEmail(values.myEmail);
       message.success("Reset Successful");
+      await sendResetEmail(values.myEmail);
+      
     } catch (error) {
       message.error("Error sending reset email");
     }

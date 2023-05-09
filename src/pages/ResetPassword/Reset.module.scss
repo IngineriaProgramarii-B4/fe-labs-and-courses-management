@@ -20,6 +20,7 @@
      margin-left: 5rem;
      padding: 10%;
      border-radius: 16px;
+     
  }
  
  .titluForm{
@@ -41,13 +42,13 @@
     }
  }
  
- /* @media screen and (max-width: 329px) {
-     .titluForm {
-         font-size: smaller;
-         margin: auto;
-     }
- } */
- 
+
+ .ant-form-item-explain.ant-form-item-explain-error {
+    max-width: 100%;
+    white-space: pre-wrap; // Acest lucru va face ca textul să treacă la linia următoare dacă depășește lățimea maximă
+  }
+  
+    
  @media screen and (max-width: 410px) {
      .resetForm {
          font-size: 0.8rem;
