@@ -21,6 +21,7 @@ const AddSubjectCard: React.FC<AddSubjectCardProps> = (props) => {
         data-testid="add-card-button"
       >
         <Card
+          data-testid="add-card-button-card"
           onClick={() => setSubjectModal(true)}
           hoverable
           style={{ width: 240, padding: 40 }}
