@@ -1,22 +1,28 @@
-import {
-  render,
-  screen,
-  waitFor,
-  fireEvent,
-  findAllByAltText,
-} from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import Accordion from "../Accordion";
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
-//jest.mock("axios");
-//  const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
-const mockAxios = new MockAdapter(axios);
-beforeEach(() => {
-  jest.resetAllMocks();
-});
+jest.mock("axios");
+
+
+
+const mock = new MockAdapter(axios);
+
+// Mock props
+const props = {
+  components: ["Course", "Seminar"],
+  title: "Some title",
+  isModified: false,
+  setIsModified: jest.fn(),
+};
 
 describe("Accordion", () => {
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+  
   test("should render Acoordion component", async () => {
     
     //axiosInstanceMock.create.mockReturnValue(axiosInstance);
@@ -25,6 +31,57 @@ describe("Accordion", () => {
     //await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
     const accordionElement = screen.getByTestId("accordion-1");
     expect(accordionElement).toBeInTheDocument();
+  });
+
+   // Test showAddModal function
+   it("should open the add modal when add button is clicked", async () => {
+    render(<Accordion {...props} />);
+    const addButton = screen.getByTestId("add-button");
+    fireEvent.click(addButton);
+    await waitFor(() => {
+      expect(screen.getByTestId("modal")).toBeInTheDocument();
+    });
+  });
+
+  // Test hideAddModal function
+  it("should close the add modal when cancel button is clicked", async () => {
+    render(<Accordion {...props} />);
+    const addButton = screen.getByTestId("add-button");
+    fireEvent.click(addButton);
+    await waitFor(() => {
+      expect(screen.getByTestId("modal")).toBeInTheDocument();
+    });
+    const cancelButton = screen.getByText("Cancel");
+    fireEvent.click(cancelButton);
+    await waitFor(() => {
+      expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
+    });
+  });
+
+  // Test saveComponent function
+  it("should save the new component and update the state when form is submitted", async () => {
+    mock.onPost(`http://localhost:8090/api/v1/subjects/${props.title}/components`).reply(200, {});
+    mock.onPost(`http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`).reply(200, {});
+    render(<Accordion {...props} />);
+    const addButton = screen.getByTestId("add-button");
+    fireEvent.click(addButton);
+    await waitFor(() => {
+      expect(screen.getByTestId("modal")).toBeInTheDocument();
+    });
+    const typeInput = screen.getByLabelText("Type");
+    fireEvent.change(typeInput, { target: { value: "New Component" } });
+    const numberInput = screen.getByLabelText("Number of weeks");
+    fireEvent.change(numberInput, { target: { value: 2 } });
+    const percentageInput = screen.getByLabelText("Percentage");
+    fireEvent.change(percentageInput, { target: { value: 50 } });
+    const descriptionInput = screen.getByLabelText("Description");
+    fireEvent.change(descriptionInput, { target: { value: "Some description" } });
+    const submitButton = screen.getByText("Submit");
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
+    });
+    expect(props.setIsModified).toHaveBeenCalledWith(true);
   });
 
   test("renders the Accordion component with the correct props", () => {

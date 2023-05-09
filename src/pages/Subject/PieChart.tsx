@@ -65,7 +65,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
   }, [props.isModified]);
 
   return (
-    <div className="flex justify-evenly">
+    <div className="flex justify-evenly" data-testId="pie-chart">
       <Chart
         width={"600px"}
         height={"400px"}
