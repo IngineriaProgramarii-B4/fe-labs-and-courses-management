@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Accordion from "./Accordion";
 import axios from "axios";
-//import "./SubjectAna.css";
 import { useSearchParams } from "react-router-dom";
 import PieChart from "./PieChart";
 import Course from "./Course";
@@ -14,7 +13,7 @@ function SubjectAna() {
   const [subject, setSubject] = useState<any>();
 
   const [searchParams] = useSearchParams();
-  const [subjectTitle, setSubjectTitle] = useState<string>(
+  const [subjectTitle] = useState<string>(
     searchParams.get("subject")!
   );
   const [accordionData, setAccordionData] = useState<string[]>([]);
@@ -52,7 +51,6 @@ function SubjectAna() {
         return component.type;
       });
       setAccordionData(accData);
-      // console.log(result.data.evaluations);
     };
     fetchData();
   }, [isModified]);
@@ -82,7 +80,7 @@ function SubjectAna() {
             <div data-testid="subjectAna-1">
               <Course
                 title={`${subjectTitle} description`}
-                description={description!}
+                description={description}
                 modalShow={modalShow}
                 setModalShow={setModalShow}
                 setDescription={setDescription}
@@ -91,7 +89,7 @@ function SubjectAna() {
               <MyVerticallyCenteredModal
                 //data-testid="modal-course-description"
                 title={title}
-                description={description!}
+                description={description}
                 modalShow={modalShow}
                 setModalShow={setModalShow}
                 setDescription={setDescription}

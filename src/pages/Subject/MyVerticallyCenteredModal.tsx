@@ -19,11 +19,6 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
   const [inputDescription, setInputDescription] = useState(props.description);
   const [editing, setEditing] = useState(false);
 
-  const handleOk = () => {
-    props.setDescription(inputDescription);
-    props.setModalShow(false);
-  };
-
   const handleEdit = () => {
     setEditing(true);
   };
@@ -31,7 +26,7 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
   const handleSave = async () => {
     try {
       props.subject.description = inputDescription;
-      const result = await axios.put(
+      await axios.put(
         `http://localhost:8090/api/v1/subjects/subjectTitle=${props.subject.title}`,
         props.subject
       );

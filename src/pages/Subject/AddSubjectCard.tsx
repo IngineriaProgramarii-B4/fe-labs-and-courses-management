@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-//import "./SubjectAlex.css";
 import FormModal from "./FormModal";
 
 const { Meta } = Card;

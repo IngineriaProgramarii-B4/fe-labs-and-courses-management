@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Modal, Form, Input, Row, Col, Select, UploadFile } from "antd";
+import { Form, Input, Row, Col, Select, UploadFile } from "antd";
 import PhotoUpload from "./PhotoUpload";
 const { TextArea } = Input;
 
