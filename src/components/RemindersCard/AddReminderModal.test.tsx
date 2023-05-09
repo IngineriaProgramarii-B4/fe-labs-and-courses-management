@@ -3,7 +3,6 @@ import "@testing-library/jest-dom";
 import { Button, Form, DatePicker, ConfigProvider, Input } from "antd";
 import { fireEvent, render, screen } from "@testing-library/react";
 import AddReminderModal, {ModalFooter} from "./AddReminderModal";
-import RemindersContext from "./RemindersContext";
 
 const noop = () => {};
 
@@ -74,6 +73,7 @@ describe("AddReminderModal descriptions", () => {
     expect(getByLabelText('Due date')).toBeInTheDocument();
   });
 
+  //+coverage, dar pica
   it('should allow user to enter input values', () => {
     const { getByLabelText } = render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => {}} />);
     const titleInput = getByLabelText('Title') as HTMLInputElement;
