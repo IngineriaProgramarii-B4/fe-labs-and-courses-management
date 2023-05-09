@@ -201,6 +201,9 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           component={props.component}
           title={props.title}
           clearFileList={clearFileList}
+          onDrop={(e) => {
+            console.log("Dropped files", e.dataTransfer.files);
+          }}
         />
       </Modal>
       <Table
