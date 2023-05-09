@@ -5,7 +5,7 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Collapse, Modal, Input, Form, Select, InputNumber } from "antd";
 import ResourcesTable from "./ResourcesTable";
-//import "./Accordion.css";
+
 const { Panel } = Collapse;
 const { TextArea } = Input;
 
@@ -186,7 +186,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
             >
               {possibleComponents.map((component) => {
                 return (
-                  <Select.Option value={component}>{component}</Select.Option>
+                  <Select.Option value={component} key={component}>{component}</Select.Option>
                 );
               })}
             </Select>

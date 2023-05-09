@@ -1,294 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx">
-    <testCase name="ResourcesTable component renders table with resource titles" duration="2106"/>
-    <testCase name="ResourcesTable component opens a modal when &apos;Add resource&apos; button is clicked" duration="1038"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.test.tsx">
+    <testCase name="UserHeader should render properly" duration="120"/>
+    <testCase name="UserInfoFields should render properly" duration="9"/>
+    <testCase name="NetworkCard should render properly" duration="188"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx">
-    <testCase name="SubjectAna component renders course title" duration="173">
-      <failure message="Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&apos;s defined in, or you might have mixed up default and named imports."><![CDATA[Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
-    at createFiberFromTypeAndProps (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28439:17)
-    at createFiberFromElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28465:15)
-    at reconcileSingleElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15750:23)
-    at reconcileChildFibers (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15808:35)
-    at reconcileChildren (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19174:28)
-    at updateHostRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19883:5)
-    at beginWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21615:14)
-    at beginWork$1 (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
-    at performUnitOfWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
-    at workLoopSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
-    at renderRootSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
-    at performConcurrentWorkOnRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25738:74)
-    at flushActQueue (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
-    at act (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
-    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
-    at renderRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:159:26)
-    at render (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:246:10)
-    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:12:11)
-    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="SubjectAna component write src picture" duration="776">
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\TeacherInfo\TeacherInfoCard.test.tsx">
+    <testCase name="TeacherInfoCard renders the card title" duration="170"/>
+    <testCase name="TeacherInfoCard renders the teacher name" duration="147"/>
+    <testCase name="TeacherInfoCard renders the course titles" duration="82"/>
+    <testCase name="CourseCard should render properly" duration="43"/>
+    <testCase name="CoursesCard should render properly" duration="57"/>
+  </file>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx">
+    <testCase name="SubjectAlex component renders the component" duration="360"/>
+    <testCase name="SubjectAlex component fetches the data from the API" duration="118"/>
+    <testCase name="SubjectAlex component &apos;no&apos; button doesn&apos;t delete the card" duration="205"/>
+    <testCase name="SubjectAlex component delete button trigger axios.delete" duration="61"/>
+    <testCase name="SubjectAlex component edit button opens form" duration="590"/>
+  </file>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx">
+    <testCase name="UpdateGrade component should render a button to open the modal" duration="234"/>
+    <testCase name="UpdateGrade component should render a modal when the button is clicked" duration="914"/>
+    <testCase name="UpdateGrade component should submit the form data when the update button is clicked" duration="460"/>
+  </file>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Catalog\__tests__\AddGradeComponent.test.tsx">
+    <testCase name="AddGrade component should render a button to open the modal" duration="422"/>
+    <testCase name="AddGrade component should render a modal when the button is clicked" duration="720"/>
+    <testCase name="AddGrade component should submit the form data when the add button is clicked" duration="532"/>
+  </file>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx">
+    <testCase name="SubjectAna component renders course title" duration="42"/>
+    <testCase name="SubjectAna component write src picture" duration="254">
       <failure message="Error: expect(element).toHaveAttribute(&quot;src&quot;, &quot;https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg&quot;) // element.getAttribute(&quot;src&quot;) === &quot;https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg&quot;"><![CDATA[Error: expect(element).toHaveAttribute("src", "https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg") // element.getAttribute("src") === "https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg"
 
 Expected the element to have attribute:
   src="https://profs.info.uaic.ro/~adiftene/Scoala/2022/IP/Img/Amazon_Learn_and_Earn.jpg"
 Received:
   src=""
-    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:35:19)
-    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at Object.<anonymous> (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:37:19)
+    at Promise.then.completed (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at _runTest (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="SubjectAna component clicking &apos;View Full Description&apos; shows the modal" duration="17">
-      <failure message="Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&apos;s defined in, or you might have mixed up default and named imports."><![CDATA[Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
-    at createFiberFromTypeAndProps (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28439:17)
-    at createFiberFromElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28465:15)
-    at reconcileSingleElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15750:23)
-    at reconcileChildFibers (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15808:35)
-    at reconcileChildren (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19174:28)
-    at updateHostRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19883:5)
-    at beginWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21615:14)
-    at beginWork$1 (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
-    at performUnitOfWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
-    at workLoopSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
-    at renderRootSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
-    at performConcurrentWorkOnRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25738:74)
-    at flushActQueue (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
-    at act (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
-    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
-    at renderRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:159:26)
-    at render (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:246:10)
-    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:48:11)
-    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="SubjectAna component Modal opening" duration="307"/>
-    <testCase name="SubjectAna component should render the modal with edit and close buttons" duration="23">
-      <failure message="Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&apos;s defined in, or you might have mixed up default and named imports."><![CDATA[Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
-    at createFiberFromTypeAndProps (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28439:17)
-    at createFiberFromElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28465:15)
-    at reconcileSingleElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15750:23)
-    at reconcileChildFibers (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15808:35)
-    at reconcileChildren (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19174:28)
-    at updateHostRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19883:5)
-    at beginWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21615:14)
-    at beginWork$1 (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
-    at performUnitOfWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
-    at workLoopSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
-    at renderRootSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
-    at performConcurrentWorkOnRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25738:74)
-    at flushActQueue (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
-    at act (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
-    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
-    at renderRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:159:26)
-    at render (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:246:10)
-    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:97:11)
-    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="SubjectAna component should show the edit textarea when Edit button is clicked" duration="14">
-      <failure message="Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&apos;s defined in, or you might have mixed up default and named imports."><![CDATA[Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
-    at createFiberFromTypeAndProps (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28439:17)
-    at createFiberFromElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28465:15)
-    at reconcileSingleElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15750:23)
-    at reconcileChildFibers (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15808:35)
-    at reconcileChildren (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19174:28)
-    at updateHostRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19883:5)
-    at beginWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21615:14)
-    at beginWork$1 (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
-    at performUnitOfWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
-    at workLoopSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
-    at renderRootSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
-    at performConcurrentWorkOnRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25738:74)
-    at flushActQueue (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
-    at act (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
-    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
-    at renderRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:159:26)
-    at render (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:246:10)
-    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:105:11)
-    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="SubjectAna component should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="21">
-      <failure message="Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&apos;s defined in, or you might have mixed up default and named imports."><![CDATA[Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
-    at createFiberFromTypeAndProps (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28439:17)
-    at createFiberFromElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:28465:15)
-    at reconcileSingleElement (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15750:23)
-    at reconcileChildFibers (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:15808:35)
-    at reconcileChildren (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19174:28)
-    at updateHostRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19883:5)
-    at beginWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21615:14)
-    at beginWork$1 (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
-    at performUnitOfWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
-    at workLoopSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
-    at renderRootSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
-    at performConcurrentWorkOnRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25738:74)
-    at flushActQueue (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
-    at act (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
-    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
-    at renderRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:159:26)
-    at render (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:246:10)
-    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx:113:35)
-    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
+    <testCase name="SubjectAna component clicking &apos;View Full Description&apos; shows the modal" duration="17"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx">
-    <testCase name="UpdateGrade component should render a button to open the modal" duration="559"/>
-    <testCase name="UpdateGrade component should render a modal when the button is clicked" duration="3096"/>
-    <testCase name="UpdateGrade component should submit the form data when the update button is clicked" duration="1191"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
+    <testCase name="Accordion should render Acoordion component" duration="226"/>
+    <testCase name="Accordion renders the Accordion component with the correct props" duration="45"/>
+    <testCase name="Accordion should  open the modal for the new component" duration="434"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\CatalogComponent.test.tsx">
-    <testCase name="Catalog renders student&apos;s name and grades table" duration="834"/>
-    <testCase name="Catalog fetches and stores response data correctly" duration="522"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\RemindersCard\RemindersCardBody.test.tsx">
+    <testCase name="RemindersCardBody should render reminders title" duration="567"/>
+    <testCase name="RemindersCardBody should render the title of the reminder" duration="185"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\RemindersCardBody.test.tsx">
-    <testCase name="RemindersCardBody should render reminders title" duration="1381"/>
-    <testCase name="RemindersCardBody should render the title of the reminder" duration="417"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx">
+    <testCase name="Modal that pops up and has a text area renders the modal" duration="374"/>
+    <testCase name="Modal that pops up and has a text area should render the modal with edit and close buttons" duration="339"/>
+    <testCase name="Modal that pops up and has a text area should show the edit textarea when Edit button is clicked" duration="231"/>
+    <testCase name="Modal that pops up and has a text area should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="149"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\DeleteGradeComponent.test.tsx">
-    <testCase name="DeleteGrade component clicking delete button shows confirmation modal" duration="1330"/>
-    <testCase name="DeleteGrade component clicking delete button and confirming should delete grade and close modal" duration="541"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\RemindersCard\AddItem.test.tsx">
+    <testCase name="AddReminder should render title field" duration="416"/>
+    <testCase name="AddReminder should render description field" duration="140"/>
+    <testCase name="AddReminder should render due date field" duration="142"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
-    <testCase name="Accordion should render Acoordion component" duration="410"/>
-    <testCase name="Accordion renders the Accordion component with the correct props" duration="102"/>
-    <testCase name="Accordion should  open the modal for the new component" duration="905"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx">
+    <testCase name="ResourcesTable component renders table with resource titles" duration="620"/>
+    <testCase name="ResourcesTable component opens a modal when &apos;Add resource&apos; button is clicked" duration="349"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\AddGradeComponent.test.tsx">
-    <testCase name="AddGrade component should render a button to open the modal" duration="1066"/>
-    <testCase name="AddGrade component should render a modal when the button is clicked" duration="1570"/>
-    <testCase name="AddGrade component should submit the form data when the add button is clicked" duration="1356"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Catalog\__tests__\DeleteGradeComponent.test.tsx">
+    <testCase name="DeleteGrade component clicking delete button shows confirmation modal" duration="613"/>
+    <testCase name="DeleteGrade component clicking delete button and confirming should delete grade and close modal" duration="331"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoModal.test.tsx">
-    <testCase name="ModalTitle should render properly when not in edit mode" duration="238"/>
-    <testCase name="ModalTitle should not render a pencil icon when in edit mode" duration="5"/>
-    <testCase name="ModalTitle should go into edit mode on icon click" duration="82"/>
-    <testCase name="ModalFooter should render properly when in edit mode" duration="124"/>
-    <testCase name="ModalFooter should render properly when not in edit mode" duration="98"/>
-    <testCase name="ModalFooter should call onSave when save button is clicked" duration="77"/>
-    <testCase name="ModalFooter should call onCancel when cancel button is clicked" duration="67"/>
-    <testCase name="ModalFooter should call onLogout when logout button is clicked" duration="77"/>
-    <testCase name="UserProfileAvatar should render properly when not editing and with an avatar" duration="9"/>
-    <testCase name="UserProfileAvatar should render properly when editing and with an uploaded avatar" duration="118"/>
-    <testCase name="UserInfoModal should render the user icon properly" duration="377"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Catalog\__tests__\CatalogComponent.test.tsx">
+    <testCase name="Catalog renders student&apos;s name and grades table" duration="312"/>
+    <testCase name="Catalog fetches and stores response data correctly" duration="178"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\AddItem.test.tsx">
-    <testCase name="AddReminder should render title field" duration="963"/>
-    <testCase name="AddReminder should render description field" duration="399"/>
-    <testCase name="AddReminder should render due date field" duration="328"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
+    <testCase name="FormModal renders modal title" duration="834"/>
+    <testCase name="FormModal should render the submit button" duration="278"/>
+    <testCase name="FormModal submits the form data" duration="2888"/>
+    <testCase name="FormModal cancels the form data" duration="2169"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
-    <testCase name="CardGrid renders the correct number of subject cards" duration="978"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
+    <testCase name="CardGrid renders the correct number of subject cards" duration="199"/>
+    <testCase name="CardGrid pressing the card sends the user to the course&apos;s page" duration="65"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx">
-    <testCase name="SubjectAlex component renders the component" duration="671"/>
-    <testCase name="SubjectAlex component fetches the data from the API" duration="804"/>
-    <testCase name="SubjectAlex component &apos;no&apos; button doesn&apos;t delete the card" duration="905"/>
-    <testCase name="SubjectAlex component delete button trigger axios.delete" duration="150"/>
-    <testCase name="SubjectAlex component edit button opens form" duration="2055"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\UserInfoModal\UserAvatar.test.tsx">
+    <testCase name="UserAvatar should render the user placeholder icon" duration="53"/>
+    <testCase name="UserAvatar should render a custom user avatar" duration="17"/>
+    <testCase name="UserAvatar should call the onClick function when clicked" duration="18"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.test.tsx">
-    <testCase name="UserHeader should render properly" duration="209"/>
-    <testCase name="UserInfoFields should render properly" duration="14"/>
-    <testCase name="NetworkCard should render properly" duration="295"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\RemindersCard\RemindersContext.test.tsx">
+    <testCase name="RemindersContext should call saveNewReminder when click on submit button" duration="156"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\TeacherInfo\TeacherInfoCard.test.tsx">
-    <testCase name="TeacherInfoCard renders the card title" duration="502"/>
-    <testCase name="TeacherInfoCard renders the teacher name" duration="305"/>
-    <testCase name="TeacherInfoCard renders the course titles" duration="250"/>
-    <testCase name="CourseCard should render properly" duration="82"/>
-    <testCase name="CoursesCard should render properly" duration="139"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoInput.test.tsx">
+    <testCase name="UserInfoInput should render properly" duration="18"/>
+    <testCase name="UserInfoInput should be editable when in edit mode" duration="132"/>
+    <testCase name="UserInfoInput should not be editable when not in edit mode" duration="4"/>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
-    <testCase name="FormModal renders modal title" duration="2631"/>
-    <testCase name="FormModal should render the submit button" duration="960"/>
-    <testCase name="FormModal submits the form data" duration="9341"/>
-    <testCase name="FormModal cancels the form data" duration="5633"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoInput.test.tsx">
-    <testCase name="UserInfoInput should render properly" duration="153"/>
-    <testCase name="UserInfoInput should be editable when in edit mode" duration="676"/>
-    <testCase name="UserInfoInput should not be editable when not in edit mode" duration="36"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\UserInfoModal\UserAvatar.test.tsx">
-    <testCase name="UserAvatar should render the user placeholder icon" duration="152"/>
-    <testCase name="UserAvatar should render a custom user avatar" duration="66"/>
-    <testCase name="UserAvatar should call the onClick function when clicked" duration="68"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\RemindersContext.test.tsx">
-    <testCase name="RemindersContext should call saveNewReminder when click on submit button" duration="500"/>
+  <file path="C:\Users\Robert\OneDrive\Desktop\IP\New Frontend\New-frontend\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoModal.test.tsx">
+    <testCase name="ModalTitle should render properly when not in edit mode" duration="73"/>
+    <testCase name="ModalTitle should not render a pencil icon when in edit mode" duration="2"/>
+    <testCase name="ModalTitle should go into edit mode on icon click" duration="22"/>
+    <testCase name="ModalFooter should render properly when in edit mode" duration="31"/>
+    <testCase name="ModalFooter should render properly when not in edit mode" duration="13"/>
+    <testCase name="ModalFooter should call onSave when save button is clicked" duration="17"/>
+    <testCase name="ModalFooter should call onCancel when cancel button is clicked" duration="14"/>
+    <testCase name="ModalFooter should call onLogout when logout button is clicked" duration="12"/>
+    <testCase name="UserProfileAvatar should render properly when not editing and with an avatar" duration="3"/>
+    <testCase name="UserProfileAvatar should render properly when editing and with an uploaded avatar" duration="27"/>
+    <testCase name="UserInfoModal should render the user icon properly" duration="85"/>
   </file>
 </testExecutions>

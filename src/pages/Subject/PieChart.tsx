@@ -1,7 +1,6 @@
-import React from "react";
+import  React, { useEffect } from "react";
 import axios from "axios";
 import { Chart } from "react-google-charts";
-import { useState, useEffect } from "react";
 import { Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";

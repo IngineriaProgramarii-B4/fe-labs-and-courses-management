@@ -7,7 +7,7 @@ import { faFolderPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ColumnsType } from "antd/es/table";
 import FileTransfer from "./FileTransfer";
 
-//import "./Accordion.css";
+
 
 interface DataType {
   key: React.Key;
@@ -46,10 +46,6 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       const blob = new Blob([res.data], { type: file.type });
 
       const url = window.URL.createObjectURL(blob);
-      // const link = document.createElement("a");
-      // link.href = url;
-      // link.setAttribute("download", file.title);
-      // link.click();
       window.open(url);
       console.log(res);
     } catch (error) {

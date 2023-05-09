@@ -1,7 +1,7 @@
 import axios from "axios";
 import CardGrid from "./CardGrid";
 import React, { useEffect, useState } from "react";
-//import "./SubjectAlex.css";
+
 
 interface Subject {
   id: number;

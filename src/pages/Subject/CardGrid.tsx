@@ -1,4 +1,4 @@
-//import "./SubjectAlex.css";
+
 import SubjectCard from "./SubjectCard";
 import AddSubjectCard from "./AddSubjectCard";
 import React, { useState, useEffect } from "react";
