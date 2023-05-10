@@ -148,4 +148,33 @@ describe("NetworkCard", () => {
     });
   });
 });
-// @ts-ignore
+
+//test Andreea
+// test("should handle error when fetching data", async () => {
+//   const error = new Error("404 Haven't found users that match the requirements");
+//   (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce({ response: { status: 404 }});
+
+//   const networkCard = screen.queryByTestId('network-card');
+//   expect(networkCard).toBeNull();
+// });
+
+//testul nostru
+
+test("should handle error when fetching data", async () => {
+  jest.spyOn(axios, 'create').mockReturnValueOnce({
+    get: jest.fn(() => Promise.reject({
+      response: {
+        status: 404
+      }
+    }))
+  } as any);
+
+  render(<NetworkCard />);
+
+  const errorElem = await screen.findByText(/404 Haven't found users that match the requirements/i);
+  expect(errorElem).toBeInTheDocument();
+
+  const networkCard = screen.queryByTestId('network-card');
+  expect(networkCard).toBeNull();
+});
+

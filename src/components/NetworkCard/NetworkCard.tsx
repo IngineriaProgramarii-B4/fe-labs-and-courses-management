@@ -1,5 +1,5 @@
-import { Card } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import { Card, Divider } from "antd";
+import { useEffect, useState } from "react";
 import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
 import axios from "axios";
@@ -87,5 +87,7 @@ const renderCard = (user: UserDataType) => {
   );
 };
 
+  return <div data-testid="network-card" className="flex flex-wrap">{users.map(renderCard)}</div>;
+}
 
 export default NetworkCard;
