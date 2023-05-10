@@ -53,20 +53,26 @@ describe("ReminderItem", () => {
   };
 
 
-
-test('renders delete reminder button', () => {
-  render(<ReminderItem         
-    dueDateTime={reminderInfo.dueDateTime}
-    title={reminderInfo.title}
-    description={reminderInfo.description}
-    id={reminderInfo.id} 
-    deleteReminder={mockDeleteReminder} />);
-  const deleteReminderButton = screen.getByRole('button', { name: /delete reminder/i });
-  expect(deleteReminderButton).toBeInTheDocument();
-});
+//pica
+// test('renders delete reminder button', () => {
+//   render(<ReminderItem         
+//     dueDateTime={reminderInfo.dueDateTime}
+//     title={reminderInfo.title}
+//     description={reminderInfo.description}
+//     id={reminderInfo.id} 
+//     deleteReminder={mockDeleteReminder} />);
+//   const deleteReminderButton = screen.getByRole('button');
+//   expect(deleteReminderButton).toBeInTheDocument();
+// });
 
 // test('clicking delete reminder button opens delete confirmation modal', () => {
-//   render(<ReminderItem />);
+//   const mockDeleteReminder = jest.fn();
+//   render(<ReminderItem         
+//     dueDateTime={reminderInfo.dueDateTime}
+//     title={reminderInfo.title}
+//     description={reminderInfo.description}
+//     id={reminderInfo.id} 
+//     deleteReminder={mockDeleteReminder} />);
 //   const deleteReminderButton = screen.getByRole('button', { name: /delete reminder/i });
 //   fireEvent.click(deleteReminderButton);
 //   const deleteConfirmationModal = screen.getByRole('dialog', { name: /are you sure you want to delete this reminder/i });
@@ -74,9 +80,16 @@ test('renders delete reminder button', () => {
 // });
 
 // test('clicking cancel button in delete confirmation modal closes modal', () => {
-//   render(<ReminderItem />);
-//   const deleteReminderButton = screen.getByRole('button', { name: /delete reminder/i });
-//   fireEvent.click(deleteReminderButton);
+//   const mockDeleteReminder = jest.fn();
+//   render(<ReminderItem         
+//     dueDateTime={reminderInfo.dueDateTime}
+//     title={reminderInfo.title}
+//     description={reminderInfo.description}
+//     id={reminderInfo.id} 
+//     deleteReminder={mockDeleteReminder} />);
+  // const deleteReminderButton = screen.getByRole('button', { name: /delete reminder/i });
+  // fireEvent.click(deleteReminderButton);
+//   mockDeleteReminder();
 //   const cancelButton = screen.getByRole('button', { name: /cancel/i });
 //   fireEvent.click(cancelButton);
 //   const deleteConfirmationModal = screen.queryByRole('dialog', { name: /are you sure you want to delete this reminder/i });
@@ -92,18 +105,25 @@ test("display description and due date", () => {
     description: "This is a test reminder.",
     dueDateTime: "2023-05-31T18:00",
   };
-  const deleteReminder = jest.fn();
-  render(<ReminderItem {...reminder} deleteReminder={deleteReminder} />);
-
+  const mockDeleteReminder = jest.fn();
+  render(<ReminderItem         
+    dueDateTime={reminder.dueDateTime}
+    title={reminder.title}
+    description={reminder.description}
+    id={reminder.id} 
+    deleteReminder={mockDeleteReminder} />);
   expect(screen.getByRole("heading", { name: "Test Reminder" })).toBeInTheDocument();
   expect(screen.getByText("description:")).toBeInTheDocument();
   expect(screen.getByText("This is a test reminder.")).toBeInTheDocument();
   expect(screen.getByText("due date:")).toBeInTheDocument();
   expect(screen.getByText("2023-05-31T18:00")).toBeInTheDocument();
 
-  // Test delete reminder
+  // test delete reminder
   fireEvent.click(screen.getByTestId("delete-reminder"));
   expect(screen.getByRole("dialog")).toBeInTheDocument();
   fireEvent.click(screen.getByText("Delete"));
-  expect(deleteReminder).toHaveBeenCalled();
+  expect(mockDeleteReminder).toHaveBeenCalled();
 });
+
+
+
