@@ -1,26 +1,27 @@
 import React from "react";
-import { render, screen, fireEvent} from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import MyVerticallyCenteredModal from "../MyVerticallyCenteredModal";
 import SubjectAna from "../SubjectAna";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import axios from "axios";
+jest.mock("axios");
+afterEach(() => {
+  jest.clearAllMocks();
+});
 describe("Modal that pops up and has a text area", () => {
-    test("renders the modal", () => {
-        
-        render(
-            <Router>
-              <SubjectAna />
-            </Router>
-          );
-          const moreDescription = screen.getByTestId("more description");
-      
-          fireEvent.click(moreDescription);
-      
-          const modal = screen.getByTestId("course-modal");
-          expect(modal).toBeInTheDocument();
-    });
+  test("renders the modal", () => {
+    render(
+      <Router>
+        <SubjectAna />
+      </Router>
+    );
+    const moreDescription = screen.getByTestId("more description");
 
-    
+    fireEvent.click(moreDescription);
+
+    const modal = screen.getByTestId("course-modal");
+    expect(modal).toBeInTheDocument();
+  });
 
   const mockSetModalShow = jest.fn();
   const mockSetDescription = jest.fn();
@@ -61,7 +62,7 @@ describe("Modal that pops up and has a text area", () => {
     fireEvent.click(screen.getByTestId("edit-modal"));
 
     const descriptionInput = screen.getByTestId("input-description");
-    
+
     fireEvent.change(descriptionInput, {
       target: { value: "New description" },
     });
@@ -76,4 +77,72 @@ describe("Modal that pops up and has a text area", () => {
     // expect(mockSetModalShow).toHaveBeenCalledWith(false);
   });
 
+  /******************************************************** */
+  const mockProps = {
+    title: "Test Title",
+    description: "Test Description",
+    modalShow: true,
+    setModalShow: jest.fn(),
+    setDescription: jest.fn(),
+    subject: { title: "Test Title", description: "Test Description" },
+    isModified: false,
+    setIsModified: jest.fn(),
+  };
+
+  it("should render the modal correctly", () => {
+    const { getByTestId } = render(
+      <MyVerticallyCenteredModal {...mockProps} />
+    );
+    const modal = screen.getByTestId("course-modal");
+    const closeButton = screen.getByTestId("close-modal");
+    const editButton = screen.getByTestId("edit-modal");
+
+    expect(modal).toBeInTheDocument();
+    expect(closeButton).toBeInTheDocument();
+    expect(editButton).toBeInTheDocument();
+  });
+  it("should allow the user to edit the description", () => {
+    const { getByTestId } = render(
+      <MyVerticallyCenteredModal {...mockProps} />
+    );
+    const editButton = screen.getByTestId("edit-modal");
+    fireEvent.click(editButton);
+
+    const inputDescription = screen.getByTestId("input-description");
+    fireEvent.change(inputDescription, {
+      target: { value: "New Description" },
+    });
+
+    const saveButton = screen.getByTestId("save-modal");
+    fireEvent.click(saveButton);
+
+    expect(mockProps.setDescription).toHaveBeenCalledWith("New Description");
+    expect(mockProps.setIsModified).toHaveBeenCalledWith(true);
+  });
+
+  it("should handle errors when saving the description", async () => {
+    (axios.put as jest.Mock).mockRejectedValueOnce(new Error("Failed to save"));
+
+    const { getByTestId } = render(
+      <MyVerticallyCenteredModal {...mockProps} />
+    );
+    const editButton = screen.getByTestId("edit-modal");
+    fireEvent.click(editButton);
+
+    const inputDescription = screen.getByTestId("input-description");
+    fireEvent.change(inputDescription, {
+      target: { value: "New Description" },
+    });
+
+    const saveButton = screen.getByTestId("save-modal");
+    fireEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(mockProps.setIsModified).not.toHaveBeenCalled();
+    });
+
+    await waitFor(() => {
+      expect(mockProps.setModalShow).toHaveBeenCalledWith(false);
+    });
+  });
 });

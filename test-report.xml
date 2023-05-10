@@ -1,11 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx">
+    <testCase name="SubjectCard component renders subject card with mock image" duration="3">
+      <failure message="TypeError: URL.createObjectURL is not a function"><![CDATA[TypeError: URL.createObjectURL is not a function
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx:22:24)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\AddSubjectCard.test.tsx">
+    <testCase name="clicking on the add card button calls setSubjectModal with true" duration="1530">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: true
+
+Number of calls: 0
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\AddSubjectCard.test.tsx:12:27)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx">
+    <testCase name="ResourcesTable renders the component" duration="1146"/>
+    <testCase name="ResourcesTable deletes a resource on button click" duration="534"/>
+    <testCase name="ResourcesTable opens the file on resource link click" duration="455"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
+    <testCase name="FormModal renders modal title" duration="1415"/>
+    <testCase name="FormModal should render the submit button" duration="513"/>
+    <testCase name="FormModal submits the form data" duration="7421"/>
+    <testCase name="FormModal cancels the form data" duration="4189"/>
+  </file>
   <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
-    <testCase name="Accordion should render Acoordion component" duration="318"/>
-    <testCase name="Accordion should open the add modal when add button is clicked" duration="548"/>
-    <testCase name="Accordion should close the add modal when cancel button is clicked" duration="226"/>
-    <testCase name="Accordion should save the new component and update the state when form is submitted" duration="1652"/>
-    <testCase name="Accordion renders the Accordion component with the correct props" duration="61"/>
-    <testCase name="Accordion should  open the modal for the new component" duration="170"/>
+    <testCase name="Accordion should render Acoordion component" duration="662"/>
+    <testCase name="Accordion should open the add modal when add button is clicked" duration="1136"/>
+    <testCase name="Accordion should close the add modal when cancel button is clicked" duration="621"/>
+    <testCase name="Accordion should save the new component and update the state when form is submitted" duration="3140"/>
+    <testCase name="Accordion renders the Accordion component with the correct props" duration="72"/>
+    <testCase name="Accordion should  open the modal for the new component" duration="353"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx">
+    <testCase name="SubjectAlex component renders the component" duration="489"/>
+    <testCase name="SubjectAlex component fetches the data from the API" duration="204"/>
+    <testCase name="SubjectAlex component &apos;no&apos; button doesn&apos;t delete the card" duration="473"/>
+    <testCase name="SubjectAlex component delete button trigger axios.delete" duration="104"/>
+    <testCase name="SubjectAlex component edit button opens form" duration="993"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
+    <testCase name="CardGrid renders the correct number of subject cards" duration="491"/>
+    <testCase name="CardGrid pressing the card sends the user to the course&apos;s page" duration="188"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx">
+    <testCase name="FileTransfer component calls the onCancel function and updates state correctly" duration="774"/>
+    <testCase name="FileTransfer component calls axios.put with correct data when save button is clicked" duration="303"/>
+    <testCase name="FileTransfer component logs an error message when axios.put throws an error" duration="260"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PhotoUpload.test.tsx">
+    <testCase name="PhotoUpload component should render the component" duration="385"/>
+    <testCase name="PhotoUpload component renders an upload button with text when fileList is empty" duration="171"/>
+    <testCase name="PhotoUpload component should call onPreview when a picture is clicked" duration="196"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FileTransfer.test.tsx">
+    <testCase name="FileTransfer component renders the component with the correct props" duration="342"/>
+    <testCase name="FileTransfer component uploads a file successfully" duration="369"/>
+    <testCase name="FileTransfer component displays an error message when file upload fails" duration="146"/>
+    <testCase name="FileTransfer component clears the file list when clearFileList prop changes" duration="115"/>
+    <testCase name="FileTransfer component calls onDrop when files are dropped onto the component" duration="198"/>
+    <testCase name="FileTransfer component uploads a file successfully and calls onUploadProgress" duration="94"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PieChart.test.tsx">
+    <testCase name="PieChart component renders PieChart component" duration="127"/>
+    <testCase name="PieChart component fetches the data from the API" duration="56"/>
+    <testCase name="PieChart component clicking on one segment of the pieChart opens the description of that component" duration="71"/>
+    <testCase name="PieChart component clicking on the description button opens the description of that component" duration="59"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx">
+    <testCase name="Modal that pops up and has a text area renders the modal" duration="354"/>
+    <testCase name="Modal that pops up and has a text area should render the modal with edit and close buttons" duration="356"/>
+    <testCase name="Modal that pops up and has a text area should show the edit textarea when Edit button is clicked" duration="323"/>
+    <testCase name="Modal that pops up and has a text area should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="234"/>
+    <testCase name="Modal that pops up and has a text area should render the modal correctly" duration="68"/>
+    <testCase name="Modal that pops up and has a text area should allow the user to edit the description" duration="203">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: "New Description"
+
+Number of calls: 0
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx:119:38)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="Modal that pops up and has a text area should handle errors when saving the description" duration="1233">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;data&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'data')
+    at fetchData (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\PieChart.tsx:49:30)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;data&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'data')
+    at fetchData (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\SubjectAna.tsx:30:25)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: false
+
+Number of calls: 0
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <textarea
+      aria-hidden="true"
+      style="letter-spacing:normal;line-height:1.5714285714285714;padding-top:4px;padding-bottom:4px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';font-weight:;font-size:14px;font-variant:;text-rendering:auto;text-transform:none;width:100%;text-indent:0;padding-left:11px;padding-right:11px;border-width:1px;box-sizing:border-box;word-break:;white-space:pre-wrap;
+  min-height:0 !important;
+  max-height:none !important;
+  height:0 !important;
+  visibility:hidden !important;
+  overflow:hidden !important;
+  position:absolute !important;
+  z-index:-1000 !important;
+  top:0 !important;
+  right:0 !important;
+  pointer-events: none !important;
+"
+      tab-index="-1"
+    />
+    <div />
+    <div>
+      <div
+        class="ant-modal-root css-dev-only-do-not-override-yp8pcc"
+        data-testid="course-modal"
+      >
+        <div
+          class="ant-modal-mask"
+        />
+        <div
+          class="ant-modal-wrap ant-modal-centered"
+          tabindex="-1"
+        >
+          <div
+            aria-modal="true"
+            class="ant-modal css-dev-only-do-not-override-yp8pcc"
+            role="dialog"
+            style="width: 520px; transform-origin: NaNpx NaNpx;"
+          >
+            <div
+              aria-hidden="true"
+              style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+              tabindex="0"
+            />
+            <div
+              class="ant-modal-content"
+            >
+              <button
+                aria-label="Close"
+                class="ant-modal-close"
+                type="button"
+              >
+                <span
+                  class="ant-modal-close-x"
+                >
+                  <span
+                    aria-label="close"
+                    class="anticon anticon-close ant-modal-close-icon"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="close"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+              <div
+                class="ant-modal-body"
+              >
+                <h2
+                  class="text-2xl font-bold"
+                >
+                  Test Title
+                </h2>
+                <textarea
+                  class="ant-input css-dev-only-do-not-override-yp8pcc"
+                  data-testid="input-description"
+                  placeholder="Enter description"
+                  style="resize: none; height: -54px; min-height: -22px; max-height: -54px;"
+                >
+                  New Description
+                </textarea>
+              </div>
+              <div
+                class="ant-modal-footer"
+              >
+                <button
+                  class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-default"
+                  type="button"
+                >
+                  <span>
+                    Close
+                  </span>
+                </button>
+                <button
+                  class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-primary bg-buttonBlue hover:bg-hoverBlue"
+                  data-testid="save-modal"
+                  style="color: white;"
+                  type="button"
+                >
+                  <span>
+                    Save
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              aria-hidden="true"
+              style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+              tabindex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>...
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx:145:38
+    at runWithExpensiveErrorDiagnosticsDisabled (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:47:12)
+    at checkCallback (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:127:77)
+    at checkRealTimersCallback (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:121:16)
+    at Timeout.task [as _onTimeout] (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\browser\Window.js:516:19)
+    at listOnTimeout (node:internal/timers:569:17)
+    at processTimers (node:internal/timers:512:7)]]></failure>
+    </testCase>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx">
   </file>
 </testExecutions>
