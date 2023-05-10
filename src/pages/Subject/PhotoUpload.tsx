@@ -40,7 +40,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = (props) => {
   };
 
   return (
-    <div>
+    <div data-testid="upload-input">
       <Upload
         accept="image/*"
         listType="picture-card"
