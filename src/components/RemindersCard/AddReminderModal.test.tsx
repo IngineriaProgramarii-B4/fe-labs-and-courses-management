@@ -1,21 +1,88 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { Button, Form, DatePicker, ConfigProvider, Input } from "antd";
-import { fireEvent, render, screen } from "@testing-library/react";
-import AddReminderModal, {ModalFooter} from "./AddReminderModal";
+import { fireEvent, render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import AddReminderModal, { ModalFooter } from "./AddReminderModal";
+import ReminderItem from "./ReminderItem";
+import RemindersContextProvider from "./RemindersContext";
 
-const noop = () => {};
+const noop = () => {
+};
 
 describe("AddReminderModal", () => {
-    test("should render modal title, description field and due date field", () => {
+  test("should render modal title, description field and due date field", () => {
     render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => null} />);
     const modalTitle = screen.getByText(/Add Reminder/i);
+    const titleField = screen.getByText(/Title/i);
     const descriptionField = screen.getByText(/Description/i);
     const dueDateField = screen.getByText(/Due date/i);
+    expect(titleField).toBeInTheDocument();
     expect(modalTitle).toBeInTheDocument();
     expect(descriptionField).toBeInTheDocument();
     expect(dueDateField).toBeInTheDocument();
   });
+
+  test("changing the value in an input will fire onChange method", () => {
+    render(<RemindersContextProvider>
+        <AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => null} />
+      </RemindersContextProvider>
+    );
+
+    const editTitle = screen.getByTestId("edit-title");
+    expect(editTitle).toBeInTheDocument();
+    fireEvent.change(editTitle, { target: { value: "New Value" } });
+    // @ts-ignore
+    expect(editTitle.value).toBe("New Value");
+
+
+    const editDesc = screen.getByTestId("edit-desc");
+    expect(editDesc).toBeInTheDocument();
+    fireEvent.change(editDesc, { target: { value: "New Value" } });
+    // @ts-ignore
+    expect(editDesc.value).toBe("New Value");
+
+
+    const editDate = screen.getByTestId("edit-date");
+    expect(editDate).toBeInTheDocument();
+    fireEvent.change(editDate, { target: { value: "18.05.2023T00:05" } });
+    // @ts-ignore
+    expect(editDate.value).toBe("18.05.2023T00:05");
+  });
+
+
+  test("close the modal when clicking the x button", async() => {
+    render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => null} />);
+
+    const addReminderModal = screen.getByRole("dialog");
+    expect(addReminderModal).toBeInTheDocument();
+    // @ts-ignore
+    const closeModalButton = screen.getAllByRole("button")[0];
+    fireEvent.click(closeModalButton);
+    expect(screen.getAllByRole("generic")[0]).toBeEmpty()
+  });
+
+  test('renders the DatePicker component', () => {
+        render(
+      <AddReminderModal
+        isModalAddReminderOpen={false}
+        setIsModalAddReminderOpen={noop}
+      />)
+    const { getByLabelText } = render(
+      <Form>
+        <Form.Item
+          label="Due date"
+          name="date"
+          rules={[{ required: false, message: "Select a date!" }]}
+        >
+          <DatePicker />
+        </Form.Item>
+      </Form>
+    );
+
+    // eslint-disable-next-line testing-library/prefer-screen-queries
+    expect(getByLabelText('Due date')).toBeInTheDocument();
+  });
+
 });
 
 describe("ModalFooter", () => {
@@ -38,134 +105,31 @@ describe("ModalFooter", () => {
     const mockedOnSave = jest.fn();
     render(
       <ModalFooter
-      saveNewReminder={mockedOnSave}
-      onCancel={noop}
+        saveNewReminder={mockedOnSave}
+        onCancel={noop}
       />
     );
-  
+
     const saveButton = screen.getByText("Add");
     fireEvent.click(saveButton);
-  
+
     expect(mockedOnSave).toHaveBeenCalledTimes(1);
   });
-  
-  test("should call onCancel when save button is clicked", () => {
+
+  test("should call onCancel when cancel button is clicked", () => {
     const mockedOnCancel = jest.fn();
     render(
       <ModalFooter
-      saveNewReminder={noop}
-      onCancel={mockedOnCancel}
+        saveNewReminder={noop}
+        onCancel={mockedOnCancel}
       />
     );
-  
+
     const cancelButton = screen.getByText("Cancel");
     fireEvent.click(cancelButton);
-  
+
     expect(mockedOnCancel).toHaveBeenCalledTimes(1);
   });
-});
-
-describe("AddReminderModal descriptions", () => {
-  it('should display inputs for title, description and datepicker', () => {
-    const { getByLabelText } = render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => {}} />);
-    expect(getByLabelText('Title')).toBeInTheDocument();
-    expect(getByLabelText('Description')).toBeInTheDocument();
-    expect(getByLabelText('Due date')).toBeInTheDocument();
-  });
-
-  //+coverage, dar pica
-  it('should allow user to enter input values', () => {
-    const { getByLabelText } = render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => {}} />);
-    const titleInput = getByLabelText('Title') as HTMLInputElement;
-    const descriptionInput = getByLabelText('Description') as HTMLInputElement;
-    const datepickerInput = getByLabelText('Due date') as HTMLInputElement;
-
-    fireEvent.change(titleInput, { target: { value: 'Test Title' } });
-    fireEvent.change(descriptionInput, { target: { value: 'Test Description' } });
-    fireEvent.change(datepickerInput, { target: { value: '05.05.2023 12:00' } });
-
-    expect(titleInput.value).toBe('Test Title');
-    expect(descriptionInput.value).toBe('Test Description');
-    expect(datepickerInput.value).toBe('05.05.2023 12:00');
-  });
-
-  // test('renders the DatePicker component', () => {
-  //   const mockSetIsModalAddReminderOpen = jest.fn();
-  //   const { getByLabelText } = render(
-  //     <AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={mockSetIsModalAddReminderOpen} />
-  //   );
-  //   const datePicker = getByLabelText('Due date');
-  //   expect(datePicker).toBeInTheDocument();
-  // });
-
-  // test('renders the DatePicker component', () => {
-  //       render(
-  //     <AddReminderModal
-  //       isModalAddReminderOpen={false}
-  //       setIsModalAddReminderOpen={noop}
-  //     />)
-  //   const { getByLabelText } = render(
-  //     <Form>
-  //       <Form.Item
-  //         label="Due date"
-  //         name="date"
-  //         rules={[{ required: false, message: "Select a date!" }]}
-  //       >
-  //         <DatePicker />
-  //       </Form.Item>
-  //     </Form>
-  //   );
-  
-  //   expect(getByLabelText('Due date')).toBeInTheDocument();
-  // });
-});
-
-
-
-describe("AddReminderModal cancel and add buttons", () => {
-  test('renders the Add Reminder Modal', () => {
-    render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => {}} />);
-  
-    expect(screen.getByText('Add')).toBeInTheDocument();
-    expect(screen.getByText('Cancel')).toBeInTheDocument();
-  });
-
-  it("renders without crashing", () => {
-    render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => {}} />);
-  });
-
-  it("renders with title and description inputs", () => {
-    const { getByLabelText } = render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => {}} />);
-
-    const titleInput = getByLabelText("Title");
-    const descriptionInput = getByLabelText("Description");
-
-    expect(titleInput).toBeInTheDocument();
-    expect(descriptionInput).toBeInTheDocument();
-  });
-
-  // it("calls saveNewReminder and onCancel when Add button is clicked", () => {
-  //   const saveNewReminderMock = jest.fn();
-  //   const setIsModalAddReminderOpenMock = jest.fn();
-  //   const { getByText } = render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={setIsModalAddReminderOpenMock} />);
-
-  //   const addButton = getByText("Add");
-  //   fireEvent.click(addButton);
-
-  //   expect(saveNewReminderMock).toHaveBeenCalled();
-  //   expect(setIsModalAddReminderOpenMock).toHaveBeenCalledWith(false);
-  // });
-
-  it("calls onCancel when Cancel button is clicked", () => {
-    const setIsModalAddReminderOpenMock = jest.fn();
-    const { getByText } = render(<AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={setIsModalAddReminderOpenMock} />);
-
-    const cancelButton = getByText("Cancel");
-    fireEvent.click(cancelButton);
-
-    expect(setIsModalAddReminderOpenMock).toHaveBeenCalledWith(false);
-  });
-
 });
 
 

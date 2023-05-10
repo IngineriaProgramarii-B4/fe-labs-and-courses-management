@@ -5,12 +5,12 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 
 export default function ReminderItem({
-  dueDateTime,
-  title,
-  description,
-  id,
-  deleteReminder,
-}: any) {
+                                       dueDateTime,
+                                       title,
+                                       description,
+                                       id,
+                                       deleteReminder
+                                     }: any) {
   const [newDescription, setNewDescription] = useState(description);
   const [newDueDate, setNewDueDate] = useState(dueDateTime);
   const [editableDescription, setEditableDescription] = useState(false);
@@ -34,6 +34,7 @@ export default function ReminderItem({
               onClick={() => {
                 setIsModalDeleteReminderOpen(false);
               }}
+              data-testid="cancel-delete-icon"
             >
               Cancel
             </Button>
@@ -41,7 +42,6 @@ export default function ReminderItem({
             <Button
               danger
               onClick={() => {
-                console.log(id);
                 setIsModalDeleteReminderOpen(false);
                 deleteReminder();
               }}
@@ -54,10 +54,10 @@ export default function ReminderItem({
       <div className="flex flex-row items-center">
         <h1 className="font-semibold text-base">{title}</h1>
         <FontAwesomeIcon
+          data-testid="delete-reminder-icon"
           icon={faTrash}
           className="cursor-pointer ml-auto hover:text-red-500"
           onClick={() => {
-            console.log(id);
             setIsModalDeleteReminderOpen(true);
           }}
         />
@@ -69,6 +69,7 @@ export default function ReminderItem({
             <span> {newDescription} </span>
           ) : (
             <Input
+              data-testid="edit-desc-input"
               className={"ml-2 w-[13rem] fill-black"}
               value={newDescription}
               onChange={(e) => {
@@ -77,6 +78,7 @@ export default function ReminderItem({
             />
           )}
           <i
+            data-testid="edit-description-icon"
             className={
               !editableDescription
                 ? "fa-solid fa-pen-to-square ml-2 cursor-pointer hover:text-blue-500"
@@ -94,6 +96,7 @@ export default function ReminderItem({
             <span> {newDueDate} </span>
           ) : (
             <Input
+              data-testid="edit-date-input"
               className={"ml-2 w-[13rem] fill-black"}
               value={newDueDate}
               onChange={(e) => {
@@ -102,6 +105,7 @@ export default function ReminderItem({
             />
           )}
           <i
+            data-testid="edit-date-icon"
             className={
               !editableDueDate
                 ? "fa-solid fa-pen-to-square ml-2 cursor-pointer hover:text-blue-500"

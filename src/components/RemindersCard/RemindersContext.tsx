@@ -11,26 +11,33 @@ export type ReminderDataProps = {
 };
 
 export default function RemindersContextProvider({
-  children,
-}: {
+                                                   children
+                                                 }: {
   children: JSX.Element | JSX.Element[];
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [reminders, setReminders] = useState<ReminderDataProps[]>([]);
+  const [loggedUser, setLoggedUser] = useState<string>("");
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8090/api/v1",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" }
   });
-
-  console.log(reminders);
   const getData = () => {
+    const token = localStorage.getItem("token");
     axiosInstance
-      .get("/reminders/loggeduser") // TODO: get the reminders of the actual connected user
+      .post("/users/loggedUser", token)
       .then((res) => res.data)
       .then((data) => {
-        setReminders(data);
+        setLoggedUser(data.username);
+      })
+      .then(() => {
+        axiosInstance
+          .get(`/reminders/${loggedUser}`)
+          .then((res) => {
+            setReminders(res.data);
+          });
       })
       .catch((err) => console.error(err));
   };
@@ -45,7 +52,7 @@ export default function RemindersContextProvider({
         title,
         description,
         dueDateTime: date,
-        creatorUsername: "loggeduser", //TODO: change the username to the current logged user
+        creatorUsername: "loggeduser" //TODO: change the username to the current logged user
       })
       .then(() => {
         getData();
@@ -54,7 +61,6 @@ export default function RemindersContextProvider({
   };
 
   const deleteReminder = (reminderId: string) => {
-    // TODO delete the reminder
     axiosInstance
       .delete(`/reminders/${reminderId}`)
       .then((res) => {
@@ -77,7 +83,7 @@ export default function RemindersContextProvider({
       setReminders,
       axiosInstance,
       deleteReminder,
-      getData,
+      getData
     }),
     [
       setTitle,
@@ -90,7 +96,7 @@ export default function RemindersContextProvider({
       setReminders,
       axiosInstance,
       deleteReminder,
-      getData,
+      getData
     ]
   );
 

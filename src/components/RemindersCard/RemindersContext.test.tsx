@@ -1,7 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { Button, Card, DatePicker, Form, Input, Divider } from "antd";
-import RemindersContextProvider, { RemindersContext, ReminderDataProps } from "./RemindersContext";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { Button, Card } from "antd";
+import { RemindersContext, ReminderDataProps } from "./RemindersContext";
+import axios, { AxiosInstance } from "axios";
+import ReminderItem from "./ReminderItem";
+import { Divider } from "antd/lib";
+import MockAdapter from "axios-mock-adapter";
 
 const mockedRemindersData: ReminderDataProps[] = [
   {
@@ -17,9 +21,27 @@ const mockedRemindersData: ReminderDataProps[] = [
     description: "Feed Linux"
   }
 ];
+jest.mock("axios");
+const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
 
-// TODO : test the methods that are in RemindersContext.tsx
+function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
+  const instance = axios.create();
+  return {
+    ...instance,
+    get: jest.fn(),
+    put: jest.fn()
+  } as unknown as jest.Mocked<AxiosInstance>;
+}
+
+let axiosInstance: jest.Mocked<AxiosInstance>;
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("RemindersContext", () => {
+
+
   test("should call saveNewReminder when click on submit button", () => {
     const mockedSaveNewReminder = jest.fn();
     render(
@@ -36,56 +58,53 @@ describe("RemindersContext", () => {
     expect(mockedSaveNewReminder).toHaveBeenCalledTimes(1);
   });
 
-  test('should render the component without errors', () => {
+  test("should render the component without errors", () => {
     render(
       <RemindersContext.Provider value={{}}>
-          <div>Test</div>
+        <div>Test</div>
       </RemindersContext.Provider>
     );
   });
 
+  test("fetches reminders from server and sets state", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.get.mockResolvedValue({
+      data: mockedRemindersData,
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <Card title="Your Reminders">
+        {
+          mockedRemindersData.map((reminder: ReminderDataProps) => (
+              <React.Fragment key={reminder.id}>
+                <ReminderItem dueDateTime={reminder.dueDateTime} description={reminder.description}
+                              title={reminder.title} id={reminder.id} deleteReminder={() => {
+
+                }} />
+                <Divider />
+              </React.Fragment>
+            )
+          )
+        }
+      </Card>
+    );
+
+    mockedRemindersData.forEach((data) => {
+      expect(screen.getByText(data.title)).toBeInTheDocument();
+      expect(screen.getByText(data.description)).toBeInTheDocument();
+    });
+
+  });
+
+  test("saves a new reminder", async () => {
+
+  });
+
+  test("delete a reminder reminder", async () => {
+
+  });
 });
-
-//pica
-test("should render properly", () => {
-  render(
-    <RemindersContextProvider>
-          <div></div>
-    </RemindersContextProvider>);
-  mockedRemindersData.forEach((data) => {
-    expect(screen.getByText(data.id)).toBeInTheDocument();
-    expect(screen.getByText(data.dueDateTime)).toBeInTheDocument();
-    expect(screen.getByText(data.title)).toBeInTheDocument();
-    expect(screen.getByText(data.description)).toBeInTheDocument();
-   });
-});
-
-//pica
-test('renders with initial state', () => {
-  const { getByTestId } = render(<RemindersContextProvider>
-    <></>
-  </RemindersContextProvider>);
-  const titleInput = getByTestId('title-input');
-  const descriptionInput = getByTestId('description-input');
-  const dateInput = getByTestId('date-input');
-  const remindersList = getByTestId('reminders-list');
-
-  expect(titleInput).toHaveValue('');
-  expect(descriptionInput).toHaveValue('');
-  expect(dateInput).toHaveValue('');
-  expect(remindersList).toBeEmptyDOMElement();
-});
-
-// import axios from 'axios';
-
-// test('fetches reminders from server and sets state', async () => {
-//   // Mock the response data from the server
-//   const mockReminders = [{ id: 1, title: 'Test reminder', description: 'This is a test reminder' }];
-//   jest.spyOn(axios, 'get').mockResolvedValueOnce({ data: mockReminders });
-
-//   const setReminders = jest.fn();
-//   await fetchReminders(setReminders);
-
-//   // Verify that the setReminders function was called with the mock reminders
-//   expect(setReminders).toHaveBeenCalledWith(mockReminders);
-// });

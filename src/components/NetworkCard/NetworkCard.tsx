@@ -1,4 +1,4 @@
-import { Card, Divider } from "antd";
+import { Card } from "antd";
 import { useContext, useEffect, useState } from "react";
 import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
@@ -22,7 +22,7 @@ export type UserDataType = {
   title?: string;
 };
 
-function NetworkCard() {
+export default function NetworkCard() {
   // @ts-ignore
   const { isUserModified } = useContext(UserContext);
 
@@ -83,5 +83,3 @@ const renderCard = (user: UserDataType) => {
     </Card>
   );
 };
-
-export default NetworkCard;
