@@ -21,7 +21,7 @@
     </testCase>
   </file>
   <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\AddSubjectCard.test.tsx">
-    <testCase name="clicking on the add card button calls setSubjectModal with true" duration="1710">
+    <testCase name="clicking on the add card button calls setSubjectModal with true" duration="1774">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
 Expected: true
@@ -45,11 +45,11 @@ Number of calls: 0
   </file>
   <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx">
     <testCase name="Modal that pops up and has a text area renders the modal" duration="811"/>
-    <testCase name="Modal that pops up and has a text area should render the modal with edit and close buttons" duration="567"/>
-    <testCase name="Modal that pops up and has a text area should show the edit textarea when Edit button is clicked" duration="475"/>
-    <testCase name="Modal that pops up and has a text area should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="359"/>
-    <testCase name="Modal that pops up and has a text area should render the modal correctly" duration="99"/>
-    <testCase name="Modal that pops up and has a text area should allow the user to edit the description" duration="301">
+    <testCase name="Modal that pops up and has a text area should render the modal with edit and close buttons" duration="854"/>
+    <testCase name="Modal that pops up and has a text area should show the edit textarea when Edit button is clicked" duration="750"/>
+    <testCase name="Modal that pops up and has a text area should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="378"/>
+    <testCase name="Modal that pops up and has a text area should render the modal correctly" duration="124"/>
+    <testCase name="Modal that pops up and has a text area should allow the user to edit the description" duration="332">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
 Expected: "New Description"
@@ -71,7 +71,7 @@ Number of calls: 0
     at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
     at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Modal that pops up and has a text area should handle errors when saving the description" duration="1273">
+    <testCase name="Modal that pops up and has a text area should handle errors when saving the description" duration="1319">
       <failure message="TypeError: Cannot read properties of undefined (reading &apos;data&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'data')
     at fetchData (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\PieChart.tsx:49:30)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
@@ -220,57 +220,35 @@ Ignored nodes: comments, script, style
     at processTimers (node:internal/timers:512:7)]]></failure>
     </testCase>
   </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
-    <testCase name="Accordion should render Acoordion component" duration="360"/>
-    <testCase name="Accordion should open the add modal when add button is clicked" duration="953"/>
-    <testCase name="Accordion should close the add modal when cancel button is clicked" duration="460"/>
-    <testCase name="Accordion should save the new component and update the state when form is submitted" duration="2961"/>
-    <testCase name="Accordion renders the Accordion component with the correct props" duration="51"/>
-    <testCase name="Accordion should  open the modal for the new component" duration="372"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx">
-    <testCase name="SubjectAlex component renders the component" duration="522"/>
-    <testCase name="SubjectAlex component fetches the data from the API" duration="170"/>
-    <testCase name="SubjectAlex component &apos;no&apos; button doesn&apos;t delete the card" duration="283"/>
-    <testCase name="SubjectAlex component delete button trigger axios.delete" duration="91"/>
-    <testCase name="SubjectAlex component edit button opens form" duration="1026"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
-    <testCase name="FormModal renders modal title" duration="1250"/>
-    <testCase name="FormModal should render the submit button" duration="504"/>
-    <testCase name="FormModal submits the form data" duration="6297"/>
-    <testCase name="FormModal cancels the form data" duration="4881"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx">
-    <testCase name="FileTransfer component calls the onCancel function and updates state correctly" duration="799"/>
-    <testCase name="FileTransfer component calls axios.put with correct data when save button is clicked" duration="297"/>
-    <testCase name="FileTransfer component logs an error message when axios.put throws an error" duration="285"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FileTransfer.test.tsx">
-    <testCase name="FileTransfer component renders the component with the correct props" duration="343"/>
-    <testCase name="FileTransfer component uploads a file successfully" duration="336"/>
-    <testCase name="FileTransfer component displays an error message when file upload fails" duration="141"/>
-    <testCase name="FileTransfer component clears the file list when clearFileList prop changes" duration="144"/>
-    <testCase name="FileTransfer component calls onDrop when files are dropped onto the component" duration="238"/>
-    <testCase name="FileTransfer component uploads a file successfully and calls onUploadProgress" duration="118"/>
-  </file>
   <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PhotoUpload.test.tsx">
-    <testCase name="PhotoUpload component should render the component" duration="353"/>
-    <testCase name="PhotoUpload component renders an upload button with text when fileList is empty" duration="98"/>
-    <testCase name="PhotoUpload component should call onPreview when a picture is clicked" duration="224"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PieChart.test.tsx">
-    <testCase name="PieChart component renders PieChart component" duration="80"/>
-    <testCase name="PieChart component fetches the data from the API" duration="15"/>
-    <testCase name="PieChart component clicking on one segment of the pieChart opens the description of that component" duration="9"/>
-    <testCase name="PieChart component clicking on the description button opens the description of that component" duration="7"/>
-  </file>
-  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
-    <testCase name="CardGrid renders the correct number of subject cards" duration="438"/>
-    <testCase name="CardGrid pressing the card sends the user to the course&apos;s page" duration="223"/>
+    <testCase name="PhotoUpload component should render the component" duration="404"/>
+    <testCase name="PhotoUpload component renders an upload button with text when fileList is empty" duration="139"/>
+    <testCase name="PhotoUpload component should call onPreview when a picture is clicked" duration="206"/>
+    <testCase name="PhotoUpload component should allow the user to select and upload a file" duration="273">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: [{"originFileObj": {"uid": "rc-upload-1683727310376-5"}}]
+
+Number of calls: 0
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PhotoUpload.test.tsx:87:32)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
   </file>
   <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx">
-    <testCase name="ResourcesTable renders the component" duration="1885">
+    <testCase name="ResourcesTable renders the component" duration="2821">
       <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
 
 Expected: []
@@ -412,8 +390,52 @@ Ignored nodes: comments, script, style
     at listOnTimeout (node:internal/timers:569:17)
     at processTimers (node:internal/timers:512:7)]]></failure>
     </testCase>
-    <testCase name="ResourcesTable deletes a resource on button click" duration="516"/>
-    <testCase name="ResourcesTable opens the file on resource link click" duration="268"/>
+    <testCase name="ResourcesTable deletes a resource on button click" duration="879"/>
+    <testCase name="ResourcesTable opens the file on resource link click" duration="460"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx">
+    <testCase name="FileTransfer component calls the onCancel function and updates state correctly" duration="764"/>
+    <testCase name="FileTransfer component calls axios.put with correct data when save button is clicked" duration="328"/>
+    <testCase name="FileTransfer component logs an error message when axios.put throws an error" duration="289"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
+    <testCase name="Accordion should render Acoordion component" duration="355"/>
+    <testCase name="Accordion should open the add modal when add button is clicked" duration="914"/>
+    <testCase name="Accordion should close the add modal when cancel button is clicked" duration="558"/>
+    <testCase name="Accordion should save the new component and update the state when form is submitted" duration="3443"/>
+    <testCase name="Accordion renders the Accordion component with the correct props" duration="61"/>
+    <testCase name="Accordion should  open the modal for the new component" duration="428"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
+    <testCase name="FormModal renders modal title" duration="1598"/>
+    <testCase name="FormModal should render the submit button" duration="559"/>
+    <testCase name="FormModal submits the form data" duration="6510"/>
+    <testCase name="FormModal cancels the form data" duration="5026"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
+    <testCase name="CardGrid renders the correct number of subject cards" duration="501"/>
+    <testCase name="CardGrid pressing the card sends the user to the course&apos;s page" duration="189"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FileTransfer.test.tsx">
+    <testCase name="FileTransfer component renders the component with the correct props" duration="267"/>
+    <testCase name="FileTransfer component uploads a file successfully" duration="337"/>
+    <testCase name="FileTransfer component displays an error message when file upload fails" duration="197"/>
+    <testCase name="FileTransfer component clears the file list when clearFileList prop changes" duration="172"/>
+    <testCase name="FileTransfer component calls onDrop when files are dropped onto the component" duration="226"/>
+    <testCase name="FileTransfer component uploads a file successfully and calls onUploadProgress" duration="203"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PieChart.test.tsx">
+    <testCase name="PieChart component renders PieChart component" duration="116"/>
+    <testCase name="PieChart component fetches the data from the API" duration="17"/>
+    <testCase name="PieChart component clicking on one segment of the pieChart opens the description of that component" duration="49"/>
+    <testCase name="PieChart component clicking on the description button opens the description of that component" duration="11"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAlex.test.tsx">
+    <testCase name="SubjectAlex component renders the component" duration="490"/>
+    <testCase name="SubjectAlex component fetches the data from the API" duration="230"/>
+    <testCase name="SubjectAlex component &apos;no&apos; button doesn&apos;t delete the card" duration="379"/>
+    <testCase name="SubjectAlex component delete button trigger axios.delete" duration="374"/>
+    <testCase name="SubjectAlex component edit button opens form" duration="1188"/>
   </file>
   <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectAna.test.tsx">
   </file>
