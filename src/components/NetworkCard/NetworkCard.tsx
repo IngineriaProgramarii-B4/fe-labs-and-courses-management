@@ -1,5 +1,5 @@
 import { Card, Divider } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
 import axios from "axios";
@@ -24,7 +24,7 @@ export type UserDataType = {
 
 function NetworkCard() {
   // @ts-ignore
-  const {isUserModified} = useContext(UserContext)
+  const { isUserModified } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserDataType[]>([]);
   const axiosInstance = axios.create({
@@ -58,10 +58,7 @@ function NetworkCard() {
       });
   }, [isUserModified]);
 
-  return (
-    <div className="flex flex-wrap justify-center items-center">
-      {users.map(renderCard)}
-    </div>
+  return (<div data-testid="network-card" className="flex flex-wrap">{users.map(renderCard)}</div>
   );
 }
 
@@ -78,7 +75,7 @@ const renderCard = (user: UserDataType) => {
       {Object.entries(user).map(([key, value]) => {
         if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)
           return key !== "id" ? (
-            <UserInfoFields title={key} value={value} id={user.id}/>
+            <UserInfoFields title={key} value={value} id={user.id} />
           ) : (
             ""
           );
@@ -86,8 +83,5 @@ const renderCard = (user: UserDataType) => {
     </Card>
   );
 };
-
-  return <div data-testid="network-card" className="flex flex-wrap">{users.map(renderCard)}</div>;
-}
 
 export default NetworkCard;
