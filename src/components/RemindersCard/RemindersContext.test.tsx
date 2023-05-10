@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Button, Card, DatePicker, Form, Input, Divider } from "antd";
 import RemindersContextProvider, { RemindersContext, ReminderDataProps } from "./RemindersContext";
 
@@ -88,4 +88,25 @@ test('renders with initial state', () => {
 
 //   // Verify that the setReminders function was called with the mock reminders
 //   expect(setReminders).toHaveBeenCalledWith(mockReminders);
+// });
+
+// import axios from "axios";
+// jest.mock("axios");
+// const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+// it("should submit the form data when the add button is clicked", async () => {
+
+//   render(<RemindersContextProvider> <></></RemindersContextProvider>);
+//   const addButton = screen.getByRole("button", { name: "+" });
+//   fireEvent.click(addButton);
+//   await waitFor(() =>
+//     expect(mockedAxios.get).toHaveBeenCalledWith(
+//       "http://localhost:8090/api/v1",
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     )
+//   );
 // });
