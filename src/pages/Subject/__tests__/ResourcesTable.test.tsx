@@ -13,9 +13,9 @@ describe("ResourcesTable", () => {
 
   test("renders the component", async () => {
     render(<ResourcesTable component="Course" title="example" />);
-    const modal = await screen.findByTestId("add-button");
+    const modal_ = await screen.findByTestId("add-button");
     const addButton = await screen.findByTestId("add-button");
-    expect(modal).toBeInTheDocument();
+    expect(modal_).toBeInTheDocument();
     expect(addButton).toBeInTheDocument();
 
     const modal = screen.queryByTestId("modal");
@@ -34,7 +34,7 @@ describe("ResourcesTable", () => {
 
     await waitFor(() => {
       const modal = screen.queryByTestId("modal");
-      expect(modal).toBeNull;
+      expect(modal).toEqual([]);
     });
   });
 
