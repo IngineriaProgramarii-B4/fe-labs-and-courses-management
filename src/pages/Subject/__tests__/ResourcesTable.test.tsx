@@ -17,6 +17,25 @@ describe("ResourcesTable", () => {
     const addButton = await screen.findByTestId("add-button");
     expect(modal).toBeInTheDocument();
     expect(addButton).toBeInTheDocument();
+
+    const modal = screen.queryByTestId("modal");
+    expect(modal).toBeNull();
+
+    fireEvent.click(addButton);
+    await waitFor(() => {
+      const modal = screen.getByTestId("modal");
+      expect(modal).toBeInTheDocument();
+    });
+
+    const okButton = screen.getByTestId("ok-add-button");
+    expect(okButton).toBeInTheDocument();
+
+    fireEvent.click(okButton);
+
+    await waitFor(() => {
+      const modal = screen.queryByTestId("modal");
+      expect(modal).toBeNull;
+    });
   });
 
   test("deletes a resource on button click", async () => {
@@ -82,13 +101,10 @@ describe("ResourcesTable", () => {
 
     fireEvent.click(screen.getByText("Resource 1"));
 
-    // Assert that the axios.get method is called with the correct URL
     expect(axios.get).toHaveBeenCalledWith(
       "http://localhost:8090/api/v1/subjects/example/components/example/resources/file=Resource 1",
       { responseType: "arraybuffer" }
     );
-
-    // Assert that the window.open method is called with the correct URL
     //expect(window.open).toHaveBeenCalled();
   });
 });
