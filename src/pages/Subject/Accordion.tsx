@@ -176,13 +176,17 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         }}
         open={isAddModalOpen}
         onCancel={hideAddModal}
-        onOk={saveComponent}
+        onOk={() => {
+          saveComponent();
+          hideAddModal();
+        }}
         okText="Add"
       >
         <Form>
           <Form.Item label="Component Type" htmlFor="typeInput" required>
             <Select
               id="typeInput"
+              data-testid="type-input"
               placeholder="Select a component"
               value={chosenComponent === "" ? undefined : chosenComponent}
               onChange={(value) => setChosenComponent(value)}
