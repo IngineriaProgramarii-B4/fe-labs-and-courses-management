@@ -46,6 +46,7 @@ describe("RemindersContext", () => {
 
 });
 
+//pica
 test("should render properly", () => {
   render(
     <RemindersContextProvider>
@@ -59,29 +60,32 @@ test("should render properly", () => {
    });
 });
 
-//ReminderItem tests
+//pica
+test('renders with initial state', () => {
+  const { getByTestId } = render(<RemindersContextProvider>
+    <></>
+  </RemindersContextProvider>);
+  const titleInput = getByTestId('title-input');
+  const descriptionInput = getByTestId('description-input');
+  const dateInput = getByTestId('date-input');
+  const remindersList = getByTestId('reminders-list');
 
-// const mockReminderData = {
-//   reminderId: "12345dsvfdsaz",
-//   dueDateTime: "02/05/2023",
-//   title: "Task title",
-//   description: "IP"
-// };
+  expect(titleInput).toHaveValue('');
+  expect(descriptionInput).toHaveValue('');
+  expect(dateInput).toHaveValue('');
+  expect(remindersList).toBeEmptyDOMElement();
+});
 
-// describe("ReminderItem", () => {
-//   test("should render the reminder data", () => {
-//     render(<ReminderItem {...mockReminderData} />);
-//     expect(screen.getByText(mockReminderData.title)).toBeInTheDocument();
-//     expect(screen.getByText(mockReminderData.description)).toBeInTheDocument();
-//     expect(screen.getByText(mockReminderData.dueDateTime)).toBeInTheDocument();
-//   });
+// import axios from 'axios';
 
-  // test("should open delete confirmation modal", () => {
-  //   render(<ReminderItem {...mockReminderData} />);
-  //   const deleteButton = screen.getByTitle("Delete Reminder");
-  //   fireEvent.click(deleteButton);
-  //   const modal = screen.getByRole("dialog");
-  //   expect(modal).toBeInTheDocument();
-  //   expect(screen.getByText("Are you sure you want to delete this reminder?")).toBeInTheDocument();
-  // });
-//});
+// test('fetches reminders from server and sets state', async () => {
+//   // Mock the response data from the server
+//   const mockReminders = [{ id: 1, title: 'Test reminder', description: 'This is a test reminder' }];
+//   jest.spyOn(axios, 'get').mockResolvedValueOnce({ data: mockReminders });
+
+//   const setReminders = jest.fn();
+//   await fetchReminders(setReminders);
+
+//   // Verify that the setReminders function was called with the mock reminders
+//   expect(setReminders).toHaveBeenCalledWith(mockReminders);
+// });
