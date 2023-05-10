@@ -65,13 +65,14 @@ const PieChart: React.FC<PieChartProps> = (props) => {
   }, [props.isModified]);
 
   return (
-    <div className="flex justify-evenly" data-testId="pie-chart">
+    <div className="flex justify-evenly" data-testid="pie-chart">
       <Chart
         width={"600px"}
         height={"400px"}
         chartType="PieChart"
         data={data}
         options={options}
+        test-dataid="pie-chart"
         chartEvents={[
           {
             eventName: "select",
