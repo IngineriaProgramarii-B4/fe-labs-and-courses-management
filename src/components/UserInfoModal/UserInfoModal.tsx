@@ -6,6 +6,7 @@ import axios from "axios";
 import UserAvatar from "./UserAvatar";
 import UserInfoInput from "./UserInfoInput";
 import { UserContext } from "../UserContext/UserContext";
+import { v4 } from "uuid";
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -37,11 +38,11 @@ type ModalFooterProps = {
 };
 
 export function ModalFooter({
-                              isEditing,
-                              onLogout,
-                              onCancel,
-                              onSave
-                            }: ModalFooterProps) {
+  isEditing,
+  onLogout,
+  onCancel,
+  onSave,
+}: ModalFooterProps) {
   if (isEditing) {
     return (
       <>
@@ -67,11 +68,11 @@ type UserProfileAvatarProps = {
 };
 
 export function UserProfileAvatar({
-                                    isEditing,
-                                    avatar,
-                                    newAvatar,
-                                    setNewAvatar
-                                  }: UserProfileAvatarProps) {
+  isEditing,
+  avatar,
+  newAvatar,
+  setNewAvatar,
+}: UserProfileAvatarProps) {
   return (
     <div
       className={
@@ -79,7 +80,11 @@ export function UserProfileAvatar({
       }
     >
       {isEditing || !avatar ? (
-        <Upload showUploadList={false} onChange={() => setNewAvatar("")}>
+        <Upload
+          showUploadList={false}
+          onChange={() => setNewAvatar("")}
+          data-testid={"user-profile-update"}
+        >
           {newAvatar ? (
             <img src={newAvatar} alt="avatar" className={"object-cover"} />
           ) : (
@@ -115,7 +120,7 @@ const getDefaultUserData = () => {
     lastName: "",
     username: "",
     email: "",
-    type: -1
+    type: -1,
   };
   return userData;
 };
@@ -144,8 +149,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     baseURL: "http://localhost:8090/api/v1",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json"
-    }
+      Accept: "application/json",
+    },
   });
 
   useEffect(() => {
@@ -156,23 +161,23 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const onAvatarClick = () => {
     setIsLoading(true);
     const token = localStorage.getItem("token");
-    axiosInstance.post("/users/loggedUser", token)
-      .then(res => res.data)
-      .then(data => {
+    axiosInstance
+      .post("/users/loggedUser", token)
+      .then((res) => res.data)
+      .then((data) => {
         setLoggedUser(data.username);
       })
       .then(() => {
-      axiosInstance
-        .get(`/users?username=${loggedUser}`)
-        .then((res) => res.data)
-        .then((data) => {
-          setUserData(data[0]);
-          setIsLoading(false);
-        });
-    })
-      .catch(err => console.error(err));
+        axiosInstance
+          .get(`/users?username=${loggedUser}`)
+          .then((res) => res.data)
+          .then((data) => {
+            setUserData(data[0]);
+            setIsLoading(false);
+          });
+      })
+      .catch((err) => console.error(err));
 
-    // setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
   const onSave = () => {
@@ -193,9 +198,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     }
     endPoint += `/${newUser.id}`;
 
-    axiosInstance
-      .patch(endPoint, newUser)
-      .catch((err) => console.error(err));
+    axiosInstance.patch(endPoint, newUser).catch((err) => console.error(err));
 
     toast.success("User profile updated");
   };
@@ -244,7 +247,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
               {Object.entries(userData).map(([key, val], i) => (
-                <React.Fragment key={i}>
+                <React.Fragment key={v4()}>
                   {key !== "username" && key !== "email" && key !== "id" ? (
                     <UserInfoInput
                       title={key}
