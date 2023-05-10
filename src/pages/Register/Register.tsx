@@ -45,20 +45,19 @@ const Register: React.FC = () => {
       });
 
       if (response.status === 200) {
-        message.success("Registration Successful");
-
-        navigate("/login");
+       //message.success("Registration Successful");
+       navigate("/login");
       } else {
-        message.error("Registration failed");
+      //  message.error("Registration failed");
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
         message.error("Registration failed: " + error.message);
       } else {
-        message.error("Registration failed");
+        //message.error("Registration failed");
       }
       if (axios.isAxiosError(error) && error.response) {
-        console.error("Server response:", error.response);
+        //console.error("Server response:", error.response);
       }
     }
   };

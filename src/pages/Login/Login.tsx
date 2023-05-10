@@ -50,9 +50,7 @@ function Login() {
     } catch (error: unknown) {
       if (error instanceof Error) {
         message.error('Login failed: ' + error.message);
-      } else {
-        message.error('Login failed');
-      }
+      } 
     }
   };
   

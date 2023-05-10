@@ -2,6 +2,8 @@ import {render, screen, fireEvent,waitFor } from '@testing-library/react';
 import Login from '../Login';
 import {BrowserRouter as Router} from 'react-router-dom';
 import api from '../api';
+import React from 'react';
+
 
 global.matchMedia = global.matchMedia || function () {
     return {
@@ -181,3 +183,48 @@ test('validate email input', async () => {
     expect(rememberMeCheckbox.checked).toEqual(false);
   });
 
+  test('should handle login failure without token', async () => {
+    const apiPostSpy = jest.spyOn(api, 'post').mockResolvedValueOnce({ data: {} });
+  
+    render(<Router><Login /></Router>);
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your email'), {
+      target: { value: 'test@test.com' },
+    });
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your password'), {
+      target: { value: 'password' },
+    });
+  
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+  
+    await waitFor(() => expect(apiPostSpy).toHaveBeenCalledTimes(1));
+  
+    expect(apiPostSpy).toHaveBeenCalledWith('/api/v1/auth/login', {
+      email: 'test@test.com',
+      password: 'password',
+    });
+  
+    apiPostSpy.mockRestore();
+  });
+
+  test('should handle login with no token', async () => {
+    const apiPostSpy = jest.spyOn(api, 'post').mockResolvedValueOnce({ data: {} });
+  
+    render(<Router><Login /></Router>);
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your email'), {
+      target: { value: 'test@test.com' },
+    });
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your password'), {
+      target: { value: 'password' },
+    });
+  
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+  
+    await waitFor(() => expect(screen.getByText('Login failed')).toBeInTheDocument());
+  
+    apiPostSpy.mockRestore();
+  });
+  
