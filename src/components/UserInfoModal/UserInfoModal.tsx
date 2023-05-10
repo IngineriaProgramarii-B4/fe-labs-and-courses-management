@@ -176,7 +176,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
             setIsLoading(false);
           });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => toast.error(err.message));
 
     setIsModalOpen(true);
   };

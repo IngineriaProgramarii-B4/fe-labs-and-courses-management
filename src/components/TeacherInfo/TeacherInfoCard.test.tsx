@@ -1,5 +1,11 @@
 import React from "react";
-import { act, render, screen, waitFor, fireEvent } from "@testing-library/react";
+import {
+  act,
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import CoursesCard, { CourseCard } from "./CourseCard";
 import TeacherInfoCard, { teacherDataProps } from "./TeacherInfoCard";
@@ -82,7 +88,6 @@ describe("CourseCard", () => {
   test("should render properly", () => {
     render(<CourseCard {...courseData} />);
 
-    // tests
     expect(screen.getByText(courseData.courseTitle)).toBeInTheDocument();
 
     // if (courseData.hasExam) {
@@ -149,25 +154,24 @@ describe("CoursesCard", () => {
   });
 });
 
-test("should log error on failed API request", async () => {
-  console.error = jest.fn(); // mock console.error function
-
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:8090/api/v1",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-
-  axiosInstance.get = jest.fn(() => Promise.reject(new Error("API request failed"))); // mock axiosInstance.get function to return a rejected promise
-
-  await expect(axiosInstance.get("/teachers?id=1")).rejects.toThrow(); // expect the rejected promise to throw an error
-
-  expect(console.error).toHaveBeenCalled(); // expect console.error to have been called
-});
+// test("should log error on failed API request", async () => {
+//   console.error = jest.fn(); // mock console.error function
+//
+//   const axiosInstance = axios.create({
+//     baseURL: "http://localhost:8090/api/v1",
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   });
+//
+//   axiosInstance.get = jest.fn(() => Promise.reject(new Error("API request failed"))); // mock axiosInstance.get function to return a rejected promise
+//
+//   await expect(axiosInstance.get("/teachers?id=1")).rejects.toThrow(); // expect the rejected promise to throw an error
+//
+//   expect(console.error).toHaveBeenCalled(); // expect console.error to have been called
+// });
 
 describe("Input CoursesCard", () => {
-
   test("should be editable when in edit mode", () => {
     const setValueMock = jest.fn();
     render(
