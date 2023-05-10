@@ -20,6 +20,7 @@
     "antd-img-crop": "^4.12.2",
     "axios": "^1.4.0",
     "axios-mock-adapter": "^1.21.4",
+    "enzyme": "^3.11.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
@@ -63,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.13",
     "jest": "^27.5.1",
     "jest-sonar-reporter": "^2.0.0",
     "prettier": "2.8.7",

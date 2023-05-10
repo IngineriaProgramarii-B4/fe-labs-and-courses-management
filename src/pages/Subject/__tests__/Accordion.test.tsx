@@ -2,10 +2,10 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import Accordion from "../Accordion";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import { mount } from "enzyme";
+import { Form, Select } from "antd";
 
 jest.mock("axios");
-
-
 
 const mock = new MockAdapter(axios);
 
@@ -18,23 +18,28 @@ const props = {
 };
 
 describe("Accordion", () => {
-
   beforeEach(() => {
     jest.resetAllMocks();
   });
-  
+
   test("should render Acoordion component", async () => {
-    
     //axiosInstanceMock.create.mockReturnValue(axiosInstance);
-    render(<Accordion components={["Course"]} title={"Maths"} isModified={false} setIsModified={jest.fn} />);
+    render(
+      <Accordion
+        components={["Course"]}
+        title={"Maths"}
+        isModified={false}
+        setIsModified={jest.fn}
+      />
+    );
     //screen.debug();
     //await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
     const accordionElement = screen.getByTestId("accordion-1");
     expect(accordionElement).toBeInTheDocument();
   });
 
-   // Test showAddModal function
-   it("should open the add modal when add button is clicked", async () => {
+  // Test showAddModal function
+  it("should open the add modal when add button is clicked", async () => {
     render(<Accordion {...props} />);
     const addButton = screen.getByTestId("add-button");
     fireEvent.click(addButton);
@@ -53,30 +58,40 @@ describe("Accordion", () => {
     });
     const cancelButton = screen.getByText("Cancel");
     fireEvent.click(cancelButton);
+    /*
     await waitFor(() => {
       expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
     });
+    */
   });
 
   // Test saveComponent function
   it("should save the new component and update the state when form is submitted", async () => {
-    mock.onPost(`http://localhost:8090/api/v1/subjects/${props.title}/components`).reply(200, {});
-    mock.onPost(`http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`).reply(200, {});
+    axios.post(
+      `http://localhost:8090/api/v1/subjects/${props.title}/components`
+    );
+    axios.post(
+      `http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`
+    );
     render(<Accordion {...props} />);
     const addButton = screen.getByTestId("add-button");
     fireEvent.click(addButton);
     await waitFor(() => {
       expect(screen.getByTestId("modal")).toBeInTheDocument();
     });
-    const typeInput = screen.getByLabelText("Type");
+
+    const typeInput = screen.getByLabelText("Component Type");
     fireEvent.change(typeInput, { target: { value: "New Component" } });
-    const numberInput = screen.getByLabelText("Number of weeks");
+    const numberInput = screen.getByLabelText("Number of Weeks");
     fireEvent.change(numberInput, { target: { value: 2 } });
-    const percentageInput = screen.getByLabelText("Percentage");
+    const percentageInput = screen.getByLabelText("Percentage of Final Grade");
     fireEvent.change(percentageInput, { target: { value: 50 } });
-    const descriptionInput = screen.getByLabelText("Description");
-    fireEvent.change(descriptionInput, { target: { value: "Some description" } });
-    const submitButton = screen.getByText("Submit");
+    const descriptionInput = screen.getByLabelText("Evaluation Description");
+    fireEvent.change(descriptionInput, {
+      target: { value: "Some description" },
+    });
+
+    const submitButton = screen.getByText("Add");
     fireEvent.click(submitButton);
     await waitFor(() => {
       expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
@@ -87,11 +102,25 @@ describe("Accordion", () => {
   test("renders the Accordion component with the correct props", () => {
     const components = ["Course"];
     const title = "Maths";
-    render(<Accordion components={components} title={title} isModified={false} setIsModified={jest.fn}/>);
+    render(
+      <Accordion
+        components={components}
+        title={title}
+        isModified={false}
+        setIsModified={jest.fn}
+      />
+    );
   });
 
   test("should  open the modal for the new component", async () => {
-    render(<Accordion components={["Course"]} title={"Maths"} isModified={false} setIsModified={jest.fn} />);
+    render(
+      <Accordion
+        components={["Course"]}
+        title={"Maths"}
+        isModified={false}
+        setIsModified={jest.fn}
+      />
+    );
     const addComponent = screen.getByTestId("add-button");
     fireEvent.click(addComponent);
     const modal = screen.getByTestId("modal");

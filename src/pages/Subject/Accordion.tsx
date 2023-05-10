@@ -78,6 +78,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
     } catch (error) {
       console.log(error);
     }
+    hideAddModal();
   };
 
   const handleCancel = () => {
@@ -128,6 +129,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
             <Panel header={component} key={component}>
               <div>
                 <FontAwesomeIcon
+                  data-testid="delete"
                   onClick={() => {
                     setComponentToDelete(component);
                     showModal2();
@@ -178,28 +180,41 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         okText="Add"
       >
         <Form>
-          <Form.Item label="Component Type" required={true}>
+          <Form.Item label="Component Type" htmlFor="typeInput" required>
             <Select
+              id="typeInput"
               placeholder="Select a component"
               value={chosenComponent === "" ? undefined : chosenComponent}
               onChange={(value) => setChosenComponent(value)}
             >
               {possibleComponents.map((component) => {
                 return (
-                  <Select.Option value={component} key={component}>{component}</Select.Option>
+                  <Select.Option value={component} key={component}>
+                    {component}
+                  </Select.Option>
                 );
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Number of Weeks" required={true}>
+          <Form.Item
+            label="Number of Weeks"
+            htmlFor="numberOfWeeksInput"
+            required
+          >
             <Input
+              id="numberOfWeeksInput"
               placeholder="Number of weeks"
               value={numberOfWeeks === 0 ? undefined : numberOfWeeks}
               onChange={(e: any) => setNumberOfWeeks(e.target.value)}
             />
           </Form.Item>
-          <Form.Item label="Percentage of Final Grade" required={false}>
+          <Form.Item
+            label="Percentage of Final Grade"
+            htmlFor="PercentageOfFinalGradeInput"
+            required
+          >
             <InputNumber
+              id="PercentageOfFinalGradeInput"
               value={percentage === 0 ? 0 : percentage}
               step={0.01}
               min={0.01}
@@ -207,8 +222,13 @@ const Accordion: React.FC<AccordionProps> = (props) => {
               onChange={(value: any) => setPercentage(value)}
             />
           </Form.Item>
-          <Form.Item label="Evaluation Description" required={false}>
-            <TextArea
+          <Form.Item
+            label="Evaluation Description"
+            htmlFor="DescriptionInput"
+            required
+          >
+            <Input.TextArea
+              id="DescriptionInput"
               rows={4}
               value={evalDescription === "" ? undefined : evalDescription}
               onChange={(e: any) => setEvalDescription(e.target.value)}
