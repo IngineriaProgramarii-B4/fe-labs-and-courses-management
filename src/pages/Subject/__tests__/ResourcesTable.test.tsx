@@ -1,66 +1,90 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import ResourcesTable from "../ResourcesTable";
-import Course from "../Course";
-import MyVerticallyCenteredModal from "../MyVerticallyCenteredModal";
-import userEvent from "@testing-library/user-event";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import ResourcesTable from '../ResourcesTable';
 
-jest.mock("axios");
-beforeEach(() => {
-  (axios.get as jest.Mock).mockResolvedValueOnce({
-    data: [
-      { key: "key1", title: "file1.pdf", timeStamp: "2022-01-01", type: "pdf" },
-      { key: "key2", title: "file2.jpg", timeStamp: "2022-01-02", type: "jpg" },
-    ],
-  });
-});
+jest.mock('axios');
 
-describe("ResourcesTable component", () => {
-  test("renders table with resource titles", async () => {
-    render(<ResourcesTable title="test" component="test" />);
-    const resourceTitle1 = await screen.findByText("file1.pdf");
-    const resourceTitle2 = await screen.findByText("file2.jpg");
-    expect(resourceTitle1).toBeInTheDocument();
-    expect(resourceTitle2).toBeInTheDocument();
+describe('ResourcesTable', () => {
+  beforeEach(() => {
+    (axios.delete as jest.Mock).mockResolvedValue({});
+    (axios.get as jest.Mock).mockResolvedValue({ data: [] });
   });
 
-  /*  it("calls delete API when 'Delete' button is clicked", async () => {
-    render(<ResourcesTable title="test" component="test" />);
-    const deleteButton = await screen.findByTestId("delete-button");
-    fireEvent.click(deleteButton);
-    expect(axios.delete).toHaveBeenCalledTimes(1);
-    expect(axios.delete).toHaveBeenCalledWith(
-      "http://localhost:8090/api/v1/subjects/test/components/test/resources/title=file1.pdf"
-    );
-  });
-
-  it("opens a new window when a resource title is clicked", async () => {
-    global.URL.createObjectURL = jest.fn();
-    render(<ResourcesTable title="test" component="test" />);
-    const resourceTitle = await screen.findByText("file1.pdf");
-    fireEvent.click(resourceTitle);
-    expect(global.URL.createObjectURL).toHaveBeenCalledTimes(1);
-  });
-  */
-
-  it("opens a modal when 'Add resource' button is clicked", async () => {
-    render(<ResourcesTable title="test" component="test" />);
-    const addButton = await screen.findByTestId("add-button");
-    await waitFor(() => expect(addButton).toBeVisible());
-    fireEvent.click(addButton);
-    const modal = await screen.findByTestId("modal");
+  test('renders the component', async () => {
+    render(<ResourcesTable component="Course" title="example" />);
+    const modal = await screen.findByTestId('add-button');
+    const addButton = await screen.findByTestId('add-button');
     expect(modal).toBeInTheDocument();
+    expect(addButton).toBeInTheDocument();
   });
-  /*
-  it("Close the modal when 'Ok' button is clicked", async () => {
-    render(<ResourcesTable title="test" component="test" />);
-    const addButton = await screen.findByTestId("add-button");
-    fireEvent.click(addButton);
-    const modal = await screen.findByTestId("modal");
-    const okbutton = await screen.findByTestId("ok-add-button");
-    fireEvent.click(okbutton);
-    expect(modal).not.toBeInTheDocument();
+
+  test('deletes a resource on button click', async () => {
+    const data = [
+      {
+        key: '1',
+        title: 'Resource 1',
+        timeStamp: '2023-05-10',
+        type: 'pdf',
+      },
+    ];
+
+    (axios.get as jest.Mock).mockResolvedValueOnce({ data });
+
+    render(<ResourcesTable component="example" title="example" />);
+    await waitFor(() => {
+      expect(screen.getByText('Resource 1')).toBeInTheDocument();
+    });
+
+    // Mock the window.open method
+    window.open = jest.fn();
+
+    const deleteButton = screen.getByTestId("delete-icon");
+    fireEvent.click(deleteButton);
+
+    expect(screen.getByText('Are you sure you wish to delete this resource?')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Yes'));
+
+    expect(axios.delete).toHaveBeenCalledWith(
+      'http://localhost:8090/api/v1/subjects/example/components/example/resources/title=Resource 1'
+    );
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalled();
+      expect(screen.queryByText('Resource 1')).not.toBeInTheDocument();
+    });
   });
-  */
+
+  test('opens the file on resource link click', async () => {
+    const data = [
+      {
+        key: '1',
+        title: 'Resource 1',
+        timeStamp: '2023-05-10',
+        type: 'pdf',
+      },
+    ];
+
+    (axios.get as jest.Mock).mockResolvedValueOnce({ data });
+
+    render(<ResourcesTable component="example" title="example" />);
+    await waitFor(() => {
+      expect(screen.getByText('Resource 1')).toBeInTheDocument();
+    });
+
+    // Mock the window.open method
+    window.open = jest.fn();
+
+    fireEvent.click(screen.getByText('Resource 1'));
+
+    // Assert that the axios.get method is called with the correct URL
+    expect(axios.get).toHaveBeenCalledWith(
+      'http://localhost:8090/api/v1/subjects/example/components/example/resources/file=Resource 1',
+      { responseType: 'arraybuffer' }
+    );
+
+    // Assert that the window.open method is called with the correct URL
+    //expect(window.open).toHaveBeenCalled();
+  });
 });

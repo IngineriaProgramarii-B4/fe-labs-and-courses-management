@@ -74,7 +74,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       key: "action",
       render: (_, record: any) => (
         <div>
-          <FontAwesomeIcon
+          <FontAwesomeIcon data-testid = "delete-icon" 
             onClick={() => {
               showModal2();
             }}
@@ -185,6 +185,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           <Button
             //className="okbutton"
             className="bg-buttonBlue hover:bg-hoverBlue"
+            data-testid = "ok-add-button"
             key="ok"
             type="primary"
             onClick={() => {
