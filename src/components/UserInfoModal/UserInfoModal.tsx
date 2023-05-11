@@ -149,10 +149,11 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
       .then((res) => res.data)
       .then((data) => {
         setLoggedUser(data.username);
+        return data.username;
       })
-      .then(() => {
+      .then((username) => {
         axiosInstance
-          .get(`/users?username=${loggedUser}`)
+          .get(`/users?username=${username}`)
           .then((res) => res.data)
           .then((data) => {
             setUserData(data[0]);

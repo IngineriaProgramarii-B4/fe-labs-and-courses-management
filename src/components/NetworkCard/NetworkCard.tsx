@@ -5,6 +5,7 @@ import UserHeader from "./UserHeader";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
 import { toast } from "react-toastify";
+import { v4 } from "uuid";
 
 export type UserDataType = {
   id: string;
@@ -69,8 +70,9 @@ export default function NetworkCard() {
 
 const renderCard = (user: UserDataType) => {
   return (
-    <Card className="m-10 w-80 h-96" key={`${user.username}-1234`}>
+    <Card key={v4()}  className="m-10 w-80 h-96">
       <UserHeader
+        key={v4()}
         username={user.username}
         firstname={user.firstName}
         lastname={user.lastName}
@@ -80,7 +82,7 @@ const renderCard = (user: UserDataType) => {
       {Object.entries(user).map(([key, value]) => {
         if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)
           return key !== "id" ? (
-            <UserInfoFields title={key} value={value} id={user.id} />
+            <UserInfoFields key={v4()} title={key} value={value} id={user.id} />
           ) : (
             ""
           );

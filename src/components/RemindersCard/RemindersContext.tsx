@@ -29,11 +29,12 @@ export default function RemindersContextProvider({
     axiosInstance
       .post("/users/loggedUser", token)
       .then((res) => {
-        setLoggedUser(res.data.username);
+        // setLoggedUser(res.data.username);
+        return res.data.username
       })
-      .then(() => {
+      .then((username) => {
         axiosInstance
-          .get(`/reminders/${loggedUser}`)
+          .get(`/reminders/${username}`)
           .then((res) => {
             setReminders(res.data);
           });

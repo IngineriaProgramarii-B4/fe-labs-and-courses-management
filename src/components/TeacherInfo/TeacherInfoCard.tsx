@@ -32,7 +32,6 @@ function TeacherInfoCard() {
       .get(`/teachers?id=${id}`)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
         setTeacherInfo(data.map((item: { firstname: any; lastname: any; taughtSubjects: any[]; }) => {
           return {
             name: item.firstname + " " + item.lastname,
