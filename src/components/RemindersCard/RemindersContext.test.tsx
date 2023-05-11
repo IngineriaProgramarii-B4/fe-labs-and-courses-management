@@ -1,11 +1,10 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { waitFor, fireEvent, render, screen } from "@testing-library/react";
 import { Button, Card } from "antd";
-import { RemindersContext, ReminderDataProps } from "./RemindersContext";
+import RemindersContextProvider, { RemindersContext, ReminderDataProps } from "./RemindersContext";
 import axios, { AxiosInstance } from "axios";
 import ReminderItem from "./ReminderItem";
-import { Divider } from "antd/lib";
-import MockAdapter from "axios-mock-adapter";
+import RemindersCard from "./RemindersCard";
 
 const mockedRemindersData: ReminderDataProps[] = [
   {
@@ -23,23 +22,40 @@ const mockedRemindersData: ReminderDataProps[] = [
 ];
 jest.mock("axios");
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
-
-function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
-  const instance = axios.create();
-  return {
-    ...instance,
-    get: jest.fn(),
-    put: jest.fn()
-  } as unknown as jest.Mocked<AxiosInstance>;
-}
-
-let axiosInstance: jest.Mocked<AxiosInstance>;
-
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"), // Use actual for all non-hook parts
+  useNavigate: jest.fn()
+}));
 describe("RemindersContext", () => {
+  function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
+    const instance = axios.create();
+    return {
+      ...instance,
+      get: jest.fn(),
+      put: jest.fn(),
+      post: jest.fn(),
+      patch: jest.fn(),
+      delete: jest.fn()
+    } as unknown as jest.Mocked<AxiosInstance>;
+  }
+
+  let axiosInstance: jest.Mocked<AxiosInstance>;
+  beforeEach(() => {
+    axiosInstance = createMockedAxiosInstance();
+
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.get.mockResolvedValue({
+      data: mockedRemindersData,
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {}
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
 
   test("should call saveNewReminder when click on submit button", () => {
@@ -56,6 +72,9 @@ describe("RemindersContext", () => {
     const submitNewReminderButton = screen.getByText("Add");
     fireEvent.click(submitNewReminderButton);
     expect(mockedSaveNewReminder).toHaveBeenCalledTimes(1);
+
+
+
   });
 
   test("should render the component without errors", () => {
@@ -64,6 +83,27 @@ describe("RemindersContext", () => {
         <div>Test</div>
       </RemindersContext.Provider>
     );
+  });
+
+
+  test("posts logged user", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.post.mockResolvedValue({
+      data: mockedRemindersData[0].id,
+      status: 204,
+      statusText: "CREATED",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <RemindersContextProvider>
+        <RemindersCard />
+      </RemindersContextProvider>
+    );
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
   });
 
   test("fetches reminders from server and sets state", async () => {
@@ -85,7 +125,6 @@ describe("RemindersContext", () => {
                               title={reminder.title} id={reminder.id} deleteReminder={() => {
 
                 }} />
-                <Divider />
               </React.Fragment>
             )
           )
@@ -101,10 +140,42 @@ describe("RemindersContext", () => {
   });
 
   test("saves a new reminder", async () => {
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.post.mockResolvedValue({
+      data: mockedRemindersData[0],
+      status: 204,
+      statusText: "CREATED",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <RemindersContextProvider>
+        <RemindersCard />
+      </RemindersContextProvider>
+    );
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
 
   });
 
-  test("delete a reminder reminder", async () => {
+  test("delete a reminder", async () => {
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.delete.mockResolvedValue({
+      data: mockedRemindersData[0].id,
+      status: 204,
+      statusText: "NO CONTENT",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <RemindersContextProvider>
+        <RemindersCard />
+      </RemindersContextProvider>
+    );
+
+    await waitFor(() => expect(axiosInstance.delete).toHaveBeenCalled());
 
   });
 });

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Divider, Modal, Space, Spin, Tooltip, Upload } from "antd";
+import { Button, Divider, Modal, Space, Spin, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -79,24 +79,7 @@ export function UserProfileAvatar({
         "flex justify-center items-center w-[10rem] h-[10rem] mx-auto border-2 border-dotted rounded-2xl overflow-hidden"
       }
     >
-      {isEditing || !avatar ? (
-        <Upload
-          showUploadList={false}
-          onChange={() => setNewAvatar("")}
-          data-testid={"user-profile-update"}
-        >
-          {newAvatar ? (
-            <img src={newAvatar} alt="avatar" className={"object-cover"} />
-          ) : (
-            <div className={"flex flex-col justify-center items-center"}>
-              <i className={"fas fa-plus font-s text-3xl"} />
-              <div className={"mt-2"}>Upload avatar</div>
-            </div>
-          )}
-        </Upload>
-      ) : (
         <img src={avatar} alt="avatar" className={"object-cover"} />
-      )}
     </div>
   );
 }
@@ -176,7 +159,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
             setIsLoading(false);
           });
       })
-      .catch((err) => console.error(err));
 
     setIsModalOpen(true);
   };
@@ -198,8 +180,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     }
     endPoint += `/${newUser.id}`;
 
-    axiosInstance.patch(endPoint, newUser).catch((err) => console.error(err));
-
+    axiosInstance.patch(endPoint, newUser)
     toast.success("User profile updated");
   };
 
@@ -212,7 +193,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onLogout = () => {
-    //ToDo: logic for logging out
     navigate("/login");
   };
 

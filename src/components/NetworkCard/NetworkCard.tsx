@@ -4,6 +4,7 @@ import UserInfoFields from "./UserInfoFields";
 import UserHeader from "./UserHeader";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
+import { toast } from "react-toastify";
 
 export type UserDataType = {
   id: string;
@@ -28,37 +29,41 @@ export default function NetworkCard() {
 
   const [users, setUsers] = useState<UserDataType[]>([]);
   const axiosInstance = axios.create({
-      baseURL: "http://localhost:8090/api/v1",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-  );
+    baseURL: "http://localhost:8090/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   useEffect(() => {
     /* Fetch data from server */
-    axiosInstance.get("/users")
+    axiosInstance
+      .get("/users")
       .then((res) => res.data)
       .then((data) => {
-        // @ts-ignore
-        setUsers(data.map(item => {
-          const { firstname, lastname, ...tmp } = item;
-          return {
-            ...tmp,
-            firstName: firstname,
-            lastName: lastname
-          };
-
-        }));
+        setUsers(
+          // @ts-ignore
+          data.map((item) => {
+            const { firstname, lastname, ...tmp } = item;
+            return {
+              ...tmp,
+              firstName: firstname,
+              lastName: lastname,
+            };
+          })
+        );
       })
       .catch((err) => {
         if (err.response?.status === 404) {
-          console.error(err);
+          toast.error(err.message);
         }
       });
   }, [isUserModified]);
 
-  return (<div data-testid="network-card" className="flex flex-wrap">{users.map(renderCard)}</div>
+  return (
+    <div data-testid="network-card" className="flex flex-wrap">
+      {users.map(renderCard)}
+    </div>
   );
 }
 

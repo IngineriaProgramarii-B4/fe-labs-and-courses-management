@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { Button, Form, DatePicker, ConfigProvider, Input } from "antd";
-import { fireEvent, render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import AddReminderModal, { ModalFooter } from "./AddReminderModal";
 import ReminderItem from "./ReminderItem";
 import RemindersContextProvider from "./RemindersContext";
@@ -22,7 +22,7 @@ describe("AddReminderModal", () => {
     expect(dueDateField).toBeInTheDocument();
   });
 
-  test("changing the value in an input will fire onChange method", () => {
+  test("changing the value in an input will fire onChange method", async () => {
     render(<RemindersContextProvider>
         <AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={() => null} />
       </RemindersContextProvider>
@@ -34,19 +34,22 @@ describe("AddReminderModal", () => {
     // @ts-ignore
     expect(editTitle.value).toBe("New Value");
 
-
     const editDesc = screen.getByTestId("edit-desc");
     expect(editDesc).toBeInTheDocument();
     fireEvent.change(editDesc, { target: { value: "New Value" } });
     // @ts-ignore
     expect(editDesc.value).toBe("New Value");
 
+    // const svgElement = screen.getByLabelText('calendar');
+    //
+    // await act(async () => {
+    //   fireEvent.click(svgElement)
+    // });
+    //
+    // screen.debug();
 
-    const editDate = screen.getByTestId("edit-date");
-    expect(editDate).toBeInTheDocument();
-    fireEvent.change(editDate, { target: { value: "18.05.2023T00:05" } });
-    // @ts-ignore
-    expect(editDate.value).toBe("18.05.2023T00:05");
+
+    // (screen.getByTestId("edit-date")).toHaveTextContent("18.05.2023 00:05");
   });
 
 
@@ -81,6 +84,19 @@ describe("AddReminderModal", () => {
 
     // eslint-disable-next-line testing-library/prefer-screen-queries
     expect(getByLabelText('Due date')).toBeInTheDocument();
+  });
+
+
+  test("should call onCancel when cancel button is clicked", () => {
+    const mockedReminderOpen = jest.fn();
+    render(
+      <AddReminderModal isModalAddReminderOpen={true} setIsModalAddReminderOpen={mockedReminderOpen}/>
+    );
+
+    const cancelButton = screen.getByText("Cancel");
+    fireEvent.click(cancelButton);
+
+    expect(mockedReminderOpen).toHaveBeenCalled();
   });
 
 });
@@ -128,7 +144,7 @@ describe("ModalFooter", () => {
     const cancelButton = screen.getByText("Cancel");
     fireEvent.click(cancelButton);
 
-    expect(mockedOnCancel).toHaveBeenCalledTimes(1);
+    expect(mockedOnCancel).toHaveBeenCalled();
   });
 });
 

@@ -78,6 +78,7 @@ export default function AddReminderModal({
         <Form.Item
           label="Due date"
           name="date"
+          data-testid = "edit-date-input"
           rules={[{ required: false, message: "Select a date!" }]}
         >
           <DatePicker data-testid="edit-date"  value={date} format="DD.MM.YYYY HH:MM" onChange={(date, dateString) => {

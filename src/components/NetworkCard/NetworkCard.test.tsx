@@ -8,7 +8,13 @@ import UserHeader from "./UserHeader";
 import UserInfoFields from "./UserInfoFields";
 import axios, { AxiosInstance } from "axios";
 import { BrowserRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
+jest.mock("react-toastify", () => ({
+  toast: {
+    error: jest.fn(),
+  },
+}));
 jest.mock("axios");
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
 
@@ -18,10 +24,18 @@ describe("UserHeader", () => {
     username: "dianacuzic",
     firstname: "Diana",
     lastname: "Cuzic",
-    type: 0
+    type: 0,
   };
 
-  test("should render properly", () => {
+  const userData2 = {
+    id: "string",
+    username: "dianacuzic",
+    firstname: "Diana",
+    lastname: "Cuzic",
+    type: 2,
+  };
+
+  test("should render properly with type !== 2", () => {
     render(
       <BrowserRouter>
         <UserHeader
@@ -30,12 +44,33 @@ describe("UserHeader", () => {
           firstname={userData.firstname}
           lastname={userData.lastname}
           type={userData.type}
-        /></BrowserRouter>
+        />
+      </BrowserRouter>
     );
 
     expect(screen.getByText("@" + userData.username)).toBeInTheDocument();
     expect(
-      screen.getByText(userData.firstname + " " + userData.lastname)).toBeInTheDocument();
+      screen.getByText(userData.firstname + " " + userData.lastname)
+    ).toBeInTheDocument();
+  });
+
+  test("should render properly with type === 2", () => {
+    render(
+      <BrowserRouter>
+        <UserHeader
+          id={userData2.id}
+          username={userData2.username}
+          firstname={userData2.firstname}
+          lastname={userData2.lastname}
+          type={userData2.type}
+        />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByText("@" + userData.username)).toBeInTheDocument();
+    expect(
+      screen.getByText(userData.firstname + " " + userData.lastname)
+    ).toBeInTheDocument();
   });
 });
 
@@ -43,19 +78,20 @@ describe("UserInfoFields", () => {
   const userInfo = {
     id: "1",
     title: "lastName",
-    value: "Diana"
+    value: "Diana",
   };
 
   test("should render properly", () => {
-    render(<UserInfoFields title={userInfo.title} value={userInfo.value} id={userInfo.id} />);
+    render(
+      <UserInfoFields
+        title={userInfo.title}
+        value={userInfo.value}
+        id={userInfo.id}
+      />
+    );
 
     expect(screen.getByText(userInfo.title + ":")).toBeInTheDocument();
     expect(screen.getByText(userInfo.value)).toBeInTheDocument();
-
-    // !!pot fi valori multiple (in cazul in care value: string[])
-
-    // userInfo.value && userInfo.value[0] &&
-    // expect(screen.getByText(new RegExp(userInfo.value[0], "i"))).toBeInTheDocument();
   });
 });
 
@@ -68,7 +104,7 @@ describe("NetworkCard", () => {
       lastname: "Cuzic",
       username: "dianacuzic",
       office: "P1",
-      department: "Secretary"
+      department: "Secretary",
     },
     {
       id: "2",
@@ -77,7 +113,7 @@ describe("NetworkCard", () => {
       lastname: "Ciobaca",
       username: "stefan.ciobaca",
       title: "Prof",
-      taughtSubjects: ["PA", "PF", "Logica"]
+      taughtSubjects: ["PA", "PF", "Logica"],
     },
     {
       id: "3",
@@ -88,8 +124,8 @@ describe("NetworkCard", () => {
       year: 2,
       semester: 4,
       registrationNumber: "123FAKE92929",
-      enrolledCourses: ["IP", "PA", "SGBD", "TW", "SE"]
-    }
+      enrolledCourses: ["IP", "PA", "SGBD", "TW", "SE"],
+    },
   ];
 
   function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
@@ -97,7 +133,7 @@ describe("NetworkCard", () => {
     return {
       ...instance,
       get: jest.fn(),
-      put: jest.fn()
+      put: jest.fn(),
     } as unknown as jest.Mocked<AxiosInstance>;
   }
 
@@ -111,7 +147,7 @@ describe("NetworkCard", () => {
       status: 200,
       statusText: "OK",
       config: {},
-      headers: {}
+      headers: {},
     });
   });
 
@@ -136,45 +172,35 @@ describe("NetworkCard", () => {
       expect(screen.getByText(data.lastname)).toBeInTheDocument();
       data.year && expect(screen.getByText(data.year)).toBeInTheDocument();
       data.semester &&
-      expect(screen.getByText(data.semester)).toBeInTheDocument();
+        expect(screen.getByText(data.semester)).toBeInTheDocument();
       data.registrationNumber &&
-      expect(screen.getByText(data.registrationNumber)).toBeInTheDocument();
+        expect(screen.getByText(data.registrationNumber)).toBeInTheDocument();
       data.enrolledCourses &&
-      data.enrolledCourses[0] &&
-      expect(
-        screen.getByText(new RegExp(data.enrolledCourses[0], "i"))
-      ).toBeInTheDocument();
+        data.enrolledCourses[0] &&
+        expect(
+          screen.getByText(new RegExp(data.enrolledCourses[0], "i"))
+        ).toBeInTheDocument();
     });
   });
 
-//test Andreea
-// test("should handle error when fetching data", async () => {
-//   const error = new Error("404 Haven't found users that match the requirements");
-//   (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce({ response: { status: 404 }});
-
-//   const networkCard = screen.queryByTestId('network-card');
-//   expect(networkCard).toBeNull();
-// });
-
-//testul nostru
-
   test("should handle error when fetching data", async () => {
     jest.spyOn(axios, "create").mockReturnValueOnce({
-      get: jest.fn(() => Promise.reject({
-        response: {
-          status: 404
-        }
-      }))
+      get: jest.fn(() =>
+        Promise.reject({
+          response: {
+            status: 404,
+          },
+        })
+      ),
     } as any);
 
-    render(<NetworkCard />);
-
-    const errorElem = await screen.findByText(/404 Haven't found users that match the requirements/i);
-    expect(errorElem).toBeInTheDocument();
+    render(
+      <BrowserRouter>
+        <NetworkCard />
+      </BrowserRouter>
+    );
 
     const networkCard = screen.queryByTestId("network-card");
-    expect(networkCard).toBeNull();
+    expect(networkCard).toBeInTheDocument();
   });
-
 });
-

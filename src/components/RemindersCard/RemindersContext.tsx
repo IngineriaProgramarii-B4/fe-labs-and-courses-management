@@ -28,9 +28,8 @@ export default function RemindersContextProvider({
     const token = localStorage.getItem("token");
     axiosInstance
       .post("/users/loggedUser", token)
-      .then((res) => res.data)
-      .then((data) => {
-        setLoggedUser(data.username);
+      .then((res) => {
+        setLoggedUser(res.data.username);
       })
       .then(() => {
         axiosInstance
@@ -39,7 +38,6 @@ export default function RemindersContextProvider({
             setReminders(res.data);
           });
       })
-      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
@@ -52,12 +50,11 @@ export default function RemindersContextProvider({
         title,
         description,
         dueDateTime: date,
-        creatorUsername: "loggeduser" //TODO: change the username to the current logged user
+        creatorUsername: loggedUser
       })
       .then(() => {
         getData();
       })
-      .catch((err) => console.error(err));
   };
 
   const deleteReminder = (reminderId: string) => {
@@ -67,7 +64,6 @@ export default function RemindersContextProvider({
         toast.success("Reminder deleted");
         getData();
       })
-      .catch((err) => console.error(err));
   };
 
   const value = useMemo(

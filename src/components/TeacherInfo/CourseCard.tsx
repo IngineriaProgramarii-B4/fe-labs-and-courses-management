@@ -20,9 +20,10 @@ export function CourseInputInfo({
     <div className={"flex"}>
       <p className={"my-auto"}>{title}:</p>
       {!isEditing ? (
-        <div className={"flex"} onClick={() => setIsEditing(false)}>
+        <div className={"flex"}>
           <p className={"my-auto ml-2"}>{value}</p>
-          <i className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"} />
+          <i onClick={() => setIsEditing(true)} data-testid="edit-property-icon" className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"}
+              />
         </div>
       ) : (
         <div>
@@ -30,10 +31,12 @@ export function CourseInputInfo({
             type={type}
             className={"ml-2 w-[13rem]"}
             value={value}
+            data-testid="edit-property"
             onChange={(e) => setValue(e.target.value)}
           />
           <i
-            className={"fa-solid fa-check"}
+            className={"fa-solid fa-check cursor-pointer"}
+            data-testid="save-property-icon"
             onClick={() => setIsEditing(false)}
           />
         </div>

@@ -40,6 +40,7 @@ export default function ReminderItem({
             </Button>
 
             <Button
+              data-testid="delete-reminder-btn"
               danger
               onClick={() => {
                 setIsModalDeleteReminderOpen(false);
