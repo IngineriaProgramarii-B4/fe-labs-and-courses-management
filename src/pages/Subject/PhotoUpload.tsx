@@ -1,7 +1,5 @@
-import axios from "axios";
 import { Upload, Typography, Space } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
-import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 
 interface PhotoUploadProps {
@@ -13,9 +11,8 @@ interface PhotoUploadProps {
 }
 
 const PhotoUpload: React.FC<PhotoUploadProps> = (props) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [upFile, setUpFile] = useState<File>();
 
+  
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     props.setFileList(newFileList);
   };
@@ -43,7 +40,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = (props) => {
   };
 
   return (
-    <div>
+    <div data-testid="upload-input">
       <Upload
         accept="image/*"
         listType="picture-card"

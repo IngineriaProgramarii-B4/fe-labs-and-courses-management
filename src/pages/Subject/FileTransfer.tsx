@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import { InboxOutlined, FileOutlined } from "@ant-design/icons";
-import { Space, Typography, UploadProps } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
 
@@ -10,6 +8,7 @@ interface FileTransferProps {
   component: string;
   title: string;
   clearFileList: boolean;
+  onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
 const FileTransfer: React.FC<FileTransferProps> = (props) => {
@@ -55,15 +54,13 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
   };
 
   return (
-    <Dragger
+    <Dragger data-testid="file-input"
       showUploadList={{ showRemoveIcon: false }}
       multiple
       customRequest={handleFileUpload}
       onChange={onFileChange}
       fileList={fileList}
-      onDrop={(e) => {
-        console.log("Dropped files", e.dataTransfer.files);
-      }}
+      onDrop={props.onDrop}
     >
       <p className="ant-upload-drag-icon">
         <InboxOutlined />

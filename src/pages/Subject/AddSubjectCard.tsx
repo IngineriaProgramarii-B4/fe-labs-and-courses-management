@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import "./SubjectAlex.css";
 import FormModal from "./FormModal";
 
 const { Meta } = Card;
@@ -16,13 +15,18 @@ const AddSubjectCard: React.FC<AddSubjectCardProps> = (props) => {
 
   return (
     <>
-      <div className="card-wrapper add-card" data-testid="add-card-button">
+      <div
+        //className="card-wrapper add-card"
+        className="grid content-center justify-center items-center"
+        data-testid="add-card-button"
+      >
         <Card
+          data-testid="add-card-button-card"
           onClick={() => setSubjectModal(true)}
           hoverable
           style={{ width: 240, padding: 40 }}
           cover={
-            <div className="add-card-cover" data-testid="add-card-outline">
+            <div data-testid="add-card-outline">
               <PlusOutlined style={{ fontSize: 40 }} />
             </div>
           }

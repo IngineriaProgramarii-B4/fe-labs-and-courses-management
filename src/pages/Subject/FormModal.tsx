@@ -1,8 +1,7 @@
 import axios from "axios";
 import SubjectForm from "./SubjectForm";
-import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Input, Row, Col, Select, UploadFile } from "antd";
-const { TextArea } = Input;
+import React, { useState } from "react";
+import { Button, Modal, UploadFile } from "antd";
 
 interface FormModalProps {
   SubjectModal: boolean;
@@ -111,8 +110,9 @@ const FormModal: React.FC<FormModalProps> = (props) => {
           </Button>,
 
           <Button
+            className="bg-buttonBlue hover:bg-hoverBlue"
             key="submit"
-            type="default"
+            type="primary"
             onClick={() => {
               submitSubject();
               setTitleForm(props.title);

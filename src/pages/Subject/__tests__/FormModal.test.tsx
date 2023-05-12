@@ -116,5 +116,4 @@ describe("FormModal", () => {
     expect(setSubjectModal).toHaveBeenCalledWith(false);
     expect(setIsModified).toHaveBeenCalledTimes(0);
   });
-
 });
