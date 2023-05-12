@@ -3,6 +3,7 @@ import { router } from "./services/router";
 import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserContextProvider from "./components/UserContext/UserContext";
 
 const App = () => {
   return (
@@ -16,7 +17,9 @@ const App = () => {
         theme="light"
       />
       <div className={"min-h-screen"}>
-        <RouterProvider router={router} />
+        <UserContextProvider>
+          <RouterProvider router={router} />
+        </UserContextProvider>
       </div>
     </>
   );

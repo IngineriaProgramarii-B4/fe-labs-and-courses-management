@@ -19,7 +19,6 @@ interface SubjectCardProps {
   card: Subject;
   isModified: boolean;
   setIsModified: (isModified: boolean) => void;
-  setCardImg: (imgUrl: string) => void;
 }
 
 const SubjectCard: React.FC<SubjectCardProps> = (props) => {

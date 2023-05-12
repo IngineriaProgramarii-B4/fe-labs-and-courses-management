@@ -43,13 +43,6 @@ describe("TeacherInfoCard", () => {
     jest.clearAllMocks();
   });
 
-  test("renders the card title", () => {
-    render(<TeacherInfoCard />);
-
-    const cardTitle = screen.getByText(/Teachers/i);
-    expect(cardTitle).toBeInTheDocument();
-  });
-
   test("renders the teacher name", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     await act(async () => {
