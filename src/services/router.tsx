@@ -4,15 +4,13 @@ import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
-import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
 import SubjectAlex from "../pages/Subject/SubjectAlex";
 import SubjectAna from "../pages/Subject/SubjectAna";
 import Register from "../pages/Register/Register";
 import Reset from "../pages/ResetPassword/Reset";
 import SendMail from "../pages/SendEmail/SendMail";
-import RemindersPage from '../components/RemindersCard/ReminderPage';
-import TeachersPage from '../components/TeacherInfo/TeacherPage';
+import RemindersCard from "../components/RemindersCard/RemindersCard";
 
 const isAuthenticated = () => {
   const token = localStorage.getItem("token");
@@ -30,7 +28,6 @@ const PrivateRouteComponent: React.FC<PrivateRouteProps> = ({
 }) => {
   return isAuthenticated() ? <Component /> : <Navigate to="/login" replace />;
 };
-
 
 
 export const router = createBrowserRouter([
@@ -51,29 +48,16 @@ export const router = createBrowserRouter([
         element: <PrivateRouteComponent component={NetworkCard} path="/network" />,
       },
       {
-        path: "/teachers",
-        element: <PrivateRouteComponent component={TeachersPage} path="/teachers" />,
-      },
-      {
         path: "/",
         element: <Navigate to={"/login"} />,
       },
-
       {
         path: "/reminders",
-        element: <PrivateRouteComponent component={RemindersPage} path="/reminders" />,
+        element: <PrivateRouteComponent component={RemindersCard} path="/reminders" />,
       },
       {
         path: "/index",
         element: <Navigate to={"/login"} />,
-      },
-      {
-        path: "/test",
-        element: <div>test</div>,
-      },
-      {
-        path: "/catalog",
-        element: <PrivateRouteComponent component={Catalog} path="/catalog" />,
       },
       {
         path: "/subjectAlex",
