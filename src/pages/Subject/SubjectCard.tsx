@@ -103,7 +103,6 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
             type="text"
             key="edit"
             onClick={(event) => {
-              //initializeSubjecEditProperties(props.card.title);
               handleEditClick(event, props.card);
             }}
           >
