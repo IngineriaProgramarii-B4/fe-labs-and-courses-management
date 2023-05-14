@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Divider, Modal, Space, Spin, Tooltip, Upload } from "antd";
+import { Button, Divider, Modal, Space, Spin, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import UserAvatar from "./UserAvatar";
 import UserInfoInput from "./UserInfoInput";
 import { UserContext } from "../UserContext/UserContext";
+import { v4 } from "uuid";
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -78,20 +79,7 @@ export function UserProfileAvatar({
         "flex justify-center items-center w-[10rem] h-[10rem] mx-auto border-2 border-dotted rounded-2xl overflow-hidden"
       }
     >
-      {isEditing || !avatar ? (
-        <Upload showUploadList={false} onChange={() => setNewAvatar("")}>
-          {newAvatar ? (
-            <img src={newAvatar} alt="avatar" className={"object-cover"} />
-          ) : (
-            <div className={"flex flex-col justify-center items-center"}>
-              <i className={"fas fa-plus font-s text-3xl"} />
-              <div className={"mt-2"}>Upload avatar</div>
-            </div>
-          )}
-        </Upload>
-      ) : (
         <img src={avatar} alt="avatar" className={"object-cover"} />
-      )}
     </div>
   );
 }
@@ -136,9 +124,10 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newUsername, setNewUsername] = useState(userData.username);
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
+  const [loggedUser, setLoggedUser] = useState<string>("");
 
   // @ts-ignore
-  const { setIsUserModified} = useContext(UserContext)
+  const { setIsUserModified } = useContext(UserContext);
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8090/api/v1",
@@ -161,21 +150,28 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const onAvatarClick = () => {
     setIsLoading(true);
-
+    const token = localStorage.getItem("token");
     axiosInstance
-      .get("/users?username=stefan.ciobacaaaa")
+      .post("/users/loggedUser", token)
       .then((res) => res.data)
       .then((data) => {
-        setUserData(data[0]);
-        setIsLoading(false);
-      });
+        setLoggedUser(data.username);
+        return data.username;
+      })
+      .then((username) => {
+        axiosInstance
+          .get(`/users?username=${username}`)
+          .then((res) => res.data)
+          .then((data) => {
+            setUserData(data[0]);
+            setIsLoading(false);
+          });
+      })
 
-    // setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
-
   const onSave = () => {
-    setIsUserModified(true)
+    setIsUserModified(true);
     setIsEditing(false);
 
     const { email, username, ...sentUser } = userData;
@@ -190,17 +186,14 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     } else if (userData.type === 2) {
       endPoint += "/student";
     }
-    endPoint += `/${newUser.id}`
+    endPoint += `/${newUser.id}`;
 
-    axiosInstance
-      .patch(endPoint, newUser)
-      .catch((err) => console.error(err));
-
+    axiosInstance.patch(endPoint, newUser)
     toast.success("User profile updated");
   };
 
   const onCancel = () => {
-    setIsUserModified(false)
+    setIsUserModified(false);
     setIsEditing(false);
     setNewUsername(userData.username);
     setNewEmail(userData.email);
@@ -210,7 +203,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const onLogout = () => {
    //AICI AM MODIFICAT
     logout();
-
     navigate("/login");
   };
 
@@ -245,7 +237,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
               {Object.entries(userData).map(([key, val], i) => (
-                <React.Fragment key={i}>
+                <React.Fragment key={v4()}>
                   {key !== "username" && key !== "email" && key !== "id" ? (
                     <UserInfoInput
                       title={key}

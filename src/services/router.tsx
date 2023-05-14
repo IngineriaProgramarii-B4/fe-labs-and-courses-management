@@ -57,7 +57,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/index",
-        element: <Navigate to={"/login"} />,
+        element: <Navigate to={"/home"} />
+      },
+      {
+        path: "/test",
+        element: <div>test</div>
+      },
+      {
+        path: "/catalog/:id",
+        element: <Catalog />
       },
       {
         path: "/subjectAlex",

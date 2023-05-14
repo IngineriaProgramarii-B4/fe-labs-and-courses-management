@@ -63,7 +63,7 @@ export default function AddReminderModal({
           name="title"
           rules={[{ required: true, message: "Type a title!" }]}
         >
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Input data-testid="edit-title" value={title} onChange={(e) => setTitle(e.target.value)} />
         </Form.Item>
 
         <Form.Item
@@ -71,16 +71,17 @@ export default function AddReminderModal({
           name="description"
           rules={[{ required: true, message: "Type a description!" }]}
         >
-          <Input value={description} onChange={(e) => setDescription(e.target.value)} />
+          <Input data-testid="edit-desc" value={description} onChange={(e) => setDescription(e.target.value)} />
         </Form.Item>
 
 
         <Form.Item
           label="Due date"
           name="date"
+          data-testid = "edit-date-input"
           rules={[{ required: false, message: "Select a date!" }]}
         >
-          <DatePicker value={date} format="DD.MM.YYYY HH:MM" onChange={(date, dateString) => {
+          <DatePicker data-testid="edit-date"  value={date} format="DD.MM.YYYY HH:MM" onChange={(date, dateString) => {
             setDate(dateString);
           }} />
         </Form.Item>

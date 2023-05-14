@@ -7,25 +7,22 @@ import { RemindersContext, ReminderDataProps } from "./RemindersContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const uuid = require("uuid");
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:8090/api/v1",
-  headers: { "Content-Type": "application/json" }
-});
-
 export function RemindersCardBody({ reminders }: { reminders: ReminderDataProps[]}) {
   const [isModalAddReminderOpen, setIsModalAddReminderOpen] = useState<boolean>(false);
   //@ts-ignore
   const { getData } = useContext(RemindersContext);
+
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8090/api/v1",
+    headers: { "Content-Type": "application/json" }
+  });
+
   const deleteReminder = (reminderId: string) => {
-    // TODO delete the reminder
     axiosInstance.delete(`/reminders/${reminderId}`)
       .then((res) => {
         toast.success("Reminder deleted");
         getData();
       })
-      .catch(err => console.error(err));
   };
   // @ts-ignore
   return (
@@ -42,7 +39,6 @@ export function RemindersCardBody({ reminders }: { reminders: ReminderDataProps[
                 <React.Fragment key={reminder.id}>
                   <ReminderItem dueDateTime={reminder.dueDateTime} description={reminder.description}
                                 title={reminder.title} id={reminder.id} deleteReminder={() => {
-
                                   deleteReminder(reminder.id)
                   }}/>
                   <Divider />

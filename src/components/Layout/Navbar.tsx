@@ -4,6 +4,41 @@ import { Link } from "react-router-dom";
 import UserInfoModal from "../UserInfoModal/UserInfoModal";
 import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 
+const items = [
+  {
+    key: "1",
+    title: "Home",
+    label: <Link to="/home">Home</Link>,
+  },
+  {
+    key: "2",
+    title: "Home",
+    label: <Link to="/subjectalex">Subjects</Link>,
+  },
+  {
+    key: "3",
+    title: "Network",
+    label: <Link to="/network">Network</Link>,
+  },
+  {
+    key: "4",
+    title: "Home",
+    label: <Link to="/catalog">Catalog</Link>,
+  },
+  {
+    key: "5",
+    title: "Home",
+    label: <Link to="/reminders">Reminders</Link>,
+  },
+  {
+    key: "6",
+    title: "Home",
+    label: <UserInfoModal avatar={mockedAvatar} />,
+    disabled: true,
+    style: { marginLeft: "auto", cursor: "default" },
+  },
+];
+
 function Navbar() {
   const [current, setCurrent] = useState("Home");
 
@@ -12,26 +47,12 @@ function Navbar() {
   };
 
   return (
-    <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal">
-      <Menu.Item key={"Home"}>
-        <Link to="/home">Home</Link>
-      </Menu.Item>
-      <Menu.Item key={"Subjects"}>
-        <Link to="/subjectalex">Subjects</Link>
-      </Menu.Item>
-      <Menu.Item key={"Network"}>
-        <Link to="/network">Network</Link>
-      </Menu.Item>
-      <Menu.Item key={"Catalog"}>
-        <Link to="/catalog">Catalog</Link>
-      </Menu.Item>
-      <Menu.Item key={"Reminders"}>
-        <Link to="/reminders">Reminders</Link>
-      </Menu.Item>
-      <Menu.Item key={"User Info"} disabled style={{ marginLeft: "auto", cursor: "default" }}>
-          <UserInfoModal avatar={mockedAvatar} />
-      </Menu.Item>
-    </Menu>
+    <Menu
+      onClick={onClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+      items={items}
+    />
   );
 }
 
