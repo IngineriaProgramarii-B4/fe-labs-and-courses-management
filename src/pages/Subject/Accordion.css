@@ -1,18 +1,18 @@
 .okbutton {
-  background-color: #1f0caa;
+  background-color: #216bc4;
 }
 
 .okbutton:hover {
-  background-color: #160877 !important;
+  background-color: #6497d6;
 }
 
 .add-button {
-  background-color: #1f0caa;
+  background-color: #216bc4;
   margin-bottom: 12px;
 }
 
 .add-button:hover {
-  background-color: #160877 !important;
+  background-color: #6497d6;
 }
 
 .second {

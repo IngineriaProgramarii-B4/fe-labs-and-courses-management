@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Popconfirm, Table, Button, Modal, Space, Typography } from "antd";
+import { Table, Button, Modal, Typography } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolderPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ColumnsType } from "antd/es/table";
-import { PlusOutlined } from "@ant-design/icons";
-import { Form, Input } from "antd";
 import FileTransfer from "./FileTransfer";
 
-import "./Accordion.css";
+
 
 interface DataType {
   key: React.Key;
@@ -45,10 +46,6 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       const blob = new Blob([res.data], { type: file.type });
 
       const url = window.URL.createObjectURL(blob);
-      // const link = document.createElement("a");
-      // link.href = url;
-      // link.setAttribute("download", file.title);
-      // link.click();
       window.open(url);
       console.log(res);
     } catch (error) {
@@ -76,13 +73,43 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       title: "Action",
       key: "action",
       render: (_, record: any) => (
+        <div>
+          <FontAwesomeIcon data-testid = "delete-icon" 
+            onClick={() => {
+              showModal2();
+            }}
+            icon={faTrash}
+            className="hover:text-red-500 "
+          />
+          <Modal
+            visible={isModalOpen2}
+            onOk={() => {
+              handleDelete(record.key);
+              setIsModalOpen2(false);
+            }}
+            onCancel={handleCancel}
+            okType="danger"
+            okText="Yes"
+            cancelText="No"
+            closable={false}
+          >
+            <div className="font-bold text-center mb-5 text-xl">
+              <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
+              Are you sure you wish to delete this resource?
+            </div>
+            <div className="text-center">You can't revert your actions</div>
+          </Modal>
+        </div>
+        /*
         <Popconfirm
-          okButtonProps={{ className: "okbutton" }}
+          //okButtonProps={{ className: "okbutton" }}
+          okType="danger"
           title="Sure to delete?"
           onConfirm={() => handleDelete(record.key)}
         >
-          <a>Delete</a>
+          <FontAwesomeIcon icon={faTrash} className="hover:text-red-500 " />
         </Popconfirm>
+        */
       ),
     },
   ];
@@ -118,33 +145,37 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
     fetchData();
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const showModal1 = () => {
+    setIsModalOpen1(true);
+  };
+  const showModal2 = () => {
+    setIsModalOpen2(true);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setIsModalOpen1(false);
+    setIsModalOpen2(false);
   };
 
   const [clearFileList, setClearFileList] = useState(false);
   return (
     <div>
-      <Button
+      <FontAwesomeIcon
         data-testid="add-button"
-        type="primary"
-        className="add-button"
         onClick={() => {
-          showModal();
+          showModal1();
         }}
-      >
-        Add resources
-      </Button>
+        icon={faFolderPlus}
+        size="2x"
+        className=" px-10 hover:text-blue-500"
+      />
       <Modal
         data-testid="modal"
         title={"Add resource"}
-        open={isModalOpen}
+        open={isModalOpen1}
         onCancel={() => {
           setClearFileList(clearFileList ? false : true);
           fetchData();
@@ -152,7 +183,9 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         }}
         footer={
           <Button
-            className="okbutton"
+            //className="okbutton"
+            className="bg-buttonBlue hover:bg-hoverBlue"
+            data-testid = "ok-add-button"
             key="ok"
             type="primary"
             onClick={() => {
@@ -169,6 +202,9 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           component={props.component}
           title={props.title}
           clearFileList={clearFileList}
+          onDrop={(e) => {
+            console.log("Dropped files", e.dataTransfer.files);
+          }}
         />
       </Modal>
       <Table
