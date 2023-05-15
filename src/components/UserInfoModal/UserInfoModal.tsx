@@ -38,11 +38,11 @@ type ModalFooterProps = {
 };
 
 export function ModalFooter({
-  isEditing,
-  onLogout, // <-- Change this line
-  onCancel,
-  onSave,
-}: ModalFooterProps) {
+                              isEditing,
+                              onLogout, // <-- Change this line
+                              onCancel,
+                              onSave
+                            }: ModalFooterProps) {
   if (isEditing) {
     return (
       <>
@@ -68,23 +68,28 @@ type UserProfileAvatarProps = {
 };
 
 export function UserProfileAvatar({
-  isEditing,
-  avatar,
-  newAvatar,
-  setNewAvatar,
-}: UserProfileAvatarProps) {
+                                    isEditing,
+                                    avatar,
+                                    newAvatar,
+                                    setNewAvatar
+                                  }: UserProfileAvatarProps) {
   return (
     <div
       className={
         "flex justify-center items-center w-[10rem] h-[10rem] mx-auto border-2 border-dotted rounded-2xl overflow-hidden"
       }
     >
-        <img src={avatar} alt="avatar" className={"object-cover"} />
+      <img src={avatar} alt="avatar" className={"object-cover"} />
     </div>
   );
 }
 
 type UserDataType = {
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+  password: string;
+  roles: Array<number>;
   id: string;
   firstName: string;
   lastName: string;
@@ -93,17 +98,20 @@ type UserDataType = {
   registrationNumber?: string;
   year?: number;
   semester?: number;
-  type: number;
 };
 
 const getDefaultUserData = () => {
   const userData: UserDataType = {
+    createdAt: "",
+    updatedAt: "",
+    isDeleted: false,
+    password: "string",
+    roles: [],
     id: "",
     firstName: "",
     lastName: "",
     username: "",
-    email: "",
-    type: -1,
+    email: ""
   };
   return userData;
 };
@@ -124,25 +132,27 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const [newUsername, setNewUsername] = useState(userData.username);
   const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
-  const [loggedUser, setLoggedUser] = useState<string>("");
+
+  const propertiesNotShown = ["id", "password", "createdAt", "updatedAt", "isDeleted"];
 
   // @ts-ignore
   const { setIsUserModified } = useContext(UserContext);
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8090/api/v1",
+    baseURL: "http://localhost:8082/api/v1",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-    },
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
   });
 
   //AICI AM ADAUGAT FUNCTIA CARE SA NE AJUTE LA DELOGARE
   const logout = () => {
     // Șterge tokenul JWT din local storage sau dintr-un alt loc adecvat
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   };
-  
+
   useEffect(() => {
     setNewUsername(userData.username);
     setNewEmail(userData.email);
@@ -150,23 +160,22 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const onAvatarClick = () => {
     setIsLoading(true);
-    const token = localStorage.getItem("token");
     axiosInstance
-      .post("/users/loggedUser", token)
+      .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => res.data)
       .then((data) => {
-        setLoggedUser(data.username);
-        return data.username;
+        return data.email;
       })
-      .then((username) => {
+      .then((email) => {
         axiosInstance
-          .get(`/users?username=${username}`)
+          .get(`/users?email=${email}`)
           .then((res) => res.data)
           .then((data) => {
+            console.log(data[0])
             setUserData(data[0]);
             setIsLoading(false);
           });
-      })
+      });
 
     setIsModalOpen(true);
   };
@@ -179,16 +188,16 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
     let endPoint = "";
 
-    if (userData.type === 0) {
+    if (userData.roles.indexOf(1) !== -1) {
       endPoint += "/admin";
-    } else if (userData.type === 1) {
+    } else if (userData.roles.indexOf(2) !== -1) {
       endPoint += "/teacher";
-    } else if (userData.type === 2) {
+    } else if (userData.roles.indexOf(3) !== -1) {
       endPoint += "/student";
     }
     endPoint += `/${newUser.id}`;
 
-    axiosInstance.patch(endPoint, newUser)
+    axiosInstance.patch(endPoint, newUser);
     toast.success("User profile updated");
   };
 
@@ -201,7 +210,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onLogout = () => {
-   //AICI AM MODIFICAT
+    //AICI AM MODIFICAT
     logout();
     navigate("/login");
   };
@@ -238,7 +247,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
             <Space direction="vertical" size={2} className={"flex w-full"}>
               {Object.entries(userData).map(([key, val], i) => (
                 <React.Fragment key={v4()}>
-                  {key !== "username" && key !== "email" && key !== "id" ? (
+                  {propertiesNotShown.indexOf(key) === -1 ? (
                     <UserInfoInput
                       title={key}
                       value={`${val}`}

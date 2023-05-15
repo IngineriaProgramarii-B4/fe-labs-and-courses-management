@@ -33,7 +33,17 @@ export default function AddReminderModal({
                                            setIsModalAddReminderOpen
                                          }: { isModalAddReminderOpen: boolean, setIsModalAddReminderOpen: (val: boolean) => void }) {
   // @ts-ignore
-  const { title, setTitle, description, setDescription, date, setDate, saveNewReminder } = useContext(RemindersContext);
+  const { title, setTitle, description, setDescription, date, setDate, saveNewReminder }
+    : {
+    title: string,
+    setTitle: (val: string) => void,
+    description: string,
+    setDescription: (val: string) => void,
+    setDate: (val: string) => void,
+    saveNewReminder: () => void,
+  }
+    = useContext(RemindersContext);
+
   return (
     <Modal
       centered={true}
@@ -78,10 +88,10 @@ export default function AddReminderModal({
         <Form.Item
           label="Due date"
           name="date"
-          data-testid = "edit-date-input"
+          data-testid="edit-date-input"
           rules={[{ required: false, message: "Select a date!" }]}
         >
-          <DatePicker data-testid="edit-date"  value={date} format="DD.MM.YYYY HH:MM" onChange={(date, dateString) => {
+          <DatePicker data-testid="edit-date" value={date} format="DD.MM.YYYY HH:MM" onChange={(date, dateString) => {
             setDate(dateString);
           }} />
         </Form.Item>

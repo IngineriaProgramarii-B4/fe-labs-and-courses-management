@@ -16,14 +16,14 @@ function TeacherInfoCard() {
       taughtSubjects: []
     }
   ]);
-
   const { id } = useParams();
 
   useEffect(() => {
     const axiosInstance = axios.create({
-        baseURL: "http://localhost:8090/api/v1",
+        baseURL: "http://localhost:8082/api/v1",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }
     );
@@ -49,8 +49,8 @@ function TeacherInfoCard() {
             })
           };
         }));
-      })
-      // .catch((err) => console.error(err));
+      });
+    // .catch((err) => console.error(err));
   }, []);
 
   return (

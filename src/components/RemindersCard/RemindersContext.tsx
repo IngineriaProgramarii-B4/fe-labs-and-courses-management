@@ -20,28 +20,34 @@ export default function RemindersContextProvider({
   const [date, setDate] = useState("");
   const [reminders, setReminders] = useState<ReminderDataProps[]>([]);
   const [loggedUser, setLoggedUser] = useState<string>("");
+
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8090/api/v1",
-    headers: { "Content-Type": "application/json" }
+    baseURL: "http://localhost:8082/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
   });
   const getData = () => {
-    const token = localStorage.getItem("token");
     axiosInstance
-      .post("/users/loggedUser", token)
+      .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => {
-        // setLoggedUser(res.data.username);
-        return res.data.username
+        setLoggedUser(res.data.username)
+        return res.data.username;
       })
       .then((username) => {
         axiosInstance
           .get(`/reminders/${username}`)
           .then((res) => {
-            setReminders(res.data);
-          });
+            setReminders(res.data === null ? [] : res.data);
+          })
+          .catch(err => console.log(err));
       })
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
+    // @ts-ignore
     getData();
   }, []);
 
@@ -55,7 +61,7 @@ export default function RemindersContextProvider({
       })
       .then(() => {
         getData();
-      })
+      });
   };
 
   const deleteReminder = (reminderId: string) => {
@@ -64,7 +70,7 @@ export default function RemindersContextProvider({
       .then((res) => {
         toast.success("Reminder deleted");
         getData();
-      })
+      });
   };
 
   const value = useMemo(

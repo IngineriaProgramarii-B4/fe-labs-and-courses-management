@@ -29,12 +29,20 @@ export default function NetworkCard() {
   const { isUserModified } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserDataType[]>([]);
+  const [token, setToken] = useState<string>("")
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8090/api/v1",
+    baseURL: "http://localhost:8082/api/v1",
     headers: {
       "Content-Type": "application/json",
+      "Accept": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
     },
   });
+
+  useEffect(() => {
+    // @ts-ignore
+    setToken(localStorage.getItem("token"));
+  }, [])
 
   useEffect(() => {
     /* Fetch data from server */
