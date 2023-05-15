@@ -67,7 +67,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
   const getImage = async (title: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8090/api/v1/subjects/subjectTitle=${title}`
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`
       );
       if (!response.data.image) {
         setCardImg(
@@ -76,7 +76,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         return;
       }
       const img = await axios.get(
-        `http://localhost:8090/api/v1/subjects/subjectTitle=${title}/image`,
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${title}/image`,
         { responseType: "arraybuffer" }
       );
       const imgBlob = new Blob([img.data], { type: response.data.image.type });
