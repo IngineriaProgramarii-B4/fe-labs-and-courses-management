@@ -200,7 +200,12 @@ describe("UserInfoModal", () => {
           lastName: "Doe",
           username: "johndoe",
           email: "john.doe@example.com",
-          type: 1,
+          roles: [
+            {
+              id: 1,
+              name: "ADMIN",
+            },
+          ],
         },
       ],
       status: 200,
@@ -216,7 +221,7 @@ describe("UserInfoModal", () => {
     jest.clearAllMocks();
   });
 
-  test("should update admin(0) profile on save", async () => {
+  test("should update admin(1) profile on save", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     axiosInstance.patch.mockResolvedValue({ status: 200 });
     axiosInstance.get.mockResolvedValue({
@@ -226,7 +231,12 @@ describe("UserInfoModal", () => {
           lastName: "Doe",
           username: "johndoe",
           email: "john.doe@example.com",
-          type: 0,
+          roles: [
+            {
+              id: 1,
+              name: "ADMIN",
+            },
+          ],
         },
       ],
       status: 200,
@@ -256,7 +266,7 @@ describe("UserInfoModal", () => {
     expect(axiosInstance.patch).toHaveBeenCalledTimes(1);
   });
 
-  test("should update teacher(1) profile on save", async () => {
+  test("should update teacher(2) profile on save", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     axiosInstance.patch.mockResolvedValue({ status: 200 });
     axiosInstance.get.mockResolvedValue({
@@ -266,7 +276,12 @@ describe("UserInfoModal", () => {
           lastName: "Doe",
           username: "johndoe",
           email: "john.doe@example.com",
-          type: 1,
+          roles: [
+            {
+              id: 2,
+              name: "TEACHER",
+            },
+          ],
         },
       ],
       status: 200,
@@ -296,7 +311,7 @@ describe("UserInfoModal", () => {
     expect(axiosInstance.patch).toHaveBeenCalledTimes(1);
   });
 
-  test("should update student(2) profile on save", async () => {
+  test("should update student(3) profile on save", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     axiosInstance.patch.mockResolvedValue({ status: 200 });
     axiosInstance.get.mockResolvedValue({
@@ -306,7 +321,12 @@ describe("UserInfoModal", () => {
           lastName: "Doe",
           username: "johndoe",
           email: "john.doe@example.com",
-          type: 2,
+          roles: [
+            {
+              id: 3,
+              name: "STUDENT",
+            },
+          ],
         },
       ],
       status: 200,

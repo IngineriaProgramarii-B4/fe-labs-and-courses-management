@@ -38,11 +38,11 @@ type ModalFooterProps = {
 };
 
 export function ModalFooter({
-                              isEditing,
-                              onLogout, // <-- Change this line
-                              onCancel,
-                              onSave
-                            }: ModalFooterProps) {
+  isEditing,
+  onLogout, // <-- Change this line
+  onCancel,
+  onSave,
+}: ModalFooterProps) {
   if (isEditing) {
     return (
       <>
@@ -67,12 +67,7 @@ type UserProfileAvatarProps = {
   setNewAvatar: (val: string) => void;
 };
 
-export function UserProfileAvatar({
-                                    isEditing,
-                                    avatar,
-                                    newAvatar,
-                                    setNewAvatar
-                                  }: UserProfileAvatarProps) {
+export function UserProfileAvatar({ avatar }: UserProfileAvatarProps) {
   return (
     <div
       className={
@@ -111,7 +106,7 @@ const getDefaultUserData = () => {
     firstName: "",
     lastName: "",
     username: "",
-    email: ""
+    email: "",
   };
   return userData;
 };
@@ -121,6 +116,15 @@ type UserInfoModalProps = {
   className?: string;
 };
 
+const filteredFields = [
+  { backend: "firstname", frontend: "First Name" },
+  { backend: "lastname", frontend: "Last Name" },
+  { backend: "email", frontend: "Email" },
+  { backend: "username", frontend: "Username", isEditable: true },
+  { backend: "registrationNumber", frontend: "Registration Number" },
+  { backend: "office", frontend: "Office" },
+  { backend: "title", frontend: "Title" },
+];
 
 function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const navigate = useNavigate();
@@ -130,10 +134,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const [userData, setUserData] = useState<UserDataType>(getDefaultUserData());
   const [newUsername, setNewUsername] = useState(userData.username);
-  const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
-
-  const propertiesNotShown = ["id", "password", "createdAt", "updatedAt", "isDeleted"];
 
   // @ts-ignore
   const { setIsUserModified } = useContext(UserContext);
@@ -143,8 +144,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   //AICI AM ADAUGAT FUNCTIA CARE SA NE AJUTE LA DELOGARE
@@ -155,7 +156,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   useEffect(() => {
     setNewUsername(userData.username);
-    setNewEmail(userData.email);
   }, [userData]);
 
   const onAvatarClick = () => {
@@ -171,7 +171,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           .get(`/users?email=${email}`)
           .then((res) => res.data)
           .then((data) => {
-            console.log(data[0])
+            console.log(data[0]);
             setUserData(data[0]);
             setIsLoading(false);
           });
@@ -184,7 +184,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     setIsEditing(false);
 
     const { email, username, ...sentUser } = userData;
-    const newUser = { ...sentUser, email: newEmail, username: newUsername };
+    const newUser = { ...sentUser, username: newUsername };
 
     let endPoint = "";
 
@@ -205,7 +205,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     setIsUserModified(false);
     setIsEditing(false);
     setNewUsername(userData.username);
-    setNewEmail(userData.email);
     setNewAvatar(null);
   };
 
@@ -245,28 +244,37 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           <Divider dashed />
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
-              {Object.entries(userData).map(([key, val], i) => (
-                <React.Fragment key={v4()}>
-                  {propertiesNotShown.indexOf(key) === -1 ? (
-                    <UserInfoInput
-                      title={key}
-                      value={`${val}`}
-                      type={"text"}
-                      isEditing={isEditing}
-                    />
-                  ) : key !== "id" ? (
-                    <UserInfoInput
-                      title={key}
-                      value={key === "username" ? newUsername : newEmail}
-                      type={"text"}
-                      isEditing={isEditing}
-                      setValue={
-                        key === "username" ? setNewUsername : setNewEmail
-                      }
-                    />
-                  ) : null}
-                </React.Fragment>
-              ))}
+              {Object.entries(userData).map(([key, val], i) => {
+                if (
+                  !filteredFields.find((field) => field.backend === key) ||
+                  val === null
+                ) {
+                  return null;
+                }
+                const fieldData = filteredFields.find(
+                  (field) => field.backend === key
+                );
+                return (
+                  <React.Fragment key={v4()}>
+                    {!fieldData?.isEditable ? (
+                      <UserInfoInput
+                        title={fieldData?.frontend || "Title"}
+                        value={`${val}`}
+                        type={"text"}
+                        isEditing={isEditing}
+                      />
+                    ) : (
+                      <UserInfoInput
+                        title={fieldData?.frontend || "Title"}
+                        value={newUsername}
+                        type={"text"}
+                        isEditing={isEditing}
+                        setValue={setNewUsername}
+                      />
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </Space>
           ) : (
             <Spin tip="Loading..." className={"w-full my-5"} />

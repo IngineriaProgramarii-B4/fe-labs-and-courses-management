@@ -24,25 +24,40 @@ export type UserDataType = {
   title?: string;
 };
 
+const filteredFields = [
+  { backend: "firstName", frontend: "First Name" },
+  { backend: "lastName", frontend: "Last Name" },
+  { backend: "email", frontend: "Email" },
+  { backend: "username", frontend: "Username" },
+  { backend: "registrationNumber", frontend: "Registration Number" },
+  { backend: "office", frontend: "Office" },
+  { backend: "department", frontend: "Department" },
+  { backend: "title", frontend: "Title" },
+  { backend: "taughtSubjects", frontend: "Taught Subjects" },
+  { backend: "year", frontend: "Year" },
+  { backend: "semester", frontend: "Semester" },
+  { backend: "enrolledCourses", frontend: "Enrolled Courses" },
+];
+
 export default function NetworkCard() {
   // @ts-ignore
   const { isUserModified } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserDataType[]>([]);
-  const [token, setToken] = useState<string>("")
+  const [token, setToken] = useState<string>("");
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8082/api/v1",
     headers: {
       "Content-Type": "application/json",
-      "Accept": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 
   useEffect(() => {
     // @ts-ignore
     setToken(localStorage.getItem("token"));
-  }, [])
+  }, []);
 
   useEffect(() => {
     /* Fetch data from server */
@@ -78,7 +93,7 @@ export default function NetworkCard() {
 
 const renderCard = (user: UserDataType) => {
   return (
-    <Card key={v4()}  className="m-10 w-80 h-96">
+    <Card key={v4()} className="m-10 w-80 h-96">
       <UserHeader
         key={v4()}
         username={user.username}
@@ -88,12 +103,18 @@ const renderCard = (user: UserDataType) => {
         type={user.type}
       />
       {Object.entries(user).map(([key, value]) => {
-        if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)
-          return key !== "id" ? (
-            <UserInfoFields key={v4()} title={key} value={value} id={user.id} />
-          ) : (
-            ""
-          );
+        const fieldData = filteredFields.find((field) => field.backend === key);
+
+        return fieldData ? (
+          <UserInfoFields
+            key={v4()}
+            title={fieldData.frontend}
+            value={value || "not set"}
+            id={user.id}
+          />
+        ) : (
+          ""
+        );
       })}
     </Card>
   );

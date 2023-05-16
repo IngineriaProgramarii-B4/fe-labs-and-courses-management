@@ -5,12 +5,12 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 
 export default function ReminderItem({
-                                       dueDateTime,
-                                       title,
-                                       description,
-                                       id,
-                                       deleteReminder
-                                     }: any) {
+  dueDateTime,
+  title,
+  description,
+  id,
+  deleteReminder,
+}: any) {
   const [newDescription, setNewDescription] = useState(description);
   const [newDueDate, setNewDueDate] = useState(dueDateTime);
   const [editableDescription, setEditableDescription] = useState(false);
@@ -65,7 +65,7 @@ export default function ReminderItem({
       </div>
       <div className="flex-col">
         <div>
-          <span className="text-gray-500">description: </span>
+          <span className="text-gray-500">Description: </span>
           {!editableDescription ? (
             <span> {newDescription} </span>
           ) : (
@@ -92,7 +92,7 @@ export default function ReminderItem({
           />
         </div>
         <div>
-          <span className="text-gray-500">due date: </span>
+          <span className="text-gray-500">Due date: </span>
           {!editableDueDate ? (
             <span> {newDueDate} </span>
           ) : (
