@@ -1,4 +1,4 @@
-import  React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Chart } from "react-google-charts";
 import { Space } from "antd";
@@ -26,6 +26,7 @@ interface PieChartProps {
   title: string;
   isModified: boolean;
   setIsModified: (isModified: boolean) => void;
+  role: String;
 }
 
 const PieChart: React.FC<PieChartProps> = (props) => {
@@ -103,13 +104,15 @@ const PieChart: React.FC<PieChartProps> = (props) => {
             <h1
               style={{ fontWeight: 600, fontSize: 20 }}
             >{`${selectedComponent}'s description`}</h1>
-            <FontAwesomeIcon
-              icon={faPenToSquare}
-              onClick={() => {
-                setResetFields(resetFields ? false : true);
-                showModal();
-              }}
-            />
+            {props.role === "TEACHER" ? (
+              <FontAwesomeIcon
+                icon={faPenToSquare}
+                onClick={() => {
+                  setResetFields(resetFields ? false : true);
+                  showModal();
+                }}
+              />
+            ) : null}
           </Space>
           <p className="max-w-sm">{descriptions[selectedComponent]}</p>
           <EvaluationEdit
@@ -123,6 +126,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
             setIsModified={props.setIsModified}
             resetFields={resetFields}
             setResetFields={setResetFields}
+            role={props.role}
           />
         </div>
       )}

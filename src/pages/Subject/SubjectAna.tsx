@@ -130,6 +130,7 @@ function SubjectAna() {
                 title={subjectTitle}
                 isModified={isModified}
                 setIsModified={setIsModified}
+                role={decodedToken?.role}
               />
             </div>
           </div>
@@ -144,6 +145,7 @@ function SubjectAna() {
               title={subjectTitle}
               isModified={isModified}
               setIsModified={setIsModified}
+              role={decodedToken?.role}
             />
           </div>
         </div>

@@ -14,6 +14,7 @@ interface AccordionProps {
   title: string;
   isModified: boolean;
   setIsModified: (isModified: boolean) => void;
+  role: string;
 }
 
 const Accordion: React.FC<AccordionProps> = (props) => {
@@ -103,15 +104,19 @@ const Accordion: React.FC<AccordionProps> = (props) => {
 
   return (
     <div data-testid="accordion-1">
-      {comps.length < 3 ? (
-        <FontAwesomeIcon
-          data-testid="add-button"
-          onClick={showAddModal}
-          icon={faPlus}
-          className="mb-10 px-10 hover:text-blue-500"
-          size="2x"
-        />
-      ) : /*<Button
+      {comps.length < 3
+        ? props.role === "TEACHER"
+          ? [
+              <FontAwesomeIcon
+                data-testid="add-button"
+                onClick={showAddModal}
+                icon={faPlus}
+                className="mb-10 px-10 hover:text-blue-500"
+                size="2x"
+              />,
+            ]
+          : []
+        : /*<Button
           data-testid="add-button"
           //className="add-button second"
           className="bg-blue-500 hover:bg-blue-600 text-white mb-12 mt-4"
@@ -121,7 +126,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
           Add Component
         </Button>
         */
-      null}
+          null}
 
       <Collapse accordion={true} ghost>
         {comps.map((component) => {

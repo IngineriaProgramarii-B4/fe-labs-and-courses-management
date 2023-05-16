@@ -14,6 +14,7 @@ interface EvaluationEditProps {
   setIsVisible: (isVisible: boolean) => void;
   resetFields: boolean;
   setResetFields: (resetFields: boolean) => void;
+  role: String;
 }
 
 const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
