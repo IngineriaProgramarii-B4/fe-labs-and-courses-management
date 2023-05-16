@@ -39,7 +39,12 @@ function SelectedSubject() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get<any>(
-        `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}`
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}`,
+        {
+          headers: {
+            Authorization: `Bearer ${extractToken()}`,
+          },
+        }
       );
       setSubject(result.data);
       setDescription(result.data.description);
@@ -51,7 +56,12 @@ function SelectedSubject() {
       } else {
         const img = await axios.get(
           `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
-          { responseType: "arraybuffer" }
+          {
+            headers: {
+              'Authorization': `Bearer ${extractToken()}`,
+            }, 
+            responseType: "arraybuffer" 
+          }
         );
         const imgBlob = new Blob([img.data], { type: result.data.image.type });
         const imgUrl = URL.createObjectURL(imgBlob);
@@ -59,7 +69,12 @@ function SelectedSubject() {
       }
 
       const resultComponents = await axios.get<any>(
-        `http://localhost:8082/api/v1/subjects/${subjectTitle}/components`
+        `http://localhost:8082/api/v1/subjects/${subjectTitle}/components`,
+        {
+          headers: {
+            Authorization: `Bearer ${extractToken()}`,
+          },
+        }
       );
       const accData = resultComponents.data.map((component: any) => {
         return component.type;

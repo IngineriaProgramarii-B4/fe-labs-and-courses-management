@@ -55,7 +55,12 @@ const Accordion: React.FC<AccordionProps> = (props) => {
     try {
       await axios.post(
         `http://localhost:8082/api/v1/subjects/${props.title}/components`,
-        newComponent
+        newComponent,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
 
       if (percentage !== 0 && evalDescription !== "") {
@@ -66,7 +71,12 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         };
         await axios.post(
           `http://localhost:8082/api/v1/subjects/${props.title}/evaluationMethods`,
-          newEvaluation
+          newEvaluation,
+          {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          }
         );
         setPercentage(0);
         setEvalDescription("");
@@ -94,7 +104,12 @@ const Accordion: React.FC<AccordionProps> = (props) => {
   const deleteComponent = async () => {
     try {
       await axios.delete(
-        `http://localhost:8082/api/v1/subjects/${props.title}/components/type=${componentToDelete}`
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/type=${componentToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       props.setIsModified(props.isModified ? false : true);
     } catch (error) {
@@ -146,7 +161,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
                 />
                 ):null}
                 <Modal
-                  visible={isModalOpen2}
+                  open={isModalOpen2}
                   onOk={() => {
                     deleteComponent();
                     setIsModalOpen2(false);

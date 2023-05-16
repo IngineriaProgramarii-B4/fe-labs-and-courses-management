@@ -56,7 +56,12 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
       onOk() {
         console.log("OK");
         axios.delete(
-          `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`
+          `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            }
+          }
         );
         props.setIsModified(props.isModified ? false : true);
       },
@@ -69,7 +74,12 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
   const getImage = async (title: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          }
+        }
       );
       if (!response.data.image) {
         setCardImg(
@@ -79,7 +89,12 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
       }
       const img = await axios.get(
         `http://localhost:8082/api/v1/subjects/subjectTitle=${title}/image`,
-        { responseType: "arraybuffer" }
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+          },
+          responseType: "arraybuffer",
+        }
       );
       const imgBlob = new Blob([img.data], { type: response.data.image.type });
       const imgUrl = URL.createObjectURL(imgBlob);

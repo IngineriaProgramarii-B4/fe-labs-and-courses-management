@@ -29,7 +29,12 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
       props.subject.description = inputDescription;
       await axios.put(
         `http://localhost:8082/api/v1/subjects/subjectTitle=${props.subject.title}`,
-        props.subject
+        props.subject,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       props.setIsModified(props.isModified ? false : true);
       setEditing(false);

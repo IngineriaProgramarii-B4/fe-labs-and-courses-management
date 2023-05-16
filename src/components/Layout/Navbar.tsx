@@ -13,7 +13,7 @@ const items = [
   {
     key: "2",
     title: "Home",
-    label: <Link to="/subjectalex">Subjects</Link>,
+    label: <Link to="/subjects">Subjects</Link>,
   },
   {
     key: "3",

@@ -26,7 +26,12 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
   const handleDelete = async (key: React.Key) => {
     try {
       await axios.delete(
-        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources/title=${key}`
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources/title=${key}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       fetchData();
     } catch (error) {
@@ -42,6 +47,9 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources/file=${fileName}`,
         {
           responseType: "arraybuffer",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const blob = new Blob([res.data], { type: file.type });
@@ -86,7 +94,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
                   className="hover:text-red-500 "
                 />
                 <Modal
-                  visible={isModalOpen2}
+                  open={isModalOpen2}
                   onOk={() => {
                     handleDelete(record.key);
                     setIsModalOpen2(false);
@@ -119,7 +127,12 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources`
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       )
       .then((res) => {
         const resModify: DataType[] = res.data.map((item: any) => {

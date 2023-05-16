@@ -25,6 +25,7 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
     const config = {
       headers: {
         "content-type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       onUploadProgress: (event: any) => {
         const percent = Math.floor((event.loaded / event.total) * 100);
