@@ -133,6 +133,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
           return (
             <Panel header={component} key={component}>
               <div>
+                {props.role === 'TEACHER' ? (
                 <FontAwesomeIcon
                   data-testid="delete"
                   onClick={() => {
@@ -143,6 +144,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
                   className="mb-10 px-10 float-right hover:text-red-500 "
                   size="2x"
                 />
+                ):null}
                 <Modal
                   visible={isModalOpen2}
                   onOk={() => {
@@ -165,7 +167,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
                 </Modal>
               </div>
 
-              <ResourcesTable component={component} title={props.title} />
+              <ResourcesTable component={component} title={props.title} role={props.role} />
             </Panel>
           );
         })}

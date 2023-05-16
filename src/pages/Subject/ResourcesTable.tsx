@@ -19,6 +19,7 @@ interface DataType {
 interface ResourcesTableProps {
   component: string;
   title: string;
+  role: string;
 }
 
 const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
@@ -69,50 +70,48 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       dataIndex: "timeStamp",
       key: "timeStamp",
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record: any) => (
-        <div>
-          <FontAwesomeIcon data-testid = "delete-icon" 
-            onClick={() => {
-              showModal2();
-            }}
-            icon={faTrash}
-            className="hover:text-red-500 "
-          />
-          <Modal
-            visible={isModalOpen2}
-            onOk={() => {
-              handleDelete(record.key);
-              setIsModalOpen2(false);
-            }}
-            onCancel={handleCancel}
-            okType="danger"
-            okText="Yes"
-            cancelText="No"
-            closable={false}
-          >
-            <div className="font-bold text-center mb-5 text-xl">
-              <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
-              Are you sure you wish to delete this resource?
-            </div>
-            <div className="text-center">You can't revert your actions</div>
-          </Modal>
-        </div>
-        /*
-        <Popconfirm
-          //okButtonProps={{ className: "okbutton" }}
-          okType="danger"
-          title="Sure to delete?"
-          onConfirm={() => handleDelete(record.key)}
-        >
-          <FontAwesomeIcon icon={faTrash} className="hover:text-red-500 " />
-        </Popconfirm>
-        */
-      ),
-    },
+    ...(props.role === "TEACHER"
+      ? [
+          {
+            title: "Action",
+            key: "action",
+            render: (_:any, record: any) => (
+              <div>
+                <FontAwesomeIcon
+                  data-testid="delete-icon"
+                  onClick={() => {
+                    showModal2();
+                  }}
+                  icon={faTrash}
+                  className="hover:text-red-500 "
+                />
+                <Modal
+                  visible={isModalOpen2}
+                  onOk={() => {
+                    handleDelete(record.key);
+                    setIsModalOpen2(false);
+                  }}
+                  onCancel={handleCancel}
+                  okType="danger"
+                  okText="Yes"
+                  cancelText="No"
+                  closable={false}
+                >
+                  <div className="font-bold text-center mb-5 text-xl">
+                    <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
+                    Are you sure you wish to delete this resource?
+                  </div>
+                  <div className="text-center">
+                    You can't revert your actions
+                  </div>
+                </Modal>
+              </div>
+            ),
+          },
+        ]
+      : []),
   ];
+  
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -163,6 +162,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
   const [clearFileList, setClearFileList] = useState(false);
   return (
     <div>
+      {props.role === "TEACHER" ? (
       <FontAwesomeIcon
         data-testid="add-button"
         onClick={() => {
@@ -172,6 +172,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         size="2x"
         className=" px-10 hover:text-blue-500"
       />
+      ):null}
       <Modal
         data-testid="modal"
         title={"Add resource"}
