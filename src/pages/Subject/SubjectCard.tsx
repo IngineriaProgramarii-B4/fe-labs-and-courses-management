@@ -19,12 +19,14 @@ interface SubjectCardProps {
   card: Subject;
   isModified: boolean;
   setIsModified: (isModified: boolean) => void;
+  role: String;
 }
 
 const SubjectCard: React.FC<SubjectCardProps> = (props) => {
   const [SubjectModal, setSubjectModal] = useState(false);
   const [cardImg, setCardImg] = useState<string>("");
 
+  console.log(props.role);
   const handleClick = (title: string) => {
     window.location.href = `http://localhost:3000/subjectana?subject=${title}`;
   };
@@ -98,6 +100,9 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         hoverable
         cover={<img alt={props.card.title} src={cardImg} />}
         actions={[
+          props.role === "TEACHER"
+          ?
+          [
           <Button
             data-testid="edit-button"
             type="text"
@@ -115,6 +120,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
           >
             Delete
           </Button>,
+          ]: []
         ]}
         style={{ width: 300 }}
       >

@@ -41,6 +41,9 @@ function SubjectAlex() {
       console.error('No token found in local storage');
       return;
     }
+     const role = decodedToken?.role;
+     console.log(role);
+
     axios
       .get<Subject[]>(`http://localhost:8082/api/v1/subjects`, {
         headers: {
@@ -67,6 +70,7 @@ function SubjectAlex() {
           setCards={setCards}
           isModified={isModified}
           setIsModified={setIsModified}
+          role={decodedToken?.role}
         />
       </div>
     </>

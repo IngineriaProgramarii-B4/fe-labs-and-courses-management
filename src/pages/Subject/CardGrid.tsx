@@ -16,11 +16,13 @@ interface CardGridProps {
   setCards: (cards: Subject[]) => void;
   isModified: boolean;
   setIsModified: (isModified: boolean) => void;
+  role: String;
 }
 
 const CardGrid: React.FC<CardGridProps> = (props) => {
   const [cardGrid, setCardGrid] = useState<Subject[]>(props.cards);
 
+  console.log(props.role);
   useEffect(() => {
     setCardGrid(props.cards);
   }, [props.cards]);
@@ -39,6 +41,7 @@ const CardGrid: React.FC<CardGridProps> = (props) => {
               card={card}
               isModified={props.isModified}
               setIsModified={props.setIsModified}
+              role={props.role}
             />
           </div>
         </div>
@@ -46,6 +49,7 @@ const CardGrid: React.FC<CardGridProps> = (props) => {
       <AddSubjectCard
         isModified={props.isModified}
         setIsModified={props.setIsModified}
+        role={props.role}
       />
     </div>
   );
