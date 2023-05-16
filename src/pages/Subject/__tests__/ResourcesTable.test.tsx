@@ -68,7 +68,7 @@ describe("ResourcesTable", () => {
     fireEvent.click(screen.getByText("Yes"));
 
     expect(axios.delete).toHaveBeenCalledWith(
-      "http://localhost:8090/api/v1/subjects/example/components/example/resources/title=Resource 1"
+      "http://localhost:8082/api/v1/subjects/example/components/example/resources/title=Resource 1"
     );
 
     await waitFor(() => {
@@ -102,7 +102,7 @@ describe("ResourcesTable", () => {
     fireEvent.click(screen.getByText("Resource 1"));
 
     expect(axios.get).toHaveBeenCalledWith(
-      "http://localhost:8090/api/v1/subjects/example/components/example/resources/file=Resource 1",
+      "http://localhost:8082/api/v1/subjects/example/components/example/resources/file=Resource 1",
       { responseType: "arraybuffer" }
     );
     //expect(window.open).toHaveBeenCalled();

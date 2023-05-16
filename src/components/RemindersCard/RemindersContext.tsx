@@ -17,7 +17,7 @@ export default function RemindersContextProvider({ children }) {
   const [date, setDate] = useState("");
   const [reminders, setReminders] = useState<ReminderDataProps[]>([]);
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8090/api/v1",
+    baseURL: "http://localhost:8082/api/v1",
     headers: { "Content-Type": "application/json" }
   });
   console.log(reminders)

@@ -55,13 +55,13 @@ describe("SubjectCard component", () => {
 
     await waitFor(() =>
       expect(axios.get).toHaveBeenCalledWith(
-        "http://localhost:8090/api/v1/subjects/subjectTitle=Test Title"
+        "http://localhost:8082/api/v1/subjects/subjectTitle=Test Title"
       )
     );
 
     await waitFor(() =>
       expect(axios.get).toHaveBeenCalledWith(
-        "http://localhost:8090/api/v1/subjects/subjectTitle=Test Title/image",
+        "http://localhost:8082/api/v1/subjects/subjectTitle=Test Title/image",
         { responseType: "arraybuffer" }
       )
     );

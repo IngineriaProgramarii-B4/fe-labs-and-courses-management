@@ -39,7 +39,7 @@ function SubjectAna() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get<any>(
-        `http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}`
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}`
       );
       setSubject(result.data);
       setDescription(result.data.description);
@@ -50,7 +50,7 @@ function SubjectAna() {
         );
       } else {
         const img = await axios.get(
-          `http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
+          `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
           { responseType: "arraybuffer" }
         );
         const imgBlob = new Blob([img.data], { type: result.data.image.type });
@@ -59,7 +59,7 @@ function SubjectAna() {
       }
 
       const resultComponents = await axios.get<any>(
-        `http://localhost:8090/api/v1/subjects/${subjectTitle}/components`
+        `http://localhost:8082/api/v1/subjects/${subjectTitle}/components`
       );
       const accData = resultComponents.data.map((component: any) => {
         return component.type;

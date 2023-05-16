@@ -56,7 +56,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
       onOk() {
         console.log("OK");
         axios.delete(
-          `http://localhost:8090/api/v1/subjects/subjectTitle=${title}`
+          `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`
         );
         props.setIsModified(props.isModified ? false : true);
       },

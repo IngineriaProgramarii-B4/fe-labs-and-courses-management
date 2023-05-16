@@ -26,7 +26,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
   const handleDelete = async (key: React.Key) => {
     try {
       await axios.delete(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources/title=${key}`
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources/title=${key}`
       );
       fetchData();
     } catch (error) {
@@ -39,7 +39,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
       const file = data.find((item) => item.title === fileName);
       if (!file) return console.log("File not found");
       const res = await axios.get(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources/file=${fileName}`,
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources/file=${fileName}`,
         {
           responseType: "arraybuffer",
         }
@@ -119,7 +119,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources`
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources`
       )
       .then((res) => {
         const resModify: DataType[] = res.data.map((item: any) => {

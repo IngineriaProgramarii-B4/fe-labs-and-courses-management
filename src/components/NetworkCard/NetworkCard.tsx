@@ -27,7 +27,7 @@ function NetworkCard() {
 
   const [users, setUsers] = useState<UserDataType[]>([]);
   const axiosInstance = axios.create({
-      baseURL: "http://localhost:8090/api/v1",
+      baseURL: "http://localhost:8082/api/v1",
       headers: {
         "Content-Type": "application/json"
       }

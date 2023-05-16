@@ -47,7 +47,7 @@ describe("SubjectAlex component", () => {
     render(<SubjectAlex />);
 
     expect(axios.get).toHaveBeenCalledWith(
-      "http://localhost:8090/api/v1/subjects"
+      "http://localhost:8082/api/v1/subjects"
     );
 
     expect(await screen.findByText("Math")).toBeInTheDocument();

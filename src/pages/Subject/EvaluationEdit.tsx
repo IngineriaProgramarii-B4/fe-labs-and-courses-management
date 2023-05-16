@@ -41,7 +41,7 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
         value: value,
       };
       await axios.put(
-        `http://localhost:8090/api/v1/subjects/${props.subjectTitle}/evaluationMethods/component=${props.title}`,
+        `http://localhost:8082/api/v1/subjects/${props.subjectTitle}/evaluationMethods/component=${props.title}`,
         req
       );
       props.setIsModified(props.isModified ? false : true);

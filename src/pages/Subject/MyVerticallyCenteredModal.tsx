@@ -28,7 +28,7 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
     try {
       props.subject.description = inputDescription;
       await axios.put(
-        `http://localhost:8090/api/v1/subjects/subjectTitle=${props.subject.title}`,
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${props.subject.title}`,
         props.subject
       );
       props.setIsModified(props.isModified ? false : true);

@@ -54,7 +54,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
     };
     try {
       await axios.post(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components`,
+        `http://localhost:8082/api/v1/subjects/${props.title}/components`,
         newComponent
       );
 
@@ -65,7 +65,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
           value: percentage,
         };
         await axios.post(
-          `http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`,
+          `http://localhost:8082/api/v1/subjects/${props.title}/evaluationMethods`,
           newEvaluation
         );
         setPercentage(0);
@@ -94,7 +94,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
   const deleteComponent = async () => {
     try {
       await axios.delete(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/type=${componentToDelete}`
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/type=${componentToDelete}`
       );
       props.setIsModified(props.isModified ? false : true);
     } catch (error) {

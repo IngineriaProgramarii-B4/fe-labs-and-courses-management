@@ -58,7 +58,7 @@ describe("PieChart component", () => {
         render (<PieChart {...props1}/>);
 
         expect(axios.get).toHaveBeenCalledWith(
-            "http://127.0.0.1:8090/api/v1/subjects/Course/evaluationMethods");
+            "http://127.0.0.1:8082/api/v1/subjects/Course/evaluationMethods");
     });
 
     test("clicking on one segment of the pieChart opens the description of that component", async () => {

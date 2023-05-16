@@ -44,7 +44,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
   const fetchData = async () => {
     console.log("fetching data");
     const response = await axios.get(
-      `http://127.0.0.1:8090/api/v1/subjects/${props.title}/evaluationMethods`
+      `http://127.0.0.1:8082/api/v1/subjects/${props.title}/evaluationMethods`
     );
 
     const allData = response.data;

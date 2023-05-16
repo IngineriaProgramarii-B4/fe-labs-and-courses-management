@@ -68,10 +68,10 @@ describe("Accordion", () => {
   // Test saveComponent function
   it("should save the new component and update the state when form is submitted", async () => {
     axios.post(
-      `http://localhost:8090/api/v1/subjects/${props.title}/components`
+      `http://localhost:8082/api/v1/subjects/${props.title}/components`
     );
     axios.post(
-      `http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`
+      `http://localhost:8082/api/v1/subjects/${props.title}/evaluationMethods`
     );
     render(<Accordion {...props} />);
     const addButton = screen.getByTestId("add-button");
