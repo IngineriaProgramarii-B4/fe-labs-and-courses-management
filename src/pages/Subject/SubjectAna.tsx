@@ -4,18 +4,32 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import PieChart from "./PieChart";
 import Course from "./Course";
+import { useJwt } from "react-jwt";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
+
+const extractToken = () => {
+  try {
+    let token: string | null = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in local storage");
+      return null;
+    }
+    return token;
+  } catch (err) {
+    console.error("Failed to decode token", err);
+    return null;
+  }
+};
 
 function SubjectAna() {
   const [modalShow, setModalShow] = useState(false);
   const title = "Course Title";
   const [description, setDescription] = useState<string>("");
   const [subject, setSubject] = useState<any>();
+  const { decodedToken }: any = useJwt(String(extractToken()));
 
   const [searchParams] = useSearchParams();
-  const [subjectTitle] = useState<string>(
-    searchParams.get("subject")!
-  );
+  const [subjectTitle] = useState<string>(searchParams.get("subject")!);
   const [accordionData, setAccordionData] = useState<string[]>([]);
 
   const [isModified, setIsModified] = useState<boolean>(false);
@@ -96,6 +110,7 @@ function SubjectAna() {
                 subject={subject}
                 isModified={isModified}
                 setIsModified={setIsModified}
+                role={decodedToken?.role}
               />
             </div>
           </div>

@@ -11,6 +11,7 @@ interface MyVerticallyCenteredModalProps {
   subject: any;
   isModified: boolean;
   setIsModified: (isModified: boolean) => void;
+  role: String;
 }
 
 const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
@@ -68,16 +69,20 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
               >
                 Close
               </Button>,
-              <Button
-                className="bg-buttonBlue hover:bg-hoverBlue"
-                style={{ color: "white" }}
-                data-testid="edit-modal"
-                key="edit"
-                type="primary"
-                onClick={handleEdit}
-              >
-                Edit
-              </Button>,
+              props.role === "TEACHER"
+                ? [
+                    <Button
+                      className="bg-buttonBlue hover:bg-hoverBlue"
+                      style={{ color: "white" }}
+                      data-testid="edit-modal"
+                      key="edit"
+                      type="primary"
+                      onClick={handleEdit}
+                    >
+                      Edit
+                    </Button>,
+                  ]
+                : [],
             ]
       }
     >
