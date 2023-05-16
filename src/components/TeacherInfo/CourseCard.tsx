@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input, Card, Divider } from "antd";
 import { teacherDataProps } from "./TeacherInfoCard";
+import { v4 } from "uuid";
 
 type CourseInputInfoProps = {
   title: string;
@@ -20,9 +21,11 @@ export function CourseInputInfo({
     <div className={"flex"}>
       <p className={"my-auto"}>{title}:</p>
       {!isEditing ? (
-        <div className={"flex"} onClick={() => setIsEditing(false)}>
+        <div className={"flex"}>
           <p className={"my-auto ml-2"}>{value}</p>
-          <i className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"} />
+          <i onClick={() => setIsEditing(true)} data-testid="edit-property-icon"
+             className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"}
+          />
         </div>
       ) : (
         <div>
@@ -30,10 +33,12 @@ export function CourseInputInfo({
             type={type}
             className={"ml-2 w-[13rem]"}
             value={value}
+            data-testid="edit-property"
             onChange={(e) => setValue(e.target.value)}
           />
           <i
-            className={"fa-solid fa-check"}
+            className={"fa-solid fa-check cursor-pointer"}
+            data-testid="save-property-icon"
             onClick={() => setIsEditing(false)}
           />
         </div>
@@ -115,13 +120,13 @@ export function CourseCard(course: courseData) {
 
 function CoursesCard({ name, taughtSubjects }: teacherDataProps) {
   return (
-    <Card title={name}>
-      <div className="flex flex-col">
+    <Card title={name} key={v4()}>
+      <div className="flex flex-col" key={v4()}>
         {taughtSubjects.map((taughtSubject) => {
-          return <>
-            <CourseCard {...taughtSubject} />
-            <Divider />
-          </>;
+          return <React.Fragment key={v4()}>
+            <CourseCard {...taughtSubject} key={v4()} />
+            <Divider key={v4()}/>
+          </React.Fragment>;
         })}
       </div>
     </Card>

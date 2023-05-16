@@ -1,7 +1,10 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { Button, Card, DatePicker, Form, Input, Divider } from "antd";
+import { waitFor, fireEvent, render, screen } from "@testing-library/react";
+import { Button, Card } from "antd";
 import RemindersContextProvider, { RemindersContext, ReminderDataProps } from "./RemindersContext";
+import axios, { AxiosInstance } from "axios";
+import ReminderItem from "./ReminderItem";
+import RemindersCard from "./RemindersCard";
 
 const mockedRemindersData: ReminderDataProps[] = [
   {
@@ -17,9 +20,44 @@ const mockedRemindersData: ReminderDataProps[] = [
     description: "Feed Linux"
   }
 ];
-
-// TODO : test the methods that are in RemindersContext.tsx
+jest.mock("axios");
+const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"), // Use actual for all non-hook parts
+  useNavigate: jest.fn()
+}));
 describe("RemindersContext", () => {
+  function createMockedAxiosInstance(): jest.Mocked<AxiosInstance> {
+    const instance = axios.create();
+    return {
+      ...instance,
+      get: jest.fn(),
+      put: jest.fn(),
+      post: jest.fn(),
+      patch: jest.fn(),
+      delete: jest.fn()
+    } as unknown as jest.Mocked<AxiosInstance>;
+  }
+
+  let axiosInstance: jest.Mocked<AxiosInstance>;
+  beforeEach(() => {
+    axiosInstance = createMockedAxiosInstance();
+
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.get.mockResolvedValue({
+      data: mockedRemindersData,
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {}
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+
   test("should call saveNewReminder when click on submit button", () => {
     const mockedSaveNewReminder = jest.fn();
     render(
@@ -34,54 +72,110 @@ describe("RemindersContext", () => {
     const submitNewReminderButton = screen.getByText("Add");
     fireEvent.click(submitNewReminderButton);
     expect(mockedSaveNewReminder).toHaveBeenCalledTimes(1);
+
+
+
   });
 
-  test('should render the component without errors', () => {
+  test("should render the component without errors", () => {
     render(
       <RemindersContext.Provider value={{}}>
-          <div>Test</div>
+        <div>Test</div>
       </RemindersContext.Provider>
     );
   });
 
+
+  test("posts logged user", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.post.mockResolvedValue({
+      data: mockedRemindersData[0].id,
+      status: 204,
+      statusText: "CREATED",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <RemindersContextProvider>
+        <RemindersCard />
+      </RemindersContextProvider>
+    );
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+  });
+
+  test("fetches reminders from server and sets state", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.get.mockResolvedValue({
+      data: mockedRemindersData,
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <Card title="Your Reminders">
+        {
+          mockedRemindersData.map((reminder: ReminderDataProps) => (
+              <React.Fragment key={reminder.id}>
+                <ReminderItem dueDateTime={reminder.dueDateTime} description={reminder.description}
+                              title={reminder.title} id={reminder.id} deleteReminder={() => {
+
+                }} />
+              </React.Fragment>
+            )
+          )
+        }
+      </Card>
+    );
+
+    mockedRemindersData.forEach((data) => {
+      expect(screen.getByText(data.title)).toBeInTheDocument();
+      expect(screen.getByText(data.description)).toBeInTheDocument();
+    });
+
+  });
+
+  test("saves a new reminder", async () => {
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.post.mockResolvedValue({
+      data: mockedRemindersData[0],
+      status: 204,
+      statusText: "CREATED",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <RemindersContextProvider>
+        <RemindersCard />
+      </RemindersContextProvider>
+    );
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+  });
+
+  test("delete a reminder", async () => {
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.delete.mockResolvedValue({
+      data: mockedRemindersData[0].id,
+      status: 204,
+      statusText: "NO CONTENT",
+      config: {},
+      headers: {}
+    });
+
+    render(
+      <RemindersContextProvider>
+        <RemindersCard />
+      </RemindersContextProvider>
+    );
+
+    await waitFor(() => expect(axiosInstance.delete).toHaveBeenCalled());
+
+  });
 });
-
-test("should render properly", () => {
-  render(
-    <RemindersContextProvider>
-          <div></div>
-    </RemindersContextProvider>);
-  mockedRemindersData.forEach((data) => {
-    expect(screen.getByText(data.id)).toBeInTheDocument();
-    expect(screen.getByText(data.dueDateTime)).toBeInTheDocument();
-    expect(screen.getByText(data.title)).toBeInTheDocument();
-    expect(screen.getByText(data.description)).toBeInTheDocument();
-   });
-});
-
-//ReminderItem tests
-
-// const mockReminderData = {
-//   reminderId: "12345dsvfdsaz",
-//   dueDateTime: "02/05/2023",
-//   title: "Task title",
-//   description: "IP"
-// };
-
-// describe("ReminderItem", () => {
-//   test("should render the reminder data", () => {
-//     render(<ReminderItem {...mockReminderData} />);
-//     expect(screen.getByText(mockReminderData.title)).toBeInTheDocument();
-//     expect(screen.getByText(mockReminderData.description)).toBeInTheDocument();
-//     expect(screen.getByText(mockReminderData.dueDateTime)).toBeInTheDocument();
-//   });
-
-  // test("should open delete confirmation modal", () => {
-  //   render(<ReminderItem {...mockReminderData} />);
-  //   const deleteButton = screen.getByTitle("Delete Reminder");
-  //   fireEvent.click(deleteButton);
-  //   const modal = screen.getByRole("dialog");
-  //   expect(modal).toBeInTheDocument();
-  //   expect(screen.getByText("Are you sure you want to delete this reminder?")).toBeInTheDocument();
-  // });
-//});

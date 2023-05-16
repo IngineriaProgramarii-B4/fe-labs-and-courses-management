@@ -1,6 +1,7 @@
 import React from "react";
 import {
   act,
+  cleanup,
   fireEvent,
   render,
   screen,
@@ -14,9 +15,21 @@ import UserInfoModal, {
 } from "./UserInfoModal";
 import { BrowserRouter } from "react-router-dom";
 import axios, { AxiosInstance } from "axios";
+import UserContextProvider from "../UserContext/UserContext";
+import { toast } from "react-toastify";
 
 jest.mock("axios");
+jest.mock("react-toastify", () => ({
+  toast: {
+    error: jest.fn(),
+    success: jest.fn(),
+  },
+}));
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"), // Use actual for all non-hook parts
+  useNavigate: jest.fn(),
+}));
 const noop = () => {};
 
 describe("ModalTitle", () => {
@@ -148,21 +161,18 @@ describe("UserProfileAvatar", () => {
     expect(userImage).toHaveAttribute("src", userAvatar);
   });
 
-  test("should render properly when editing and with an uploaded avatar", () => {
-    const uploadedAvatar = "someImage.png";
-
+  test("should render properly when not editing and without an avatar", () => {
     render(
       <UserProfileAvatar
-        isEditing={true}
-        newAvatar={uploadedAvatar}
-        avatar={undefined}
+        isEditing={false}
+        newAvatar={null}
+        avatar={"img.src"}
         setNewAvatar={noop}
       />
     );
 
-    const userImage = screen.getByAltText("avatar");
-    expect(userImage).toBeInTheDocument();
-    expect(userImage).toHaveAttribute("src", uploadedAvatar);
+    const uploadText = screen.queryByText("Upload avatar");
+    expect(uploadText).not.toBeInTheDocument();
   });
 });
 
@@ -173,6 +183,8 @@ describe("UserInfoModal", () => {
       ...instance,
       get: jest.fn(),
       put: jest.fn(),
+      post: jest.fn(),
+      patch: jest.fn(),
     } as unknown as jest.Mocked<AxiosInstance>;
   }
 
@@ -188,7 +200,12 @@ describe("UserInfoModal", () => {
           lastName: "Doe",
           username: "johndoe",
           email: "john.doe@example.com",
-          type: 1,
+          roles: [
+            {
+              id: 1,
+              name: "ADMIN",
+            },
+          ],
         },
       ],
       status: 200,
@@ -196,29 +213,221 @@ describe("UserInfoModal", () => {
       config: {},
       headers: {},
     });
+
+    axiosInstance.post.mockResolvedValueOnce({ data: { username: "john" } });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test("should render the user icon properly", async () => {
+  test("should update admin(1) profile on save", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.get.mockResolvedValue({
+      data: [
+        {
+          firstName: "John",
+          lastName: "Doe",
+          username: "johndoe",
+          email: "john.doe@example.com",
+          roles: [
+            {
+              id: 1,
+              name: "ADMIN",
+            },
+          ],
+        },
+      ],
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
 
     render(
       <BrowserRouter>
-        <UserInfoModal />
+        <UserContextProvider>
+          <UserInfoModal />
+        </UserContextProvider>
       </BrowserRouter>
     );
+
     const userAvatar = screen.getByTestId("user-avatar");
     // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       fireEvent.click(userAvatar);
     });
 
-    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
-    // eslint-disable-next-line testing-library/no-debugging-utils
-    // screen.debug();
-    expect(screen.getByText("User Profile")).toBeInTheDocument();
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByTestId("pencil-icon"));
+    fireEvent.click(screen.getByText("Save"));
+    expect(axiosInstance.patch).toHaveBeenCalledTimes(1);
+  });
+
+  test("should update teacher(2) profile on save", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.get.mockResolvedValue({
+      data: [
+        {
+          firstName: "John",
+          lastName: "Doe",
+          username: "johndoe",
+          email: "john.doe@example.com",
+          roles: [
+            {
+              id: 2,
+              name: "TEACHER",
+            },
+          ],
+        },
+      ],
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
+
+    render(
+      <BrowserRouter>
+        <UserContextProvider>
+          <UserInfoModal />
+        </UserContextProvider>
+      </BrowserRouter>
+    );
+
+    const userAvatar = screen.getByTestId("user-avatar");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(userAvatar);
+    });
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByTestId("pencil-icon"));
+    fireEvent.click(screen.getByText("Save"));
+    expect(axiosInstance.patch).toHaveBeenCalledTimes(1);
+  });
+
+  test("should update student(3) profile on save", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+    axiosInstance.get.mockResolvedValue({
+      data: [
+        {
+          firstName: "John",
+          lastName: "Doe",
+          username: "johndoe",
+          email: "john.doe@example.com",
+          roles: [
+            {
+              id: 3,
+              name: "STUDENT",
+            },
+          ],
+        },
+      ],
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
+
+    render(
+      <BrowserRouter>
+        <UserContextProvider>
+          <UserInfoModal />
+        </UserContextProvider>
+      </BrowserRouter>
+    );
+
+    const userAvatar = screen.getByTestId("user-avatar");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(userAvatar);
+    });
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByTestId("pencil-icon"));
+    fireEvent.click(screen.getByText("Save"));
+    expect(axiosInstance.patch).toHaveBeenCalledTimes(1);
+  });
+
+  test("should not update user profile on cancel", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+
+    render(
+      <BrowserRouter>
+        <UserContextProvider>
+          <UserInfoModal />
+        </UserContextProvider>
+      </BrowserRouter>
+    );
+
+    const userAvatar = screen.getByTestId("user-avatar");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(userAvatar);
+    });
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByTestId("pencil-icon"));
+    fireEvent.click(screen.getByText("Cancel"));
+    expect(screen.getByTestId("pencil-icon")).toBeInTheDocument();
+  });
+
+  test("should redirect on logout", async () => {
+    const mockNavigate = jest.fn();
+    require("react-router-dom").useNavigate.mockReturnValue(mockNavigate);
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+
+    render(
+      <BrowserRouter>
+        <UserContextProvider>
+          <UserInfoModal />
+        </UserContextProvider>
+      </BrowserRouter>
+    );
+
+    const userAvatar = screen.getByTestId("user-avatar");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(userAvatar);
+    });
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByText("Logout"));
+    expect(mockNavigate).toHaveBeenCalledWith("/login");
+  });
+
+  test("should close the modal on cancel", async () => {
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    axiosInstance.patch.mockResolvedValue({ status: 200 });
+
+    render(
+      <BrowserRouter>
+        <UserContextProvider>
+          <UserInfoModal />
+        </UserContextProvider>
+      </BrowserRouter>
+    );
+
+    const userAvatar = screen.getByTestId("user-avatar");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(userAvatar);
+    });
+
+    await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
+
+    fireEvent.click(screen.getAllByRole("img")[0]);
+    expect(screen.queryByText("User Profile")).not.toBeInTheDocument();
   });
 });

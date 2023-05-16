@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Divider, Modal, Space, Spin, Tooltip, Upload } from "antd";
+import { Button, Divider, Modal, Space, Spin, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import UserAvatar from "./UserAvatar";
 import UserInfoInput from "./UserInfoInput";
 import { UserContext } from "../UserContext/UserContext";
+import { v4 } from "uuid";
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -66,37 +67,24 @@ type UserProfileAvatarProps = {
   setNewAvatar: (val: string) => void;
 };
 
-export function UserProfileAvatar({
-  isEditing,
-  avatar,
-  newAvatar,
-  setNewAvatar,
-}: UserProfileAvatarProps) {
+export function UserProfileAvatar({ avatar }: UserProfileAvatarProps) {
   return (
     <div
       className={
         "flex justify-center items-center w-[10rem] h-[10rem] mx-auto border-2 border-dotted rounded-2xl overflow-hidden"
       }
     >
-      {isEditing || !avatar ? (
-        <Upload showUploadList={false} onChange={() => setNewAvatar("")}>
-          {newAvatar ? (
-            <img src={newAvatar} alt="avatar" className={"object-cover"} />
-          ) : (
-            <div className={"flex flex-col justify-center items-center"}>
-              <i className={"fas fa-plus font-s text-3xl"} />
-              <div className={"mt-2"}>Upload avatar</div>
-            </div>
-          )}
-        </Upload>
-      ) : (
-        <img src={avatar} alt="avatar" className={"object-cover"} />
-      )}
+      <img src={avatar} alt="avatar" className={"object-cover"} />
     </div>
   );
 }
 
 type UserDataType = {
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+  password: string;
+  roles: Array<number>;
   id: string;
   firstName: string;
   lastName: string;
@@ -105,17 +93,20 @@ type UserDataType = {
   registrationNumber?: string;
   year?: number;
   semester?: number;
-  type: number;
 };
 
 const getDefaultUserData = () => {
   const userData: UserDataType = {
+    createdAt: "",
+    updatedAt: "",
+    isDeleted: false,
+    password: "string",
+    roles: [],
     id: "",
     firstName: "",
     lastName: "",
     username: "",
     email: "",
-    type: -1,
   };
   return userData;
 };
@@ -125,6 +116,15 @@ type UserInfoModalProps = {
   className?: string;
 };
 
+const filteredFields = [
+  { backend: "firstname", frontend: "First Name" },
+  { backend: "lastname", frontend: "Last Name" },
+  { backend: "email", frontend: "Email" },
+  { backend: "username", frontend: "Username", isEditable: true },
+  { backend: "registrationNumber", frontend: "Registration Number" },
+  { backend: "office", frontend: "Office" },
+  { backend: "title", frontend: "Title" },
+];
 
 function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   const navigate = useNavigate();
@@ -134,83 +134,83 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const [userData, setUserData] = useState<UserDataType>(getDefaultUserData());
   const [newUsername, setNewUsername] = useState(userData.username);
-  const [newEmail, setNewEmail] = useState(userData.email);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
 
   // @ts-ignore
-  const { setIsUserModified} = useContext(UserContext)
+  const { setIsUserModified } = useContext(UserContext);
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8082/api/v1",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 
   //AICI AM ADAUGAT FUNCTIA CARE SA NE AJUTE LA DELOGARE
   const logout = () => {
     // Șterge tokenul JWT din local storage sau dintr-un alt loc adecvat
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   };
-  
+
   useEffect(() => {
     setNewUsername(userData.username);
-    setNewEmail(userData.email);
   }, [userData]);
 
   const onAvatarClick = () => {
     setIsLoading(true);
-
     axiosInstance
-      .get("/users?username=stefan.ciobacaaaa")
+      .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => res.data)
       .then((data) => {
-        setUserData(data[0]);
-        setIsLoading(false);
+        return data.email;
+      })
+      .then((email) => {
+        axiosInstance
+          .get(`/users?email=${email}`)
+          .then((res) => res.data)
+          .then((data) => {
+            console.log(data[0]);
+            setUserData(data[0]);
+            setIsLoading(false);
+          });
       });
 
-    // setTimeout(() => setIsLoading(false), 1000);
     setIsModalOpen(true);
   };
-
   const onSave = () => {
-    setIsUserModified(true)
+    setIsUserModified(true);
     setIsEditing(false);
 
     const { email, username, ...sentUser } = userData;
-    const newUser = { ...sentUser, email: newEmail, username: newUsername };
+    const newUser = { ...sentUser, username: newUsername };
 
     let endPoint = "";
 
-    if (userData.type === 0) {
+    if (userData.roles.indexOf(1) !== -1) {
       endPoint += "/admin";
-    } else if (userData.type === 1) {
+    } else if (userData.roles.indexOf(2) !== -1) {
       endPoint += "/teacher";
-    } else if (userData.type === 2) {
+    } else if (userData.roles.indexOf(3) !== -1) {
       endPoint += "/student";
     }
-    endPoint += `/${newUser.id}`
+    endPoint += `/${newUser.id}`;
 
-    axiosInstance
-      .patch(endPoint, newUser)
-      .catch((err) => console.error(err));
-
+    axiosInstance.patch(endPoint, newUser);
     toast.success("User profile updated");
   };
 
   const onCancel = () => {
-    setIsUserModified(false)
+    setIsUserModified(false);
     setIsEditing(false);
     setNewUsername(userData.username);
-    setNewEmail(userData.email);
     setNewAvatar(null);
   };
 
   const onLogout = () => {
-   //AICI AM MODIFICAT
+    //AICI AM MODIFICAT
     logout();
-
     navigate("/login");
   };
 
@@ -244,28 +244,37 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           <Divider dashed />
           {!isLoading ? (
             <Space direction="vertical" size={2} className={"flex w-full"}>
-              {Object.entries(userData).map(([key, val], i) => (
-                <React.Fragment key={i}>
-                  {key !== "username" && key !== "email" && key !== "id" ? (
-                    <UserInfoInput
-                      title={key}
-                      value={`${val}`}
-                      type={"text"}
-                      isEditing={isEditing}
-                    />
-                  ) : key !== "id" ? (
-                    <UserInfoInput
-                      title={key}
-                      value={key === "username" ? newUsername : newEmail}
-                      type={"text"}
-                      isEditing={isEditing}
-                      setValue={
-                        key === "username" ? setNewUsername : setNewEmail
-                      }
-                    />
-                  ) : null}
-                </React.Fragment>
-              ))}
+              {Object.entries(userData).map(([key, val], i) => {
+                if (
+                  !filteredFields.find((field) => field.backend === key) ||
+                  val === null
+                ) {
+                  return null;
+                }
+                const fieldData = filteredFields.find(
+                  (field) => field.backend === key
+                );
+                return (
+                  <React.Fragment key={v4()}>
+                    {!fieldData?.isEditable ? (
+                      <UserInfoInput
+                        title={fieldData?.frontend || "Title"}
+                        value={`${val}`}
+                        type={"text"}
+                        isEditing={isEditing}
+                      />
+                    ) : (
+                      <UserInfoInput
+                        title={fieldData?.frontend || "Title"}
+                        value={newUsername}
+                        type={"text"}
+                        isEditing={isEditing}
+                        setValue={setNewUsername}
+                      />
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </Space>
           ) : (
             <Spin tip="Loading..." className={"w-full my-5"} />

@@ -7,25 +7,25 @@ import { RemindersContext, ReminderDataProps } from "./RemindersContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const uuid = require("uuid");
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:8082/api/v1",
-  headers: { "Content-Type": "application/json" }
-});
-
-export function RemindersCardBody({ reminders }: { reminders: ReminderDataProps[]}) {
+export function RemindersCardBody({ reminders }: { reminders: ReminderDataProps[] }) {
   const [isModalAddReminderOpen, setIsModalAddReminderOpen] = useState<boolean>(false);
   //@ts-ignore
   const { getData } = useContext(RemindersContext);
+
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8082/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
   const deleteReminder = (reminderId: string) => {
-    // TODO delete the reminder
     axiosInstance.delete(`/reminders/${reminderId}`)
       .then((res) => {
         toast.success("Reminder deleted");
         getData();
-      })
-      .catch(err => console.error(err));
+      });
   };
   // @ts-ignore
   return (
@@ -38,13 +38,12 @@ export function RemindersCardBody({ reminders }: { reminders: ReminderDataProps[
         </button>
         <Card title="Your Reminders">
           {
-            reminders.map((reminder: ReminderDataProps) => (
+            reminders?.map((reminder: ReminderDataProps) => (
                 <React.Fragment key={reminder.id}>
                   <ReminderItem dueDateTime={reminder.dueDateTime} description={reminder.description}
                                 title={reminder.title} id={reminder.id} deleteReminder={() => {
-
-                                  deleteReminder(reminder.id)
-                  }}/>
+                    deleteReminder(reminder.id);
+                  }} />
                   <Divider />
                 </React.Fragment>
               )

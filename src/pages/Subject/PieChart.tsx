@@ -77,7 +77,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
         chartEvents={[
           {
             eventName: "select",
-            callback: ({ chartWrapper }) => {
+            callback: ({ chartWrapper }:any) => {
               const chart = chartWrapper.getChart();
               const selection = chart.getSelection();
               if (selection.length === 1) {

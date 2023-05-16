@@ -8,29 +8,68 @@ import UserHeader from "./UserHeader";
 import UserInfoFields from "./UserInfoFields";
 import axios, { AxiosInstance } from "axios";
 import { BrowserRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
+jest.mock("react-toastify", () => ({
+  toast: {
+    error: jest.fn(),
+  },
+}));
 jest.mock("axios");
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
 
 describe("UserHeader", () => {
   const userData = {
+    id: "string",
     username: "dianacuzic",
     firstname: "Diana",
     lastname: "Cuzic",
+    type: 0,
   };
 
-  test("should render properly", () => {
+  const userData2 = {
+    id: "string",
+    username: "dianacuzic",
+    firstname: "Diana",
+    lastname: "Cuzic",
+    type: 2,
+  };
+
+  test("should render properly with type !== 2", () => {
     render(
-      <UserHeader
-        username={userData.username}
-        firstname={userData.firstname}
-        lastname={userData.lastname}
-      />
+      <BrowserRouter>
+        <UserHeader
+          id={userData.id}
+          username={userData.username}
+          firstname={userData.firstname}
+          lastname={userData.lastname}
+          type={userData.type}
+        />
+      </BrowserRouter>
     );
 
     expect(screen.getByText("@" + userData.username)).toBeInTheDocument();
     expect(
-      screen.getByText(`${userData.firstname} ${userData.lastname}`)
+      screen.getByText(userData.firstname + " " + userData.lastname)
+    ).toBeInTheDocument();
+  });
+
+  test("should render properly with type === 2", () => {
+    render(
+      <BrowserRouter>
+        <UserHeader
+          id={userData2.id}
+          username={userData2.username}
+          firstname={userData2.firstname}
+          lastname={userData2.lastname}
+          type={userData2.type}
+        />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByText("@" + userData.username)).toBeInTheDocument();
+    expect(
+      screen.getByText(userData.firstname + " " + userData.lastname)
     ).toBeInTheDocument();
   });
 });
@@ -43,15 +82,16 @@ describe("UserInfoFields", () => {
   };
 
   test("should render properly", () => {
-    render(<UserInfoFields title={userInfo.title} value={userInfo.value} id={userInfo.id}/>);
+    render(
+      <UserInfoFields
+        title={userInfo.title}
+        value={userInfo.value}
+        id={userInfo.id}
+      />
+    );
 
     expect(screen.getByText(userInfo.title + ":")).toBeInTheDocument();
     expect(screen.getByText(userInfo.value)).toBeInTheDocument();
-
-    // !!pot fi valori multiple (in cazul in care value: string[])
-
-    // userInfo.value && userInfo.value[0] &&
-    // expect(screen.getByText(new RegExp(userInfo.value[0], "i"))).toBeInTheDocument();
   });
 });
 
@@ -119,9 +159,9 @@ describe("NetworkCard", () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     await act(async () => {
       render(
-      <BrowserRouter>
-        <NetworkCard />
-      </BrowserRouter>
+        <BrowserRouter>
+          <NetworkCard />
+        </BrowserRouter>
       );
     });
 
@@ -142,5 +182,25 @@ describe("NetworkCard", () => {
         ).toBeInTheDocument();
     });
   });
+
+  test("should handle error when fetching data", async () => {
+    jest.spyOn(axios, "create").mockReturnValueOnce({
+      get: jest.fn(() =>
+        Promise.reject({
+          response: {
+            status: 404,
+          },
+        })
+      ),
+    } as any);
+
+    render(
+      <BrowserRouter>
+        <NetworkCard />
+      </BrowserRouter>
+    );
+
+    const networkCard = screen.queryByTestId("network-card");
+    expect(networkCard).toBeInTheDocument();
+  });
 });
-// @ts-ignore
