@@ -28,7 +28,8 @@ describe("PieChart component", () => {
     const props1 = {
         title: "Course",
         isModified: false,
-        setIsModified: jest.fn()
+        setIsModified: jest.fn(),
+        role: "TEACHER"
     };
 
     beforeEach(() => {

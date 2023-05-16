@@ -29,6 +29,7 @@ const mockProps = {
   setCards: jest.fn(),
   isModified: false,
   setIsModified: jest.fn(),
+  role:"TEACHER"
 };
 
 describe("CardGrid", () => {

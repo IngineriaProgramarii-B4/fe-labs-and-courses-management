@@ -31,7 +31,8 @@ describe("SubjectCard component", () => {
             card={card}
             isModified={false}
             setIsModified={() => {}}
-            setCardImg={setCardImgMock}
+            //setCardImg={setCardImgMock}
+            role={"TEACHER"}
           />
         </div>
       );

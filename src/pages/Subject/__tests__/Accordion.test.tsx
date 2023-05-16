@@ -2,7 +2,6 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import Accordion from "../Accordion";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { mount } from "enzyme";
 import { Form, Select } from "antd";
 
 jest.mock("axios");
@@ -15,6 +14,7 @@ const props = {
   title: "Some title",
   isModified: false,
   setIsModified: jest.fn(),
+  role:"TEACHER",
 };
 
 describe("Accordion", () => {
@@ -30,6 +30,7 @@ describe("Accordion", () => {
         title={"Maths"}
         isModified={false}
         setIsModified={jest.fn}
+        role={"TEACHER"}
       />
     );
     //screen.debug();
@@ -110,6 +111,7 @@ describe("Accordion", () => {
         title={title}
         isModified={false}
         setIsModified={jest.fn}
+        role={"TEACHER"}
       />
     );
   });
@@ -121,6 +123,7 @@ describe("Accordion", () => {
         title={"Maths"}
         isModified={false}
         setIsModified={jest.fn}
+        role={"TEACHER"}
       />
     );
     const addComponent = screen.getByTestId("add-button");

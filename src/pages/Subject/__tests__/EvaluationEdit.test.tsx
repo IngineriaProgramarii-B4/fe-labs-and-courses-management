@@ -26,6 +26,7 @@ describe("FileTransfer component", () => {
         setIsVisible={setIsVisible}
         resetFields={false}
         setResetFields={setResetFields}
+        role={"TEACHER"}
       />
     );
 
@@ -54,6 +55,7 @@ describe("FileTransfer component", () => {
         setIsVisible={setIsVisible}
         resetFields={false}
         setResetFields={setResetFields}
+        role={"TEACHER"}
       />
     );
   
@@ -94,6 +96,7 @@ describe("FileTransfer component", () => {
         setIsVisible={setIsVisible}
         resetFields={false}
         setResetFields={setResetFields}
+        role={"TEACHER"}
       />
     );
       

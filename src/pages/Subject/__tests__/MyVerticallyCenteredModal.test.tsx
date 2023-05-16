@@ -38,6 +38,7 @@ describe("Modal that pops up and has a text area", () => {
     subject: mockSubject,
     isModified: false,
     setIsModified: jest.fn(),
+    role: "TEACHER"
   };
 
   test("should render the modal with edit and close buttons", async () => {
@@ -87,6 +88,7 @@ describe("Modal that pops up and has a text area", () => {
     subject: { title: "Test Title", description: "Test Description" },
     isModified: false,
     setIsModified: jest.fn(),
+    role: "TEACHER"
   };
 
   it("should render the modal correctly", () => {
