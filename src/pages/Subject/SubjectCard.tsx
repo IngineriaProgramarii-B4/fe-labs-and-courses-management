@@ -28,7 +28,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
 
   console.log(props.role);
   const handleClick = (title: string) => {
-    window.location.href = `http://localhost:3000/subjectana?subject=${title}`;
+    window.location.href = `http://localhost:3000/selectedsubject?subject=${title}`;
   };
 
   const handleEditClick = (event: any, card: Subject) => {

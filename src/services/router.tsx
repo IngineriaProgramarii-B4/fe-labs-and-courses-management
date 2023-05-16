@@ -6,8 +6,8 @@ import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
-import SubjectAlex from "../pages/Subject/SubjectAlex";
-import SubjectAna from "../pages/Subject/SubjectAna";
+import Subjects from "../pages/Subject/Subjects";
+import SelectedSubject from "../pages/Subject/SubjectAna";
 import Register from "../pages/Register/Register";
 import Reset from "../pages/ResetPassword/Reset";
 import SendMail from "../pages/SendEmail/SendMail";
@@ -76,12 +76,12 @@ export const router = createBrowserRouter([
         element: <PrivateRouteComponent component={Catalog} path="/catalog" />,
       },
       {
-        path: "/subjectAlex",
-        element: <PrivateRouteComponent component={SubjectAlex} path="/subjectAlex" />,
+        path: "/subjects",
+        element: <PrivateRouteComponent component={Subjects} path="/subjects" />,
       },
       {
-        path: "/subjectAna",
-        element: <PrivateRouteComponent component={SubjectAna} path="/subjectAna" />,
+        path: "/selectedSubject",
+        element: <PrivateRouteComponent component={SelectedSubject} path="/selectedSubject" />,
       },
     ],
   },

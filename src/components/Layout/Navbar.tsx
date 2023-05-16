@@ -17,7 +17,7 @@ function Navbar() {
         <Link to="/home">Home</Link>
       </Menu.Item>
       <Menu.Item key={"Subjects"}>
-        <Link to="/subjectalex">Subjects</Link>
+        <Link to="/subjects">Subjects</Link>
       </Menu.Item>
       <Menu.Item key={"Network"}>
         <Link to="/network">Network</Link>

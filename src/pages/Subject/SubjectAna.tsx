@@ -21,7 +21,7 @@ const extractToken = () => {
   }
 };
 
-function SubjectAna() {
+function SelectedSubject() {
   const [modalShow, setModalShow] = useState(false);
   const title = "Course Title";
   const [description, setDescription] = useState<string>("");
@@ -91,7 +91,7 @@ function SubjectAna() {
               //className="img"
               className="rounded-lg w-full row-start-1"
             />
-            <div data-testid="subjectAna-1">
+            <div data-testid="SelectedSubject-1">
               <Course
                 title={`${subjectTitle} description`}
                 description={description}
@@ -155,4 +155,4 @@ function SubjectAna() {
   );
 }
 
-export default SubjectAna;
+export default SelectedSubject;

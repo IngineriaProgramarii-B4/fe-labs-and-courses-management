@@ -27,7 +27,7 @@ interface Subject {
   credits: number;
 }
 
-function SubjectAlex() {
+function Subjects() {
   const [cards, setCards] = useState<Subject[]>([]);
   const [isModified, setIsModified] = useState<boolean>(false);
   const {decodedToken}: any = useJwt(String(extractToken()));
@@ -77,4 +77,4 @@ function SubjectAlex() {
   );
 }
 
-export default SubjectAlex;
+export default Subjects;

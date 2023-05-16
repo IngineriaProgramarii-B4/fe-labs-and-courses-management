@@ -1,12 +1,12 @@
 import axios from "axios";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import SubjectAlex from "../SubjectAlex";
+import Subjects from "../Subjects";
 import SubjectCard from "../SubjectCard";
 
 jest.mock("axios");
 
-describe("SubjectAlex component", () => {
+describe("Subjects component", () => {
   const mockedData = [
     {
       id: 1,
@@ -33,7 +33,7 @@ describe("SubjectAlex component", () => {
   test("renders the component", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-    render(<SubjectAlex />);
+    render(<Subjects />);
     const card1 = await screen.findByText("Math");
     const card2 = await screen.findByText("Science");
 
@@ -44,7 +44,7 @@ describe("SubjectAlex component", () => {
   test("fetches the data from the API", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-    render(<SubjectAlex />);
+    render(<Subjects />);
 
     expect(axios.get).toHaveBeenCalledWith(
       "http://localhost:8082/api/v1/subjects"
@@ -57,7 +57,7 @@ describe("SubjectAlex component", () => {
   test("'no' button doesn't delete the card", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-    render(<SubjectAlex />);
+    render(<Subjects />);
     const deleteButton = await screen.findAllByText("Delete");
     fireEvent.click(deleteButton[0]);
 
@@ -84,7 +84,7 @@ describe("SubjectAlex component", () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
     (axios.delete as jest.Mock).mockResolvedValue({});
 
-    render(<SubjectAlex />);
+    render(<Subjects />);
     const deleteButton = await screen.findAllByText("Delete");
     fireEvent.click(deleteButton[0]);
 
@@ -100,7 +100,7 @@ describe("SubjectAlex component", () => {
   test("edit button opens form", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
-    render(<SubjectAlex />);
+    render(<Subjects />);
     const editButton = await screen.findAllByText("Edit");
     expect(editButton[0]).toBeInTheDocument;
     fireEvent.click(editButton[0]);
