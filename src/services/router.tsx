@@ -7,7 +7,7 @@ import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import Catalog from "../pages/Catalog/Catalog";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
 import Subjects from "../pages/Subject/Subjects";
-import SelectedSubject from "../pages/Subject/SubjectAna";
+import SelectedSubject from "../pages/Subject/SelectedSubject";
 import Register from "../pages/Register/Register";
 import Reset from "../pages/ResetPassword/Reset";
 import SendMail from "../pages/SendEmail/SendMail";
