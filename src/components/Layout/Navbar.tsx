@@ -18,7 +18,7 @@ const items = [
   {
     key: "3",
     title: "Network",
-    label: <Link to="/network">Network</Link>,
+    label: <Link to="/network/all">Network</Link>,
   },
   {
     key: "4",

@@ -3,6 +3,7 @@ import { Button, Input, Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function ReminderItem({
                                        dueDateTime,
@@ -17,6 +18,14 @@ export default function ReminderItem({
   const [editableDueDate, setEditableDueDate] = useState(false);
   const [isModalDeleteReminderOpen, setIsModalDeleteReminderOpen] =
     useState(false);
+
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8082/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
 
   return (
     <>
@@ -65,7 +74,7 @@ export default function ReminderItem({
       </div>
       <div className="flex-col">
         <div>
-          <span className="text-gray-500">description: </span>
+          <span className="text-gray-500">Description: </span>
           {!editableDescription ? (
             <span> {newDescription} </span>
           ) : (
@@ -75,6 +84,15 @@ export default function ReminderItem({
               value={newDescription}
               onChange={(e) => {
                 setNewDescription(e.target.value);
+
+                axiosInstance
+                  .patch(`/reminder/${id}`, {
+                    description: e.target.value
+                  })
+                  .then((res) => {
+                  })
+                  .catch(err => console.log(err));
+
               }}
             />
           )}
@@ -92,7 +110,7 @@ export default function ReminderItem({
           />
         </div>
         <div>
-          <span className="text-gray-500">due date: </span>
+          <span className="text-gray-500">Due date: </span>
           {!editableDueDate ? (
             <span> {newDueDate} </span>
           ) : (
@@ -102,6 +120,15 @@ export default function ReminderItem({
               value={newDueDate}
               onChange={(e) => {
                 setNewDueDate(e.target.value);
+
+                axiosInstance
+                  .patch(`/reminder/${id}`, {
+                    dueDateTime: e.target.value
+                  })
+                  .then((res) => {
+                  })
+                  .catch(err => console.log(err));
+
               }}
             />
           )}

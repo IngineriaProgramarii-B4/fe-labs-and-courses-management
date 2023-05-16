@@ -1,4 +1,4 @@
-import {Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
@@ -11,6 +11,9 @@ import Register from "../pages/Register/Register";
 import Reset from "../pages/ResetPassword/Reset";
 import SendMail from "../pages/SendEmail/SendMail";
 import RemindersCard from "../components/RemindersCard/RemindersCard";
+import Catalog from "../pages/Catalog/Catalog";
+import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
+import UserContextProvider from "../components/UserContext/UserContext";
 
 const isAuthenticated = () => {
   const token = localStorage.getItem("token");
@@ -23,17 +26,32 @@ type PrivateRouteProps = {
 };
 
 const PrivateRouteComponent: React.FC<PrivateRouteProps> = ({
-  component: Component,
-  path,
-}) => {
+                                                              component: Component,
+                                                              path
+                                                            }) => {
   return isAuthenticated() ? <Component /> : <Navigate to="/login" replace />;
 };
 
+function RemindersWrapper() {
+  return (
+    <RemindersContextProvider>
+      <RemindersCard />
+    </RemindersContextProvider>
+  );
+}
+
+function NetworkWrapper() {
+  return (
+    <UserContextProvider>
+      <NetworkCard />
+    </UserContextProvider>
+  );
+}
 
 export const router = createBrowserRouter([
   {
     path: "*",
-    element: <NotFound />,
+    element: <NotFound />
   },
   {
     path: "/",
@@ -41,19 +59,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <PrivateRouteComponent component={Home} path="/home" />,
+        element: <PrivateRouteComponent component={Home} path="/home" />
       },
       {
-        path: "/network",
-        element: <PrivateRouteComponent component={NetworkCard} path="/network" />,
+        path: "/network/:param",
+        element: <PrivateRouteComponent component={NetworkWrapper} path="/network/:param" />
       },
       {
         path: "/",
-        element: <Navigate to={"/login"} />,
+        element: <Navigate to={"/login"} />
       },
       {
         path: "/reminders",
-        element: <PrivateRouteComponent component={RemindersCard} path="/reminders" />,
+        element: <PrivateRouteComponent component={RemindersWrapper} path="/reminders" />
       },
       {
         path: "/index",
@@ -69,29 +87,29 @@ export const router = createBrowserRouter([
       },
       {
         path: "/subjectAlex",
-        element: <PrivateRouteComponent component={SubjectAlex} path="/subjectAlex" />,
+        element: <PrivateRouteComponent component={SubjectAlex} path="/subjectAlex" />
       },
       {
         path: "/subjectAna",
-        element: <PrivateRouteComponent component={SubjectAna} path="/subjectAna" />,
-      },
-    ],
+        element: <PrivateRouteComponent component={SubjectAna} path="/subjectAna" />
+      }
+    ]
   },
   {
     path: "/login",
     index: true,
-    element: <Login />,
+    element: <Login />
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <Register />
   },
   {
     path: "/resetPassword",
-    element: <Reset />,
+    element: <Reset />
   },
   {
     path: "/sendMail",
-    element: <SendMail />,
-  },
+    element: <SendMail />
+  }
 ]);

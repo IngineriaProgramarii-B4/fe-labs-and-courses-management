@@ -6,6 +6,7 @@ import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
+import { useParams } from "react-router-dom";
 
 export type UserDataType = {
   id: string;
@@ -24,22 +25,42 @@ export type UserDataType = {
   title?: string;
 };
 
+const filteredFields = [
+  { backend: "firstName", frontend: "First Name" },
+  { backend: "lastName", frontend: "Last Name" },
+  { backend: "email", frontend: "Email" },
+  { backend: "username", frontend: "Username" },
+  { backend: "registrationNumber", frontend: "Registration Number" },
+  { backend: "office", frontend: "Office" },
+  { backend: "department", frontend: "Department" },
+  { backend: "title", frontend: "Title" },
+  { backend: "taughtSubjects", frontend: "Taught Subjects" },
+  { backend: "year", frontend: "Year" },
+  { backend: "semester", frontend: "Semester" },
+  { backend: "enrolledCourses", frontend: "Enrolled Courses" },
+];
+
 export default function NetworkCard() {
   // @ts-ignore
   const { isUserModified } = useContext(UserContext);
 
+  const {param} = useParams()
+
   const [users, setUsers] = useState<UserDataType[]>([]);
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8090/api/v1",
+    baseURL: "http://localhost:8082/api/v1",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 
   useEffect(() => {
+    const endpoint = param === "all" ? "/users" : `/students/enrolledCourse/${param}`
     /* Fetch data from server */
     axiosInstance
-      .get("/users")
+      .get(endpoint)
       .then((res) => res.data)
       .then((data) => {
         setUsers(
@@ -70,7 +91,7 @@ export default function NetworkCard() {
 
 const renderCard = (user: UserDataType) => {
   return (
-    <Card key={v4()}  className="m-10 w-80 h-96">
+    <Card key={v4()} className="m-10 w-80 h-96">
       <UserHeader
         key={v4()}
         username={user.username}
@@ -80,12 +101,18 @@ const renderCard = (user: UserDataType) => {
         type={user.type}
       />
       {Object.entries(user).map(([key, value]) => {
-        if (["username", "firstname", "lastname", "type"].indexOf(key) === -1)
-          return key !== "id" ? (
-            <UserInfoFields key={v4()} title={key} value={value} id={user.id} />
-          ) : (
-            ""
-          );
+        const fieldData = filteredFields.find((field) => field.backend === key);
+
+        return fieldData ? (
+          <UserInfoFields
+            key={v4()}
+            title={fieldData.frontend}
+            value={value || "not set"}
+            id={user.id}
+          />
+        ) : (
+          ""
+        );
       })}
     </Card>
   );
