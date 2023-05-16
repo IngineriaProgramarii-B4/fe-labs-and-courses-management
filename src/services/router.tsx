@@ -62,8 +62,8 @@ export const router = createBrowserRouter([
         element: <PrivateRouteComponent component={Home} path="/home" />
       },
       {
-        path: "/network",
-        element: <PrivateRouteComponent component={NetworkWrapper} path="/network" />
+        path: "/network/:param",
+        element: <PrivateRouteComponent component={NetworkWrapper} path="/network/:param" />
       },
       {
         path: "/",

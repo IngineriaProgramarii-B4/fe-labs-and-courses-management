@@ -39,11 +39,11 @@ export default function RemindersContextProvider({
         axiosInstance
           .get(`/reminders/${username}`)
           .then((res) => {
-            setReminders(res.data === null ? [] : res.data);
+            setReminders(res.status === 404 ? [] : res.data);
           })
-          .catch(err => console.log(err));
+          .catch(err => setReminders([]));
       })
-      .catch(err => console.log(err));
+      .catch(err => setReminders([]));
   };
 
   useEffect(() => {
@@ -61,7 +61,8 @@ export default function RemindersContextProvider({
       })
       .then(() => {
         getData();
-      });
+      })
+      .catch((err) => console.log(err))
   };
 
   const deleteReminder = (reminderId: string) => {

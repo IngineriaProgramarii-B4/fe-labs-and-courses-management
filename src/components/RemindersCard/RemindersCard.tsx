@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card } from "antd";
 import ReminderItem from "./ReminderItem";
 import AddReminderModal from "./AddReminderModal";

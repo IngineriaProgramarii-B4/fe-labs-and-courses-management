@@ -6,6 +6,7 @@ import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
+import { useParams } from "react-router-dom";
 
 export type UserDataType = {
   id: string;
@@ -43,8 +44,9 @@ export default function NetworkCard() {
   // @ts-ignore
   const { isUserModified } = useContext(UserContext);
 
+  const {param} = useParams()
+
   const [users, setUsers] = useState<UserDataType[]>([]);
-  const [token, setToken] = useState<string>("");
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8082/api/v1",
     headers: {
@@ -55,14 +57,10 @@ export default function NetworkCard() {
   });
 
   useEffect(() => {
-    // @ts-ignore
-    setToken(localStorage.getItem("token"));
-  }, []);
-
-  useEffect(() => {
+    const endpoint = param === "all" ? "/users" : `/students/enrolledCourse/${param}`
     /* Fetch data from server */
     axiosInstance
-      .get("/users")
+      .get(endpoint)
       .then((res) => res.data)
       .then((data) => {
         setUsers(

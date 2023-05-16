@@ -3,20 +3,29 @@ import { Button, Input, Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function ReminderItem({
-  dueDateTime,
-  title,
-  description,
-  id,
-  deleteReminder,
-}: any) {
+                                       dueDateTime,
+                                       title,
+                                       description,
+                                       id,
+                                       deleteReminder
+                                     }: any) {
   const [newDescription, setNewDescription] = useState(description);
   const [newDueDate, setNewDueDate] = useState(dueDateTime);
   const [editableDescription, setEditableDescription] = useState(false);
   const [editableDueDate, setEditableDueDate] = useState(false);
   const [isModalDeleteReminderOpen, setIsModalDeleteReminderOpen] =
     useState(false);
+
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8082/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
 
   return (
     <>
@@ -75,6 +84,15 @@ export default function ReminderItem({
               value={newDescription}
               onChange={(e) => {
                 setNewDescription(e.target.value);
+
+                axiosInstance
+                  .patch(`/reminder/${id}`, {
+                    description: e.target.value
+                  })
+                  .then((res) => {
+                  })
+                  .catch(err => console.log(err));
+
               }}
             />
           )}
@@ -102,6 +120,15 @@ export default function ReminderItem({
               value={newDueDate}
               onChange={(e) => {
                 setNewDueDate(e.target.value);
+
+                axiosInstance
+                  .patch(`/reminder/${id}`, {
+                    dueDateTime: e.target.value
+                  })
+                  .then((res) => {
+                  })
+                  .catch(err => console.log(err));
+
               }}
             />
           )}
