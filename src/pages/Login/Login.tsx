@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Form,Input, message, Typography } from "antd";
 import styles from './Login.module.scss';
-import api from './api';
+import api from '../../services/api';
 import { useNavigate} from 'react-router-dom';
 interface LoginFormData{
   myEmail: string;

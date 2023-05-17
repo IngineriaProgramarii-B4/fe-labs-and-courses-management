@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Input, message, Typography } from "antd";
 import styles from './SendMail.module.scss';
 import { Link } from 'react-router-dom';
-import { sendResetEmail } from '../Login/api';
+import { sendResetEmail } from '../../services/api';
 
 function SendMail() {
   const reset = async (values: { myEmail: string }) => {

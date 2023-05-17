@@ -4,6 +4,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { message } from 'antd';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { useNavigate } from 'react-router-dom';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
 
 
 jest.spyOn(message, 'success').mockImplementation(() => {});
@@ -13,15 +19,15 @@ afterEach(() => {
   });
   
 
-jest.mock('antd', () => {
-    const originalModule = jest.requireActual('antd');
+  jest.mock('antd', () => {
+    const antd = jest.requireActual('antd');
   
     return {
-      ...originalModule,
+      ...antd,
       message: {
-        ...originalModule.message,
-        success: jest.fn(),
-        error: jest.fn(),
+        ...antd.message,
+        success: jest.fn(antd.message.success),
+        error: jest.fn(antd.message.error),
       },
     };
   });
@@ -91,7 +97,7 @@ test('error message if the e-mail field is empty', async () => {
     await screen.findByText('Please input your E-mail!');
 });
 
-test(' error message if an invalid email is entered', async () => {
+test('error message if an invalid email is entered', async () => {
     render(
         <Router>
             <Register />
@@ -120,6 +126,7 @@ test('error message if the confirm password field is empty', async () => {
     );
     fireEvent.change(screen.getByPlaceholderText('Please confirm your password!'), { target: { value: 'password' } });
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
+    // eslint-disable-next-line testing-library/no-await-sync-query
     await screen.getByPlaceholderText('Please confirm your password!');
 });
 
@@ -135,7 +142,6 @@ test('error message when passwords do not match', async () => {
     await screen.findByText('The two passwords that you entered do not match!');
 });
 
-//teste noi
 test('error message if the password does not meet the required pattern', async () => {
     render(
       <Router>
@@ -144,10 +150,9 @@ test('error message if the password does not meet the required pattern', async (
     );
     fireEvent.change(screen.getByPlaceholderText('Please input your password!'), { target: { value: 'weakpassword' } });
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
-    await screen.findByText('The password must contain at least 8 characters, at least one digit, at least one special symbol and at least one capital letter');
+    await screen.findByText('The password must contain at least 8 characters, at least one digit, at least one special symbol and at least one capital letter!');
   });
   
-  //test nou
   const server = setupServer(
     rest.post('/api/v1/auth/register', (req, res, ctx) => {
       return res(ctx.status(200));
@@ -182,16 +187,13 @@ test('error message if the password does not meet the required pattern', async (
   });
 
   
-/*
+
   test('should navigate to login page after successful registration', async () => {
     const { container } = render(
       <Router>
         <Register />
       </Router>
     );
-  
-    
-
   
     fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123456' } });
     fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@test.com' } });
@@ -201,17 +203,44 @@ test('error message if the password does not meet the required pattern', async (
     fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
   
     await waitFor(() => {
+      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
       expect(container.querySelector('a[href="/login"]')).toBeInTheDocument();
     });
   });
-*/
-
-  // const server = setupServer(
-  //   rest.post('/api/v1/auth/register', (req, res, ctx) => {
-  //     return res(ctx.status(200));
-  //   })
-  // );
+  /*
+  test('should display error message for registration failure (Error)', async () => {
+    server.use(
+      rest.post('/api/v1/auth/register', (req, res, ctx) => {
+        throw new Error('Registration failed');
+      })
+    );
   
-  // beforeAll(() => server.listen());
-  // afterEach(() => server.resetHandlers());
-  // afterAll(() => server.close());
+    const navigate = jest.fn();
+    const errorMessage = 'Registration failed';
+  
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+  
+    // Simulează completarea datelor în formular și trimiterea
+    fireEvent.change(screen.getByLabelText('ID'), { target: { value: '123456' } });
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'test@test.com' } });
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'Test@1234' } });
+    fireEvent.change(screen.getByLabelText('Confirm password'), { target: { value: 'Test@1234' } });
+    fireEvent.submit(screen.getByRole('button', { name: 'Register' }));
+  
+    // Așteaptă ca mesajul de eroare să fie afișat
+    await waitFor(() => {
+      expect(screen.getByText(errorMessage)).toBeInTheDocument();
+    });
+  
+    // Verifică că funcția navigate nu a fost apelată
+    expect(navigate).not.toHaveBeenCalled();
+  });
+  
+  
+*/
+  
+

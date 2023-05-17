@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select, Typography, message } from 'antd';
 import styles from './RegisterPage.module.scss';
 import React from 'react';
-import api from "../Login/api";
+import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 interface RegisterFormData {
@@ -52,15 +52,18 @@ const Register: React.FC = () => {
         message.error("Registration failed");
       }
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        message.error("Registration failed: " + error.message);
-      } else {
-        message.error("Registration failed");
-      }
+      let errorMessage = "Registration failed";
       if (axios.isAxiosError(error) && error.response) {
         console.error("Server response:", error.response);
+        if (error.response.data) {
+          errorMessage += ": " + error.response.data;
+        }
+      } else if (error instanceof Error) {
+        errorMessage += ": " + error.message;
       }
+      message.error(errorMessage);
     }
+    
   };
   const [form] = Form.useForm();
 
