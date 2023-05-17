@@ -6,6 +6,7 @@ import PieChart from "./PieChart";
 import Course from "./Course";
 import { useJwt } from "react-jwt";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
+import { Link } from "react-router-dom";
 
 const extractToken = () => {
   try {
@@ -58,9 +59,9 @@ function SelectedSubject() {
           `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
           {
             headers: {
-              'Authorization': `Bearer ${extractToken()}`,
-            }, 
-            responseType: "arraybuffer" 
+              Authorization: `Bearer ${extractToken()}`,
+            },
+            responseType: "arraybuffer",
           }
         );
         const imgBlob = new Blob([img.data], { type: result.data.image.type });
@@ -163,6 +164,19 @@ function SelectedSubject() {
               role={decodedToken?.role}
             />
           </div>
+          {decodedToken?.role === "TEACHER" ? (
+            <div className="p-8 bg-white rounded-lg grid grid-cols-1 justify-center mt-20 items-center shadow shadow hover:shadow-inner mb-20">
+              <h1 className="grid mb-10 items-center justify-center content-center text-2xl font-bold">
+                Enrolled students
+              </h1>
+              <Link
+                to={`http://localhost:3000/network/${subjectTitle}`}
+                className="text-lg text-left text-blue-400 hover:text-blue-700"
+              >
+                See the list of students enrolled in this course
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
       {/* )} */}
