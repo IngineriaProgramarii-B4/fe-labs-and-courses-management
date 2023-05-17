@@ -1,7 +1,9 @@
 import {render, screen, fireEvent,waitFor } from '@testing-library/react';
 import Login from '../Login';
 import {BrowserRouter as Router} from 'react-router-dom';
-import api from '../api';
+import api from '../../../services/api';
+import React from 'react';
+
 
 global.matchMedia = global.matchMedia || function () {
     return {
@@ -14,6 +16,7 @@ global.matchMedia = global.matchMedia || function () {
   test('check register button functionality', () => {
     render(<Router><Login /></Router>);
     const registerButton = screen.getByRole('button', { name: /register/i });
+    // eslint-disable-next-line testing-library/no-node-access
     const registerLink = registerButton.querySelector('a');
   
     expect(registerButton).toBeInTheDocument();
@@ -35,6 +38,25 @@ global.matchMedia = global.matchMedia || function () {
   
     const errorMessage = await screen.findByText(/login failed: login failed/i);
     expect(errorMessage).toBeInTheDocument();
+  
+    apiPostSpy.mockRestore();
+  });
+  
+  test('does not display an error message when login fails with a non-Error', async () => {
+    const apiPostSpy = jest.spyOn(api, 'post').mockRejectedValue('Login failed');
+  
+    render(<Router><Login /></Router>);
+    const emailInput = screen.getByPlaceholderText(/enter your email/i);
+    const passwordInput = screen.getByPlaceholderText(/enter your password/i);
+    const loginButton = screen.getByRole('button', { name: /login/i });
+  
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
+    fireEvent.click(loginButton);
+  
+    await waitFor(() => {
+      expect(screen.queryByText(/login failed: login failed/i)).not.toBeInTheDocument();
+    });
   
     apiPostSpy.mockRestore();
   });
@@ -181,3 +203,48 @@ test('validate email input', async () => {
     expect(rememberMeCheckbox.checked).toEqual(false);
   });
 
+  test('should handle login failure without token', async () => {
+    const apiPostSpy = jest.spyOn(api, 'post').mockResolvedValueOnce({ data: {} });
+  
+    render(<Router><Login /></Router>);
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your email'), {
+      target: { value: 'test@test.com' },
+    });
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your password'), {
+      target: { value: 'password' },
+    });
+  
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+  
+    await waitFor(() => expect(apiPostSpy).toHaveBeenCalledTimes(1));
+  
+    expect(apiPostSpy).toHaveBeenCalledWith('/api/v1/auth/login', {
+      email: 'test@test.com',
+      password: 'password',
+    });
+  
+    apiPostSpy.mockRestore();
+  });
+
+  test('should handle login with no token', async () => {
+    const apiPostSpy = jest.spyOn(api, 'post').mockResolvedValueOnce({ data: {} });
+  
+    render(<Router><Login /></Router>);
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your email'), {
+      target: { value: 'test@test.com' },
+    });
+  
+    fireEvent.change(screen.getByPlaceholderText('Enter your password'), {
+      target: { value: 'password' },
+    });
+  
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+  
+    await screen.findByText('Login failed');
+  
+    apiPostSpy.mockRestore();
+  });
+  

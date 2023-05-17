@@ -8,15 +8,39 @@ import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { useParams } from "react-router-dom";
 
+export type CourseType = {
+  title: string;
+  description: string;
+  credits: number;
+  year: number;
+  semester: number;
+};
+
+export function isRoleType(
+  roles: any
+): roles is { id: number; name: string }[] {
+  if (!Array.isArray(roles)) return false;
+  return roles.every(
+    (role) =>
+      typeof role === "object" &&
+      role !== null &&
+      typeof role.id === "number" &&
+      typeof role.name === "string"
+  );
+}
+
 export type UserDataType = {
   id: string;
-  type: number;
+  roles: {
+    id: number;
+    name: string;
+  }[];
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   registrationNumber?: string;
-  enrolledCourses?: string[];
+  enrolledCourses?: CourseType[];
   year?: number;
   semester?: number;
   office?: string;
@@ -44,7 +68,7 @@ export default function NetworkCard() {
   // @ts-ignore
   const { isUserModified } = useContext(UserContext);
 
-  const {param} = useParams()
+  const { param } = useParams();
 
   const [users, setUsers] = useState<UserDataType[]>([]);
   const axiosInstance = axios.create({
@@ -57,7 +81,8 @@ export default function NetworkCard() {
   });
 
   useEffect(() => {
-    const endpoint = param === "all" ? "/users" : `/students/enrolledCourse/${param}`
+    const endpoint =
+      param === "all" ? "/users" : `/students/enrolledCourse/${param}`;
     /* Fetch data from server */
     axiosInstance
       .get(endpoint)
@@ -98,7 +123,7 @@ const renderCard = (user: UserDataType) => {
         firstname={user.firstName}
         lastname={user.lastName}
         id={user.id}
-        type={user.type}
+        roles={user.roles}
       />
       {Object.entries(user).map(([key, value]) => {
         const fieldData = filteredFields.find((field) => field.backend === key);
@@ -107,7 +132,7 @@ const renderCard = (user: UserDataType) => {
           <UserInfoFields
             key={v4()}
             title={fieldData.frontend}
-            value={value || "not set"}
+            value={(!isRoleType(value) && value) || "Not set"}
             id={user.id}
           />
         ) : (

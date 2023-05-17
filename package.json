@@ -1,6 +1,6 @@
 {
   "name": "fe-labs-and-courses-management",
-  "proxy": "http://localhost:8081",
+  "proxy": "http://localhost:8082",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

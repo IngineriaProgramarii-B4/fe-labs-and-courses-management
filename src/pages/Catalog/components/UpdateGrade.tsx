@@ -37,7 +37,7 @@ export default function UpdateGrade(props: {
   const handleUpdateGrade = (id: number) => {
     axios
       .put(
-        `http://localhost:8081/api/v1/catalog/students/1/grades/${id}?value=${gradeValue}&evaluationDate=${evDateValue}`,
+        `http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades/${id}?value=${gradeValue}&evaluationDate=${evDateValue}`,
         {
           value: gradeValue,
           evaluationDate: evDateValue,
@@ -45,6 +45,7 @@ export default function UpdateGrade(props: {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
@@ -59,7 +60,7 @@ export default function UpdateGrade(props: {
   return (
     <>
       <div
-        data-testId="edit_img"
+        data-testid="edit_img"
         className={styles.edit_img}
         onClick={() => {
           console.log("grade id:", props.id);
