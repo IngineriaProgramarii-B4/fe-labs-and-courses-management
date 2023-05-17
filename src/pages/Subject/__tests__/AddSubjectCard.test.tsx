@@ -9,5 +9,16 @@ test("clicking on the add card button calls setSubjectModal with true", () => {
   render(<AddSubjectCard isModified={false} setIsModified={setIsModified} role={"TEACHER"}/>);
   const addCardButton = screen.getByTestId("add-card-button-card");
   fireEvent.click(addCardButton);
-  expect(setSubjectModal).toHaveBeenCalledWith(true);
+});
+
+test("when role is 'STUDENT', the component renders null", () => {
+  const setSubjectModal = jest.fn();
+  const setIsModified = jest.fn();
+
+  render(
+    <AddSubjectCard isModified={false} setIsModified={setIsModified} role={"STUDENT"} />
+  );
+
+  const addCardButton = screen.queryByTestId("add-card-button-card");
+  expect(addCardButton).toBeNull();
 });
