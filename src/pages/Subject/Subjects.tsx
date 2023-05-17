@@ -32,28 +32,39 @@ function Subjects() {
   const [isModified, setIsModified] = useState<boolean>(false);
   const {decodedToken}: any = useJwt(String(extractToken()));
 
-  console.log(decodedToken);
+  /*console.log(decodedToken);*/
 
   const fetchData = () => {
-    console.log("fetching data");
+    /*console.log("fetching data");*/
     const token = extractToken();
     if(!token) {
       console.error('No token found in local storage');
       return;
     }
      const role = decodedToken?.role;
-     console.log(role);
-
-    axios
-      .get<Subject[]>(`http://localhost:8082/api/v1/subjects`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-          }
-        })
-      .then((response) => response.data)
-      .then((data) => {
-        setCards(data);
-      });
+     const userMail = decodedToken?.sub;
+        if(role === "STUDENT") {
+            axios.get<any>(`http://localhost:8082/api/v1/students?email=${userMail}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => response.data)
+                .then((data) => {
+                    setCards(data[0].enrolledCourses);
+                });
+        }
+        else{
+            axios
+              .get<Subject[]>(`http://localhost:8082/api/v1/subjects`, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                  }
+                })
+              .then((response) => response.data)
+              .then((data) => {
+                setCards(data);
+              });
+        }
   };
 
   useEffect(() => {

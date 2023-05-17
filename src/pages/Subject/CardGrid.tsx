@@ -22,7 +22,7 @@ interface CardGridProps {
 const CardGrid: React.FC<CardGridProps> = (props) => {
   const [cardGrid, setCardGrid] = useState<Subject[]>(props.cards);
 
-  console.log(props.role);
+  /*console.log(props.role);*/
   useEffect(() => {
     setCardGrid(props.cards);
   }, [props.cards]);
