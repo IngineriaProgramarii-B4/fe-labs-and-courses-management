@@ -38,11 +38,11 @@ type ModalFooterProps = {
 };
 
 export function ModalFooter({
-  isEditing,
-  onLogout, // <-- Change this line
-  onCancel,
-  onSave,
-}: ModalFooterProps) {
+                              isEditing,
+                              onLogout, // <-- Change this line
+                              onCancel,
+                              onSave
+                            }: ModalFooterProps) {
   if (isEditing) {
     return (
       <>
@@ -84,7 +84,7 @@ type UserDataType = {
   updatedAt: string;
   isDeleted: boolean;
   password: string;
-  roles: Array<number>;
+  roles: Array<{ id: number; name: string }>;
   id: string;
   firstName: string;
   lastName: string;
@@ -106,7 +106,7 @@ const getDefaultUserData = () => {
     firstName: "",
     lastName: "",
     username: "",
-    email: "",
+    email: ""
   };
   return userData;
 };
@@ -123,7 +123,7 @@ const filteredFields = [
   { backend: "username", frontend: "Username", isEditable: true },
   { backend: "registrationNumber", frontend: "Registration Number" },
   { backend: "office", frontend: "Office" },
-  { backend: "title", frontend: "Title" },
+  { backend: "title", frontend: "Title" }
 ];
 
 function UserInfoModal({ avatar, className }: UserInfoModalProps) {
@@ -144,8 +144,8 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
   });
 
   //AICI AM ADAUGAT FUNCTIA CARE SA NE AJUTE LA DELOGARE
@@ -171,7 +171,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           .get(`/users?email=${email}`)
           .then((res) => res.data)
           .then((data) => {
-            console.log(data[0]);
             setUserData(data[0]);
             setIsLoading(false);
           });
@@ -188,16 +187,16 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
     let endPoint = "";
 
-    if (userData.roles.indexOf(1) !== -1) {
+    if (userData.roles[0].id === 1) {
       endPoint += "/admin";
-    } else if (userData.roles.indexOf(2) !== -1) {
+    } else if (userData.roles[0].id === 2) {
       endPoint += "/teacher";
-    } else if (userData.roles.indexOf(3) !== -1) {
+    } else if (userData.roles[0].id === 3) {
       endPoint += "/student";
     }
     endPoint += `/${newUser.id}`;
 
-    axiosInstance.patch(endPoint, newUser);
+    axiosInstance.patch(endPoint, newUser).then(r => console.log(r));
     toast.success("User profile updated");
   };
 
