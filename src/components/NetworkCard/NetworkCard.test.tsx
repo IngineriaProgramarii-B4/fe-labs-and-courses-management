@@ -24,7 +24,12 @@ describe("UserHeader", () => {
     username: "dianacuzic",
     firstname: "Diana",
     lastname: "Cuzic",
-    type: 0,
+    roles: [
+      {
+        id: 1,
+        name: "ADMIN",
+      },
+    ],
   };
 
   const userData2 = {
@@ -32,7 +37,12 @@ describe("UserHeader", () => {
     username: "dianacuzic",
     firstname: "Diana",
     lastname: "Cuzic",
-    type: 2,
+    roles: [
+      {
+        id: 2,
+        name: "TEACHER",
+      },
+    ],
   };
 
   test("should render properly with type !== 2", () => {
@@ -43,7 +53,7 @@ describe("UserHeader", () => {
           username={userData.username}
           firstname={userData.firstname}
           lastname={userData.lastname}
-          type={userData.type}
+          roles={userData.roles}
         />
       </BrowserRouter>
     );
@@ -62,7 +72,7 @@ describe("UserHeader", () => {
           username={userData2.username}
           firstname={userData2.firstname}
           lastname={userData2.lastname}
-          type={userData2.type}
+          roles={userData2.roles}
         />
       </BrowserRouter>
     );
