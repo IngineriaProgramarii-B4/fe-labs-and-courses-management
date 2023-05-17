@@ -1,8 +1,10 @@
 import axios from "axios";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Subjects from "../Subjects";
 import SubjectCard from "../SubjectCard";
+import CardGrid from "../CardGrid";
+import { extractToken } from "../Subjects";
 
 jest.mock("axios");
 
@@ -34,11 +36,14 @@ describe("Subjects component", () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
     render(<Subjects />);
-    const card1 = await screen.findByText("Math");
-    const card2 = await screen.findByText("Science");
-
-    expect(card1).toBeInTheDocument();
-    expect(card2).toBeInTheDocument();
+    const card1 = screen.getByText("Math");
+    const card2 = screen.getByText("Science");
+    await waitFor(() => {
+      expect(card1).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(card2).toBeInTheDocument();
+    });
   });
 
   test("fetches the data from the API", async () => {
@@ -107,5 +112,27 @@ describe("Subjects component", () => {
 
     const formTitle = await screen.findByText("Edit Subject");
     expect(formTitle).toBeInTheDocument;
+  });
+  /************************************************** */
+  beforeEach(() => {
+    jest
+      .spyOn(window.localStorage.__proto__, "getItem")
+      .mockReturnValue("token-value");
+  });
+
+  afterEach(() => {
+    jest.spyOn(window.localStorage.__proto__, "getItem").mockRestore();
+  });
+
+  it("should return the token from local storage", () => {
+    render(<Subjects />);
+
+    expect(extractToken()).toBe("token-value");
+  });
+
+  it("should return null when no token is found in local storage", () => {
+    jest.spyOn(window.localStorage.__proto__, "getItem").mockReturnValue(null);
+    render(<Subjects />);
+    expect(extractToken()).toBeNull();
   });
 });

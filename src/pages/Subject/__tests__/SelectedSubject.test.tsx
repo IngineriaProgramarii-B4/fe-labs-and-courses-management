@@ -10,6 +10,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Course from "../Course";
 import axios from "axios";
 import { act } from "react-dom/test-utils";
+import { extractToken } from "../Subjects";
 
 jest.mock("axios");
 
@@ -90,5 +91,27 @@ describe("SelectedSubject component", () => {
     const button = screen.getByText("View Full Description");
     fireEvent.click(button);
     expect(setModalShow).toHaveBeenCalledWith(true);
+  });
+  /********************************************************** */
+  beforeEach(() => {
+    jest
+      .spyOn(window.localStorage.__proto__, "getItem")
+      .mockReturnValue("token-value");
+  });
+
+  afterEach(() => {
+    jest.spyOn(window.localStorage.__proto__, "getItem").mockRestore();
+  });
+
+  it("should return the token from local storage", () => {
+    render(<SelectedSubject />);
+
+    expect(extractToken()).toBe("token-value");
+  });
+
+  it("should return null when no token is found in local storage", () => {
+    jest.spyOn(window.localStorage.__proto__, "getItem").mockReturnValue(null);
+    render(<SelectedSubject />);
+    expect(extractToken()).toBeNull();
   });
 });
