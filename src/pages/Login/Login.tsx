@@ -51,7 +51,7 @@ function Login() {
       if (error instanceof Error) {
         message.error('Login failed: ' + error.message);
       } else {
-        message.error('Login failed');
+        console.error('Login failed with a non-Error:', error);
       }
     }
   };
@@ -83,20 +83,15 @@ function Login() {
       <div>
         <Button className={styles.LoginButton}  type="primary" htmlType="submit" block>Login</Button>
         <div className={styles.info}>
-  <input type="checkbox" id="rememberMeCheckbox" />
-  <label htmlFor="rememberMeCheckbox">
-    <a className={styles.rememberMe} href="#">
-      Remember me
-    </a>
-  </label>
-  <a className="forgotPass" href="http://localhost:3000/sendMail">
-    Forgot password?
+  
+  <a  className="forgotPass" href="http://localhost:3000/sendMail">
+   <p style={{ marginLeft:'70px',marginTop: '10px',fontSize:'16px' }}> Forgot password?</p>
   </a>
 </div>
 
         
         <div className={styles.registerContainer}>
-          <p style={{ marginRight: '10px' }}>You don't have an account?</p>
+          <p style={{marginBottom:'6px',marginTop:'3px',marginLeft:'25px',marginRight: '10px',fontSize:'16px' }}>You don't have an account?</p>
           <Button  className={styles.registerButton} htmlType="submit"><a href='http://localhost:3000/register'>Register</a></Button>
         </div>
       </div>   
