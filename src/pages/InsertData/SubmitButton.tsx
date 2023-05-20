@@ -28,7 +28,7 @@ const Upload = () => {
   const handleSubmit = () => {
     const token = localStorage.getItem("token");
     if (token) {
-      console.log(data); // Adăugați această linie
+      console.log(data); 
 
       axios
         .post("http://localhost:8082/api/v1/secretary/list", data, {
@@ -53,10 +53,10 @@ const Upload = () => {
 
   return (
     <div>
-      <button style={{ width: '60%', transform: 'translate(30%, 0)'}}className={styles.submitFormButton} onClick={handleSubmit}>Submit</button> 
-      <div style={{marginTop: '20px'}}>
+      <button style={{ width: '50%', transform: 'translate(50%, 0)',borderRadius:'4px'}}className={styles.submitFormButton} onClick={handleSubmit}>Submit</button> 
+      <div style={{marginTop: '30px'}}>
         <input style={{display: 'inline', width: '80%'}} type="file" accept=".csv" onChange={handleFileUpload} />
-        <button style={{width: '20%'}} className={styles.submitFormButton} onClick={handleSubmit}>Submit</button>
+        <button style={{width: '20%',paddingBottom:'2px',borderRadius:'4px'}} className={styles.submitFormButton} onClick={handleSubmit}>Upload</button>
       </div>
     </div>
   );

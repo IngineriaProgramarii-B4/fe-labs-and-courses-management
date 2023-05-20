@@ -44,7 +44,7 @@ import { useNavigate} from 'react-router-dom';
               message:"Please enter role ID",
             },
           ]}>
-          <Input placeholder='Role ID...'/>
+          <Input placeholder='Role...'/>
         </Form.Item>
         <div>
           <Upload />

@@ -15,6 +15,7 @@ import Catalog from "../pages/Catalog/Catalog";
 import FormInfo from "../pages/InsertData/Form";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import UserContextProvider from "../components/UserContext/UserContext";
+import { Upload } from "antd";
 
 const isAuthenticated = () => {
   const token = localStorage.getItem("token");
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound />
+  },
+  {
+    path: "/admin",
+    element: <PrivateRouteComponent component={FormInfo} path="/admin" />
   },
   {
     path: "/",
@@ -96,10 +101,6 @@ export const router = createBrowserRouter([
       }
       
     ]
-  },
-  {
-    path: "/admin",
-    element: <FormInfo />
   },
   {
     path: "/login",
