@@ -1,0 +1,16 @@
+.body {
+    background: url("background.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 60vh;
+    height: 93vh;
+   }
+  .image {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 10vh;
+    height: 15vh;
+    width: 10vh;
+  }
