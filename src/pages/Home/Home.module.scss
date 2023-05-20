@@ -1,9 +1,13 @@
-@media (min-width: 568px) {
-  body {
-    background: url("background.jpeg") center no-repeat;
+// @media (min-width: 568px) {
+  .bodyHome {
+    background: url("background.jpeg");
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     font-size: 0.9rem;
     font-family: "Sora", sans-serif;
+    min-width: 100vw;
+    min-height: 100vh;
   }
   .container {
     max-width: 1200px;
@@ -16,6 +20,34 @@
     background-position: center;
     background-size: cover;
   }
-
-}
+    .students_img {
+      min-width: 35vw;
+      min-height: 35hw;
+      position: relative;
+      left: 850px;
+      bottom: 120px;
+      width: 150px;
+      display: block;
+  }
+  .shadow {
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+  }
+  .name {
+    margin-top: 40px;
+    margin-left: 420px;
+    margin-right: auto;
+    font-size: 2rem;
+    font-family: "Sora", sans-serif;
+  }
+  .description {
+    position: relative;
+    top: 20px;
+    left: 270px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: "Sora", sans-serif;
+    width: 500px;
+    height: 200px;
+  }
+// }
 
