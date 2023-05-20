@@ -53,10 +53,10 @@ const Upload = () => {
 
   return (
     <div>
-      <button style={{ width: '100%'}}className={styles.submitFormButton} onClick={handleSubmit}>Submit</button> 
+      <button style={{ width: '60%', transform: 'translate(30%, 0)'}}className={styles.submitFormButton} onClick={handleSubmit}>Submit</button> 
       <div style={{marginTop: '20px'}}>
-        <input style={{display: 'inline'}} type="file" accept=".csv" onChange={handleFileUpload} />
-        <button className={styles.submitFormButton} onClick={handleSubmit}>Submit</button>
+        <input style={{display: 'inline', width: '80%'}} type="file" accept=".csv" onChange={handleFileUpload} />
+        <button style={{width: '20%'}} className={styles.submitFormButton} onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );
