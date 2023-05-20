@@ -1,14 +1,17 @@
 import React from "react";
 import Navbar from "../../components/Layout/Navbar";
-import './Home.css';
+import styles from "./Home.module.scss";
+
 
 function Home() {
   return (
-    <div>
+    <>
+    <div className={styles.container}>
       <Navbar></Navbar>
-    <div className="body"> Home</div>
-    {/* <img src="students.jpeg" alt=""></img> */}
+      <div className={styles.backgroundImage}/>
+     
     </div>
+    </>
   );
 }
 

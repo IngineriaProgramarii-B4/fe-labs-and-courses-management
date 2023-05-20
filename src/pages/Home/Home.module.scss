@@ -1,0 +1,21 @@
+@media (min-width: 568px) {
+  body {
+    background: url("background.jpeg") center no-repeat;
+    background-size: cover;
+    font-size: 0.9rem;
+    font-family: "Sora", sans-serif;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .backgroundImage {
+    background: url("background.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+}
+
