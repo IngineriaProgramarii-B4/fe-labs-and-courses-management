@@ -12,6 +12,7 @@ import Reset from "../pages/ResetPassword/Reset";
 import SendMail from "../pages/SendEmail/SendMail";
 import RemindersCard from "../components/RemindersCard/RemindersCard";
 import Catalog from "../pages/Catalog/Catalog";
+import FormInfo from "../pages/InsertData/Form";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import UserContextProvider from "../components/UserContext/UserContext";
 
@@ -93,7 +94,12 @@ export const router = createBrowserRouter([
         path: "/subjectAna",
         element: <PrivateRouteComponent component={SubjectAna} path="/subjectAna" />
       }
+      
     ]
+  },
+  {
+    path: "/admin",
+    element: <FormInfo />
   },
   {
     path: "/login",
@@ -111,5 +117,5 @@ export const router = createBrowserRouter([
   {
     path: "/sendMail",
     element: <SendMail />
-  }
+  },
 ]);
