@@ -1,13 +1,14 @@
-// @media (min-width: 568px) {
+ 
   .bodyHome {
-    background: url("background.jpeg");
+    background: url("back.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     font-size: 0.9rem;
     font-family: "Sora", sans-serif;
     min-width: 100vw;
-    min-height: 100vh;
+    min-height: 50vh;
+    
   }
   .container {
     max-width: 1200px;
@@ -15,39 +16,41 @@
     padding: 20px;
   }
   .backgroundImage {
-    background: url("background.jpeg");
+    background: url("back.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
   }
     .students_img {
-      min-width: 35vw;
-      min-height: 35hw;
+      min-width: 40vw;
+      min-height: 40hw;
       position: relative;
-      left: 850px;
-      bottom: 120px;
+      left: 930px;
+      bottom: 170px;
       width: 150px;
-      display: block;
+      display: inline-block;
+
   }
-  .shadow {
-    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
-  }
+  //.shadow {
+    //box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+  //}
   .name {
     margin-top: 40px;
-    margin-left: 420px;
+    margin-left: 310px;
     margin-right: auto;
-    font-size: 2rem;
+    font-size: 4rem;
     font-family: "Sora", sans-serif;
   }
   .description {
     position: relative;
     top: 20px;
-    left: 270px;
-    text-align: center;
+    left: 305px;
+    text-align: left;
     font-size: 1.3rem;
     font-family: "Sora", sans-serif;
     width: 500px;
     height: 200px;
   }
-// }
+ 
+
 
