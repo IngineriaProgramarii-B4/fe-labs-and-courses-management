@@ -142,12 +142,15 @@ const FormInfo = () => {
               onChange={handleFileUpload}
             />
             <button
-              style={{ width: "20%", paddingBottom: "2px", borderRadius: "4px" }}
-              className={styles.submitFormButton}
-              onClick={handleUploadSubmit}
-            >
-              Upload
-            </button>
+    style={{ width: "20%", paddingBottom: "2px", borderRadius: "4px" }}
+    className={styles.submitFormButton}
+    onClick={(event) => {
+        event.preventDefault();
+        handleUploadSubmit();
+    }}
+>
+    Upload
+</button>
           </div>
         </Form>
       </div>
