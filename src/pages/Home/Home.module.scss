@@ -1,6 +1,6 @@
  
   .bodyHome {
-    background: url("back.png");
+    background: url("../../img/back.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -16,7 +16,7 @@
     padding: 20px;
   }
   .backgroundImage {
-    background: url("back.png");
+    background: url("../../img/back.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -25,31 +25,32 @@
       min-width: 40vw;
       min-height: 40hw;
       position: relative;
-      left: 930px;
-      bottom: 170px;
+      left: 55vw;
+      bottom: 57vh;
       width: 150px;
       display: inline-block;
 
   }
-  //.shadow {
-    //box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
-  //}
+  .shadow {
+    box-shadow: 1px 2px 10px 1px rgba(99, 99, 99, 0.8);
+  }
   .name {
     margin-top: 40px;
-    margin-left: 310px;
+    margin-left: 19vw;
     margin-right: auto;
     font-size: 4rem;
     font-family: "Sora", sans-serif;
   }
   .description {
     position: relative;
-    top: 20px;
-    left: 305px;
+    top: 23px;
+    left: 14vw;
     text-align: left;
     font-size: 1.3rem;
     font-family: "Sora", sans-serif;
-    width: 500px;
+    width: 540px;
     height: 200px;
+    text-align: center;
   }
  
 
