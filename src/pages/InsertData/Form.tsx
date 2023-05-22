@@ -3,7 +3,7 @@ import { Form, Input, Typography, message } from "antd";
 import styles from './InsertData.module.scss';
 import Papa from "papaparse";
 import axios from "axios";
-
+import Navbar from "../../components/Layout/Navbar";
 interface User {
   registrationNumber: string;
   firstname: string;
@@ -74,7 +74,9 @@ const FormInfo = () => {
   };
 
   return (
+  <><Navbar />
     <div className={styles.appBg}>
+       
       <Form className={styles.dataForm} form={form} onFinish={onFinish}>
       <Typography.Title className={styles.titluForm}>Insert Data here</Typography.Title>
         <Form.Item
@@ -151,9 +153,10 @@ const FormInfo = () => {
 >
     Upload
 </button>
+
           </div>
         </Form>
-      </div>
+      </div></>
     );
   };
   
