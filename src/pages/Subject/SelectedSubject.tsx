@@ -4,18 +4,33 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import PieChart from "./PieChart";
 import Course from "./Course";
+import { useJwt } from "react-jwt";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
+import { Link } from "react-router-dom";
 
-function SubjectAna() {
+const extractToken = () => {
+  try {
+    let token: string | null = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in local storage");
+      return null;
+    }
+    return token;
+  } catch (err) {
+    console.error("Failed to decode token", err);
+    return null;
+  }
+};
+
+function SelectedSubject() {
   const [modalShow, setModalShow] = useState(false);
   const title = "Course Title";
   const [description, setDescription] = useState<string>("");
   const [subject, setSubject] = useState<any>();
+  const { decodedToken }: any = useJwt(String(extractToken()));
 
   const [searchParams] = useSearchParams();
-  const [subjectTitle] = useState<string>(
-    searchParams.get("subject")!
-  );
+  const [subjectTitle] = useState<string>(searchParams.get("subject")!);
   const [accordionData, setAccordionData] = useState<string[]>([]);
 
   const [isModified, setIsModified] = useState<boolean>(false);
@@ -25,7 +40,12 @@ function SubjectAna() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get<any>(
-        `http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}`
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}`,
+        {
+          headers: {
+            Authorization: `Bearer ${extractToken()}`,
+          },
+        }
       );
       setSubject(result.data);
       setDescription(result.data.description);
@@ -36,8 +56,13 @@ function SubjectAna() {
         );
       } else {
         const img = await axios.get(
-          `http://localhost:8090/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
-          { responseType: "arraybuffer" }
+          `http://localhost:8082/api/v1/subjects/subjectTitle=${subjectTitle}/image`,
+          {
+            headers: {
+              Authorization: `Bearer ${extractToken()}`,
+            },
+            responseType: "arraybuffer",
+          }
         );
         const imgBlob = new Blob([img.data], { type: result.data.image.type });
         const imgUrl = URL.createObjectURL(imgBlob);
@@ -45,7 +70,12 @@ function SubjectAna() {
       }
 
       const resultComponents = await axios.get<any>(
-        `http://localhost:8090/api/v1/subjects/${subjectTitle}/components`
+        `http://localhost:8082/api/v1/subjects/${subjectTitle}/components`,
+        {
+          headers: {
+            Authorization: `Bearer ${extractToken()}`,
+          },
+        }
       );
       const accData = resultComponents.data.map((component: any) => {
         return component.type;
@@ -77,7 +107,7 @@ function SubjectAna() {
               //className="img"
               className="rounded-lg w-full row-start-1"
             />
-            <div data-testid="subjectAna-1">
+            <div data-testid="SelectedSubject-1">
               <Course
                 title={`${subjectTitle} description`}
                 description={description}
@@ -96,6 +126,7 @@ function SubjectAna() {
                 subject={subject}
                 isModified={isModified}
                 setIsModified={setIsModified}
+                role={decodedToken?.role}
               />
             </div>
           </div>
@@ -115,6 +146,7 @@ function SubjectAna() {
                 title={subjectTitle}
                 isModified={isModified}
                 setIsModified={setIsModified}
+                role={decodedToken?.role}
               />
             </div>
           </div>
@@ -129,8 +161,22 @@ function SubjectAna() {
               title={subjectTitle}
               isModified={isModified}
               setIsModified={setIsModified}
+              role={decodedToken?.role}
             />
           </div>
+          {decodedToken?.role === "TEACHER" ? (
+            <div className="p-8 bg-white rounded-lg grid grid-cols-1 justify-center mt-20 items-center shadow shadow hover:shadow-inner mb-20">
+              <h1 className="grid mb-10 items-center justify-center content-center text-2xl font-bold">
+                Enrolled students
+              </h1>
+              <Link
+                to={`http://localhost:3000/network/${subjectTitle}`}
+                className="text-lg text-left text-blue-400 hover:text-blue-700"
+              >
+                See the list of students enrolled in this course
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
       {/* )} */}
@@ -138,4 +184,4 @@ function SubjectAna() {
   );
 }
 
-export default SubjectAna;
+export default SelectedSubject;

@@ -30,7 +30,7 @@ export default function DeleteGrade(props: {
 
   const handleDeleteGrade = (id: number) => {
     fetch(
-      `http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades/${id}`,
+      `http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades/${id}`,
       {
         method: "DELETE",
         headers: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import MyVerticallyCenteredModal from "../MyVerticallyCenteredModal";
-import SubjectAna from "../SubjectAna";
+import SelectedSubject from "../SelectedSubject";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 jest.mock("axios");
@@ -12,7 +12,7 @@ describe("Modal that pops up and has a text area", () => {
   test("renders the modal", () => {
     render(
       <Router>
-        <SubjectAna />
+        <SelectedSubject />
       </Router>
     );
     const moreDescription = screen.getByTestId("more description");
@@ -38,6 +38,7 @@ describe("Modal that pops up and has a text area", () => {
     subject: mockSubject,
     isModified: false,
     setIsModified: jest.fn(),
+    role: "TEACHER"
   };
 
   test("should render the modal with edit and close buttons", async () => {
@@ -87,6 +88,7 @@ describe("Modal that pops up and has a text area", () => {
     subject: { title: "Test Title", description: "Test Description" },
     isModified: false,
     setIsModified: jest.fn(),
+    role: "TEACHER"
   };
 
   it("should render the modal correctly", () => {

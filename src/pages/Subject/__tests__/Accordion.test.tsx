@@ -2,7 +2,6 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import Accordion from "../Accordion";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { mount } from "enzyme";
 import { Form, Select } from "antd";
 
 jest.mock("axios");
@@ -15,6 +14,7 @@ const props = {
   title: "Some title",
   isModified: false,
   setIsModified: jest.fn(),
+  role:"TEACHER",
 };
 
 describe("Accordion", () => {
@@ -30,6 +30,7 @@ describe("Accordion", () => {
         title={"Maths"}
         isModified={false}
         setIsModified={jest.fn}
+        role={"TEACHER"}
       />
     );
     //screen.debug();
@@ -68,10 +69,10 @@ describe("Accordion", () => {
   // Test saveComponent function
   it("should save the new component and update the state when form is submitted", async () => {
     axios.post(
-      `http://localhost:8090/api/v1/subjects/${props.title}/components`
+      `http://localhost:8082/api/v1/subjects/${props.title}/components`
     );
     axios.post(
-      `http://localhost:8090/api/v1/subjects/${props.title}/evaluationMethods`
+      `http://localhost:8082/api/v1/subjects/${props.title}/evaluationMethods`
     );
     render(<Accordion {...props} />);
     const addButton = screen.getByTestId("add-button");
@@ -110,6 +111,7 @@ describe("Accordion", () => {
         title={title}
         isModified={false}
         setIsModified={jest.fn}
+        role={"TEACHER"}
       />
     );
   });
@@ -121,6 +123,7 @@ describe("Accordion", () => {
         title={"Maths"}
         isModified={false}
         setIsModified={jest.fn}
+        role={"TEACHER"}
       />
     );
     const addComponent = screen.getByTestId("add-button");
