@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Divider, Modal, Space, Spin, Tooltip } from "antd";
+import { Button, Divider, Modal, Space, Spin, Tooltip, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -7,6 +7,8 @@ import UserAvatar from "./UserAvatar";
 import UserInfoInput from "./UserInfoInput";
 import { UserContext } from "../UserContext/UserContext";
 import { v4 } from "uuid";
+import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import type { UploadChangeParam } from 'antd/es/upload';
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -21,7 +23,9 @@ export function ModalTitle({ isEditing, setIsEditing }: ModalTitleProps) {
         <Tooltip title={"Edit user"}>
           <i
             className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"}
-            onClick={() => setIsEditing(true)}
+            onClick={
+            () => setIsEditing(true)
+          }
             data-testid={"pencil-icon"}
           />
         </Tooltip>
@@ -67,18 +71,63 @@ type UserProfileAvatarProps = {
   setNewAvatar: (val: string) => void;
 };
 
-export function UserProfileAvatar({ avatar }: UserProfileAvatarProps) {
+export function UserProfileAvatar({
+                                    isEditing,
+                                    avatar,
+                                    newAvatar,
+                                    setNewAvatar,
+                                  }: UserProfileAvatarProps) {
+
+
+  const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result as string));
+    reader.readAsDataURL(img);
+  };
+
+
+  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
+    console.log(info)
+    if (info.file.status === 'uploading')
+    {
+      return;
+    }
+    if (info.file.status === 'done') {
+      console.log("done")
+
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj as RcFile, (url) => {
+
+          console.log(url)
+          setNewAvatar("../../img/hat.png")
+      });
+    }
+  };
   return (
     <div
       className={
         "flex justify-center items-center w-[10rem] h-[10rem] mx-auto border-2 border-dotted rounded-2xl overflow-hidden"
       }
     >
-      <img src={avatar} alt="avatar" className={"object-cover"} />
+      {isEditing || !avatar ? (
+        <Upload showUploadList={false}
+                onChange={handleChange}
+        >
+          {newAvatar ? (
+            <img src={newAvatar} alt="avatar" className={"object-cover"} />
+          ) : (
+            <div className={"flex flex-col justify-center items-center"}>
+              <i className={"fas fa-plus font-s text-3xl"} />
+              <div className={"mt-2"}>Upload avatar</div>
+            </div>
+          )}
+        </Upload>
+      ) : (
+        <img src={avatar} alt="avatar" className={"object-cover"} />
+      )}
     </div>
   );
 }
-
 type UserDataType = {
   createdAt: string;
   updatedAt: string;
@@ -148,7 +197,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     }
   });
 
-  //AICI AM ADAUGAT FUNCTIA CARE SA NE AJUTE LA DELOGARE
   const logout = () => {
     // Șterge tokenul JWT din local storage sau dintr-un alt loc adecvat
     localStorage.removeItem("token");
@@ -156,6 +204,22 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   useEffect(() => {
     setNewUsername(userData.username);
+    // get the profile pic
+
+    axios.get(`/profile/download/${userData.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+      },
+      responseType: "arraybuffer",
+    })
+      .then(res => res.data)
+      .then(data => {
+        const imgBlob = new Blob([data], { type: data.image.type });
+        const imgUrl = URL.createObjectURL(imgBlob);
+        setNewAvatar(imgUrl)
+      })
+
+
   }, [userData]);
 
   const onAvatarClick = () => {
@@ -174,6 +238,7 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
             setUserData(data[0]);
             setIsLoading(false);
           });
+
       });
 
     setIsModalOpen(true);
@@ -208,14 +273,13 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   };
 
   const onLogout = () => {
-    //AICI AM MODIFICAT
     logout();
     navigate("/login");
   };
 
   return (
     <div className={`${className} cursor-pointer`}>
-      <UserAvatar avatar={avatar} onClick={onAvatarClick} />
+      <UserAvatar avatar={avatar} onClick={onAvatarClick}/>
       <Modal
         title={<ModalTitle isEditing={isEditing} setIsEditing={setIsEditing} />}
         open={isModalOpen}

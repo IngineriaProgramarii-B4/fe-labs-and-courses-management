@@ -20,7 +20,7 @@ function UserAvatar({ avatar, onClick }: UserAvatarProps) {
         )
       }
       shape={"square"}
-      size={32}
+      size={40}
       onClick={onClick}
       data-testid={"user-avatar"}
     />
