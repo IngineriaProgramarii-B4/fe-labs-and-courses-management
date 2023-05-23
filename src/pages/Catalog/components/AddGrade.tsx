@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Form } from "antd";
+import { Modal, Button, Input, Form, DatePicker, Select } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -18,21 +18,10 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   const [token, setToken] = useState<string | null>(null);
   const { id } = useParams();
 
-  const handleSubjectNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSubjectName(event.target.value);
-    console.log(subjectName);
-  };
-
   const handleGradeValueChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setGradeValue(Number(event.target.value));
-  };
-
-  const handleEvDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEvDateValue(event.target.value);
   };
 
   const showModal = () => {
@@ -88,7 +77,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
 
   return (
     <>
-      <Button onClick={showModal}>+</Button>
+      <Button onClick={showModal}>Add Grade +</Button>
       <Modal
         title="Add Grade"
         open={isModalOpen}
@@ -106,10 +95,18 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
           style={{ maxWidth: 600 }}
         >
           <Form.Item label="Subject" htmlFor="subjectName">
-            <Input
+            {/* <Input
               onChange={handleSubjectNameChange}
               placeholder="Subject name..."
               id="subjectName"
+            /> */}
+            <Select
+              onChange={(value: string) => setSubjectName(value)}
+              defaultValue="Select a subject..."
+              options={[
+                { value: "IP", label: "IP" },
+                { value: "PA", label: "PA" },
+              ]}
             />
           </Form.Item>
           <Form.Item label="Grade" htmlFor="gradeValue">
@@ -120,10 +117,12 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
             />
           </Form.Item>
           <Form.Item label="Date" htmlFor="date">
-            <Input
-              onChange={handleEvDateChange}
-              placeholder="Date of evaluation..."
-              id="date"
+            <DatePicker
+              data-testid="edit-date"
+              format="DD.MM.YYYY"
+              onChange={(date, dateString) => {
+                setEvDateValue(dateString);
+              }}
             />
           </Form.Item>
         </Form>

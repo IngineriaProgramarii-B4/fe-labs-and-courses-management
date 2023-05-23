@@ -61,9 +61,9 @@ function Catalog() {
         {decodedToken?.role === "TEACHER" && (
           <AddGrade fetchGrades={fetchGrades} />
         )}
-        <h5 className={styles.username}>User: {studentName}</h5>
+        {/* <h5 className={styles.username}>User: {studentName}</h5>
 
-        <h4>Role: {decodedToken?.role}</h4>
+        <h4>Role: {decodedToken?.role}</h4> */}
         <table className={styles.catalog_table}>
           <thead>
             <tr>
