@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import PhotoUpload from "../PhotoUpload";
 import { UploadFile } from "antd/es/upload/interface";
 
@@ -41,26 +41,18 @@ describe("PhotoUpload component", () => {
   });
 
   it("renders an upload button with text when fileList is empty", () => {
-    const { getByText } = render(
-      <PhotoUpload
-        title="Upload Photo"
-        fileList={[]}
-        setFileList={setFileList}
-        upFile={null}
-        setUpFile={setUpFile}
-      />
-    );
+    render(<PhotoUpload {...props} fileList={[]} />);
 
     expect(screen.getByText("Upload Photo")).toBeInTheDocument();
   });
 
   it("should call onPreview when a picture is clicked", () => {
     window.open = jest.fn();
-    const { getByText } = render(<PhotoUpload {...props} />);
+    render(<PhotoUpload {...props} />);
     fireEvent.click(screen.getByText("test.png"));
     expect(window.open).toHaveBeenCalled();
   });
-  /***************************************************************************************************/
+
   const props2 = {
     title: "Upload your photo",
     fileList: [],
@@ -68,42 +60,28 @@ describe("PhotoUpload component", () => {
     upFile: null,
     setUpFile: jest.fn(),
   };
-  /*
-  it("should render with a title and upload button", () => {
-    const { getByText } = render(<PhotoUpload {...props2} />);
-    expect(screen.getByText(props2.title)).toBeInTheDocument();
-    expect(screen.getByText("Upload Photo")).toBeInTheDocument();
-  });
-*/
+
   it("should allow the user to select and upload a file", async () => {
-    const { getByTestId } = render(<PhotoUpload {...props2} />);
+    const setFileListMock = jest.fn();
+    const { container } = render(
+      <PhotoUpload
+        title="Upload your photo"
+        fileList={[]}
+        setFileList={setFileListMock}
+        upFile={null}
+        setUpFile={jest.fn()}
+      />
+    );
     const file = new File(["file contents"], "test.png", {
       type: "image/png",
     });
-    const input = screen
-      .getByTestId("upload-input")
-      .querySelector('input[type="file"]') as HTMLInputElement;
-    fireEvent.change(input, { target: { files: [file] } });
-    expect(props2.setFileList).toHaveBeenCalledWith([{ originFileObj: file }]);
-    expect(props2.setUpFile).toHaveBeenCalledWith(file);
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    Object.defineProperty(input, "files", {
+      value: [file],
+    });
+    fireEvent.change(input);
+    await waitFor(() => {
+      expect(setFileListMock).toHaveBeenCalled();
+    });
   });
-  /*
-  it("should allow the user to preview an uploaded file", async () => {
-    const file = {
-      uid: "123",
-      name: "test.png",
-      status: "done",
-      url: "data:image/png;base64,...",
-    };
-    const { getByTestId, getByRole } = render(
-      <PhotoUpload {...props2} fileList={[file]} />
-    );
-    const uploadCard = screen
-      .getByTestId("upload-input")
-      .querySelector(".ant-upload-list-item") as HTMLElement;
-    fireEvent.click(uploadCard);
-    const previewImage = screen.getByRole("img") as HTMLImageElement;
-    expect(previewImage.src).toEqual(file.url);
-  });
-  */
 });

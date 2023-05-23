@@ -14,6 +14,7 @@ interface EvaluationEditProps {
   setIsVisible: (isVisible: boolean) => void;
   resetFields: boolean;
   setResetFields: (resetFields: boolean) => void;
+  role: String;
 }
 
 const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
@@ -40,8 +41,13 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
         value: value,
       };
       await axios.put(
-        `http://localhost:8090/api/v1/subjects/${props.subjectTitle}/evaluationMethods/component=${props.title}`,
-        req
+        `http://localhost:8082/api/v1/subjects/${props.subjectTitle}/evaluationMethods/component=${props.title}`,
+        req,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       props.setIsModified(props.isModified ? false : true);
       props.setIsVisible(false);

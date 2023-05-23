@@ -39,7 +39,11 @@ export default function UpdateGrade(props: {
   const handleUpdateGrade = (gradeId: number) => {
     axios
       .put(
+<<<<<<< HEAD
         `http://localhost:8082/api/v1/students/${id}/grades/${gradeId}?value=${gradeValue}&evaluationDate=${evDateValue}`,
+=======
+        `http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades/${id}?value=${gradeValue}&evaluationDate=${evDateValue}`,
+>>>>>>> 500d3558ec348ad506f8e22ba30216e5fbbc07ba
         {
           value: gradeValue,
           evaluationDate: evDateValue,

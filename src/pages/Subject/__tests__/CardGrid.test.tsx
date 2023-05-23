@@ -29,6 +29,7 @@ const mockProps = {
   setCards: jest.fn(),
   isModified: false,
   setIsModified: jest.fn(),
+  role:"TEACHER"
 };
 
 describe("CardGrid", () => {
@@ -43,7 +44,7 @@ describe("CardGrid", () => {
   });
 
   it("pressing the card sends the user to the course's page", async () => {
-    const mockUrl = "http://localhost:3000/subjectana?subject=Mathematics";
+    const mockUrl = "http://localhost:3000/SelectedSubject?subject=Mathematics";
     Object.defineProperty(window, 'location', {
       writable: true,
       value: { assign: jest.fn() },

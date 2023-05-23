@@ -3,8 +3,46 @@ import { Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import UserInfoModal from "../UserInfoModal/UserInfoModal";
 import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
+<<<<<<< HEAD
 import axios from "axios";
 import { useJwt } from "react-jwt";
+=======
+
+const items = [
+  {
+    key: "1",
+    title: "Home",
+    label: <Link to="/home">Home</Link>,
+  },
+  {
+    key: "2",
+    title: "Home",
+    label: <Link to="/subjects">Subjects</Link>,
+  },
+  {
+    key: "3",
+    title: "Network",
+    label: <Link to="/network/all">Network</Link>,
+  },
+  {
+    key: "4",
+    title: "Home",
+    label: <Link to="/catalog">Catalog</Link>,
+  },
+  {
+    key: "5",
+    title: "Home",
+    label: <Link to="/reminders">Reminders</Link>,
+  },
+  {
+    key: "6",
+    title: "Home",
+    label: <UserInfoModal avatar={mockedAvatar} />,
+    disabled: true,
+    style: { marginLeft: "auto", cursor: "default" },
+  },
+];
+>>>>>>> 500d3558ec348ad506f8e22ba30216e5fbbc07ba
 
 function Navbar() {
   const [current, setCurrent] = useState("Home");

@@ -25,6 +25,7 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
     const config = {
       headers: {
         "content-type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       onUploadProgress: (event: any) => {
         const percent = Math.floor((event.loaded / event.total) * 100);
@@ -34,7 +35,7 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
     formData.append("file", file);
     try {
       const res = await axios.post(
-        `http://localhost:8090/api/v1/subjects/${props.title}/components/${props.component}/resources`,
+        `http://localhost:8082/api/v1/subjects/${props.title}/components/${props.component}/resources`,
         formData,
         config
       );
