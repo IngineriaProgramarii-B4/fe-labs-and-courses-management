@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Input, Form } from "antd";
+import { Modal, Button, Form, InputNumber, DatePicker } from "antd";
 import axios from "axios";
 import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,16 +15,6 @@ export default function UpdateGrade(props: {
   const [evDateValue, setEvDateValue] = useState<string>("");
   const { id } = useParams();
 
-  const handleGradeValueChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setGradeValue(Number(event.target.value));
-  };
-
-  const handleEvDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEvDateValue(event.target.value);
-  };
-
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -39,11 +29,7 @@ export default function UpdateGrade(props: {
   const handleUpdateGrade = (gradeId: number) => {
     axios
       .put(
-<<<<<<< HEAD
         `http://localhost:8082/api/v1/students/${id}/grades/${gradeId}?value=${gradeValue}&evaluationDate=${evDateValue}`,
-=======
-        `http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades/${id}?value=${gradeValue}&evaluationDate=${evDateValue}`,
->>>>>>> 500d3558ec348ad506f8e22ba30216e5fbbc07ba
         {
           value: gradeValue,
           evaluationDate: evDateValue,
@@ -91,15 +77,20 @@ export default function UpdateGrade(props: {
           style={{ maxWidth: 600 }}
         >
           <Form.Item label="Grade">
-            <Input
-              onChange={handleGradeValueChange}
-              placeholder="New grade value..."
+            <InputNumber
+              min={1}
+              max={10}
+              onChange={(value: any) => {
+                setGradeValue(value);
+              }}
             />
           </Form.Item>
           <Form.Item label="Date">
-            <Input
-              onChange={handleEvDateChange}
-              placeholder="New date of evaluation..."
+            <DatePicker
+              format="DD.MM.YYYY"
+              onChange={(date, dateString) => {
+                setEvDateValue(dateString);
+              }}
             />
           </Form.Item>
         </Form>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Form, DatePicker, Select } from "antd";
+import { Modal, Button, Form, DatePicker, Select, InputNumber } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -17,12 +17,6 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   const [evDateValue, setEvDateValue] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
   const { id } = useParams();
-
-  const handleGradeValueChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setGradeValue(Number(event.target.value));
-  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -53,16 +47,12 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
 
       axios
         .post(
-<<<<<<< HEAD
           `http://localhost:8082/api/v1/students/${id}/grades`,
-=======
-          "http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades",
->>>>>>> 500d3558ec348ad506f8e22ba30216e5fbbc07ba
           gradesData,
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: "Bearer " + token,
             },
           }
         )
@@ -99,11 +89,6 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
           style={{ maxWidth: 600 }}
         >
           <Form.Item label="Subject" htmlFor="subjectName">
-            {/* <Input
-              onChange={handleSubjectNameChange}
-              placeholder="Subject name..."
-              id="subjectName"
-            /> */}
             <Select
               onChange={(value: string) => setSubjectName(value)}
               defaultValue="Select a subject..."
@@ -114,10 +99,13 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
             />
           </Form.Item>
           <Form.Item label="Grade" htmlFor="gradeValue">
-            <Input
-              onChange={handleGradeValueChange}
-              placeholder="Grade value..."
-              id="gradeValue"
+            <InputNumber
+              min={1}
+              max={10}
+              defaultValue={5}
+              onChange={(value: any) => {
+                setGradeValue(value);
+              }}
             />
           </Form.Item>
           <Form.Item label="Date" htmlFor="date">
