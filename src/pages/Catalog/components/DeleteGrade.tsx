@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "antd";
 import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ export default function DeleteGrade(props: {
   fetchGrades: () => void;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -21,13 +22,23 @@ export default function DeleteGrade(props: {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+    console.log(storedToken);
+  }, []);
+
   const handleDeleteGrade = (id: number) => {
-    fetch(`http://localhost:8081/api/v1/catalog/students/1/grades/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -39,7 +50,7 @@ export default function DeleteGrade(props: {
   return (
     <>
       <div
-        data-testId="trash_img"
+        data-testid="trash_img"
         className={styles.trash_img}
         onClick={() => {
           showModal();

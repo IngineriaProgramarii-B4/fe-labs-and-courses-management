@@ -1,22 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Form } from "antd";
-import styles from "../Catalog.module.scss";
 import axios from "axios";
 
 interface GradesData {
   value: number;
-  subject: {
-    name: string;
-    teachers: {
-      idProf: number;
-      email: string;
-      name: string;
-      teachedSubjects: string[];
-      id: number;
-    }[];
-  };
+  subject: string;
   evaluationDate: string;
-  id: number;
+  deleted: boolean;
 }
 
 export default function AddGrade(props: { fetchGrades: () => void }) {
@@ -24,6 +14,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   const [subjectName, setSubjectName] = useState<string>("");
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
+  const [token, setToken] = useState<string | null>(null);
 
   const handleSubjectNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -47,6 +38,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   };
 
   const handleOk = () => {
+    handleAddGrade();
     setIsModalOpen(false);
   };
 
@@ -54,33 +46,28 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+    console.log(storedToken);
+  }, []);
   const handleAddGrade = () => {
-    if (subjectName && gradeValue) {
+    if (subjectName && gradeValue && evDateValue) {
       const gradesData: GradesData = {
         value: gradeValue,
-        subject: {
-          name: subjectName,
-          teachers: [
-            {
-              idProf: 0,
-              email: "string",
-              name: "string",
-              teachedSubjects: ["string"],
-              id: 0,
-            },
-          ],
-        },
+        subject: subjectName,
         evaluationDate: evDateValue,
-        id: 0,
+        deleted: false,
       };
 
       axios
         .post(
-          "http://localhost:8081/api/v1/catalog/students/1/grades",
+          "http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades",
           gradesData,
           {
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         )
@@ -105,7 +92,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={false}
+        okText="Add"
         centered={true}
         destroyOnClose={true}
         width={400}
@@ -137,16 +124,6 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
             />
           </Form.Item>
         </Form>
-        <div className={styles.action_btn}>
-          <Button
-            onClick={() => {
-              handleAddGrade();
-              setIsModalOpen(false);
-            }}
-          >
-            Add
-          </Button>
-        </div>
       </Modal>
     </>
   );

@@ -37,10 +37,11 @@ const FormModal: React.FC<FormModalProps> = (props) => {
       const config = {
         headers: {
           "content-type": "multipart/form-data",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
       };
       const res = await axios.put(
-        `http://localhost:8090/api/v1/subjects/subjectTitle=${titleForm}/image`,
+        `http://localhost:8082/api/v1/subjects/subjectTitle=${titleForm}/image`,
         formData,
         config
       );
@@ -64,7 +65,12 @@ const FormModal: React.FC<FormModalProps> = (props) => {
     if (props.action === "add") {
       try {
         if (!upFile) return;
-        await axios.post("http://localhost:8090/api/v1/subjects", subject);
+        await axios.post("http://localhost:8082/api/v1/subjects", subject, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+          }
+        }
+        );
         await handleFileUpload();
         props.setIsModified(props.isModified ? false : true);
       } catch (error) {
@@ -73,8 +79,13 @@ const FormModal: React.FC<FormModalProps> = (props) => {
     } else if (props.action === "edit") {
       try {
         await axios.put(
-          `http://localhost:8090/api/v1/subjects/subjectTitle=${props.title}`,
-          subject
+          `http://localhost:8082/api/v1/subjects/subjectTitle=${props.title}`,
+          subject,
+          {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            }
+          }
         );
         if (upFile) await handleFileUpload();
         props.setIsModified(props.isModified ? false : true);

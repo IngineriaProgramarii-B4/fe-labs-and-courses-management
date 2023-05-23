@@ -7,34 +7,37 @@ import styles from "./Catalog.module.scss";
 import DropdownMenuSubject from "./components/DropdownMenuSubject";
 import DropdownMenuSem from "./components/DropdownMenuSem";
 import { useParams } from "react-router-dom";
+import { useJwt } from "react-jwt";
 
 interface Grade {
   value: number;
-  subject: {
-    name: string;
-    teachers: {
-      idProf: number;
-      email: string;
-      name: string;
-      teachedSubjects: any;
-      id: number;
-    }[];
-  };
+  subject: string;
   evaluationDate: string;
+  deleted: boolean;
   id: number;
 }
 
 function Catalog() {
-  const studentName = "User";
-  const id = useParams()
+  const [token, setToken] = useState<string | null>(null);
+  const { decodedToken }: any = useJwt(token as string);
 
+  console.log(decodedToken);
+  const studentName = decodedToken?.sub;
+  const id = useParams();
   const [grades, setGrades] = useState<Grade[]>([]);
   const [userType, setUserType] = useState<string>("student");
 
   async function fetchGrades() {
+    console.log(token);
     try {
       const response = await axios.get(
-        `http://localhost:8090/api/v1/students/${id}`
+        "http:///localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const data = response.data;
       console.log(data);
@@ -50,6 +53,12 @@ function Catalog() {
   }
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+    console.log(storedToken);
+  }, []);
+
+  useEffect(() => {
     fetchGrades();
     setUserType("teacher");
   }, []);
@@ -57,10 +66,14 @@ function Catalog() {
   return (
     <>
       <div className={styles.catalog_wrapper}>
-        {userType === "teacher" && <AddGrade fetchGrades={fetchGrades} />}
-        <h5 className={styles.username}>{studentName}'s Grades</h5>
-        <DropdownMenuSubject />
-        <DropdownMenuSem />
+        {decodedToken?.role === "TEACHER" && (
+          <AddGrade fetchGrades={fetchGrades} />
+        )}
+        <h5 className={styles.username}>User: {studentName}</h5>
+
+        {/* <DropdownMenuSubject />
+        <DropdownMenuSem /> */}
+        <h4>Role: {decodedToken?.role}</h4>
         <table className={styles.catalog_table}>
           <thead>
             <tr>
@@ -75,7 +88,7 @@ function Catalog() {
             {grades.map((grade) => (
               <tr key={grade.id}>
                 <td>
-                  {userType === "teacher" && (
+                  {decodedToken?.role === "TEACHER" && (
                     <>
                       <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
                       <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
@@ -83,9 +96,7 @@ function Catalog() {
                   )}
                 </td>
                 <td>
-                  <span className={styles.subject_value}>
-                    {grade.subject.name}
-                  </span>
+                  <span className={styles.subject_value}>{grade.subject}</span>
                 </td>
                 <td className={styles.grade}>
                   <span className={styles.grade_value}>

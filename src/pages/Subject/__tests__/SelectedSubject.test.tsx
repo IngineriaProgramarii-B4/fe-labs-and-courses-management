@@ -5,15 +5,16 @@ import {
   waitFor,
   getByTestId,
 } from "@testing-library/react";
-import SubjectAna from "../SubjectAna";
+import SelectedSubject from "../SelectedSubject";
 import { BrowserRouter as Router } from "react-router-dom";
 import Course from "../Course";
 import axios from "axios";
 import { act } from "react-dom/test-utils";
+import { extractToken } from "../Subjects";
 
 jest.mock("axios");
 
-describe("SubjectAna component", () => {
+describe("SelectedSubject component", () => {
   it("should set the subject and description state variables when data is returned from the API", async () => {
     const subjectTitle = "testSubject";
     const subjectData = {
@@ -30,10 +31,10 @@ describe("SubjectAna component", () => {
     (axios.get as jest.Mock).mockResolvedValueOnce({ data: subjectData });
 
     await act(async () => {
-      render(<SubjectAna />);
+      render(<SelectedSubject />);
     });
 
-    expect(screen.getByTestId("subjectAna-1")).toBeInTheDocument();
+    expect(screen.getByTestId("SelectedSubject-1")).toBeInTheDocument();
     expect(screen.getByText(expectedDescription)).toBeInTheDocument();
   });
 
@@ -59,7 +60,7 @@ describe("SubjectAna component", () => {
   test("write src picture", async () => {
     render(
       <Router>
-        <SubjectAna />
+        <SelectedSubject />
       </Router>
     );
     const image = screen.getByTestId("image");
@@ -90,5 +91,27 @@ describe("SubjectAna component", () => {
     const button = screen.getByText("View Full Description");
     fireEvent.click(button);
     expect(setModalShow).toHaveBeenCalledWith(true);
+  });
+  /********************************************************** */
+  beforeEach(() => {
+    jest
+      .spyOn(window.localStorage.__proto__, "getItem")
+      .mockReturnValue("token-value");
+  });
+
+  afterEach(() => {
+    jest.spyOn(window.localStorage.__proto__, "getItem").mockRestore();
+  });
+
+  it("should return the token from local storage", () => {
+    render(<SelectedSubject />);
+
+    expect(extractToken()).toBe("token-value");
+  });
+
+  it("should return null when no token is found in local storage", () => {
+    jest.spyOn(window.localStorage.__proto__, "getItem").mockReturnValue(null);
+    render(<SelectedSubject />);
+    expect(extractToken()).toBeNull();
   });
 });
