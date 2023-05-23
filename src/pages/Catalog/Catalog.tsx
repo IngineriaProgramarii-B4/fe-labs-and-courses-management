@@ -4,8 +4,6 @@ import AddGrade from "./components/AddGrade";
 import UpdateGrade from "./components/UpdateGrade";
 import DeleteGrade from "./components/DeleteGrade";
 import styles from "./Catalog.module.scss";
-import DropdownMenuSubject from "./components/DropdownMenuSubject";
-import DropdownMenuSem from "./components/DropdownMenuSem";
 import { useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
 
@@ -20,18 +18,14 @@ interface Grade {
 function Catalog() {
   const [token, setToken] = useState<string | null>(null);
   const { decodedToken }: any = useJwt(token as string);
-
-  console.log(decodedToken);
   const studentName = decodedToken?.sub;
-  const id = useParams();
+  const { id } = useParams();
   const [grades, setGrades] = useState<Grade[]>([]);
-  const [userType, setUserType] = useState<string>("student");
 
   async function fetchGrades() {
-    console.log(token);
     try {
       const response = await axios.get(
-        "http:///localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964",
+        `http://localhost:8082/api/v1/students/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,12 +34,10 @@ function Catalog() {
         }
       );
       const data = response.data;
-      console.log(data);
       const allGrades = [];
       if (data) {
         allGrades.push(...data.grades);
       }
-      console.log("all grades:", allGrades);
       setGrades(allGrades);
     } catch (error) {
       console.log(error);
@@ -55,12 +47,12 @@ function Catalog() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    console.log(storedToken);
+    if (token) {
+    }
   }, []);
 
   useEffect(() => {
     fetchGrades();
-    setUserType("teacher");
   }, []);
 
   return (
@@ -71,8 +63,6 @@ function Catalog() {
         )}
         <h5 className={styles.username}>User: {studentName}</h5>
 
-        {/* <DropdownMenuSubject />
-        <DropdownMenuSem /> */}
         <h4>Role: {decodedToken?.role}</h4>
         <table className={styles.catalog_table}>
           <thead>

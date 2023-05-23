@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Form } from "antd";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 interface GradesData {
   value: number;
@@ -15,6 +16,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
+  const { id } = useParams();
 
   const handleSubjectNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -49,7 +51,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    console.log(storedToken);
+    // console.log(storedToken);
   }, []);
   const handleAddGrade = () => {
     if (subjectName && gradeValue && evDateValue) {
@@ -62,7 +64,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
 
       axios
         .post(
-          "http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades",
+          `http://localhost:8082/api/v1/students/${id}/grades`,
           gradesData,
           {
             headers: {
@@ -96,6 +98,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
         centered={true}
         destroyOnClose={true}
         width={400}
+        okType="default"
       >
         <Form
           labelCol={{ span: 6 }}

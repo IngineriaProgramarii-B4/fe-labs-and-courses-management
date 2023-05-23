@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 
 export default function UpdateGrade(props: {
   fetchGrades: () => void;
@@ -12,6 +13,7 @@ export default function UpdateGrade(props: {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
+  const { id } = useParams();
 
   const handleGradeValueChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -34,10 +36,10 @@ export default function UpdateGrade(props: {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleUpdateGrade = (id: number) => {
+  const handleUpdateGrade = (gradeId: number) => {
     axios
       .put(
-        `http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades/${id}?value=${gradeValue}&evaluationDate=${evDateValue}`,
+        `http://localhost:8082/api/v1/students/${id}/grades/${gradeId}?value=${gradeValue}&evaluationDate=${evDateValue}`,
         {
           value: gradeValue,
           evaluationDate: evDateValue,
@@ -50,7 +52,7 @@ export default function UpdateGrade(props: {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         props.fetchGrades();
       })
       .catch((error) => {

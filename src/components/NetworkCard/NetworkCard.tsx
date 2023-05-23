@@ -119,9 +119,9 @@ const renderCard = (user: UserDataType) => {
     <Card key={v4()} className="m-10 w-80 h-96">
       <UserHeader
         key={v4()}
-        username={user.username}
-        firstname={user.firstName}
-        lastname={user.lastName}
+        username={user.username || "jondoe"}
+        firstname={user.firstName || "Florin"}
+        lastname={user.lastName || "Olariu"}
         id={user.id}
         roles={user.roles}
       />

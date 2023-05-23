@@ -3,6 +3,7 @@ import { Modal, Button } from "antd";
 import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 
 export default function DeleteGrade(props: {
   id: number;
@@ -10,6 +11,8 @@ export default function DeleteGrade(props: {
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const { id } = useParams();
+  // console.log("id: ", id);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -25,23 +28,20 @@ export default function DeleteGrade(props: {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    console.log(storedToken);
+    // console.log(storedToken);
   }, []);
 
-  const handleDeleteGrade = (id: number) => {
-    fetch(
-      `http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+  const handleDeleteGrade = (gradeId: number) => {
+    fetch(`http://localhost:8082/api/v1/students/${id}/grades/${gradeId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         props.fetchGrades();
       })
       .catch((error) => console.error(error));

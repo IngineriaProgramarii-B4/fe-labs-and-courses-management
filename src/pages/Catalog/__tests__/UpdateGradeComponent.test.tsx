@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import UpdateGrade from "../components/UpdateGrade";
+import { UUID } from "crypto";
 
 jest.mock("axios");
 
@@ -43,7 +44,7 @@ describe("UpdateGrade component", () => {
 
     await waitFor(() =>
       expect(mockedAxios.put).toHaveBeenCalledWith(
-        "http://localhost:8081/api/v1/catalog/students/1/grades/0?value=8&evaluationDate=2022-01-01",
+        "http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades/0?value=8&evaluationDate=2022-01-01",
         {
           value: 8,
           evaluationDate: "2022-01-01",
@@ -51,6 +52,7 @@ describe("UpdateGrade component", () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )

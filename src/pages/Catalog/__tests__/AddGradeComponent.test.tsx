@@ -45,27 +45,17 @@ describe("AddGrade component", () => {
 
     await waitFor(() =>
       expect(mockedAxios.post).toHaveBeenCalledWith(
-        "http://localhost:8081/api/v1/catalog/students/1/grades",
+        "http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades",
         {
           value: 8,
-          subject: {
-            name: "IP",
-            teachers: [
-              {
-                idProf: 0,
-                email: "string",
-                name: "string",
-                teachedSubjects: ["string"],
-                id: 0,
-              },
-            ],
-          },
+          subject: "IP",
           evaluationDate: "2022-01-01",
-          id: 0,
+          deleted: false,
         },
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
