@@ -45,15 +45,15 @@ describe("UserHeader", () => {
     ],
   };
 
-  test("should render properly with type !== 2", () => {
+  test("should render properly if it stundent", () => {
     render(
       <BrowserRouter>
         <UserHeader
-          id={userData.id}
           username={userData.username}
           firstname={userData.firstname}
           lastname={userData.lastname}
-          roles={userData.roles}
+          isStudent={true}
+          isHovered={false}
         />
       </BrowserRouter>
     );
@@ -64,15 +64,15 @@ describe("UserHeader", () => {
     ).toBeInTheDocument();
   });
 
-  test("should render properly with type === 2", () => {
+  test("should render properly if it is not student", () => {
     render(
       <BrowserRouter>
         <UserHeader
-          id={userData2.id}
           username={userData2.username}
           firstname={userData2.firstname}
           lastname={userData2.lastname}
-          roles={userData2.roles}
+          isStudent={false}
+          isHovered={false}
         />
       </BrowserRouter>
     );

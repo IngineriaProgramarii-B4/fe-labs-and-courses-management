@@ -20,7 +20,7 @@ function UserInfoInput({
 
   return (
     <div className={"flex h-[2rem]"}>
-      <p className={"my-auto w-[8.5rem] text-end"}>{title}:</p>
+      <p className={"my-auto w-[9rem] text-end"}>{title}:</p>
       {!isInEditMode ? (
         <p className={"my-auto ml-3"}>{value}</p>
       ) : (

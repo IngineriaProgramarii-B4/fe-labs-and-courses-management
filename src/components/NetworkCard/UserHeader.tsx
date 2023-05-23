@@ -1,39 +1,48 @@
-import { Divider } from "antd";
+import { Avatar, Divider } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
-import { isRoleType } from "./NetworkCard";
 
 export type UserHeaderProps = {
-  id: string;
-  roles: {
-    id: number;
-    name: string;
-  }[];
+  isStudent: boolean;
   username: string;
   firstname: string;
   lastname: string;
+  isHovered: boolean;
+  avatar?: string;
 };
 
 function UserHeader({
   username,
   firstname,
   lastname,
-  id,
-  roles,
+  isStudent,
+  isHovered,
+  avatar,
 }: UserHeaderProps) {
-  const isStudent = isRoleType(roles) && roles.find((role) => role.id === 3);
-
   return (
-    <div style={{ textAlign: "center", fontWeight: "bold" }}>
-      {isStudent ? (
-        <Link to={`/catalog/${id}`}>
-          <div>{firstname + " " + lastname}</div>
-        </Link>
-      ) : (
-        <div>{firstname + " " + lastname}</div>
-      )}
-
-      <div className="text-gray-500">@{username}</div>
+    <div>
+      <div className={"flex w-full justify-center gap-3"}>
+        <Avatar
+          icon={
+            avatar ? (
+              <img src={avatar} alt={"Avatar"} />
+            ) : (
+              <i
+                className={"fa-solid fa-user"}
+                data-testid={"user-placeholder-avatar"}
+              />
+            )
+          }
+          shape={"square"}
+          size={48}
+          data-testid={"user-avatar"}
+        />
+        <div className={"text-center font-bold"}>
+          <div className={`${isStudent && isHovered && "text-blue-500"}`}>
+            {(firstname || "John") + " " + (lastname || "Doe")}
+          </div>
+          <div className="text-gray-500">@{username}</div>
+        </div>
+      </div>
       <Divider />
     </div>
   );
