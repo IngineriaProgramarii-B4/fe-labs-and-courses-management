@@ -1,6 +1,11 @@
 import React, { createContext, useState } from "react";
 
-export const UserContext = createContext({});
+const defaultValues = {
+  isUserModified: false,
+  setIsUserModified: (val: boolean) => {},
+};
+
+export const UserContext = createContext(defaultValues);
 
 export default function UserContextProvider({
   children,
