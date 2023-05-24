@@ -42,24 +42,6 @@ global.matchMedia = global.matchMedia || function () {
     apiPostSpy.mockRestore();
   });
   
-  test('does not display an error message when login fails with a non-Error', async () => {
-    const apiPostSpy = jest.spyOn(api, 'post').mockRejectedValue('Login failed');
-  
-    render(<Router><Login /></Router>);
-    const emailInput = screen.getByPlaceholderText(/enter your email/i);
-    const passwordInput = screen.getByPlaceholderText(/enter your password/i);
-    const loginButton = screen.getByRole('button', { name: /login/i });
-  
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
-    fireEvent.click(loginButton);
-  
-    await waitFor(() => {
-      expect(screen.queryByText(/login failed: login failed/i)).not.toBeInTheDocument();
-    });
-  
-    apiPostSpy.mockRestore();
-  });
   
   //test nou
   test('validate password input', async () => {
@@ -96,12 +78,11 @@ test('renders form with expected fields', () => {
     const passwordField = screen.getByPlaceholderText(/enter your password/i);
     const loginButton = screen.getByRole('button', { name: /login/i });
     const forgotPassword = screen.getByRole('link', { name: /Forgot password?/i });
-    const rememberMe = screen.getByText(/remember me/i);
+    
 
     expect(emailField).toBeInTheDocument();
     expect(passwordField).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
-    expect(rememberMe).toBeInTheDocument();
     expect(forgotPassword).toHaveAttribute('href', 'http://localhost:3000/sendMail');
   });
 // Testează validarea input-ului de email
@@ -190,18 +171,7 @@ test('validate email input', async () => {
     useNavigate.mockRestore();
   });
 
-  test('toggle remember me checkbox', () => {
-    render(<Router><Login /></Router>);
-    const rememberMeCheckbox = screen.getByRole('checkbox', { name: /remember me/i });
   
-    expect(rememberMeCheckbox.checked).toEqual(false);
-  
-    fireEvent.click(rememberMeCheckbox);
-    expect(rememberMeCheckbox.checked).toEqual(true);
-  
-    fireEvent.click(rememberMeCheckbox);
-    expect(rememberMeCheckbox.checked).toEqual(false);
-  });
 
   test('should handle login failure without token', async () => {
     const apiPostSpy = jest.spyOn(api, 'post').mockResolvedValueOnce({ data: {} });

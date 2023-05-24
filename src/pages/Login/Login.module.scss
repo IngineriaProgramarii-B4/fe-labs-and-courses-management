@@ -13,7 +13,7 @@
  /* SignIn */
  
  .loginForm{
-     background-color: rgb(255, 255, 255,0.33);
+     background-color: rgb(255, 255, 255,0.8);
      box-shadow: 0px 8px 32px 0 rgb(0,0,255,0.33);
      backdrop-filter: blur(3px);
      font-size: 1.1rem;
@@ -34,12 +34,17 @@
      border-radius: 0%;
  }
  
- .registerContainer {
- 
-     display: flex;
-     align-items: center;
-     margin-top: 2rem;
+ .registerButton{
+    padding-left: 12px;
+    padding-right: 12px;
+
  }
+ .registerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items:center ;
+  }
+  
  
  
  .rememberMe {
@@ -50,7 +55,9 @@
  
  .forgotPass {
 
-     margin-left: 50px;
+      margin-top: 30px;
+      margin-left: 50px;
+
  }
  
  a, .registerContainer {
