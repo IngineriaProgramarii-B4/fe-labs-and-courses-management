@@ -10,13 +10,17 @@ interface GradesData {
   deleted: boolean;
 }
 
-export default function AddGrade(props: { fetchGrades: () => void }) {
+export default function AddGrade(props: {
+  fetchGrades: () => void;
+  enrolledCourses: any[];
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subjectName, setSubjectName] = useState<string>("");
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
   const { id } = useParams();
+  const { enrolledCourses } = props;
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -94,10 +98,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
             <Select
               onChange={(value: string) => setSubjectName(value)}
               defaultValue="Select a subject..."
-              options={[
-                { value: "IP", label: "IP" },
-                { value: "PA", label: "PA" },
-              ]}
+              options={enrolledCourses}
             />
           </Form.Item>
           <Form.Item label="Grade" htmlFor="gradeValue">

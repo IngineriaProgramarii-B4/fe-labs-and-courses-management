@@ -20,9 +20,59 @@ function Catalog() {
   const [token, setToken] = useState<string | null>(null);
   const { decodedToken }: any = useJwt(token as string);
   const { id } = useParams();
+  const [enrolledCourses, setEnrolledCourses] = useState<any>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 4; // Number of grades per page
+  const pageSize = 4;
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+
+  async function fetchEnrolledCourses() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8082/api/v1/users?id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = response.data;
+      console.log("big data:", data);
+      setFirstName(data[0].firstName);
+      setLastName(data[0].lastName);
+      const enrolledCoursesArray = data[0].enrolledCourses.map(
+        (course: any) => {
+          return { value: course.title, label: course.title };
+        }
+      );
+      setEnrolledCourses(enrolledCoursesArray);
+
+      console.log(enrolledCoursesArray);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchName() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8082/api/v1/users?id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = response.data;
+      setFirstName(data[0].firstname);
+      setLastName(data[0].lastname);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function fetchGrades() {
     try {
@@ -50,11 +100,13 @@ function Catalog() {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
     if (token) {
+      fetchEnrolledCourses();
     }
   }, [token]);
 
   useEffect(() => {
     fetchGrades();
+    fetchName();
   });
 
   const handlePageChange = (page: number) => {
@@ -67,9 +119,15 @@ function Catalog() {
   return (
     <>
       <div className={styles.catalog_wrapper}>
-        {decodedToken?.role === "TEACHER" && (
-          <AddGrade fetchGrades={fetchGrades} />
-        )}
+        <div className="flex flex-row justify-between">
+          <h1>{firstName + " " + lastName + "'s grades:"}</h1>
+          {decodedToken?.role === "TEACHER" && (
+            <AddGrade
+              fetchGrades={fetchGrades}
+              enrolledCourses={enrolledCourses}
+            />
+          )}
+        </div>
         <table className={styles.catalog_table}>
           <thead>
             <tr>
