@@ -114,7 +114,7 @@ export default function NetworkCard() {
       ) : (
         <div
           className={
-            "text-2xl font-bold flex justify-center items-center w-screen h-screen"
+            "text-2xl font-bold flex justify-center items-center w-screen h-screen text-white"
           }
         >
           No users available
