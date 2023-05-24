@@ -26,9 +26,9 @@ type PrivateRouteProps = {
 };
 
 const PrivateRouteComponent: React.FC<PrivateRouteProps> = ({
-                                                              component: Component,
-                                                              path
-                                                            }) => {
+  component: Component,
+  path,
+}) => {
   return isAuthenticated() ? <Component /> : <Navigate to="/login" replace />;
 };
 
@@ -51,7 +51,7 @@ function NetworkWrapper() {
 export const router = createBrowserRouter([
   {
     path: "*",
-    element: <NotFound />
+    element: <NotFound />,
   },
   {
     path: "/",
@@ -59,57 +59,74 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <PrivateRouteComponent component={Home} path="/home" />
+        element: <PrivateRouteComponent component={Home} path="/home" />,
       },
       {
         path: "/network/:param",
-        element: <PrivateRouteComponent component={NetworkWrapper} path="/network/:param" />
+        element: (
+          <PrivateRouteComponent
+            component={NetworkWrapper}
+            path="/network/:param"
+          />
+        ),
       },
       {
         path: "/",
-        element: <Navigate to={"/login"} />
+        element: <Navigate to={"/login"} />,
       },
       {
         path: "/reminders",
-        element: <PrivateRouteComponent component={RemindersWrapper} path="/reminders" />
+        element: (
+          <PrivateRouteComponent
+            component={RemindersWrapper}
+            path="/reminders"
+          />
+        ),
       },
       {
         path: "/index",
-        element: <Navigate to={"/home"} />
+        element: <Navigate to={"/home"} />,
       },
       {
         path: "/test",
-        element: <div>test</div>
+        element: <div>test</div>,
       },
       {
         path: "/catalog/:id",
-        element: <Catalog />
+        element: <Catalog />,
       },
       {
         path: "/subjects",
-        element: <PrivateRouteComponent component={Subjects} path="/subjects" />,
+        element: (
+          <PrivateRouteComponent component={Subjects} path="/subjects" />
+        ),
       },
       {
         path: "/selectedSubject",
-        element: <PrivateRouteComponent component={SelectedSubject} path="/selectedSubject" />,
+        element: (
+          <PrivateRouteComponent
+            component={SelectedSubject}
+            path="/selectedSubject"
+          />
+        ),
       },
     ],
   },
   {
     path: "/login",
     index: true,
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/register",
-    element: <Register />
+    element: <Register />,
   },
   {
     path: "/resetPassword",
-    element: <Reset />
+    element: <Reset />,
   },
   {
     path: "/sendMail",
-    element: <SendMail />
-  }
+    element: <SendMail />,
+  },
 ]);

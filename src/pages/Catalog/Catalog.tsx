@@ -6,6 +6,7 @@ import DeleteGrade from "./components/DeleteGrade";
 import styles from "./Catalog.module.scss";
 import { useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
+import { Pagination } from "antd";
 
 interface Grade {
   value: number;
@@ -20,6 +21,8 @@ function Catalog() {
   const { decodedToken }: any = useJwt(token as string);
   const { id } = useParams();
   const [grades, setGrades] = useState<Grade[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 4; // Number of grades per page
 
   async function fetchGrades() {
     try {
@@ -54,15 +57,19 @@ function Catalog() {
     fetchGrades();
   });
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+
   return (
     <>
       <div className={styles.catalog_wrapper}>
         {decodedToken?.role === "TEACHER" && (
           <AddGrade fetchGrades={fetchGrades} />
         )}
-        {/* <h5 className={styles.username}>User: {studentName}</h5>
-
-        <h4>Role: {decodedToken?.role}</h4> */}
         <table className={styles.catalog_table}>
           <thead>
             <tr>
@@ -74,7 +81,7 @@ function Catalog() {
           </thead>
 
           <tbody>
-            {grades.map((grade) => (
+            {grades.slice(startIndex, endIndex).map((grade, index) => (
               <tr key={grade.id}>
                 <td>
                   {decodedToken?.role === "TEACHER" && (
@@ -102,6 +109,13 @@ function Catalog() {
             ))}
           </tbody>
         </table>
+        <Pagination
+          current={currentPage}
+          defaultPageSize={pageSize}
+          total={grades?.length + 1}
+          onChange={handlePageChange}
+          className="mt-3"
+        />
       </div>
     </>
   );

@@ -71,7 +71,9 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
 
   return (
     <>
-      <Button onClick={showModal}>Add Grade +</Button>
+      <Button className="mb-3" onClick={showModal}>
+        Add Grade +
+      </Button>
       <Modal
         title="Add Grade"
         open={isModalOpen}
