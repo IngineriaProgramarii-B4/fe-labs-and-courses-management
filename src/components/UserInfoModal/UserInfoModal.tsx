@@ -10,6 +10,7 @@ import { v4 } from "uuid";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import type { UploadChangeParam } from "antd/es/upload";
 import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
+import { useJwt } from "react-jwt";
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -200,6 +201,7 @@ function UserInfoModal({ className }: UserInfoModalProps) {
   const [avatar, setAvatar] = useState<string | null>(null);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
 
+  const { decodedToken }: any = useJwt(localStorage.getItem("token") as string);
 
   // @ts-ignore
   const { setIsUserModified } = useContext(UserContext);
@@ -223,39 +225,32 @@ function UserInfoModal({ className }: UserInfoModalProps) {
 
   const onAvatarClick = () => {
     setIsLoading(true);
+    const email = decodedToken?.sub;
     axiosInstance
-      .post("/users/loggedUser", localStorage.getItem("token"))
+      .get(`/users?email=${email}`)
       .then((res) => res.data)
       .then((data) => {
-        return data.email;
+        setUserData(data[0]);
+        setIsLoading(false);
+        return data[0];
+      }).then(res => {
+      axios.get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        responseType: "arraybuffer"
       })
-      .then((email) => {
-        axiosInstance
-          .get(`/users?email=${email}`)
-          .then((res) => res.data)
-          .then((data) => {
-            setUserData(data[0]);
-            setIsLoading(false);
-            return data[0];
-          }).then(res => {
-          axios.get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
-            headers: {
-              "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            responseType: "arraybuffer"
-          })
-            .then(res => {
-              const imgBlob = new Blob([res.data], { type: "png" });
-              const imgUrl = URL.createObjectURL(imgBlob);
-              setAvatar(imgUrl ? imgUrl : mockedAvatar);
-            }).catch(err => {
-            if (err.response.status) {
-              console.clear();
-            }
-          });
-        });
-
+        .then(res => {
+          const imgBlob = new Blob([res.data], { type: "png" });
+          const imgUrl = URL.createObjectURL(imgBlob);
+          setAvatar(imgUrl ? imgUrl : mockedAvatar);
+        }).catch(err => {
+        if (err.response.status) {
+          console.clear();
+        }
       });
+    });
+
 
     setIsModalOpen(true);
   };
