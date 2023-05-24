@@ -38,7 +38,6 @@ export default function AddGrade(props: {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    // console.log(storedToken);
   }, []);
   const handleAddGrade = () => {
     if (subjectName && gradeValue && evDateValue) {
@@ -96,15 +95,19 @@ export default function AddGrade(props: {
         >
           <Form.Item label="Subject" htmlFor="subjectName">
             <Select
+              id="subjectName"
+              className="w-[4rem]"
               onChange={(value: string) => setSubjectName(value)}
-              defaultValue="Select a subject..."
+              defaultValue="Select subject"
               options={enrolledCourses}
             />
           </Form.Item>
           <Form.Item label="Grade" htmlFor="gradeValue">
             <InputNumber
+              id="gradeValue"
               min={1}
               max={10}
+              className="w-[13rem]"
               defaultValue={5}
               onChange={(value: any) => {
                 setGradeValue(value);
@@ -113,6 +116,8 @@ export default function AddGrade(props: {
           </Form.Item>
           <Form.Item label="Date" htmlFor="date">
             <DatePicker
+              id="date"
+              className="w-[13rem]"
               data-testid="edit-date"
               format="DD.MM.YYYY"
               onChange={(date, dateString) => {

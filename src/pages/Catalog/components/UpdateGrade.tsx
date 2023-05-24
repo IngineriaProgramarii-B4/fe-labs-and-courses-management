@@ -78,8 +78,10 @@ export default function UpdateGrade(props: {
         >
           <Form.Item label="Grade">
             <InputNumber
+              className="w-[13rem]"
               min={1}
               max={10}
+              defaultValue={5}
               onChange={(value: any) => {
                 setGradeValue(value);
               }}
@@ -87,6 +89,7 @@ export default function UpdateGrade(props: {
           </Form.Item>
           <Form.Item label="Date">
             <DatePicker
+              className="w-[13rem]"
               format="DD.MM.YYYY"
               onChange={(date, dateString) => {
                 setEvDateValue(dateString);

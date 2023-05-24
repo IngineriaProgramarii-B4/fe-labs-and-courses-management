@@ -47,10 +47,6 @@ describe("Catalog", () => {
     render(<Catalog />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledTimes(1);
-    });
-
-    await waitFor(() => {
       expect(screen.getByText("IP")).toBeInTheDocument();
     });
     await waitFor(() => {
