@@ -1,7 +1,6 @@
 import React from "react";
 import {
   act,
-  cleanup,
   fireEvent,
   render,
   screen,
@@ -153,6 +152,8 @@ describe("UserProfileAvatar", () => {
         newAvatar={null}
         avatar={userAvatar}
         setNewAvatar={noop}
+        id={"id"}
+        setAvatar={noop}
       />
     );
 
@@ -168,6 +169,8 @@ describe("UserProfileAvatar", () => {
         newAvatar={null}
         avatar={"img.src"}
         setNewAvatar={noop}
+        id={"id"}
+        setAvatar={noop}
       />
     );
 
