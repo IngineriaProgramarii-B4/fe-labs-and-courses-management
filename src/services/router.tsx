@@ -12,8 +12,11 @@ import Reset from "../pages/ResetPassword/Reset";
 import SendMail from "../pages/SendEmail/SendMail";
 import RemindersCard from "../components/RemindersCard/RemindersCard";
 import Catalog from "../pages/Catalog/Catalog";
+import FormInfo from "../pages/InsertData/Form";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import UserContextProvider from "../components/UserContext/UserContext";
+import api from "../services/api"
+import jwt_decode from "jwt-decode";
 
 const isAuthenticated = () => {
   const token = localStorage.getItem("token");
@@ -48,10 +51,52 @@ function NetworkWrapper() {
   );
 }
 
+
+interface DecodedToken {
+  role: string;
+}
+
+const getUserRole = () => {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+
+  try {
+    const decoded: DecodedToken = jwt_decode(token);
+    return decoded.role; 
+  } catch (error) {
+    console.error("Token-ul nu a putut fi decodat.", error);
+    return null;
+  }
+};
+
+const isAdmin = () => {
+  const token = localStorage.getItem("token");
+  const role = getUserRole(); // așteptăm ca această funcție să ne returneze rolul utilizatorului
+  return !!token && role === 'ADMIN';
+};
+
+type AdminRouteProps = {
+  component: React.ComponentType<any>;
+  path: string;
+};
+
+
+const AdminRouteComponent: React.FC<AdminRouteProps> = ({
+  component: Component,
+  path
+}) => {
+  return isAdmin() ? <Component /> : <Navigate to="/home" replace />;
+};
+
+
 export const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound />
+  },
+  {
+    path: "/admin",
+    element: <AdminRouteComponent component={FormInfo} path="/admin" />
   },
   {
     path: "/",
@@ -111,5 +156,5 @@ export const router = createBrowserRouter([
   {
     path: "/sendMail",
     element: <SendMail />
-  }
+  },
 ]);
