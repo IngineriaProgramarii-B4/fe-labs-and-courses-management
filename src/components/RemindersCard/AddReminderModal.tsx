@@ -13,7 +13,7 @@ export function ModalFooter({ saveNewReminder, onCancel }: { saveNewReminder: vo
       <ConfigProvider theme={
         {
           token: {
-            colorPrimary: "green"
+            colorPrimary: "#277ff7"
           }
         }
       }>

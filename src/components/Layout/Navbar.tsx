@@ -92,8 +92,12 @@ function Navbar() {
 
   return (
     <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
+      selectedKeys={[
+        items.find(
+          (item) =>
+            item.title && location.pathname.includes(item.title.toLowerCase())
+        )?.key || "Home",
+      ]}
       mode="horizontal"
       items={modifiedItems}
     />

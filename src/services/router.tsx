@@ -168,6 +168,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/sendMail",
-    element: <SendMail />,
-  },
+    element: <SendMail />
+  }
 ]);
