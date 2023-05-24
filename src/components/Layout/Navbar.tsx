@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import UserInfoModal from "../UserInfoModal/UserInfoModal";
-import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 import hat from "../../img/hat.png"
 
 const items = [
@@ -33,7 +32,7 @@ const items = [
   {
     key: "6",
     title: "Home",
-    label: <UserInfoModal avatar={mockedAvatar} />,
+    label: <UserInfoModal />,
     disabled: true,
     style: { marginLeft: "auto", cursor: "default"},
   },

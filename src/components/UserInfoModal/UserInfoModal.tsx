@@ -7,8 +7,9 @@ import UserAvatar from "./UserAvatar";
 import UserInfoInput from "./UserInfoInput";
 import { UserContext } from "../UserContext/UserContext";
 import { v4 } from "uuid";
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
-import type { UploadChangeParam } from 'antd/es/upload';
+import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import type { UploadChangeParam } from "antd/es/upload";
+import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 
 type ModalTitleProps = {
   isEditing: boolean;
@@ -24,8 +25,8 @@ export function ModalTitle({ isEditing, setIsEditing }: ModalTitleProps) {
           <i
             className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"}
             onClick={
-            () => setIsEditing(true)
-          }
+              () => setIsEditing(true)
+            }
             data-testid={"pencil-icon"}
           />
         </Tooltip>
@@ -69,6 +70,8 @@ type UserProfileAvatarProps = {
   avatar?: string;
   newAvatar: string | null;
   setNewAvatar: (val: string) => void;
+  setAvatar: (val: string) => void;
+  id: string;
 };
 
 export function UserProfileAvatar({
@@ -76,33 +79,39 @@ export function UserProfileAvatar({
                                     avatar,
                                     newAvatar,
                                     setNewAvatar,
+                                    setAvatar,
+                                    id
                                   }: UserProfileAvatarProps) {
 
 
   const getBase64 = (img: RcFile, callback: (url: string) => void) => {
     const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
+    reader.addEventListener("load", () => callback(reader.result as string));
     reader.readAsDataURL(img);
   };
 
 
-  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
-    console.log(info)
-    if (info.file.status === 'uploading')
-    {
-      return;
-    }
-    if (info.file.status === 'done') {
-      console.log("done")
-
+  const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
+    if (info.file.status === "done") {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj as RcFile, (url) => {
-
-          console.log(url)
-          setNewAvatar("../../img/hat.png")
+        setNewAvatar(url);
+        setAvatar(url);
       });
     }
   };
+
+  function beforeUpload(file: File) {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      console.error("You can only upload JPG/PNG file!");
+    } else {
+      const newFileName = id + file.name.substring(file.name.indexOf("."));
+      const modifiedFile = new File([file], newFileName, { type: file.type });
+      return Promise.resolve(modifiedFile);
+    }
+  }
+
   return (
     <div
       className={
@@ -110,8 +119,12 @@ export function UserProfileAvatar({
       }
     >
       {isEditing || !avatar ? (
-        <Upload showUploadList={false}
-                onChange={handleChange}
+        <Upload
+          action="http://localhost:8082/api/v1/profile/upload"
+          headers={{ Authorization: `Bearer ${localStorage.getItem("token")}` }}
+          showUploadList={false}
+          onChange={handleChange}
+          beforeUpload={beforeUpload}
         >
           {newAvatar ? (
             <img src={newAvatar} alt="avatar" className={"object-cover"} />
@@ -128,6 +141,7 @@ export function UserProfileAvatar({
     </div>
   );
 }
+
 type UserDataType = {
   createdAt: string;
   updatedAt: string;
@@ -175,7 +189,7 @@ const filteredFields = [
   { backend: "title", frontend: "Title" }
 ];
 
-function UserInfoModal({ avatar, className }: UserInfoModalProps) {
+function UserInfoModal({ className }: UserInfoModalProps) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -183,7 +197,9 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   const [userData, setUserData] = useState<UserDataType>(getDefaultUserData());
   const [newUsername, setNewUsername] = useState(userData.username);
+  const [avatar, setAvatar] = useState<string | null>(null);
   const [newAvatar, setNewAvatar] = useState<string | null>(null);
+
 
   // @ts-ignore
   const { setIsUserModified } = useContext(UserContext);
@@ -198,28 +214,11 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
   });
 
   const logout = () => {
-    // Șterge tokenul JWT din local storage sau dintr-un alt loc adecvat
     localStorage.removeItem("token");
   };
 
   useEffect(() => {
     setNewUsername(userData.username);
-    // get the profile pic
-
-    axios.get(`/profile/download/${userData.id}`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`,
-      },
-      responseType: "arraybuffer",
-    })
-      .then(res => res.data)
-      .then(data => {
-        const imgBlob = new Blob([data], { type: data.image.type });
-        const imgUrl = URL.createObjectURL(imgBlob);
-        setNewAvatar(imgUrl)
-      })
-
-
   }, [userData]);
 
   const onAvatarClick = () => {
@@ -237,7 +236,24 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
           .then((data) => {
             setUserData(data[0]);
             setIsLoading(false);
+            return data[0];
+          }).then(res => {
+          axios.get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
+            headers: {
+              "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            responseType: "arraybuffer"
+          })
+            .then(res => {
+              const imgBlob = new Blob([res.data], { type: "png" });
+              const imgUrl = URL.createObjectURL(imgBlob);
+              setAvatar(imgUrl ? imgUrl : mockedAvatar);
+            }).catch(err => {
+            if (err.response.status) {
+              console.clear();
+            }
           });
+        });
 
       });
 
@@ -261,7 +277,10 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     }
     endPoint += `/${newUser.id}`;
 
-    axiosInstance.patch(endPoint, newUser).then(r => console.log(r));
+    axiosInstance.patch(endPoint, newUser)
+      .catch(err => {
+        console.error(err);
+      });
     toast.success("User profile updated");
   };
 
@@ -269,7 +288,6 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
     setIsUserModified(false);
     setIsEditing(false);
     setNewUsername(userData.username);
-    setNewAvatar(null);
   };
 
   const onLogout = () => {
@@ -279,7 +297,11 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
 
   return (
     <div className={`${className} cursor-pointer`}>
-      <UserAvatar avatar={avatar} onClick={onAvatarClick}/>
+      <UserAvatar
+        avatar={avatar ? avatar : mockedAvatar}
+        onClick={onAvatarClick}
+        setAvatar={setAvatar}
+      />
       <Modal
         title={<ModalTitle isEditing={isEditing} setIsEditing={setIsEditing} />}
         open={isModalOpen}
@@ -300,9 +322,11 @@ function UserInfoModal({ avatar, className }: UserInfoModalProps) {
         <div className={"w-full h-full px-[1rem] py-[1.5rem]"}>
           <UserProfileAvatar
             isEditing={isEditing}
-            avatar={avatar}
+            avatar={avatar ? avatar : mockedAvatar}
             newAvatar={newAvatar}
+            setAvatar={setAvatar}
             setNewAvatar={setNewAvatar}
+            id={userData.id}
           />
           <Divider dashed />
           {!isLoading ? (

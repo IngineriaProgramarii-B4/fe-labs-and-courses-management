@@ -7,7 +7,7 @@ import { UserContext } from "../UserContext/UserContext";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { Link, useParams } from "react-router-dom";
-import avatar from "../../mockedData/mockedAvatar.jpg";
+import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 
 export type CourseType = {
   title: string;
@@ -62,7 +62,7 @@ const filteredFields = [
   { backend: "taughtSubjects", frontend: "Taught Subjects" },
   { backend: "year", frontend: "Year" },
   { backend: "semester", frontend: "Semester" },
-  { backend: "enrolledCourses", frontend: "Enrolled Courses" },
+  { backend: "enrolledCourses", frontend: "Enrolled Courses" }
 ];
 
 export default function NetworkCard() {
@@ -76,8 +76,8 @@ export default function NetworkCard() {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
   });
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function NetworkCard() {
             return {
               ...tmp,
               firstName: firstname,
-              lastName: lastname,
+              lastName: lastname
             };
           })
         );
@@ -126,9 +126,29 @@ export default function NetworkCard() {
 
 const RenderCard = ({ user }: { user: UserDataType }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [avatar, setAvatar] = useState<string>("");
   const isStudent = !!(
     isRoleType(user.roles) && user.roles.find((role) => role.id === 3)
   );
+
+  useEffect(() => {
+    axios.get(`http://localhost:8082/api/v1/profile/download/${user.id}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      responseType: "arraybuffer"
+    })
+      .then(res => {
+        const imgBlob = new Blob([res.data], { type: "png" });
+        const imgUrl = URL.createObjectURL(imgBlob);
+        setAvatar(imgUrl ? imgUrl : mockedAvatar);
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
+          console.clear()
+        }
+      });
+  }, []);
 
   return (
     <Link
@@ -147,7 +167,7 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
           lastname={user.lastName}
           isStudent={isStudent}
           isHovered={isHovered}
-          avatar={avatar}
+          avatar={avatar ? avatar : mockedAvatar}
         />
         {Object.entries(user).map(([key, value]) => {
           const fieldData = filteredFields.find(
