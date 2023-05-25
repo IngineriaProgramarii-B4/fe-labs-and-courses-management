@@ -68,7 +68,7 @@ const Register: React.FC = () => {
   const [form] = Form.useForm();
 
   return (
-    <div>
+    <div className={styles.background}>
       <div className={styles.topBar}></div>
       <Form className={styles.Formular}
         {...formItemLayout}
