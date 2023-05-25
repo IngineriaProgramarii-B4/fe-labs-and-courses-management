@@ -66,6 +66,7 @@ const filteredFields = [
 ];
 
 export default function NetworkCard() {
+  // @ts-ignore
   const { isUserModified } = useContext(UserContext);
 
   const { param } = useParams();
@@ -145,7 +146,7 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
       })
       .catch(err => {
         if (err.response.status === 404) {
-          console.clear()
+
         }
       });
   }, []);

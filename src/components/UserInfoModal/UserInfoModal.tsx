@@ -245,8 +245,8 @@ function UserInfoModal({ className }: UserInfoModalProps) {
           const imgUrl = URL.createObjectURL(imgBlob);
           setAvatar(imgUrl ? imgUrl : mockedAvatar);
         }).catch(err => {
-        if (err.response.status) {
-          console.clear();
+        if (err.response.status === 404) {
+
         }
       });
     });
