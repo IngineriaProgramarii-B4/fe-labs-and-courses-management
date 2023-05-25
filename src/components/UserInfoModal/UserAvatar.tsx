@@ -46,8 +46,8 @@ function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
               setAvatar(imgUrl ? imgUrl : mockedAvatar);
             })
             .catch(err => {
-              if(err.response.status) {
-                console.clear()
+              if(err.response.status === 404) {
+
               }
             })
           ;
