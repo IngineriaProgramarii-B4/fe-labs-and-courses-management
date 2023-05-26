@@ -19,8 +19,8 @@ export default function AddGrade(props: {
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
-  const { id } = useParams();
   const { enrolledCourses } = props;
+  const { id } = useParams();
 
   const showModal = () => {
     setIsModalOpen(true);
