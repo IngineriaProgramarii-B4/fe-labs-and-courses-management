@@ -117,65 +117,69 @@ function Catalog() {
   const endIndex = startIndex + pageSize;
 
   return (
-    <>
-      <div className={styles.catalog_wrapper}>
-        <div className="flex flex-row justify-between">
-          <h1>{firstName + " " + lastName + "'s grades:"}</h1>
-          {decodedToken?.role === "TEACHER" && (
-            <AddGrade
-              fetchGrades={fetchGrades}
-              enrolledCourses={enrolledCourses}
-            />
-          )}
-        </div>
-        <table className={styles.catalog_table}>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Subject</th>
-              <th>Grade</th>
-              <th>Date of Evaluation</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {grades.slice(startIndex, endIndex).map((grade, index) => (
-              <tr key={grade.id}>
-                <td>
-                  {decodedToken?.role === "TEACHER" && (
-                    <>
-                      <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
-                      <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
-                    </>
-                  )}
-                </td>
-                <td>
-                  <span className={styles.subject_value}>{grade.subject}</span>
-                </td>
-                <td className={styles.grade}>
-                  <span className={styles.grade_value}>
-                    {" "}
-                    <em>{grade.value}</em>
-                  </span>
-                </td>
-                <td>
-                  <span className={styles.date_value}>
-                    {grade.evaluationDate}
-                  </span>
-                </td>
+    <div className="w-screen">
+      <div className="bg-white/80 w-screen flex justify-center items-center">
+        <div className={styles.catalog_wrapper}>
+          <div className="flex flex-row justify-between">
+            <h1>{firstName + " " + lastName + "'s grades:"}</h1>
+            {decodedToken?.role === "TEACHER" && (
+              <AddGrade
+                fetchGrades={fetchGrades}
+                enrolledCourses={enrolledCourses}
+              />
+            )}
+          </div>
+          <table className={styles.catalog_table}>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Date of Evaluation</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <Pagination
-          current={currentPage}
-          defaultPageSize={pageSize}
-          total={grades?.length + 1}
-          onChange={handlePageChange}
-          className="mt-3"
-        />
+            </thead>
+
+            <tbody>
+              {grades.slice(startIndex, endIndex).map((grade, index) => (
+                <tr key={grade.id}>
+                  <td>
+                    {decodedToken?.role === "TEACHER" && (
+                      <>
+                        <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
+                        <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                      </>
+                    )}
+                  </td>
+                  <td>
+                    <span className={styles.subject_value}>
+                      {grade.subject}
+                    </span>
+                  </td>
+                  <td className={styles.grade}>
+                    <span className={styles.grade_value}>
+                      {" "}
+                      <em>{grade.value}</em>
+                    </span>
+                  </td>
+                  <td>
+                    <span className={styles.date_value}>
+                      {grade.evaluationDate}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Pagination
+            current={currentPage}
+            defaultPageSize={pageSize}
+            total={grades?.length + 1}
+            onChange={handlePageChange}
+            className="mt-3"
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

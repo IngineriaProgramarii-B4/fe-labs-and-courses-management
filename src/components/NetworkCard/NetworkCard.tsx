@@ -153,7 +153,7 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
 
   return (
     <Link
-      to={isStudent ? "/catalog/${user.id}" : ""}
+      to={isStudent ? `/catalog/${user.id}` : ""}
       className={`m-10 w-80 h-96 transition delay-75 ease-in-out hover:scale-[103%] ${
         isStudent ? "cursor-pointer" : "cursor-default"
       } duration-300 after:scale-100 appearance-none`}
