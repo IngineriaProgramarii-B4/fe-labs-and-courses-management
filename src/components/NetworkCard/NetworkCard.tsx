@@ -174,7 +174,6 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
           const fieldData = filteredFields.find(
             (field) => field.backend === key
           );
-
           return fieldData ? (
             <UserInfoFields
               key={v4()}
