@@ -34,7 +34,7 @@ export function RemindersCardBody({ reminders }: { reminders: ReminderDataProps[
                         setIsModalAddReminderOpen={setIsModalAddReminderOpen} />
       <div className="w-2/3 m-auto">
         <button onClick={() => setIsModalAddReminderOpen(true)}
-                className="w-8 h-8 mb-1 font-bold text-white bg-green-600 rounded hover:bg-green-500">+
+                className="w-8 h-8 mb-1 font-bold text-white bg-[#5588da] rounded hover:bg-[#277ff7]">+
         </button>
         <Card title="Your Reminders">
           {

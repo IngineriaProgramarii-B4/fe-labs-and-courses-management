@@ -44,7 +44,7 @@ const Register: React.FC = () => {
         password: values.password,
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         message.success("Registration Successful");
 
         navigate("/login");

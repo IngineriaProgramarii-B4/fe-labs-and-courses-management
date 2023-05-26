@@ -10,7 +10,7 @@ type UserInfoProps = {
 export default function UserInfoFields({ id, title, value }: UserInfoProps) {
   return (
     <div className={"flex h-[2rem]"}>
-      <p className={"my-auto w-[8.5rem] text-end text-gray-500"}>
+      <p className={"my-auto w-[9rem] text-end text-gray-500"}>
         {title === "taughtSubjects" ? (
           <Link to={`/teachers/${id}`}>{title}</Link>
         ) : (

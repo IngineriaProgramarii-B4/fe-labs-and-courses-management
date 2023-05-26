@@ -32,7 +32,7 @@ export default function RemindersContextProvider({
     axiosInstance
       .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => {
-        setLoggedUser(res.data.username)
+        setLoggedUser(res.data.username);
         return res.data.username;
       })
       .then((username) => {
@@ -41,7 +41,10 @@ export default function RemindersContextProvider({
           .then((res) => {
             setReminders(res.status === 404 ? [] : res.data);
           })
-          .catch(err => setReminders([]));
+          .catch(err => {
+            if (err.response.status === 404)
+              setReminders([]);
+          });
       })
       .catch(err => setReminders([]));
   };
@@ -62,7 +65,7 @@ export default function RemindersContextProvider({
       .then(() => {
         getData();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   const deleteReminder = (reminderId: string) => {

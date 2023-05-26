@@ -6,7 +6,8 @@ import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 
 export type CourseType = {
   title: string;
@@ -108,37 +109,84 @@ export default function NetworkCard() {
   }, [isUserModified]);
 
   return (
-    <div data-testid="network-card" className="flex flex-wrap">
-      {users.map(renderCard)}
+    <div data-testid="network-card" className="flex flex-wrap justify-center">
+      {users.length ? (
+        users.map((user) => <RenderCard user={user} key={v4()} />)
+      ) : (
+        <div
+          className={
+            "text-2xl font-bold flex justify-center items-center w-screen h-screen text-white"
+          }
+        >
+          No users available
+        </div>
+      )}
     </div>
   );
 }
 
-const renderCard = (user: UserDataType) => {
-  return (
-    <Card key={v4()} className="m-10 w-80 h-96">
-      <UserHeader
-        key={v4()}
-        username={user.username || "jondoe"}
-        firstname={user.firstName || "Florin"}
-        lastname={user.lastName || "Olariu"}
-        id={user.id}
-        roles={user.roles}
-      />
-      {Object.entries(user).map(([key, value]) => {
-        const fieldData = filteredFields.find((field) => field.backend === key);
+const RenderCard = ({ user }: { user: UserDataType }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [avatar, setAvatar] = useState<string>("");
+  const isStudent = !!(
+    isRoleType(user.roles) && user.roles.find((role) => role.id === 3)
+  );
 
-        return fieldData ? (
-          <UserInfoFields
-            key={v4()}
-            title={fieldData.frontend}
-            value={(!isRoleType(value) && value) || "Not set"}
-            id={user.id}
-          />
-        ) : (
-          ""
-        );
-      })}
-    </Card>
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8082/api/v1/profile/download/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        responseType: "arraybuffer",
+      })
+      .then((res) => {
+        const imgBlob = new Blob([res.data], { type: "png" });
+        const imgUrl = URL.createObjectURL(imgBlob);
+        setAvatar(imgUrl ? imgUrl : mockedAvatar);
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+        }
+      });
+  }, []);
+
+  return (
+    <Link
+      to={isStudent ? "/catalog/${user.id}" : ""}
+      className={`m-10 w-80 h-96 transition delay-75 ease-in-out hover:scale-[103%] ${
+        isStudent ? "cursor-pointer" : "cursor-default"
+      } duration-300 after:scale-100 appearance-none`}
+    >
+      <Card
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <UserHeader
+          username={user.username}
+          firstname={user.firstName}
+          lastname={user.lastName}
+          isStudent={isStudent}
+          isHovered={isHovered}
+          avatar={avatar ? avatar : mockedAvatar}
+        />
+        {Object.entries(user).map(([key, value]) => {
+          const fieldData = filteredFields.find(
+            (field) => field.backend === key
+          );
+
+          return fieldData ? (
+            <UserInfoFields
+              key={v4()}
+              title={fieldData.frontend}
+              value={(!isRoleType(value) && value) || "Not set"}
+              id={user.id}
+            />
+          ) : (
+            ""
+          );
+        })}
+      </Card>
+    </Link>
   );
 };

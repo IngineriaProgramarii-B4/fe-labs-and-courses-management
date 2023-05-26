@@ -5,8 +5,10 @@ import UserInfoModal from "../UserInfoModal/UserInfoModal";
 import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 import axios from "axios";
 import { useJwt } from "react-jwt";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
+  let location = useLocation();
   const [current, setCurrent] = useState("Home");
   const [token, setToken] = useState<string | null>(null);
   const { decodedToken }: any = useJwt(token as string);
@@ -92,10 +94,15 @@ function Navbar() {
 
   return (
     <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
+      selectedKeys={[
+        items.find(
+          (item) =>
+            item.title && location.pathname.includes(item.title.toLowerCase())
+        )?.key || "Home",
+      ]}
       mode="horizontal"
       items={modifiedItems}
+      className="m-auto p-5 bg-transparent text-white text-xl flex flex-row items-center"
     />
   );
 }
