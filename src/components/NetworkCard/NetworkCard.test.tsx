@@ -1,9 +1,15 @@
 /* eslint-disable jest/no-conditional-expect */
 /* eslint-disable testing-library/no-unnecessary-act */
 import React from "react";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import NetworkCard from "./NetworkCard";
+import NetworkCard, { RenderCard } from "./NetworkCard";
 import UserHeader from "./UserHeader";
 import UserInfoFields from "./UserInfoFields";
 import axios, { AxiosInstance } from "axios";
@@ -159,6 +165,14 @@ describe("NetworkCard", () => {
       config: {},
       headers: {},
     });
+
+    (axios.get as jest.Mock).mockResolvedValue({
+      data: new Blob(),
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
   });
 
   afterEach(() => {
@@ -212,5 +226,73 @@ describe("NetworkCard", () => {
 
     const networkCard = screen.queryByTestId("network-card");
     expect(networkCard).toBeInTheDocument();
+  });
+});
+
+describe("RenderCard", () => {
+  const userData = {
+    id: "string",
+    username: "dianacuzic",
+    firstName: "Diana",
+    lastName: "Cuzic",
+    roles: [
+      {
+        id: 1,
+        name: "ADMIN",
+      },
+    ],
+    email: "dianacuzic@gmail.com",
+  };
+
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  beforeEach(() => {
+    mockedAxios.get.mockResolvedValue({
+      data: new Blob(),
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("set avatar on image load", async () => {
+    const mockBlob = new Blob([""], { type: "image/png" });
+    const mockUrl = "mockUrl";
+    global.URL.createObjectURL = jest.fn(() => mockUrl);
+    mockedAxios.get.mockResolvedValue({
+      data: mockBlob,
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
+
+    render(
+      <BrowserRouter>
+        <RenderCard user={userData} />
+      </BrowserRouter>
+    );
+
+    await waitFor(() => expect(mockedAxios.get).toHaveBeenCalled());
+  });
+
+  test("hovering over card", () => {
+    render(
+      <BrowserRouter>
+        <RenderCard user={userData} />
+      </BrowserRouter>
+    );
+
+    const card = screen.getByTestId("user-card");
+    const cardLink = screen.getByTestId("user-card-link");
+
+    // Simulate the mouseEnter event
+    fireEvent.mouseEnter(card);
+    fireEvent.mouseLeave(card);
+    expect(cardLink).toHaveClass("hover:scale-[103%]");
   });
 });
