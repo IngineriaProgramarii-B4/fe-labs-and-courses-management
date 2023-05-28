@@ -121,7 +121,7 @@ export function UserProfileAvatar({
     >
       {isEditing || !avatar ? (
         <Upload
-          action="http://localhost:8082/api/v1/profile/upload"
+          action={`http://localhost:8082/api/v1/profile/upload/${id}`}
           headers={{ Authorization: `Bearer ${localStorage.getItem("token")}` }}
           showUploadList={false}
           onChange={handleChange}

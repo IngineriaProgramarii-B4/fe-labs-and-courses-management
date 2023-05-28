@@ -9,6 +9,11 @@ type UserAvatarProps = {
   setAvatar: (val: string) => void;
 };
 
+type tupleProfilePic = {
+  extension: string;
+  bytes: ArrayBuffer;
+}
+
 function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
 
   const axiosInstance = axios.create({
@@ -40,13 +45,13 @@ function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
             },
             responseType: "arraybuffer"
           })
-            .then(res=> {
-              const imgBlob = new Blob([res.data], { type: 'png' });
+            .then(res => {
+              const imgBlob = new Blob([res.data]);
               const imgUrl = URL.createObjectURL(imgBlob);
               setAvatar(imgUrl ? imgUrl : mockedAvatar);
             })
             .catch(err => {
-              if(err.response.status === 404) {
+              if (err.response.status === 404) {
 
               }
             })
@@ -55,7 +60,7 @@ function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
 
       });
 
-  }, [])
+  }, []);
 
   return (
     <Avatar
