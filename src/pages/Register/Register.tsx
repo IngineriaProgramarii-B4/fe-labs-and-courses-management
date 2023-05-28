@@ -4,6 +4,8 @@ import React from 'react';
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { Toast } from 'react-toastify/dist/components';
+import { toast } from 'react-toastify';
 interface RegisterFormData {
   ID: string;
   email: string;
@@ -45,11 +47,11 @@ const Register: React.FC = () => {
       });
 
       if (response.status === 201) {
-        message.success("Registration Successful");
+        toast.success("Registration Successful");
 
         navigate("/login");
       } else {
-        message.error("Registration failed");
+        toast.error("Registration failed");
       }
     } catch (error: unknown) {
       let errorMessage = "Registration failed";
@@ -61,7 +63,7 @@ const Register: React.FC = () => {
       } else if (error instanceof Error) {
         errorMessage += ": " + error.message;
       }
-      message.error(errorMessage);
+      toast.error(errorMessage);
     }
     
   };

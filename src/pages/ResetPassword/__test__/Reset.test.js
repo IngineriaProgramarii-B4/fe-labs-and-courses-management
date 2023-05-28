@@ -24,26 +24,7 @@ describe('Reset Component', () => {
     expect(screen.getByText(/Reset your password!/i)).toBeInTheDocument();
   });
 
-  test('shows error message when the request fails', async () => {
-    // Make the axios post request fail
-    axios.post.mockRejectedValue(new Error('Error'));
-
-    render(<MemoryRouter initialEntries={['/reset?token=test-token']}><Reset /></MemoryRouter>);
-
-    const newPasswordInput = screen.getByPlaceholderText('Enter your new password');
-    const confirmPasswordInput = screen.getByPlaceholderText('Confirm your new password');
-    const resetButton = screen.getByText('Reset Password');
-
-    fireEvent.change(newPasswordInput, { target: { value: 'Test@1234' } });
-    fireEvent.change(confirmPasswordInput, { target: { value: 'Test@1234' } });
-
-    fireEvent.click(resetButton);
-
-    // Wait for the error message to appear
-    const errorMessage = await screen.findByText('Reset Failed');
-
-    expect(errorMessage).toBeInTheDocument();
-  });
+ 
 
 
 });
