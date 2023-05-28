@@ -93,6 +93,7 @@ export default function UpdateGrade(props: {
           </Form.Item>
           <Form.Item label="Date">
             <DatePicker
+              data-testid="date"
               className="w-[13rem]"
               format="DD.MM.YYYY"
               onChange={(date, dateString) => {

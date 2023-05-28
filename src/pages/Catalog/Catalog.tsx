@@ -124,31 +124,32 @@ function Catalog() {
       <div className={styles.catalog_wrapper}>
         <div className="flex flex-row justify-between">
           <h1>{firstName + " " + lastName + "'s grades:"}</h1>
-          {decodedToken?.role === "TEACHER" && (
-            <div>
-              <Button className="mr-2">
-                <CSVLink
-                  data={csvData.map(({ value, subject, evaluationDate }) => ({
-                    value,
-                    subject,
-                    evaluationDate,
-                  }))}
-                  filename={`${firstName}_${lastName}_grades.csv`}
-                  headers={[
-                    { label: "Value", key: "value" },
-                    { label: "Subject", key: "subject" },
-                    { label: "Evaluation Date", key: "evaluationDate" },
-                  ]}
-                >
-                  Export as CSV
-                </CSVLink>
-              </Button>
+
+          <div>
+            <Button className="mr-2 mb-2">
+              <CSVLink
+                data={csvData.map(({ value, subject, evaluationDate }) => ({
+                  value,
+                  subject,
+                  evaluationDate,
+                }))}
+                filename={`${firstName}_${lastName}_grades.csv`}
+                headers={[
+                  { label: "Value", key: "value" },
+                  { label: "Subject", key: "subject" },
+                  { label: "Evaluation Date", key: "evaluationDate" },
+                ]}
+              >
+                Export as CSV
+              </CSVLink>
+            </Button>
+            {decodedToken?.role === "TEACHER" && (
               <AddGrade
                 fetchGrades={fetchGrades}
                 enrolledCourses={enrolledCourses}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <table className={styles.catalog_table}>
           <thead>

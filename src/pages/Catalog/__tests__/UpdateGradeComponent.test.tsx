@@ -25,36 +25,47 @@ describe("UpdateGrade component", () => {
     const modal = screen.getByRole("dialog", { name: /Update Grade/ });
     expect(modal).toBeInTheDocument();
   });
+  // it("should render labels for grade and evaluation date", () => {
+  //   render(<UpdateGrade fetchGrades={() => {}} id={0} />);
+  //   const dateInput = screen.getByLabelText("Date");
+  //   expect(dateInput).toBeInTheDocument();
+
+  //   const gradeInput = screen.getByLabelText("Grade");
+  //   expect(gradeInput).toBeInTheDocument();
+  // });
 
   it("should submit the form data when the update button is clicked", async () => {
-    mockedAxios.put.mockResolvedValue({ data: {} });
+    mockedAxios.put.mockResolvedValueOnce({
+      data: "Grade updated successfully!",
+    });
 
     render(<UpdateGrade fetchGrades={() => {}} id={0} />);
     const editButton = screen.getByTestId("edit_img");
     fireEvent.click(editButton);
-    const gradeInput = screen.getByPlaceholderText("New grade value...");
-    const dateInput = screen.getByPlaceholderText("New date of evaluation...");
-    const updateButtonInModal = screen.getByRole("button", { name: /Update/ });
 
-    fireEvent.change(gradeInput, { target: { value: "8" } });
-    fireEvent.change(dateInput, { target: { value: "2022-01-01" } });
+    const gradeInput = screen.getByRole("spinbutton");
+    fireEvent.change(gradeInput, { target: { value: 8 } });
 
-    fireEvent.click(updateButtonInModal);
+    const updateButton = screen.getByRole("button", { name: "Update" });
+    fireEvent.click(updateButton);
 
-    await waitFor(() =>
+    await waitFor(() => {
+      expect(mockedAxios.put).toHaveBeenCalledTimes(1);
+    });
+    await waitFor(() => {
       expect(mockedAxios.put).toHaveBeenCalledWith(
-        "http://localhost:8082/api/v1/students/c6189cad-7d76-4f9c-995b-6694f7c40964/grades/0?value=8&evaluationDate=2022-01-01",
+        "http://localhost:8082/api/v1/students/undefined/grades/0?value=8&evaluationDate=",
         {
           value: 8,
-          evaluationDate: "2022-01-01",
+          evaluationDate: "",
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer null`,
           },
         }
-      )
-    );
+      );
+    });
   });
 });

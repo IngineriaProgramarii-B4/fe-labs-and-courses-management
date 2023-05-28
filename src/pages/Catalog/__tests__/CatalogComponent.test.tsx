@@ -9,10 +9,7 @@ describe("Catalog", () => {
   test("renders student's name and grades table", async () => {
     render(<Catalog />);
     await waitFor(() => {
-      expect(screen.getByText("User:")).toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(screen.getByText("Role:")).toBeInTheDocument();
+      expect(screen.getByText("'s grades:")).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(screen.getByText("Subject")).toBeInTheDocument();
@@ -21,7 +18,7 @@ describe("Catalog", () => {
       expect(screen.getByText("Grade")).toBeInTheDocument();
     });
     await waitFor(() => {
-      expect(screen.getByText("Date of Evaluation")).toBeInTheDocument();
+      expect(screen.getByText("Evaluation Date")).toBeInTheDocument();
     });
   });
 
