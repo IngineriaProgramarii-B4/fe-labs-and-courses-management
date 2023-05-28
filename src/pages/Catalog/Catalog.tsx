@@ -6,7 +6,8 @@ import DeleteGrade from "./components/DeleteGrade";
 import styles from "./Catalog.module.scss";
 import { useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
-import { Pagination } from "antd";
+import { Button, Pagination } from "antd";
+import { CSVLink } from "react-csv";
 
 interface Grade {
   value: number;
@@ -26,6 +27,7 @@ function Catalog() {
   const pageSize = 4;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [csvData, setCsvData] = useState<Grade[]>([]);
 
   async function fetchEnrolledCourses() {
     try {
@@ -91,6 +93,7 @@ function Catalog() {
         allGrades.push(...data.grades);
       }
       setGrades(allGrades);
+      setCsvData(allGrades);
     } catch (error) {
       console.log(error);
     }
@@ -117,67 +120,82 @@ function Catalog() {
   const endIndex = startIndex + pageSize;
 
   return (
-    <div className="w-screen">
-      <div className="bg-white/80 w-screen flex justify-center items-center">
-        <div className={styles.catalog_wrapper}>
-          <div className="flex flex-row justify-between">
-            <h1>{firstName + " " + lastName + "'s grades:"}</h1>
-            {decodedToken?.role === "TEACHER" && (
+    <div className="w-screen bg-white/90 h-screen overflow-hidden">
+      <div className={styles.catalog_wrapper}>
+        <div className="flex flex-row justify-between">
+          <h1>{firstName + " " + lastName + "'s grades:"}</h1>
+          {decodedToken?.role === "TEACHER" && (
+            <div>
+              <Button className="mr-2">
+                <CSVLink
+                  data={csvData.map(({ value, subject, evaluationDate }) => ({
+                    value,
+                    subject,
+                    evaluationDate,
+                  }))}
+                  filename={`${firstName}_${lastName}_grades.csv`}
+                  headers={[
+                    { label: "Value", key: "value" },
+                    { label: "Subject", key: "subject" },
+                    { label: "Evaluation Date", key: "evaluationDate" },
+                  ]}
+                >
+                  Export as CSV
+                </CSVLink>
+              </Button>
               <AddGrade
                 fetchGrades={fetchGrades}
                 enrolledCourses={enrolledCourses}
               />
-            )}
-          </div>
-          <table className={styles.catalog_table}>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Subject</th>
-                <th>Grade</th>
-                <th>Date of Evaluation</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {grades.slice(startIndex, endIndex).map((grade, index) => (
-                <tr key={grade.id}>
-                  <td>
-                    {decodedToken?.role === "TEACHER" && (
-                      <>
-                        <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
-                        <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
-                      </>
-                    )}
-                  </td>
-                  <td>
-                    <span className={styles.subject_value}>
-                      {grade.subject}
-                    </span>
-                  </td>
-                  <td className={styles.grade}>
-                    <span className={styles.grade_value}>
-                      {" "}
-                      <em>{grade.value}</em>
-                    </span>
-                  </td>
-                  <td>
-                    <span className={styles.date_value}>
-                      {grade.evaluationDate}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <Pagination
-            current={currentPage}
-            defaultPageSize={pageSize}
-            total={grades?.length + 1}
-            onChange={handlePageChange}
-            className="mt-3"
-          />
+            </div>
+          )}
         </div>
+        <table className={styles.catalog_table}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Subject</th>
+              <th>Grade</th>
+              <th>Evaluation Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {grades.slice(startIndex, endIndex).map((grade, index) => (
+              <tr key={grade.id}>
+                <td>
+                  {decodedToken?.role === "TEACHER" && (
+                    <>
+                      <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
+                      <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                    </>
+                  )}
+                </td>
+                <td>
+                  <span className={styles.subject_value}>{grade.subject}</span>
+                </td>
+                <td className={styles.grade}>
+                  <span className={styles.grade_value}>
+                    {" "}
+                    <em>{grade.value}</em>
+                  </span>
+                </td>
+                <td>
+                  <span className={styles.date_value}>
+                    {grade.evaluationDate}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Pagination
+          current={currentPage}
+          defaultPageSize={pageSize}
+          total={grades?.length + 1}
+          onChange={handlePageChange}
+          className="mt-3"
+        />
       </div>
     </div>
   );

@@ -1,10 +1,13 @@
 @media (min-width: 568px) {
-  // body {
-  //   background: url("../../img/temporary_bg.jpg") center no-repeat;
-  //   background-size: cover;
-  //   font-size: 0.9rem;
-  //   font-family: "Sora", sans-serif;
-  // }
+  body {
+    // background: url("../../img/temporary_bg.jpg") center no-repeat;
+    background-size: cover;
+    font-size: 0.9rem;
+    font-family: "Sora", sans-serif;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+  }
   .catalog_table {
     border-collapse: collapse;
     width: 100%;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, DatePicker, Select, InputNumber } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface GradesData {
   value: number;
@@ -63,11 +64,12 @@ export default function AddGrade(props: {
           console.log(response.data);
           setSubjectName("");
           setGradeValue(0);
-
+          toast.success("New grade added!");
           props.fetchGrades();
         })
         .catch((error) => {
           console.error(error);
+          toast.error("Error adding new grade!");
         });
     }
   };

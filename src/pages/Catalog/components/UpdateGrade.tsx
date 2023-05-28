@@ -5,6 +5,8 @@ import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { t } from "msw/lib/glossary-de6278a9";
 
 export default function UpdateGrade(props: {
   fetchGrades: () => void;
@@ -43,10 +45,12 @@ export default function UpdateGrade(props: {
       )
       .then((response) => {
         // console.log(response.data);
+        toast.success("Grade updated successfully!");
         props.fetchGrades();
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Error updating grade!");
       });
   };
   return (

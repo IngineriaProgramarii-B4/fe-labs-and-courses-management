@@ -4,6 +4,7 @@ import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function DeleteGrade(props: {
   id: number;
@@ -42,9 +43,13 @@ export default function DeleteGrade(props: {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
+        toast.success("Grade deleted successfully!");
         props.fetchGrades();
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast.error("Error deleting grade!");
+      });
   };
 
   return (
