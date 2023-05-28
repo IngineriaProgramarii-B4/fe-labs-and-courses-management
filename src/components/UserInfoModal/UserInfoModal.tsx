@@ -57,7 +57,7 @@ export function ModalFooter({
           children={"Save"}
           onClick={onSave}
           className={
-            "border-green-600 text-green-600 hover:!border-green-500 hover:!text-green-500"
+            "border-[#5588da] text-[#5588da] hover:!border-[#277ff7] hover:!text-[#277ff7]"
           }
         />
       </>
