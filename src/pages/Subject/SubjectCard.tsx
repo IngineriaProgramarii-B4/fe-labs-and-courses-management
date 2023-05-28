@@ -3,6 +3,7 @@ import FormModal from "./FormModal";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import { Card, Button, Modal } from "antd";
+import { v4 } from "uuid";
 const { Meta } = Card;
 const { confirm } = Modal;
 
@@ -13,6 +14,7 @@ interface Subject {
   year: number;
   semester: number;
   credits: number;
+  hoursOfStudy: number;
 }
 
 interface SubjectCardProps {
@@ -26,7 +28,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
   const [SubjectModal, setSubjectModal] = useState(false);
   const [cardImg, setCardImg] = useState<string>("");
 
-/*  console.log(props.role);*/
+  /*  console.log(props.role);*/
   const handleClick = (title: string) => {
     window.location.href = `http://localhost:3000/selectedsubject?subject=${title}`;
   };
@@ -59,8 +61,8 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
           `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`,
           {
             headers: {
-              'Authorization': `Bearer ${localStorage.getItem("token")}`,
-            }
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
         );
         props.setIsModified(props.isModified ? false : true);
@@ -77,8 +79,8 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`,
         {
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          }
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       if (!response.data.image) {
@@ -91,7 +93,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         `http://localhost:8082/api/v1/subjects/subjectTitle=${title}/image`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           responseType: "arraybuffer",
         }
@@ -113,35 +115,48 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
       <Card
         onClick={() => handleClick(props.card.title)}
         hoverable
-        cover={<img alt={props.card.title} src={cardImg} />}
+        cover={
+          <div>
+            <img alt={props.card.title} src={cardImg} className="w-full h-52" />
+          </div>
+        }
         actions={[
           props.role === "TEACHER"
-          ?
-          [
-          <Button
-            data-testid="edit-button"
-            type="text"
-            key="edit"
-            onClick={(event) => {
-              handleEditClick(event, props.card);
-            }}
-          >
-            Edit
-          </Button>,
-          <Button
-            type="text"
-            key="delete"
-            onClick={(event) => handleDeleteClick(event, props.card.title)}
-          >
-            Delete
-          </Button>,
-          ]: []
+            ? [
+                <Button
+                  data-testid="edit-button"
+                  type="text"
+                  key={v4()}
+                  onClick={(event) => {
+                    handleEditClick(event, props.card);
+                  }}
+                >
+                  Edit
+                </Button>,
+                <Button
+                  type="text"
+                  key={v4()}
+                  onClick={(event) =>
+                    handleDeleteClick(event, props.card.title)
+                  }
+                >
+                  Delete
+                </Button>,
+              ]
+            : [],
         ]}
         style={{ width: 300 }}
       >
         <Meta
           title={props.card.title}
-          description={props.card.description.substring(0, 100)}
+          description={
+            <div>
+              <p>{`Year: ${props.card.year}`}</p>
+              <p>{`Semester: ${props.card.semester}`}</p>
+              <p>{`Credits: ${props.card.credits}`}</p>
+              <p>{`Estimated time to study: ${props.card.hoursOfStudy}h`}</p>
+            </div>
+          }
         />
       </Card>
       <FormModal
@@ -156,6 +171,7 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
         credits={props.card.credits}
         isModified={props.isModified}
         setIsModified={props.setIsModified}
+        key={v4()}
       />
     </>
   );

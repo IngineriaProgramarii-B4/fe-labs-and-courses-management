@@ -19,7 +19,6 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
   }, [props.clearFileList]);
 
   const handleFileUpload = async (options: any) => {
-    console.log(options);
     const { onError, file, onProgress, onSuccess } = options;
     const formData = new FormData();
     const config = {
@@ -39,7 +38,6 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
         formData,
         config
       );
-      console.log(res);
       message.success(`${file.name} file uploaded successfully.`);
       onSuccess("Ok");
     } catch (err) {
@@ -50,12 +48,12 @@ const FileTransfer: React.FC<FileTransferProps> = (props) => {
   };
 
   const onFileChange = ({ file, fileList }: any) => {
-    console.log(fileList);
     setFileList(fileList);
   };
 
   return (
-    <Dragger data-testid="file-input"
+    <Dragger
+      data-testid="file-input"
       showUploadList={{ showRemoveIcon: false }}
       multiple
       customRequest={handleFileUpload}

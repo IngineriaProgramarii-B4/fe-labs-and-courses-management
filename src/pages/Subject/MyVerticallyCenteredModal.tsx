@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Modal, Button, Input } from "antd";
+import { v4 } from "uuid";
 
 interface MyVerticallyCenteredModalProps {
   title: string;
@@ -52,14 +53,14 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
       footer={
         editing
           ? [
-              <Button key="close" onClick={() => setEditing(false)}>
+              <Button key={v4()} onClick={() => setEditing(false)}>
                 Close
               </Button>,
               <Button
                 className="bg-buttonBlue hover:bg-hoverBlue"
                 style={{ color: "white" }}
                 data-testid="save-modal"
-                key="save"
+                key={v4()}
                 type="primary"
                 onClick={handleSave}
               >
@@ -69,7 +70,7 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
           : [
               <Button
                 data-testid="close-modal"
-                key="close"
+                key={v4()}
                 onClick={() => props.setModalShow(false)}
               >
                 Close
@@ -80,7 +81,7 @@ const MyVerticallyCenteredModal: React.FC<MyVerticallyCenteredModalProps> = (
                       className="bg-buttonBlue hover:bg-hoverBlue"
                       style={{ color: "white" }}
                       data-testid="edit-modal"
-                      key="edit"
+                      key={v4()}
                       type="primary"
                       onClick={handleEdit}
                     >
