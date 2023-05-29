@@ -1,92 +1,91 @@
-.appBg{
-   display: flex;
-   width: 100vw;
-   height: 100vh;
-   // background: linear-gradient(53.46deg, #0091d9 1.15%, #ffffff 101.52%);
-   // background: url("../../img/temporary_bg.jpg") center no-repeat;
-   background-size: cover ;  
-   justify-content: flex-start;
-   align-items: center;
- 
- }
- 
- /* SignUp */
- 
- .registerForm{
-    background-color: rgb(255, 255, 255,0.8);
-    box-shadow: 0px 8px 32px 0 rgb(0,0,255,0.33);
-    backdrop-filter: blur(3px);
-    font-size: 1.1rem;
-    // margin-left: 1rem;
-    padding: 8%;
-    border-radius: 16px;
- }
- 
- .titluForm{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
- }
- 
- .registerButton{
-   background-color: #0097db   ;  
-    border-radius: 0%;
-    color: white;
- }
- 
- .registerContainer {
-   display: flex;
-   flex-direction: column;
-   align-items:center ;
- }
- 
- 
- 
- .rememberMe {
-   font-size: 18px;
-   margin-right: 45px;
-    display: inline;
- }
- 
-   .loginForm {
-        margin: auto;
-        font-size: 0.8rem;
-   }
- 
- .forgotPass {
- 
-     margin-top: 30px;
-     margin-left: 50px;
- 
- }
- 
- .registerContainer {
-    color: black;
- }
- 
- @media screen and (max-width: 768px) {
- 
- //   .loginForm {
- //        margin: auto;
- //   }
- }
- 
- @media screen and (min-width: 768px) {
-    .registerForm {
-       margin-left: 5rem;
-      }
- }
- 
- /* @media screen and (max-width: 329px) {
+.appBg {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  // background: linear-gradient(53.46deg, #0091d9 1.15%, #ffffff 101.52%);
+  // background: url("../../img/temporary_bg.jpg") center no-repeat;
+  background-size: cover;
+  justify-content: center;
+  padding: 1rem;
+  align-items: center;
+}
+
+/* SignUp */
+
+.registerForm {
+  background-color: rgb(255, 255, 255, 0.8);
+  box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
+  backdrop-filter: blur(3px);
+  font-size: 1.1rem;
+  // margin-left: 1rem;
+  padding: 8%;
+  border-radius: 16px;
+  max-width: 35.5rem;
+}
+
+.titluForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.registerButton {
+  background-color: #0097db;
+  border-radius: 0%;
+  color: white;
+}
+
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rememberMe {
+  font-size: 18px;
+  margin-right: 45px;
+  display: inline;
+}
+
+.loginForm {
+  margin: auto;
+  font-size: 0.8rem;
+}
+
+.forgotPass {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.registerContainer {
+  color: black;
+}
+
+@media screen and (max-width: 768px) {
+  //   .loginForm {
+  //        margin: auto;
+  //   }
+}
+
+@media screen and (min-width: 768px) {
+  .appBg {
+    justify-content: flex-start;
+  }
+  .registerForm {
+    margin-left: 5rem;
+  }
+}
+
+/* @media screen and (max-width: 329px) {
     .titluForm {
         font-size: smaller;
         margin: auto;
     }
  } */
- 
- // @media screen and (max-width: 410px) {
- //    .loginForm {
- //        font-size: 0.8rem;
- //    }
- // }
+
+// @media screen and (max-width: 410px) {
+//    .loginForm {
+//        font-size: 0.8rem;
+//    }
+// }
