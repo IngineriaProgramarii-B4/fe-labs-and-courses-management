@@ -150,7 +150,8 @@ export const RenderCard = ({ user }: { user: UserDataType }) => {
         setAvatar(imgUrl ? imgUrl : mockedAvatar);
       })
       .catch((err) => {
-        if (err.response && err.response.status === 404) {
+        if (err.response.status === 404) {
+
         }
       });
   }, []);
@@ -180,7 +181,6 @@ export const RenderCard = ({ user }: { user: UserDataType }) => {
           const fieldData = filteredFields.find(
             (field) => field.backend === key
           );
-
           return fieldData ? (
             <UserInfoFields
               key={v4()}

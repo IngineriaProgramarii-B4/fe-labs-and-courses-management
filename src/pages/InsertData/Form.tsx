@@ -53,7 +53,6 @@ const FormInfo = () => {
   const onFinish = (values: any) => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Insert form data to the database
       axios
         .post("http://localhost:8082/api/v1/secretary", values, {
           headers: {
@@ -74,7 +73,7 @@ const FormInfo = () => {
   };
 
   return (
-  <><Navbar />
+  <>
     <div className={styles.appBg}>
        
       <Form className={styles.dataForm} form={form} onFinish={onFinish}>

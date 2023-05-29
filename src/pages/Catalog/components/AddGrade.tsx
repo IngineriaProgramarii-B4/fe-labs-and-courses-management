@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Form } from "antd";
+import { Modal, Button, Form, DatePicker, Select, InputNumber } from "antd";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface GradesData {
   value: number;
@@ -9,29 +11,17 @@ interface GradesData {
   deleted: boolean;
 }
 
-export default function AddGrade(props: { fetchGrades: () => void }) {
+export default function AddGrade(props: {
+  fetchGrades: () => void;
+  enrolledCourses: any[];
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subjectName, setSubjectName] = useState<string>("");
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
-
-  const handleSubjectNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSubjectName(event.target.value);
-    console.log(subjectName);
-  };
-
-  const handleGradeValueChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setGradeValue(Number(event.target.value));
-  };
-
-  const handleEvDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEvDateValue(event.target.value);
-  };
+  const { enrolledCourses } = props;
+  const { id } = useParams();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -49,7 +39,6 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    console.log(storedToken);
   }, []);
   const handleAddGrade = () => {
     if (subjectName && gradeValue && evDateValue) {
@@ -62,12 +51,12 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
 
       axios
         .post(
-          "http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades",
+          `http://localhost:8082/api/v1/students/${id}/grades`,
           gradesData,
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: "Bearer " + token,
             },
           }
         )
@@ -75,18 +64,21 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
           console.log(response.data);
           setSubjectName("");
           setGradeValue(0);
-
+          toast.success("New grade added!");
           props.fetchGrades();
         })
         .catch((error) => {
           console.error(error);
+          toast.error("Error adding new grade!");
         });
     }
   };
 
   return (
     <>
-      <Button onClick={showModal}>+</Button>
+      <Button className="mb-3" onClick={showModal}>
+        Add Grade +
+      </Button>
       <Modal
         title="Add Grade"
         open={isModalOpen}
@@ -96,6 +88,7 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
         centered={true}
         destroyOnClose={true}
         width={400}
+        okType="default"
       >
         <Form
           labelCol={{ span: 6 }}
@@ -103,24 +96,35 @@ export default function AddGrade(props: { fetchGrades: () => void }) {
           style={{ maxWidth: 600 }}
         >
           <Form.Item label="Subject" htmlFor="subjectName">
-            <Input
-              onChange={handleSubjectNameChange}
-              placeholder="Subject name..."
+            <Select
               id="subjectName"
+              className="w-[4rem]"
+              onChange={(value: string) => setSubjectName(value)}
+              defaultValue="Select subject"
+              options={enrolledCourses}
             />
           </Form.Item>
           <Form.Item label="Grade" htmlFor="gradeValue">
-            <Input
-              onChange={handleGradeValueChange}
-              placeholder="Grade value..."
+            <InputNumber
               id="gradeValue"
+              min={1}
+              max={10}
+              className="w-[13rem]"
+              defaultValue={5}
+              onChange={(value: any) => {
+                setGradeValue(value);
+              }}
             />
           </Form.Item>
           <Form.Item label="Date" htmlFor="date">
-            <Input
-              onChange={handleEvDateChange}
-              placeholder="Date of evaluation..."
+            <DatePicker
               id="date"
+              className="w-[13rem]"
+              data-testid="edit-date"
+              format="DD.MM.YYYY"
+              onChange={(date, dateString) => {
+                setEvDateValue(dateString);
+              }}
             />
           </Form.Item>
         </Form>
