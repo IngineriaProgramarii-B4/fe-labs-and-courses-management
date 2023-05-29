@@ -13,14 +13,14 @@ import NetworkCard, { RenderCard } from "./NetworkCard";
 import UserHeader from "./UserHeader";
 import UserInfoFields from "./UserInfoFields";
 import axios, { AxiosInstance } from "axios";
-import { BrowserRouter } from "react-router-dom";
-import { toast } from "react-toastify";
+import { BrowserRouter, useParams } from "react-router-dom";
 
-jest.mock("react-toastify", () => ({
-  toast: {
-    error: jest.fn(),
-  },
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn(),
 }));
+const useParamsMock = useParams as jest.Mock;
+
 jest.mock("axios");
 const axiosInstanceMock = axios as jest.Mocked<typeof axios>;
 
@@ -156,6 +156,7 @@ describe("NetworkCard", () => {
   let axiosInstance: jest.Mocked<AxiosInstance>;
   beforeEach(() => {
     axiosInstance = createMockedAxiosInstance();
+    useParamsMock.mockReturnValue({ param: "" });
 
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     axiosInstance.get.mockResolvedValue({
@@ -177,9 +178,39 @@ describe("NetworkCard", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    useParamsMock.mockClear();
   });
 
-  test("should render properly", async () => {
+  test("should render properly for url param all", async () => {
+    useParamsMock.mockReturnValue({ param: "all" });
+    axiosInstanceMock.create.mockReturnValue(axiosInstance);
+    await act(async () => {
+      render(
+        <BrowserRouter>
+          <NetworkCard />
+        </BrowserRouter>
+      );
+    });
+
+    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
+    mockedNetworkData.forEach((data) => {
+      expect(screen.getByText(data.email)).toBeInTheDocument();
+      expect(screen.getByText(data.firstname)).toBeInTheDocument();
+      expect(screen.getByText(data.lastname)).toBeInTheDocument();
+      data.year && expect(screen.getByText(data.year)).toBeInTheDocument();
+      data.semester &&
+        expect(screen.getByText(data.semester)).toBeInTheDocument();
+      data.registrationNumber &&
+        expect(screen.getByText(data.registrationNumber)).toBeInTheDocument();
+      data.enrolledCourses &&
+        data.enrolledCourses[0] &&
+        expect(
+          screen.getByText(new RegExp(data.enrolledCourses[0], "i"))
+        ).toBeInTheDocument();
+    });
+  });
+
+  test("should render properly for no url param", async () => {
     axiosInstanceMock.create.mockReturnValue(axiosInstance);
     await act(async () => {
       render(
