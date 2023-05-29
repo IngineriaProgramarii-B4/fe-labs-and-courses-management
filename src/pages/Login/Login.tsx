@@ -3,6 +3,7 @@ import { Button, Form, Input, message, Typography } from "antd";
 import styles from './Login.module.scss';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 interface LoginFormData {
   myEmail: string;
   myPassword: string;
@@ -42,14 +43,14 @@ function Login() {
       if (response.data && response.data.accessToken) {
         // Salvează tokenul JWT în local storage sau într-un alt loc adecvat
         localStorage.setItem('token', response.data.accessToken);
-        message.success('Login Successful');
+        toast.success('Login Successful');
         navigate('/Home');
       } else {
-        message.error('Login failed');
+        toast.error('Login failed');
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        message.error('Login failed: ' + error.message);
+        toast.error('Login failed: ' + error.message);
       } else {
         console.error('Login failed with a non-Error:', error);
       }

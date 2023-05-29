@@ -1,114 +1,91 @@
-.topBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
+.appBg {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  // background: linear-gradient(53.46deg, #0091d9 1.15%, #ffffff 101.52%);
+  // background: url("../../img/temporary_bg.jpg") center no-repeat;
+  background-size: cover;
+  justify-content: center;
+  padding: 1rem;
+  align-items: center;
 }
 
-.Formular {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+/* SignUp */
+
+.registerForm {
+  background-color: rgb(255, 255, 255, 0.8);
+  box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
+  backdrop-filter: blur(3px);
+  font-size: 1.1rem;
+  // margin-left: 1rem;
+  padding: 8%;
+  border-radius: 16px;
+  max-width: 35.5rem;
+}
+
+.titluForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.registerButton {
+  background-color: #0097db;
+  border-radius: 0%;
+  color: white;
+}
+
+.registerContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 400px;
-  width: 80%;
 }
 
-.PullUp {
-  animation: slide-up 1.5s ease-out;
+.rememberMe {
+  font-size: 18px;
+  margin-right: 45px;
+  display: inline;
 }
 
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.loginForm {
+  margin: auto;
+  font-size: 0.8rem;
 }
 
-.Formular.animate {
-  top: 50%;
+.forgotPass {
+  margin-top: 30px;
+  margin-left: 50px;
 }
 
-.Formular .ant-btn-primary {
+.registerContainer {
   color: black;
-  width: 100%;
-  text-align: center;
 }
 
-.Formular .ant-btn-primary:focus,
-.Formular .ant-btn-primary:hover {
-  border-color: none;
-  box-shadow: none;
+@media screen and (max-width: 768px) {
+  //   .loginForm {
+  //        margin: auto;
+  //   }
 }
 
-.Formular .ant-form-item {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.Formular .ant-form-item-label {
-  flex: 1;
-  text-align: left;
-  font-family: sans-serif;
-  color: gray;
-}
-
-.Formular .ant-form-item-control {
-  flex: 2;
-  text-align: center;
-}
-
-.Formular .ant-typography a:hover {
-  color: rgb(12, 88, 159);
-}
-
-.TitluForm {
-  margin-bottom: 32px;
-  margin-top: 0;
-  text-align: center;
-  animation: slide-in 1s ease-out;
-}
-
-@keyframes slide-in {
-  from {
-    transform: translateX(100%);
+@media screen and (min-width: 768px) {
+  .appBg {
+    justify-content: flex-start;
   }
-  to {
-    transform: translateX(0);
+  .registerForm {
+    margin-left: 5rem;
   }
 }
 
-.formItem {
-  width: 100%;
-  margin-bottom: 16px;
-  text-align: center; 
-}
+/* @media screen and (max-width: 329px) {
+    .titluForm {
+        font-size: smaller;
+        margin: auto;
+    }
+ } */
 
-.btnRegister {
-  color: black;
-  width: 200%;
-  // transform: translateX(-50%);
-  text-align: center;
-}
-
-.labelAlignment {
-  text-align: left;
-}
-
-.registerText {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.signInOption {
-  width: 200%;
-  text-align: center;
-}
+// @media screen and (max-width: 410px) {
+//    .loginForm {
+//        font-size: 0.8rem;
+//    }
+// }

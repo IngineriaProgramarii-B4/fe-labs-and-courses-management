@@ -3,7 +3,8 @@ import {Button, Form,Input, message, Typography } from "antd";
 import styles from './Reset.module.scss';
 import  {resetPassword}  from '../../services/api';
 import { useNavigate } from 'react-router-dom';  // importa useNavigate
-
+import { Toast } from 'react-toastify/dist/components';
+import { toast } from 'react-toastify';
 interface ResetValues {
   myPassword: string;
   confirmPassword: string;
@@ -28,11 +29,11 @@ function Reset() {
     try {
       console.log(token);
       await resetPassword(newPassword, token); // aici apelezi functia resetPassword cu noua parola si tokenul
-      message.success("Reset Successful");
+      toast.success("Reset Successful");
       navigate('/login');  
     } catch (error) {
       console.error(error);
-      message.error("Reset Failed");
+      toast.error("Reset Failed");
     }
   };
 

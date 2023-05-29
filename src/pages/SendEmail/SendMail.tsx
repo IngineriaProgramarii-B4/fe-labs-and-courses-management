@@ -3,15 +3,16 @@ import { Button, Form, Input, message, Typography } from "antd";
 import styles from './SendMail.module.scss';
 import { Link } from 'react-router-dom';
 import { sendResetEmail } from '../../services/api';
-
+import { Toast } from 'react-toastify/dist/components';
+import { toast } from 'react-toastify';
 function SendMail() {
   const reset = async (values: { myEmail: string }) => {
     try {
-      message.success("Reset Successful");
+      toast.success("We confirm that the pasword reset email has been sent to your registered address!")
       await sendResetEmail(values.myEmail);
       
     } catch (error) {
-      message.error("Error sending reset email");
+      toast.error("Error sending reset email");
     }
   };
 
