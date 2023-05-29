@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { Link, useParams } from "react-router-dom";
 import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
+import { useJwt } from "react-jwt";
+
 
 export type CourseType = {
   title: string;
@@ -125,9 +127,11 @@ export default function NetworkCard() {
   );
 }
 
-const RenderCard = ({ user }: { user: UserDataType }) => {
+export const RenderCard = ({ user }: { user: UserDataType }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [avatar, setAvatar] = useState<string>("");
+  const { decodedToken }: any = useJwt(localStorage.getItem("token") as string);
+
   const isStudent = !!(
     isRoleType(user.roles) && user.roles.find((role) => role.id === 3)
   );
@@ -147,18 +151,21 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
       })
       .catch((err) => {
         if (err.response.status === 404) {
+
         }
       });
   }, []);
 
   return (
     <Link
-      to={isStudent ? `/catalog/${user.id}` : ""}
+      to={isStudent && decodedToken?.role !== "STUDENT" ? `/catalog/${user.id}` : ""}
       className={`m-10 w-80 h-96 transition delay-75 ease-in-out hover:scale-[103%] ${
-        isStudent ? "cursor-pointer" : "cursor-default"
+        isStudent && decodedToken?.role !== "STUDENT" ? "cursor-pointer" : "cursor-default"
       } duration-300 after:scale-100 appearance-none`}
+      data-testid="user-card-link"
     >
       <Card
+        data-testid="user-card"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

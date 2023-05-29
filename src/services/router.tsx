@@ -15,6 +15,7 @@ import Catalog from "../pages/Catalog/Catalog";
 import FormInfo from "../pages/InsertData/Form";
 import RemindersContextProvider from "../components/RemindersCard/RemindersContext";
 import UserContextProvider from "../components/UserContext/UserContext";
+import api from "../services/api";
 import jwt_decode from "jwt-decode";
 
 const isAuthenticated = () => {

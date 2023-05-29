@@ -1,6 +1,7 @@
 import React from "react";
 import {
   act,
+  createEvent,
   fireEvent,
   render,
   screen,
@@ -144,6 +145,9 @@ describe("ModalFooter", () => {
 });
 
 describe("UserProfileAvatar", () => {
+  const setNewAvatar = jest.fn();
+  const setAvatar = jest.fn();
+
   test("should render properly when not editing and with an avatar", () => {
     const userAvatar = "someImage.png";
     render(
@@ -177,6 +181,81 @@ describe("UserProfileAvatar", () => {
     const uploadText = screen.queryByText("Upload avatar");
     expect(uploadText).not.toBeInTheDocument();
   });
+
+  test("should convert selected file to base64 when done uploading", async () => {
+    const fakeFile = new File(["(⌐□_□)"], "avatar.png", { type: "image/png" });
+
+    const { getByTestId } = render(
+      <UserProfileAvatar
+        isEditing={true}
+        newAvatar={null}
+        avatar={undefined}
+        setNewAvatar={setNewAvatar}
+        id={"id"}
+        setAvatar={setAvatar}
+      />
+    );
+
+    const input = getByTestId("avatar-upload").querySelector("input");
+    if (input) {
+      const fileSelectionEvent = createEvent.change(input, {
+        target: { files: [fakeFile] },
+      });
+      Object.defineProperty(fileSelectionEvent, "target", {
+        writable: true,
+        value: { files: [fakeFile] },
+      });
+
+      fireEvent(input, fileSelectionEvent);
+
+      // wait for FileReader to finish
+      await waitFor(() => expect(setNewAvatar).toBeCalled());
+      expect(setAvatar).toBeCalledWith(
+        expect.stringContaining("data:image/png;base64")
+      );
+    }
+  });
+
+  test("should reject non-image file before uploading", async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const fakeFile = new File(["(⌐□_□)"], "avatar.txt", { type: "text/plain" });
+
+    const { getByTestId } = render(
+      <UserProfileAvatar
+        isEditing={true}
+        newAvatar={null}
+        avatar={undefined}
+        setNewAvatar={() => {}}
+        id={"id"}
+        setAvatar={() => {}}
+      />
+    );
+
+    const input = getByTestId("avatar-upload").querySelector("input");
+    if (input) {
+      const fileSelectionEvent = createEvent.change(input, {
+        target: { files: [fakeFile] },
+      });
+      Object.defineProperty(fileSelectionEvent, "target", {
+        writable: true,
+        value: { files: [fakeFile] },
+      });
+
+      fireEvent(input, fileSelectionEvent);
+
+      // since the upload process is rejected, these functions should not be called
+      await waitFor(() => expect(setNewAvatar).not.toBeCalled());
+      expect(setAvatar).not.toBeCalled();
+      // check if console.error is called
+      expect(consoleErrorSpy).toBeCalledWith(
+        "You can only upload JPG/PNG file!"
+      );
+    }
+
+    consoleErrorSpy.mockRestore();
+  });
 });
 
 describe("UserInfoModal", () => {
@@ -203,6 +282,7 @@ describe("UserInfoModal", () => {
           lastName: "Doe",
           username: "johndoe",
           email: "john.doe@example.com",
+          id: "91b37ec0-4b38-41b7-be36-e229cbe86370",
           roles: [
             {
               id: 1,
@@ -211,6 +291,14 @@ describe("UserInfoModal", () => {
           ],
         },
       ],
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    });
+
+    (axios.get as jest.Mock).mockResolvedValue({
+      data: new Blob(),
       status: 200,
       statusText: "OK",
       config: {},
@@ -430,7 +518,7 @@ describe("UserInfoModal", () => {
 
     await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
 
-    fireEvent.click(screen.getAllByRole("img")[0]);
+    fireEvent.click(screen.getByRole("button", { name: /Close/ }));
     expect(screen.queryByText("User Profile")).not.toBeInTheDocument();
   });
 });

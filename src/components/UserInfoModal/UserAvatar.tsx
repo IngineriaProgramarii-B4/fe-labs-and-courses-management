@@ -9,15 +9,19 @@ type UserAvatarProps = {
   setAvatar: (val: string) => void;
 };
 
-function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
+type tupleProfilePic = {
+  extension: string;
+  bytes: ArrayBuffer;
+};
 
+function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8082/api/v1",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   useEffect(() => {
@@ -33,29 +37,27 @@ function UserAvatar({ avatar, onClick, setAvatar }: UserAvatarProps) {
           .then((res) => res.data)
           .then((data) => {
             return data[0];
-          }).then(res => {
-          axios.get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
-            headers: {
-              "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            responseType: "arraybuffer"
           })
-            .then(res=> {
-              const imgBlob = new Blob([res.data], { type: 'png' });
-              const imgUrl = URL.createObjectURL(imgBlob);
-              setAvatar(imgUrl ? imgUrl : mockedAvatar);
-            })
-            .catch(err => {
-              if(err.response.status === 404) {
-
-              }
-            })
-          ;
-        });
-
+          .then((res) => {
+            axios
+              .get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                responseType: "arraybuffer",
+              })
+              .then((res) => {
+                const imgBlob = new Blob([res.data]);
+                const imgUrl = URL.createObjectURL(imgBlob);
+                setAvatar(imgUrl ? imgUrl : mockedAvatar);
+              })
+              .catch((err) => {
+                if (err?.response?.status === 404) {
+                }
+              });
+          });
       });
-
-  }, [])
+  }, []);
 
   return (
     <Avatar

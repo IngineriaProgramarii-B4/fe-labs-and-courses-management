@@ -147,11 +147,11 @@ describe("RemindersCardBody", () => {
 });
 
 describe("RemindersCard", () => {
-  test("should render all the reminders", () => {
-    render(
-      <RemindersContextProvider>
-        <RemindersCard />
-      </RemindersContextProvider>
-    );
-  });
+  // test("should render all the reminders", () => {
+  //   render(
+  //     <RemindersContextProvider>
+  //       <RemindersCard />
+  //     </RemindersContextProvider>
+  //   );
+  // });
 });

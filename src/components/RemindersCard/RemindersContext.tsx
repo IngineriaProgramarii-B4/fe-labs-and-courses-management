@@ -33,11 +33,11 @@ export default function RemindersContextProvider({
       .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => {
         setLoggedUser(res.data.username);
-        return res.data.username;
+        return res.data.id;
       })
-      .then((username) => {
+      .then((id) => {
         axiosInstance
-          .get(`/reminders/${username}`)
+          .get(`/reminders/${id}`)
           .then((res) => {
             setReminders(res.status === 404 ? [] : res.data);
           })
