@@ -156,5 +156,9 @@ export const router = createBrowserRouter([
   {
     path: "/sendMail",
     element: <SendMail />
+  },
+  { 
+    path: "/testhome",
+    element: <Home/>
   }
 ]);
