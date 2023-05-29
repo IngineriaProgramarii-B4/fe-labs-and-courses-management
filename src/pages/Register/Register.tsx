@@ -65,33 +65,32 @@ const Register: React.FC = () => {
       }
       toast.error(errorMessage);
     }
-    
+
   };
   const [form] = Form.useForm();
 
   return (
-    <div className={styles.background}>
+    <div className={styles.appBg}>
       <div className={styles.topBar}></div>
-      <Form className={styles.Formular}
-        {...formItemLayout}
+      <Form className={styles.registerForm}
+        // {...formItemLayout}
         form={form}
         name="register"
         onFinish={register}
         initialValues={{ residence: [''], prefix: '40' }}
-        style={{ maxWidth: 600 }}
+        // style={{ maxWidth: 600 }}
         scrollToFirstError
       >
-        <Typography.Title className={styles.TitluForm}>Welcome Back!</Typography.Title>
-        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
+        <Typography.Title className={styles.titluForm}>Welcome Back!</Typography.Title>
+        <Form.Item
           name="ID"
-          label="ID"
           rules={[{ required: true, message: 'Please input your ID!', whitespace: true }]}
         >
           <Input placeholder='Please input your ID' />
         </Form.Item>
-        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
+
+        <Form.Item
           name="email"
-          label="E-mail"
           rules={[
             {
               type: 'email',
@@ -106,9 +105,8 @@ const Register: React.FC = () => {
           <Input placeholder='Please input your E-mail!' />
         </Form.Item>
 
-        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
+        <Form.Item
           name="password"
-          label="Password"
           rules={[
             {
               required: true,
@@ -125,9 +123,8 @@ const Register: React.FC = () => {
           <Input.Password placeholder='Please input your password!' />
         </Form.Item>
 
-        <Form.Item className={`${styles.PullUp} ${styles.formItem}`}
+        <Form.Item
           name="confirm"
-          label="Confirm password"
           dependencies={['password']}
           hasFeedback
           rules={[
@@ -147,26 +144,22 @@ const Register: React.FC = () => {
         >
           <Input.Password placeholder='Please confirm your password!' />
         </Form.Item>
+        <div>
+          <Button className={styles.registerButton} type="primary" htmlType="submit" block>Register</Button>
+          <div className={styles.info}>
 
-        <Form.Item className={styles.PullUp}
-          {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" className={styles.btnRegister} >
-            Register
-          </Button>
+            <a href="http://localhost:3000/sendMail">
+              <p style={{ marginLeft: '70px', marginTop: '10px', fontSize: '16px' }}> Forgot password?</p>
+            </a>
+          </div>
 
-          <Typography.Text >
-            <div className={styles.signInOption}>
-               Already have an account? <a href="/login">Sign in</a>
-            </div>
-           
-          </Typography.Text>
-          
-        </Form.Item>
-
+          <div className={styles.registerContainer}>
+            <p>Already have an acoount?</p>
+            <Button className={styles.registerButton} htmlType="submit"><a href='http://localhost:3000/login'>Log in</a></Button>
+          </div>
+        </div>
       </Form>
-    </div>
-
-
+    </div >
   );
 };
 

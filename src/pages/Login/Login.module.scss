@@ -44,8 +44,6 @@
     align-items:center ;
   }
   
- 
- 
  .rememberMe {
     font-size: 18px;
     margin-right: 45px;
@@ -65,7 +63,7 @@
  
  @media screen and (max-width: 600px) {
  
-    .loginForm {
+    .registerForm {
          margin: auto;
     }
  }
@@ -78,7 +76,7 @@
  } */
  
  @media screen and (max-width: 410px) {
-     .loginForm {
+     .registerForm {
          font-size: 0.8rem;
      }
  }
