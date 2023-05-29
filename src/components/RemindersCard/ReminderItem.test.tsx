@@ -13,7 +13,7 @@ describe("ReminderItem", () => {
     dueDateTime: "2023-05-10T10:00"
   };
 
-  it("renders the title and description", () => {
+  test("renders the title and description", () => {
     render(<ReminderItem
       dueDateTime={reminderInfo.dueDateTime}
       title={reminderInfo.title}
@@ -22,18 +22,18 @@ describe("ReminderItem", () => {
       deleteReminder={mockDeleteReminder} />);
 
     expect(screen.getByText("Test reminder")).toBeInTheDocument();
-    expect(screen.getByText("description:")).toBeInTheDocument();
+    expect(screen.getByText("Description:")).toBeInTheDocument();
     expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
-  it("renders the due date", () => {
+  test("renders the due date", () => {
     render(<ReminderItem
       dueDateTime={reminderInfo.dueDateTime}
       title={reminderInfo.title}
       description={reminderInfo.description}
       id={reminderInfo.id}
       deleteReminder={mockDeleteReminder} />);
-    expect(screen.getByText("due date:")).toBeInTheDocument();
+    expect(screen.getByText("Due date:")).toBeInTheDocument();
     expect(screen.getByText("2023-05-10T10:00")).toBeInTheDocument();
   });
 
@@ -132,9 +132,9 @@ test('clicking cancel button in delete confirmation modal closes modal', () => {
     render(<ReminderItem {...reminder} deleteReminder={deleteReminder} />);
 
     expect(screen.getByRole("heading", { name: "Test Reminder" })).toBeInTheDocument();
-    expect(screen.getByText("description:")).toBeInTheDocument();
+    expect(screen.getByText("Description:")).toBeInTheDocument();
     expect(screen.getByText("This is a test reminder.")).toBeInTheDocument();
-    expect(screen.getByText("due date:")).toBeInTheDocument();
+    expect(screen.getByText("Due date:")).toBeInTheDocument();
     expect(screen.getByText("2023-05-31T18:00")).toBeInTheDocument();
 
     // Test delete reminder

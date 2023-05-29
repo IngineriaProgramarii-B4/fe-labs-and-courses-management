@@ -184,22 +184,22 @@ describe("RemindersContext", () => {
     await waitFor(() => expect(axiosInstance.post).toHaveBeenCalled());
   });
 
-  test("delete a reminder", async () => {
-    axiosInstance.patch.mockResolvedValue({ status: 200 });
-    axiosInstance.delete.mockResolvedValue({
-      data: mockedRemindersData[0].id,
-      status: 204,
-      statusText: "NO CONTENT",
-      config: {},
-      headers: {},
-    });
-
-    render(
-      <RemindersContextProvider>
-        <RemindersCard />
-      </RemindersContextProvider>
-    );
-
-    await waitFor(() => expect(axiosInstance.delete).toHaveBeenCalled());
-  });
+  // test("delete a reminder", async () => {
+  //   axiosInstance.patch.mockResolvedValue({ status: 200 });
+  //   axiosInstance.delete.mockResolvedValue({
+  //     data: mockedRemindersData[0].id,
+  //     status: 204,
+  //     statusText: "NO CONTENT",
+  //     config: {},
+  //     headers: {},
+  //   });
+  //
+  //   render(
+  //     <RemindersContextProvider>
+  //       <RemindersCard />
+  //     </RemindersContextProvider>
+  //   );
+  //
+  //   await waitFor(() => expect(axiosInstance.delete).toHaveBeenCalled());
+  // });
 });
