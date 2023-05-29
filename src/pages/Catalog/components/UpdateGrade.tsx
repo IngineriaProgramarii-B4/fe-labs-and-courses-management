@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Modal, Button, Input, Form } from "antd";
+import { Modal, Button, Form, InputNumber, DatePicker } from "antd";
 import axios from "axios";
 import styles from "../Catalog.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { t } from "msw/lib/glossary-de6278a9";
 
 export default function UpdateGrade(props: {
   fetchGrades: () => void;
@@ -12,16 +15,7 @@ export default function UpdateGrade(props: {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
-
-  const handleGradeValueChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setGradeValue(Number(event.target.value));
-  };
-
-  const handleEvDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEvDateValue(event.target.value);
-  };
+  const { id } = useParams();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -34,10 +28,10 @@ export default function UpdateGrade(props: {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const handleUpdateGrade = (id: number) => {
+  const handleUpdateGrade = (gradeId: number) => {
     axios
       .put(
-        `http://localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf/grades/${id}?value=${gradeValue}&evaluationDate=${evDateValue}`,
+        `http://localhost:8082/api/v1/students/${id}/grades/${gradeId}?value=${gradeValue}&evaluationDate=${evDateValue}`,
         {
           value: gradeValue,
           evaluationDate: evDateValue,
@@ -50,11 +44,13 @@ export default function UpdateGrade(props: {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        toast.success("Grade updated successfully!");
         props.fetchGrades();
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Error updating grade!");
       });
   };
   return (
@@ -85,15 +81,24 @@ export default function UpdateGrade(props: {
           style={{ maxWidth: 600 }}
         >
           <Form.Item label="Grade">
-            <Input
-              onChange={handleGradeValueChange}
-              placeholder="New grade value..."
+            <InputNumber
+              className="w-[13rem]"
+              min={1}
+              max={10}
+              defaultValue={5}
+              onChange={(value: any) => {
+                setGradeValue(value);
+              }}
             />
           </Form.Item>
           <Form.Item label="Date">
-            <Input
-              onChange={handleEvDateChange}
-              placeholder="New date of evaluation..."
+            <DatePicker
+              data-testid="date"
+              className="w-[13rem]"
+              format="DD.MM.YYYY"
+              onChange={(date, dateString) => {
+                setEvDateValue(dateString);
+              }}
             />
           </Form.Item>
         </Form>

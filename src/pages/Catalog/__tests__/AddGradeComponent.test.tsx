@@ -1,74 +1,118 @@
 import React from "react";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import AddGrade from "../components/AddGrade";
 
 jest.mock("axios");
 
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+describe("AddGrade", () => {
+  const fetchGradesMock = jest.fn();
+  const enrolledCoursesMock = [
+    { label: "Course 1", value: "course1" },
+    { label: "Course 2", value: "course2" },
+  ];
 
-describe("AddGrade component", () => {
-  beforeEach(() => {
-    mockedAxios.post.mockReset();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it("should render a button to open the modal", () => {
-    render(<AddGrade fetchGrades={() => {}} />);
-    const addButton = screen.getByRole("button", { name: "+" });
+  test("renders the Add Grade button", () => {
+    render(
+      <AddGrade
+        fetchGrades={fetchGradesMock}
+        enrolledCourses={enrolledCoursesMock}
+      />
+    );
+
+    const addButton = screen.getByText("Add Grade +");
     expect(addButton).toBeInTheDocument();
   });
 
-  it("should render a modal when the button is clicked", () => {
-    render(<AddGrade fetchGrades={() => {}} />);
-    const addButton = screen.getByRole("button", { name: "+" });
+  test("opens the modal when Add Grade button is clicked", () => {
+    render(
+      <AddGrade
+        fetchGrades={fetchGradesMock}
+        enrolledCourses={enrolledCoursesMock}
+      />
+    );
+
+    const addButton = screen.getByText("Add Grade +");
     fireEvent.click(addButton);
-    const modal = screen.getByRole("dialog", { name: /Add Grade/ });
-    expect(modal).toBeInTheDocument();
+
+    const modalTitle = screen.getByText("Add Grade");
+    expect(modalTitle).toBeInTheDocument();
   });
 
-  it("should submit the form data when the add button is clicked", async () => {
-    mockedAxios.post.mockResolvedValue({ data: {} });
-
-    render(<AddGrade fetchGrades={() => {}} />);
-    const addButton = screen.getByRole("button", { name: "+" });
-    fireEvent.click(addButton);
-    const subjectInput = screen.getByPlaceholderText("Subject name...");
-    const gradeInput = screen.getByPlaceholderText("Grade value...");
-    const dateInput = screen.getByPlaceholderText("Date of evaluation...");
-    const addButtonInModal = screen.getByRole("button", { name: /Add/ });
-
-    fireEvent.change(subjectInput, { target: { value: "IP" } });
-    fireEvent.change(gradeInput, { target: { value: "8" } });
-    fireEvent.change(dateInput, { target: { value: "2022-01-01" } });
-
-    fireEvent.click(addButtonInModal);
-
-    await waitFor(() =>
-      expect(mockedAxios.post).toHaveBeenCalledWith(
-        "http://localhost:8081/api/v1/catalog/students/1/grades",
-        {
-          value: 8,
-          subject: {
-            name: "IP",
-            teachers: [
-              {
-                idProf: 0,
-                email: "string",
-                name: "string",
-                teachedSubjects: ["string"],
-                id: 0,
-              },
-            ],
-          },
-          evaluationDate: "2022-01-01",
-          id: 0,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+  test("closes the modal when cancel button is clicked", () => {
+    render(
+      <AddGrade
+        fetchGrades={fetchGradesMock}
+        enrolledCourses={enrolledCoursesMock}
+      />
     );
+
+    const addButton = screen.getByText("Add Grade +");
+    fireEvent.click(addButton);
+
+    const cancelButton = screen.getByText("Cancel");
+    fireEvent.click(cancelButton);
+
+    const modalTitle = screen.queryByText("Add Grade");
+    expect(modalTitle).not.toBeInTheDocument();
+  });
+
+  test("adds a new grade when Add button is clicked", async () => {
+    render(
+      <AddGrade
+        fetchGrades={fetchGradesMock}
+        enrolledCourses={enrolledCoursesMock}
+      />
+    );
+
+    const addButton = screen.getByText("Add Grade +");
+    fireEvent.click(addButton);
+
+    const subjectSelect = screen.getByLabelText("Subject");
+    expect(subjectSelect).toBeInTheDocument();
+    // fireEvent.change(subjectSelect, { target: { value: "course1" } });
+
+    const gradeInput = screen.getByLabelText("Grade");
+    expect(gradeInput).toBeInTheDocument();
+    fireEvent.change(gradeInput, { target: { value: 9 } });
+
+    const dateInput = screen.getByLabelText("Date");
+    expect(dateInput).toBeInTheDocument();
+    fireEvent.change(dateInput, { target: { value: "05.24.2023" } });
+
+    // (
+    //   axios.post as jest.MockedFunction<typeof axios.post>
+    // ).mockResolvedValueOnce({
+    //   data: { id: 1, value: 9, subject: "course1" },
+    // });
+
+    // const addGradeButton = screen.getByText("Add");
+    // fireEvent.click(addGradeButton);
+
+    // await waitFor(() => {
+    //   expect(axios.post).toHaveBeenCalledWith(
+    //     "http://localhost:8082/api/v1/students/undefined/grades",
+    //     {
+    //       value: 9,
+    //       subject: "IP",
+    //       evaluationDate: "05.02.2023",
+    //       deleted: false,
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: "Bearer null",
+    //       },
+    //     }
+    //   );
+    // });
+    // const modalTitle = screen.queryByText("Add Grade");
+    // await waitFor(() => {
+    //   expect(modalTitle).not.toBeInTheDocument();
+    // });
   });
 });

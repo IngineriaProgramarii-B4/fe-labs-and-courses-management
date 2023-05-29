@@ -62,7 +62,7 @@ const filteredFields = [
   { backend: "taughtSubjects", frontend: "Taught Subjects" },
   { backend: "year", frontend: "Year" },
   { backend: "semester", frontend: "Semester" },
-  { backend: "enrolledCourses", frontend: "Enrolled Courses" }
+  { backend: "enrolledCourses", frontend: "Enrolled Courses" },
 ];
 
 export default function NetworkCard() {
@@ -77,8 +77,8 @@ export default function NetworkCard() {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function NetworkCard() {
             return {
               ...tmp,
               firstName: firstname,
-              lastName: lastname
+              lastName: lastname,
             };
           })
         );
@@ -133,27 +133,27 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
   );
 
   useEffect(() => {
-    axios.get(`http://localhost:8082/api/v1/profile/download/${user.id}`, {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      },
-      responseType: "arraybuffer"
-    })
-      .then(res => {
+    axios
+      .get(`http://localhost:8082/api/v1/profile/download/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        responseType: "arraybuffer",
+      })
+      .then((res) => {
         const imgBlob = new Blob([res.data], { type: "png" });
         const imgUrl = URL.createObjectURL(imgBlob);
         setAvatar(imgUrl ? imgUrl : mockedAvatar);
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response.status === 404) {
-
         }
       });
   }, []);
 
   return (
     <Link
-      to={isStudent ? "/catalog/${user.id}" : ""}
+      to={isStudent ? `/catalog/${user.id}` : ""}
       className={`m-10 w-80 h-96 transition delay-75 ease-in-out hover:scale-[103%] ${
         isStudent ? "cursor-pointer" : "cursor-default"
       } duration-300 after:scale-100 appearance-none`}
@@ -174,7 +174,6 @@ const RenderCard = ({ user }: { user: UserDataType }) => {
           const fieldData = filteredFields.find(
             (field) => field.backend === key
           );
-
           return fieldData ? (
             <UserInfoFields
               key={v4()}
