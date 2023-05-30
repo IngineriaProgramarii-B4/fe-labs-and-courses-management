@@ -2,13 +2,13 @@ const scanner = require("sonarqube-scanner");
 scanner(
   {
     serverUrl: "http://localhost:9000",
-    token: "squ_238ad4621e3fdce9529d95755f0ebe5f76150f74",
+    token: "squ_3fabcb77e28d9f7f814e9969c20f37a2ded20faf",
     options: {
-      "sonar.sources": "./src/pages/Subject",
-      "sonar.exclusions": "**/*.test.tsx",
-      "sonar.tests": "./src/pages/Subject",
+      "sonar.sources": "./src/pages, ./src/components",
+      "sonar.exclusions": "**/*.test.tsx, **/*.test.ts, **/*.test.js, src/components/Layout/Navbar.tsx, src/pages/NotFound/NotFound.tsx, src/pages/InsertData/SubmitButton.tsx, src/pages/LoginProtected/LoginProtected.tsx",
+      "sonar.tests": "./src/pages, ./src/components",
       "sonar.test.inclusions":
-        "./src/pages/Subject/**/*.test.tsx, ./src/pages/Subject/**/*.test.ts",
+        "./src/**/*.test.tsx, ./src/**/*.test.ts, ./src/**/*.test.js",
     },
   },
   () => process.exit()
