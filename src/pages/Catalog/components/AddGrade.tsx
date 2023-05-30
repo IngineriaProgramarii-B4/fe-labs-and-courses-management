@@ -110,7 +110,7 @@ export default function AddGrade(props: {
               min={1}
               max={10}
               className="w-[13rem]"
-              defaultValue={5}
+              defaultValue={1}
               onChange={(value: any) => {
                 setGradeValue(value);
               }}
