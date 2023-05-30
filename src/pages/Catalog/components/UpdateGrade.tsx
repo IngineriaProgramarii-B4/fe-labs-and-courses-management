@@ -56,14 +56,14 @@ export default function UpdateGrade(props: {
 
   useEffect(() => {
     fetchGrade();
-  }, [fetchGrade()]);
+  }, [evDateValue, gradeValue]);
 
   useEffect(() => {
-    console.log(
-      "ev date and grade value",
-      currentEvDateValue,
-      currentGradeValue
-    );
+    // console.log(
+    //   "ev date and grade value",
+    //   currentEvDateValue,
+    //   currentGradeValue
+    // );
   }, [currentEvDateValue, currentGradeValue]);
 
   const handleUpdateGrade = (gradeId: number) => {
@@ -96,7 +96,6 @@ export default function UpdateGrade(props: {
         data-testid="edit_img"
         className={styles.edit_img}
         onClick={() => {
-          console.log("grade id:", props.id);
           showModal();
         }}
       >

@@ -1,6 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import axios from "axios";
+import { render, screen, fireEvent } from "@testing-library/react";
 import AddGrade from "../components/AddGrade";
 
 jest.mock("axios");
@@ -74,7 +73,6 @@ describe("AddGrade", () => {
 
     const subjectSelect = screen.getByLabelText("Subject");
     expect(subjectSelect).toBeInTheDocument();
-    // fireEvent.change(subjectSelect, { target: { value: "course1" } });
 
     const gradeInput = screen.getByLabelText("Grade");
     expect(gradeInput).toBeInTheDocument();

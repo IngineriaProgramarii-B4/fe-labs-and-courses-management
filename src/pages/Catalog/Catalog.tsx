@@ -28,6 +28,7 @@ function Catalog() {
   const [lastName, setLastName] = useState<string>("");
   const [csvData, setCsvData] = useState<Grade[]>([]);
   const [taughtSubjects, setTaughtSubjects] = useState<any>([]);
+  const [commonSubjects, setCommonSubjects] = useState<any>([]);
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8082/api/v1",
@@ -63,7 +64,38 @@ function Catalog() {
             }
           });
       });
-  }, [axiosInstance]);
+  }, []);
+
+  async function fetchEnrolledCourses() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8082/api/v1/users?id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = response.data;
+      console.log("big data:", data);
+      setFirstName(data[0].firstName);
+      setLastName(data[0].lastName);
+      const enrolledCoursesArray = data[0].enrolledCourses.map(
+        (course: any) => {
+          return { value: course.title, label: course.title };
+        }
+      );
+      const commonSubjectsArray = enrolledCoursesArray.filter((course: any) => {
+        return taughtSubjects.some(
+          (subject: any) => subject.value === course.value
+        );
+      });
+      setCommonSubjects(commonSubjectsArray);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function fetchName() {
     try {
@@ -110,6 +142,9 @@ function Catalog() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
+    if (token) {
+      fetchEnrolledCourses();
+    }
   }, [token]);
 
   useEffect(() => {
@@ -152,7 +187,7 @@ function Catalog() {
               {decodedToken?.role === "TEACHER" && (
                 <AddGrade
                   fetchGrades={fetchGrades}
-                  taughtSubjects={taughtSubjects}
+                  taughtSubjects={commonSubjects}
                 />
               )}
             </div>
