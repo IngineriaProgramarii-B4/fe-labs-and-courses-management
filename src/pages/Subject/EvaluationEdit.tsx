@@ -86,6 +86,7 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
           Save
         </Button>,
       ]}
+      forceRender={true}
     >
       <Form layout="vertical" form={form}>
         <Form.Item label="Description" name="description">
