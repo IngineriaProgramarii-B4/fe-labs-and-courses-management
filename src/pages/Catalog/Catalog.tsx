@@ -21,41 +21,49 @@ function Catalog() {
   const [token, setToken] = useState<string | null>(null);
   const { decodedToken }: any = useJwt(token as string);
   const { id } = useParams();
-  const [enrolledCourses, setEnrolledCourses] = useState<any>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [csvData, setCsvData] = useState<Grade[]>([]);
+  const [taughtSubjects, setTaughtSubjects] = useState<any>([]);
 
-  async function fetchEnrolledCourses() {
-    try {
-      const response = await axios.get(
-        `http://localhost:8082/api/v1/users?id=${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const data = response.data;
-      console.log("big data:", data);
-      setFirstName(data[0].firstName);
-      setLastName(data[0].lastName);
-      const enrolledCoursesArray = data[0].enrolledCourses.map(
-        (course: any) => {
-          return { value: course.title, label: course.title };
-        }
-      );
-      setEnrolledCourses(enrolledCoursesArray);
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8082/api/v1",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
-      console.log(enrolledCoursesArray);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  useEffect(() => {
+    axiosInstance
+      .post("/users/loggedUser", localStorage.getItem("token"))
+      .then((res) => res.data)
+      .then((data) => {
+        return data.email;
+      })
+      .then((email) => {
+        axiosInstance
+          .get(`/users?email=${email}`)
+          .then((res) => res.data)
+          .then((data) => {
+            const taughtSubjectsArray = data[0].taughtSubjects.map(
+              (course: any) => {
+                return { value: course.title, label: course.title };
+              }
+            );
+            setTaughtSubjects(taughtSubjectsArray);
+          })
+          .catch((err) => {
+            if (err.response.status === 404) {
+              console.log("err");
+            }
+          });
+      });
+  }, []);
 
   async function fetchName() {
     try {
@@ -102,9 +110,6 @@ function Catalog() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    if (token) {
-      fetchEnrolledCourses();
-    }
   }, [token]);
 
   useEffect(() => {
@@ -146,7 +151,7 @@ function Catalog() {
             {decodedToken?.role === "TEACHER" && (
               <AddGrade
                 fetchGrades={fetchGrades}
-                enrolledCourses={enrolledCourses}
+                taughtSubjects={taughtSubjects}
               />
             )}
           </div>
