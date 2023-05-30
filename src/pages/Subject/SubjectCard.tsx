@@ -55,9 +55,9 @@ const SubjectCard: React.FC<SubjectCardProps> = (props) => {
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
-      onOk() {
+      async onOk() {
         console.log("OK");
-        axios.delete(
+        await axios.delete(
           `http://localhost:8082/api/v1/subjects/subjectTitle=${title}`,
           {
             headers: {
