@@ -204,6 +204,7 @@ function Catalog() {
                 <AddGrade
                   fetchGrades={fetchGrades}
                   taughtSubjects={commonSubjects}
+                  data-testid="add-grade"
                 />
               )}
             </div>
@@ -224,8 +225,16 @@ function Catalog() {
                   <td>
                     {decodedToken?.role === "TEACHER" && (
                       <>
-                        <DeleteGrade fetchGrades={fetchGrades} id={grade.id} />
-                        <UpdateGrade fetchGrades={fetchGrades} id={grade.id} />
+                        <DeleteGrade
+                          fetchGrades={fetchGrades}
+                          id={grade.id}
+                          data-testid="delete-grade"
+                        />
+                        <UpdateGrade
+                          fetchGrades={fetchGrades}
+                          id={grade.id}
+                          data-testid="update-grade"
+                        />
                       </>
                     )}
                   </td>
