@@ -7,6 +7,7 @@ import Course from "./Course";
 import { useJwt } from "react-jwt";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 import { Link } from "react-router-dom";
+import { v4 } from "uuid";
 
 const extractToken = () => {
   try {
@@ -152,6 +153,7 @@ function SelectedSubject() {
           </div>
           <div //className="material-container"
             className=" p-8 bg-white rounded-lg grid grid-rows-max justify-self-start px-10 shadow shadow hover:shadow-inner"
+            key={v4()}
           >
             <h1 className="grid mb-10 items-center justify-center content-center text-2xl font-bold">
               Resources
@@ -162,6 +164,7 @@ function SelectedSubject() {
               isModified={isModified}
               setIsModified={setIsModified}
               role={decodedToken?.role}
+              key={v4()}
             />
           </div>
           {decodedToken?.role === "TEACHER" ? (

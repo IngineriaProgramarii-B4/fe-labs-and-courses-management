@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Form } from "antd";
+import { v4 } from "uuid";
 const { TextArea } = Input;
 
 interface EvaluationEditProps {
@@ -67,7 +68,7 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
       centered
       footer={[
         <Button
-          key="close"
+          key={v4()}
           onClick={() => {
             props.setIsVisible(false);
             props.setResetFields(props.resetFields ? false : true);
@@ -78,13 +79,14 @@ const EvaluationEdit: React.FC<EvaluationEditProps> = (props) => {
         </Button>,
         <Button
           className="bg-buttonBlue hover:bg-hoverBlue"
-          key="save"
+          key={v4()}
           type="primary"
           onClick={handleSave}
         >
           Save
         </Button>,
       ]}
+      forceRender={true}
     >
       <Form layout="vertical" form={form}>
         <Form.Item label="Description" name="description">

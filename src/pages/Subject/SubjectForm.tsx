@@ -113,9 +113,6 @@ const SubjectForm: React.FC<SubjectFormProps> = (props) => {
             value={props.credits}
             onChange={(event) => props.setCredits(event)}
           >
-            <Select.Option value="1">1</Select.Option>
-            <Select.Option value="2">2</Select.Option>
-            <Select.Option value="3">3</Select.Option>
             <Select.Option value="4">4</Select.Option>
             <Select.Option value="5">5</Select.Option>
             <Select.Option value="6">6</Select.Option>

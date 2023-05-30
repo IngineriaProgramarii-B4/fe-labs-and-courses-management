@@ -5,6 +5,7 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Collapse, Modal, Input, Form, Select, InputNumber } from "antd";
 import ResourcesTable from "./ResourcesTable";
+import { v4 } from "uuid";
 
 const { Panel } = Collapse;
 const { TextArea } = Input;
@@ -74,8 +75,8 @@ const Accordion: React.FC<AccordionProps> = (props) => {
           newEvaluation,
           {
             headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
         );
         setPercentage(0);
@@ -128,6 +129,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
                 icon={faPlus}
                 className="mb-10 px-10 hover:text-blue-500"
                 size="2x"
+                key={v4()}
               />,
             ]
           : []
@@ -147,42 +149,55 @@ const Accordion: React.FC<AccordionProps> = (props) => {
         {comps.map((component) => {
           return (
             <Panel header={component} key={component}>
-              <div>
-                {props.role === 'TEACHER' ? (
-                <FontAwesomeIcon
-                  data-testid="delete"
-                  onClick={() => {
-                    setComponentToDelete(component);
-                    showModal2();
-                  }}
-                  icon={faTrash}
-                  className="mb-10 px-10 float-right hover:text-red-500 "
-                  size="2x"
-                />
-                ):null}
-                <Modal
-                  open={isModalOpen2}
-                  onOk={() => {
-                    deleteComponent();
-                    setIsModalOpen2(false);
-                  }}
-                  onCancel={handleCancel}
-                  okType="danger"
-                  okText="Yes"
-                  cancelText="No"
-                  closable={false}
-                >
-                  <div className="font-bold text-center mb-5 text-xl">
-                    <ExclamationCircleFilled className="text-yellow-500 mr-4 text-2xl" />
-                    Are you sure you wish to delete this component?
-                  </div>
-                  <div className="text-center">
-                    You can't revert your actions
-                  </div>
-                </Modal>
-              </div>
+              {props.role === "TEACHER" ? (
+                <div key={v4()}>
+                  <FontAwesomeIcon
+                    data-testid="delete"
+                    onClick={() => {
+                      setComponentToDelete(component);
+                      showModal2();
+                    }}
+                    icon={faTrash}
+                    className="mb-10 px-10 float-right hover:text-red-500 "
+                    size="2x"
+                    key={v4()}
+                  />
+                  <Modal
+                    open={isModalOpen2}
+                    onOk={() => {
+                      deleteComponent();
+                      setIsModalOpen2(false);
+                    }}
+                    onCancel={handleCancel}
+                    okType="danger"
+                    okText="Yes"
+                    cancelText="No"
+                    closable={false}
+                    key={v4()}
+                  >
+                    <div
+                      className="font-bold text-center mb-5 text-xl"
+                      key={v4()}
+                    >
+                      <ExclamationCircleFilled
+                        className="text-yellow-500 mr-4 text-2xl"
+                        key={v4()}
+                      />
+                      Are you sure you wish to delete this component?
+                    </div>
+                    <div className="text-center" key={v4()}>
+                      You can't revert your actions
+                    </div>
+                  </Modal>
+                </div>
+              ) : null}
 
-              <ResourcesTable component={component} title={props.title} role={props.role} />
+              <ResourcesTable
+                component={component}
+                title={props.title}
+                role={props.role}
+                key={v4()}
+              />
             </Panel>
           );
         })}
@@ -215,7 +230,7 @@ const Accordion: React.FC<AccordionProps> = (props) => {
             >
               {possibleComponents.map((component) => {
                 return (
-                  <Select.Option value={component} key={component}>
+                  <Select.Option value={component} key={v4()}>
                     {component}
                   </Select.Option>
                 );

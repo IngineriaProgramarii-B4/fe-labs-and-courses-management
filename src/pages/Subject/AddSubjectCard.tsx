@@ -57,7 +57,7 @@ const AddSubjectCard: React.FC<AddSubjectCardProps> = (props) => {
               description=""
               year={1}
               semester={1}
-              credits={1}
+              credits={4}
             />
           </div>
         </>

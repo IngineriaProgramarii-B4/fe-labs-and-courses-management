@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ColumnsType } from "antd/es/table";
 import FileTransfer from "./FileTransfer";
-
-
+import { v4 } from "uuid";
 
 interface DataType {
   key: React.Key;
@@ -83,7 +82,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           {
             title: "Action",
             key: "action",
-            render: (_:any, record: any) => (
+            render: (_: any, record: any) => (
               <div>
                 <FontAwesomeIcon
                   data-testid="delete-icon"
@@ -119,7 +118,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         ]
       : []),
   ];
-  
+
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -145,7 +144,6 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
         });
         setData(resModify);
         setLoading(false);
-        console.log(res.data);
       })
       .catch((err) => {
         setData([]);
@@ -176,16 +174,16 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
   return (
     <div>
       {props.role === "TEACHER" ? (
-      <FontAwesomeIcon
-        data-testid="add-button"
-        onClick={() => {
-          showModal1();
-        }}
-        icon={faFolderPlus}
-        size="2x"
-        className=" px-10 hover:text-blue-500"
-      />
-      ):null}
+        <FontAwesomeIcon
+          data-testid="add-button"
+          onClick={() => {
+            showModal1();
+          }}
+          icon={faFolderPlus}
+          size="2x"
+          className=" px-10 hover:text-blue-500"
+        />
+      ) : null}
       <Modal
         data-testid="modal"
         title={"Add resource"}
@@ -199,8 +197,8 @@ const ResourcesTable: React.FC<ResourcesTableProps> = (props) => {
           <Button
             //className="okbutton"
             className="bg-buttonBlue hover:bg-hoverBlue"
-            data-testid = "ok-add-button"
-            key="ok"
+            data-testid="ok-add-button"
+            key={v4()}
             type="primary"
             onClick={() => {
               setClearFileList(clearFileList ? false : true);
