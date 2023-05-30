@@ -33,10 +33,25 @@ function Subjects() {
   const [isModified, setIsModified] = useState<boolean>(false);
   const { decodedToken }: any = useJwt(String(extractToken()));
 
-  /*console.log(decodedToken);*/
+  const getEstimatedStudyHours = (credits: number): Promise<number> => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get<any>(`http://localhost:5000/api/v1/prediction/${credits}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          resolve(Number(response.data.prediction.toFixed(0)));
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
 
-  const fetchData = () => {
-    /*console.log("fetching data");*/
+  const fetchData = async () => {
     const token = extractToken();
     if (!token) {
       console.error("No token found in local storage");
@@ -45,73 +60,58 @@ function Subjects() {
     const role = decodedToken?.role;
     const userMail = decodedToken?.sub;
     if (role === "STUDENT") {
-      axios
-        .get<any>(`http://localhost:8082/api/v1/students?email=${userMail}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => response.data)
-        .then((data) => {
-          // setCards(data[0].enrolledCourses);
-          const enrolledCourses: Subject[] = data[0].enrolledCourses;
-          for (let i = 0; i < enrolledCourses.length; i++) {
-            axios
-              .get<any>(
-                `http://localhost:5000/api/v1/prediction/${enrolledCourses[i].credits}`,
-                {
-                  method: "GET",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }
-              )
-              .then((response) => {
-                enrolledCourses[i].hoursOfStudy = Number(
-                  response.data.prediction.toFixed(0)
-                );
-              })
-              .catch((error) => {
-                enrolledCourses[i].hoursOfStudy = 0;
-              });
+      try {
+        const response = await axios.get<any>(
+          `http://localhost:8082/api/v1/students?email=${userMail}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-          setCards(enrolledCourses);
-        });
+        );
+        const enrolledCourses: Subject[] = response.data[0].enrolledCourses;
+        const studyHourPromises = enrolledCourses.map((course) =>
+          getEstimatedStudyHours(course.credits)
+            .then((hours) => {
+              course.hoursOfStudy = hours;
+            })
+            .catch(() => {
+              course.hoursOfStudy = 0;
+            })
+        );
+        await Promise.all(studyHourPromises);
+        setCards(enrolledCourses);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
-      axios
-        .get<Subject[]>(`http://localhost:8082/api/v1/subjects`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => response.data)
-        .then((data) => {
-          // setCards(data);
-          const subjects: Subject[] = data;
-          for (let i = 0; i < subjects.length; i++) {
-            axios
-              .get<any>(
-                `http://localhost:5000/api/v1/prediction/${subjects[i].credits}`,
-                {
-                  method: "GET",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }
-              )
-              .then((response) => {
-                subjects[i].hoursOfStudy = Number(
-                  response.data.prediction.toFixed(0)
-                );
-              })
-              .catch((error) => {
-                subjects[i].hoursOfStudy = 0;
-              });
+      try {
+        const response = await axios.get<Subject[]>(
+          `http://localhost:8082/api/v1/subjects`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-          setCards(subjects);
-        });
+        );
+        const subjects: Subject[] = response.data;
+        const studyHourPromises = subjects.map((subject) =>
+          getEstimatedStudyHours(subject.credits)
+            .then((hours) => {
+              subject.hoursOfStudy = hours;
+            })
+            .catch(() => {
+              subject.hoursOfStudy = 0;
+            })
+        );
+        await Promise.all(studyHourPromises);
+        setCards(subjects);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+  
 
   useEffect(() => {
     fetchData();
