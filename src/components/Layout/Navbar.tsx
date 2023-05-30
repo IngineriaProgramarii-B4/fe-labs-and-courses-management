@@ -33,7 +33,6 @@ function Navbar() {
         }
       );
       const data = response.data;
-      console.log(data[0]);
       setId(data[0].id);
     } catch (error) {
       console.log(error);
