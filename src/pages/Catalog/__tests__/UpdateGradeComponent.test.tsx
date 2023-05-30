@@ -54,10 +54,10 @@ describe("UpdateGrade component", () => {
     });
     await waitFor(() => {
       expect(mockedAxios.put).toHaveBeenCalledWith(
-        "http://localhost:8082/api/v1/students/undefined/grades/0?value=8&evaluationDate=",
+        "http://localhost:8082/api/v1/students/undefined/grades/0?value=8&evaluationDate=30.05.2023",
         {
           value: 8,
-          evaluationDate: "",
+          evaluationDate: "30.05.2023",
         },
         {
           headers: {

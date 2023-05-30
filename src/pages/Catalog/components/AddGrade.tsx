@@ -13,14 +13,14 @@ interface GradesData {
 
 export default function AddGrade(props: {
   fetchGrades: () => void;
-  enrolledCourses: any[];
+  taughtSubjects: any[];
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subjectName, setSubjectName] = useState<string>("");
   const [gradeValue, setGradeValue] = useState<number>(0);
   const [evDateValue, setEvDateValue] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
-  const { enrolledCourses } = props;
+  const { taughtSubjects } = props;
   const { id } = useParams();
 
   const showModal = () => {
@@ -61,7 +61,6 @@ export default function AddGrade(props: {
           }
         )
         .then((response) => {
-          console.log(response.data);
           setSubjectName("");
           setGradeValue(0);
           toast.success("New grade added!");
@@ -101,7 +100,7 @@ export default function AddGrade(props: {
               className="w-[4rem]"
               onChange={(value: string) => setSubjectName(value)}
               defaultValue="Select subject"
-              options={enrolledCourses}
+              options={taughtSubjects}
             />
           </Form.Item>
           <Form.Item label="Grade" htmlFor="gradeValue">
@@ -110,7 +109,7 @@ export default function AddGrade(props: {
               min={1}
               max={10}
               className="w-[13rem]"
-              defaultValue={5}
+              defaultValue={1}
               onChange={(value: any) => {
                 setGradeValue(value);
               }}

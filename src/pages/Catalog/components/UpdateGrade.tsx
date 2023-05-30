@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, InputNumber, DatePicker } from "antd";
 import axios from "axios";
 import styles from "../Catalog.module.scss";
@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { t } from "msw/lib/glossary-de6278a9";
+import dayjs from "dayjs";
 
 export default function UpdateGrade(props: {
   fetchGrades: () => void;
@@ -14,10 +14,16 @@ export default function UpdateGrade(props: {
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gradeValue, setGradeValue] = useState<number>(0);
-  const [evDateValue, setEvDateValue] = useState<string>("");
+  const [evDateValue, setEvDateValue] = useState<string>(" ");
+  const [currentGradeValue, setCurrentGradeValue] = useState<number>(0);
+  const [currentEvDateValue, setCurrentEvDateValue] = useState<string>(
+    dayjs().format("DD.MM.YYYY")
+  );
   const { id } = useParams();
 
   const showModal = () => {
+    setEvDateValue(currentEvDateValue);
+    setGradeValue(currentGradeValue);
     setIsModalOpen(true);
   };
 
@@ -28,6 +34,32 @@ export default function UpdateGrade(props: {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  async function fetchGrade() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8082/api/v1/students/${id}/grades/${props.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = response.data;
+      setCurrentGradeValue(data.value);
+      setCurrentEvDateValue(data.evaluationDate);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchGrade();
+  }, [evDateValue, gradeValue, fetchGrade()]);
+
+  useEffect(() => {}, [currentEvDateValue, currentGradeValue]);
+
   const handleUpdateGrade = (gradeId: number) => {
     axios
       .put(
@@ -44,7 +76,6 @@ export default function UpdateGrade(props: {
         }
       )
       .then((response) => {
-        // console.log(response.data);
         toast.success("Grade updated successfully!");
         props.fetchGrades();
       })
@@ -59,7 +90,6 @@ export default function UpdateGrade(props: {
         data-testid="edit_img"
         className={styles.edit_img}
         onClick={() => {
-          console.log("grade id:", props.id);
           showModal();
         }}
       >
@@ -85,7 +115,7 @@ export default function UpdateGrade(props: {
               className="w-[13rem]"
               min={1}
               max={10}
-              defaultValue={5}
+              defaultValue={currentGradeValue}
               onChange={(value: any) => {
                 setGradeValue(value);
               }}
@@ -99,6 +129,7 @@ export default function UpdateGrade(props: {
               onChange={(date, dateString) => {
                 setEvDateValue(dateString);
               }}
+              defaultValue={dayjs(currentEvDateValue, "DD.MM.YYYY")}
             />
           </Form.Item>
         </Form>
