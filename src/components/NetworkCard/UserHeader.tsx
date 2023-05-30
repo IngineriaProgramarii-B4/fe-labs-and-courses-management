@@ -1,5 +1,7 @@
 import { Avatar, Divider } from "antd";
 import React from "react";
+import { useJwt } from "react-jwt";
+
 
 export type UserHeaderProps = {
   isStudent: boolean;
@@ -18,6 +20,8 @@ function UserHeader({
   isHovered,
   avatar,
 }: UserHeaderProps) {
+  const { decodedToken }: any = useJwt(localStorage.getItem("token") as string);
+
   return (
     <div>
       <div className={"flex w-full justify-center gap-3"}>
@@ -37,7 +41,7 @@ function UserHeader({
           data-testid={"user-avatar"}
         />
         <div className={"text-center font-bold"}>
-          <div className={`${isStudent && isHovered && "text-blue-500"}`}>
+          <div className={`${isStudent && isHovered && decodedToken?.role !== "STUDENT" && "text-blue-500"}`}>
             {(firstname || "John") + " " + (lastname || "Doe")}
           </div>
           <div className="text-gray-500">@{username}</div>

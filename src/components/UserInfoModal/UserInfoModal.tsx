@@ -25,9 +25,7 @@ export function ModalTitle({ isEditing, setIsEditing }: ModalTitleProps) {
         <Tooltip title={"Edit user"}>
           <i
             className={"fa-solid fa-pen-to-square ml-2 cursor-pointer"}
-            onClick={
-              () => setIsEditing(true)
-            }
+            onClick={() => setIsEditing(true)}
             data-testid={"pencil-icon"}
           />
         </Tooltip>
@@ -44,11 +42,11 @@ type ModalFooterProps = {
 };
 
 export function ModalFooter({
-                              isEditing,
-                              onLogout, // <-- Change this line
-                              onCancel,
-                              onSave
-                            }: ModalFooterProps) {
+  isEditing,
+  onLogout, // <-- Change this line
+  onCancel,
+  onSave,
+}: ModalFooterProps) {
   if (isEditing) {
     return (
       <>
@@ -57,7 +55,7 @@ export function ModalFooter({
           children={"Save"}
           onClick={onSave}
           className={
-            "border-green-600 text-green-600 hover:!border-green-500 hover:!text-green-500"
+            "border-[#5588da] text-[#5588da] hover:!border-[#277ff7] hover:!text-[#277ff7]"
           }
         />
       </>
@@ -76,23 +74,22 @@ type UserProfileAvatarProps = {
 };
 
 export function UserProfileAvatar({
-                                    isEditing,
-                                    avatar,
-                                    newAvatar,
-                                    setNewAvatar,
-                                    setAvatar,
-                                    id
-                                  }: UserProfileAvatarProps) {
-
-
+  isEditing,
+  avatar,
+  newAvatar,
+  setNewAvatar,
+  setAvatar,
+  id,
+}: UserProfileAvatarProps) {
   const getBase64 = (img: RcFile, callback: (url: string) => void) => {
     const reader = new FileReader();
     reader.addEventListener("load", () => callback(reader.result as string));
     reader.readAsDataURL(img);
   };
 
-
-  const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
+  const handleChange: UploadProps["onChange"] = (
+    info: UploadChangeParam<UploadFile>
+  ) => {
     if (info.file.status === "done") {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj as RcFile, (url) => {
@@ -121,11 +118,12 @@ export function UserProfileAvatar({
     >
       {isEditing || !avatar ? (
         <Upload
-          action="http://localhost:8082/api/v1/profile/upload"
+          action={`http://localhost:8082/api/v1/profile/upload/${id}`}
           headers={{ Authorization: `Bearer ${localStorage.getItem("token")}` }}
           showUploadList={false}
           onChange={handleChange}
           beforeUpload={beforeUpload}
+          data-testid={"avatar-upload"}
         >
           {newAvatar ? (
             <img src={newAvatar} alt="avatar" className={"object-cover"} />
@@ -170,7 +168,7 @@ const getDefaultUserData = () => {
     firstName: "",
     lastName: "",
     username: "",
-    email: ""
+    email: "",
   };
   return userData;
 };
@@ -187,7 +185,7 @@ const filteredFields = [
   { backend: "username", frontend: "Username", isEditable: true },
   { backend: "registrationNumber", frontend: "Registration Number" },
   { backend: "office", frontend: "Office" },
-  { backend: "title", frontend: "Title" }
+  { backend: "title", frontend: "Title" },
 ];
 
 function UserInfoModal({ className }: UserInfoModalProps) {
@@ -211,8 +209,8 @@ function UserInfoModal({ className }: UserInfoModalProps) {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   const logout = () => {
@@ -233,24 +231,25 @@ function UserInfoModal({ className }: UserInfoModalProps) {
         setUserData(data[0]);
         setIsLoading(false);
         return data[0];
-      }).then(res => {
-      axios.get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-        },
-        responseType: "arraybuffer"
       })
-        .then(res => {
-          const imgBlob = new Blob([res.data], { type: "png" });
-          const imgUrl = URL.createObjectURL(imgBlob);
-          setAvatar(imgUrl ? imgUrl : mockedAvatar);
-        }).catch(err => {
-        if (err.response.status === 404) {
-
-        }
+      .then((res) => {
+        axios
+          .get(`http://localhost:8082/api/v1/profile/download/${res.id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            responseType: "arraybuffer",
+          })
+          .then((res) => {
+            const imgBlob = new Blob([res.data], { type: "png" });
+            const imgUrl = URL.createObjectURL(imgBlob);
+            setAvatar(imgUrl ? imgUrl : mockedAvatar);
+          })
+          .catch((err) => {
+            if (err?.response?.status === 404) {
+            }
+          });
       });
-    });
-
 
     setIsModalOpen(true);
   };
@@ -272,10 +271,9 @@ function UserInfoModal({ className }: UserInfoModalProps) {
     }
     endPoint += `/${newUser.id}`;
 
-    axiosInstance.patch(endPoint, newUser)
-      .catch(err => {
-        console.error(err);
-      });
+    axiosInstance.patch(endPoint, newUser).catch((err) => {
+      console.error(err);
+    });
     toast.success("User profile updated");
   };
 

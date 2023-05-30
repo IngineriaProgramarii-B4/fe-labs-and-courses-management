@@ -4,10 +4,10 @@ import AddGrade from "./components/AddGrade";
 import UpdateGrade from "./components/UpdateGrade";
 import DeleteGrade from "./components/DeleteGrade";
 import styles from "./Catalog.module.scss";
-import DropdownMenuSubject from "./components/DropdownMenuSubject";
-import DropdownMenuSem from "./components/DropdownMenuSem";
 import { useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
+import { Button, Pagination } from "antd";
+import { CSVLink } from "react-csv";
 
 interface Grade {
   value: number;
@@ -20,18 +20,19 @@ interface Grade {
 function Catalog() {
   const [token, setToken] = useState<string | null>(null);
   const { decodedToken }: any = useJwt(token as string);
-
-  console.log(decodedToken);
-  const studentName = decodedToken?.sub;
-  const id = useParams();
+  const { id } = useParams();
+  const [enrolledCourses, setEnrolledCourses] = useState<any>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
-  const [userType, setUserType] = useState<string>("student");
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 4;
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [csvData, setCsvData] = useState<Grade[]>([]);
 
-  async function fetchGrades() {
-    console.log(token);
+  async function fetchEnrolledCourses() {
     try {
       const response = await axios.get(
-        "http:///localhost:8082/api/v1/students/2a2dfe47-3502-46c0-a02d-13f2521f23bf",
+        `http://localhost:8082/api/v1/users?id=${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,13 +41,59 @@ function Catalog() {
         }
       );
       const data = response.data;
-      console.log(data);
+      console.log("big data:", data);
+      setFirstName(data[0].firstName);
+      setLastName(data[0].lastName);
+      const enrolledCoursesArray = data[0].enrolledCourses.map(
+        (course: any) => {
+          return { value: course.title, label: course.title };
+        }
+      );
+      setEnrolledCourses(enrolledCoursesArray);
+
+      console.log(enrolledCoursesArray);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchName() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8082/api/v1/users?id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = response.data;
+      setFirstName(data[0].firstname);
+      setLastName(data[0].lastname);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchGrades() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8082/api/v1/students/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = response.data;
       const allGrades = [];
       if (data) {
         allGrades.push(...data.grades);
       }
-      console.log("all grades:", allGrades);
       setGrades(allGrades);
+      setCsvData(allGrades);
     } catch (error) {
       console.log(error);
     }
@@ -55,37 +102,67 @@ function Catalog() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    console.log(storedToken);
-  }, []);
+    if (token) {
+      fetchEnrolledCourses();
+    }
+  }, [token]);
 
   useEffect(() => {
     fetchGrades();
-    setUserType("teacher");
-  }, []);
+    fetchName();
+  });
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
 
   return (
-    <>
+    <div className="w-screen bg-white/90 h-screen overflow-hidden">
       <div className={styles.catalog_wrapper}>
-        {decodedToken?.role === "TEACHER" && (
-          <AddGrade fetchGrades={fetchGrades} />
-        )}
-        <h5 className={styles.username}>User: {studentName}</h5>
+        <div className="flex flex-row justify-between">
+          <h1>{firstName + " " + lastName + "'s grades:"}</h1>
 
-        {/* <DropdownMenuSubject />
-        <DropdownMenuSem /> */}
-        <h4>Role: {decodedToken?.role}</h4>
+          <div>
+            <Button className="mr-2 mb-2">
+              <CSVLink
+                data={csvData.map(({ value, subject, evaluationDate }) => ({
+                  value,
+                  subject,
+                  evaluationDate,
+                }))}
+                filename={`${firstName}_${lastName}_grades.csv`}
+                headers={[
+                  { label: "Value", key: "value" },
+                  { label: "Subject", key: "subject" },
+                  { label: "Evaluation Date", key: "evaluationDate" },
+                ]}
+              >
+                Export as CSV
+              </CSVLink>
+            </Button>
+            {decodedToken?.role === "TEACHER" && (
+              <AddGrade
+                fetchGrades={fetchGrades}
+                enrolledCourses={enrolledCourses}
+              />
+            )}
+          </div>
+        </div>
         <table className={styles.catalog_table}>
           <thead>
             <tr>
               <th></th>
               <th>Subject</th>
               <th>Grade</th>
-              <th>Date of Evaluation</th>
+              <th>Evaluation Date</th>
             </tr>
           </thead>
 
           <tbody>
-            {grades.map((grade) => (
+            {grades.slice(startIndex, endIndex).map((grade, index) => (
               <tr key={grade.id}>
                 <td>
                   {decodedToken?.role === "TEACHER" && (
@@ -113,8 +190,15 @@ function Catalog() {
             ))}
           </tbody>
         </table>
+        <Pagination
+          current={currentPage}
+          defaultPageSize={pageSize}
+          total={grades?.length + 1}
+          onChange={handlePageChange}
+          className="mt-3"
+        />
       </div>
-    </>
+    </div>
   );
 }
 
