@@ -56,15 +56,9 @@ export default function UpdateGrade(props: {
 
   useEffect(() => {
     fetchGrade();
-  }, [evDateValue, gradeValue]);
+  }, [evDateValue, gradeValue, fetchGrade()]);
 
-  useEffect(() => {
-    // console.log(
-    //   "ev date and grade value",
-    //   currentEvDateValue,
-    //   currentGradeValue
-    // );
-  }, [currentEvDateValue, currentGradeValue]);
+  useEffect(() => {}, [currentEvDateValue, currentGradeValue]);
 
   const handleUpdateGrade = (gradeId: number) => {
     axios

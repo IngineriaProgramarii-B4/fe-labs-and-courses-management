@@ -28,42 +28,48 @@ function Catalog() {
   const [lastName, setLastName] = useState<string>("");
   const [csvData, setCsvData] = useState<Grade[]>([]);
   const [taughtSubjects, setTaughtSubjects] = useState<any>([]);
+  const [enrolledCourses, setEnrolledCourses] = useState<any>([]);
   const [commonSubjects, setCommonSubjects] = useState<any>([]);
+  const [currentEmail, setCurrentEmail] = useState<string>("");
 
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:8082/api/v1",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
+  async function fetchLoggedUser2() {
+    try {
+      const baseURL = "http://localhost:8082/api/v1";
+      const headers = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+
+      const response = await axios.post(
+        `${baseURL}/users/loggedUser`,
+        localStorage.getItem("token"),
+        { headers }
+      );
+      const data = response.data;
+      setCurrentEmail(data.email);
+
+      const userDataResponse = await axios.get(
+        `${baseURL}/users?email=${data.email}`,
+        { headers }
+      );
+      const userData = userDataResponse.data;
+      const taughtSubjectsArray = userData[0].taughtSubjects.map(
+        (course: any) => ({
+          value: course.title,
+          label: course.title,
+        })
+      );
+      return taughtSubjectsArray;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    axiosInstance
-      .post("/users/loggedUser", localStorage.getItem("token"))
-      .then((res) => res.data)
-      .then((data) => {
-        return data.email;
-      })
-      .then((email) => {
-        axiosInstance
-          .get(`/users?email=${email}`)
-          .then((res) => res.data)
-          .then((data) => {
-            const taughtSubjectsArray = data[0].taughtSubjects.map(
-              (course: any) => {
-                return { value: course.title, label: course.title };
-              }
-            );
-            setTaughtSubjects(taughtSubjectsArray);
-          })
-          .catch((err) => {
-            if (err.response.status === 404) {
-              console.log("err");
-            }
-          });
-      });
+    fetchLoggedUser2().then((taughtSubjectsArray) => {
+      setTaughtSubjects(taughtSubjectsArray);
+    });
   }, []);
 
   async function fetchEnrolledCourses() {
@@ -78,7 +84,6 @@ function Catalog() {
         }
       );
       const data = response.data;
-      console.log("big data:", data);
       setFirstName(data[0].firstName);
       setLastName(data[0].lastName);
       const enrolledCoursesArray = data[0].enrolledCourses.map(
@@ -86,6 +91,7 @@ function Catalog() {
           return { value: course.title, label: course.title };
         }
       );
+      setEnrolledCourses(enrolledCoursesArray);
       const commonSubjectsArray = enrolledCoursesArray.filter((course: any) => {
         return taughtSubjects.some(
           (subject: any) => subject.value === course.value
@@ -97,6 +103,16 @@ function Catalog() {
     }
   }
 
+  useEffect(() => {
+    if (enrolledCourses.length > 0 && taughtSubjects.length > 0) {
+      const commonSubjectsArray = enrolledCourses.filter((course: any) => {
+        return taughtSubjects.some(
+          (subject: any) => subject.value === course.value
+        );
+      });
+      setCommonSubjects(commonSubjectsArray);
+    }
+  }, [enrolledCourses, taughtSubjects]);
   async function fetchName() {
     try {
       const response = await axios.get(

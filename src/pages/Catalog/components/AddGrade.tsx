@@ -61,7 +61,6 @@ export default function AddGrade(props: {
           }
         )
         .then((response) => {
-          console.log(response.data);
           setSubjectName("");
           setGradeValue(0);
           toast.success("New grade added!");
