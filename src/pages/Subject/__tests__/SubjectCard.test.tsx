@@ -23,6 +23,7 @@ describe("SubjectCard component", () => {
         year: 2023,
         semester: 1,
         credits: 3,
+        hoursOfStudy: 40
       });
   
       return (
@@ -93,6 +94,7 @@ describe("SubjectCard component", () => {
       year: 2023,
       semester: 1,
       credits: 3,
+      hoursOfStudy: 40
     };
 
     render(
@@ -144,6 +146,7 @@ describe("SubjectCard component", () => {
       year: 2023,
       semester: 1,
       credits: 3,
+      hoursOfStudy: 40
     };
 
     const setCardImgMock = jest.fn();
