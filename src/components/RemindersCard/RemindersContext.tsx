@@ -20,6 +20,7 @@ export default function RemindersContextProvider({
   const [date, setDate] = useState("");
   const [reminders, setReminders] = useState<ReminderDataProps[]>([]);
   const [loggedUser, setLoggedUser] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8082/api/v1",
@@ -33,6 +34,7 @@ export default function RemindersContextProvider({
       .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => {
         setLoggedUser(res.data.username);
+        setUserId(res.data.id);
         return res.data.id;
       })
       .then((id) => {
@@ -60,7 +62,8 @@ export default function RemindersContextProvider({
         title,
         description,
         dueDateTime: date,
-        creatorUsername: loggedUser
+        //creatorUsername: loggedUser,
+        creatorId: userId
       })
       .then(() => {
         getData();

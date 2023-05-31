@@ -104,7 +104,7 @@ function Catalog() {
   }
 
   useEffect(() => {
-    if (enrolledCourses.length > 0 && taughtSubjects.length > 0) {
+    if (enrolledCourses !== undefined && taughtSubjects !== undefined) {
       const commonSubjectsArray = enrolledCourses.filter((course: any) => {
         return taughtSubjects.some(
           (subject: any) => subject.value === course.value
