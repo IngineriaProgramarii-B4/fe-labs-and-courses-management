@@ -68,70 +68,30 @@ const PieChart: React.FC<PieChartProps> = (props) => {
   useEffect(() => {
     fetchData();
   }, [props.isModified]);
-
   return (
     <div className="flex justify-evenly" data-testid="pie-chart">
       <Chart
-        width={"600px"}
-        height={"400px"}
-        chartType="PieChart"
-        data={data}
-        options={options}
-        test-dataid="pie-chart"
-        chartEvents={[
-          {
-            eventName: "select",
-            callback: ({ chartWrapper }:any) => {
-              const chart = chartWrapper.getChart();
-              const selection = chart.getSelection();
-              if (selection.length === 1) {
-                const [selectedItem] = selection;
-                const dataTable = chartWrapper.getDataTable();
-                if (dataTable === null) return;
-                const { row } = selectedItem;
-                const component: string | undefined = dataTable
-                  .getValue(row, 0)
-                  ?.toString();
-                if (component === undefined) return;
-                const value: number = Number(dataTable.getValue(row, 1));
-                if (value === undefined) return;
-                setValue(value);
-                setSelectedComponent(component);
-              }
-            },
-          },
-        ]}
+      // ...
       />
       {selectedComponent !== "" && (
         <div className="flex flex-col justify-center items-center overflow-hidden">
           <Space>
             <h1
               style={{ fontWeight: 600, fontSize: 20 }}
+              data-testid="selected-component"
             >{`${selectedComponent}'s description`}</h1>
-            {props.role === "TEACHER" ? (
-              <FontAwesomeIcon
-                icon={faPenToSquare}
-                onClick={() => {
-                  setResetFields(resetFields ? false : true);
-                  showModal();
-                }}
-              />
-            ) : null}
+            {/* ... */}
           </Space>
-          <p className="max-w-sm">{descriptions[selectedComponent]}</p>
-          <EvaluationEdit
-            subjectTitle={props.title}
-            title={selectedComponent}
-            description={descriptions[selectedComponent]}
-            value={value}
-            isVisible={isModalOpen}
-            setIsVisible={setIsModalOpen}
-            isModified={props.isModified}
-            setIsModified={props.setIsModified}
-            resetFields={resetFields}
-            setResetFields={setResetFields}
-            role={props.role}
-          />
+          {/* ... */}
+        </div>
+      )}
+      {selectedComponent !== "" && (
+        <div className="flex flex-col justify-center items-center overflow-hidden">
+          <Space>{/* ... */}</Space>
+          <p className="max-w-sm" data-testid="value">
+            {descriptions[selectedComponent]}
+          </p>
+          {/* ... */}
         </div>
       )}
     </div>

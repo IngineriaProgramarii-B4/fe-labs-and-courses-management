@@ -1,175 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Login\__test__\Login.test.js">
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\RemindersCard\RemindersContext.test.tsx">
-    <testCase name="RemindersContext should call saveNewReminder when click on submit button" duration="257"/>
-    <testCase name="RemindersContext should render the component without errors" duration="6"/>
-    <testCase name="RemindersContext posts logged user" duration="197"/>
-    <testCase name="RemindersContext fetches reminders from server and sets state" duration="155"/>
-    <testCase name="RemindersContext saves a new reminder" duration="49"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.test.tsx">
-    <testCase name="UserHeader should render properly if it stundent" duration="183"/>
-    <testCase name="UserHeader should render properly if it is not student" duration="54"/>
-    <testCase name="UserInfoFields should render properly" duration="10"/>
-    <testCase name="NetworkCard should render properly for url param all" duration="317">
-      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
-      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
-      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
-    </testCase>
-    <testCase name="NetworkCard should render properly for no url param" duration="163">
-      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
-      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
-      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
-    </testCase>
-    <testCase name="NetworkCard should handle error when fetching data" duration="7"/>
-    <testCase name="RenderCard set avatar on image load" duration="54"/>
-    <testCase name="RenderCard hovering over card" duration="131"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\TeacherInfo\TeacherInfoCard.test.tsx">
-    <testCase name="TeacherInfoCard renders the teacher name" duration="276"/>
-    <testCase name="TeacherInfoCard renders the course titles" duration="103"/>
-    <testCase name="CourseCard should render properly" duration="722"/>
-    <testCase name="CoursesCard should render properly" duration="67"/>
-    <testCase name="CourseInputInfo changing the value in an input will fire onChange method in property editable" duration="116"/>
-    <testCase name="CourseInputInfo save the value of the editable input" duration="54"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\CatalogComponent.test.tsx">
-    <testCase name="Catalog renders student&apos;s name and grades table" duration="922"/>
-    <testCase name="Catalog fetches and stores response data correctly" duration="209"/>
-    <testCase name="Catalog exports grades as CSV" duration="123"/>
-    <testCase name="Catalog displays the correct number of grades per page based on pagination" duration="275"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx">
-    <testCase name="SubjectCard component renders subject card with mock image" duration="534"/>
-    <testCase name="SubjectCard component should show delete confirmation dialog and delete subject" duration="416">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx">
+    <testCase name="ResourcesTable renders the component" duration="1962"/>
+    <testCase name="ResourcesTable deletes a resource on button click" duration="1267">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
-Expected: true
+Expected: "http://localhost:8082/api/v1/subjects/example/components/example/resources/title=Resource 1"
+Received: "http://localhost:8082/api/v1/subjects/example/components/example/resources/title=Resource 1", {"headers": {"Authorization": "Bearer null"}}
 
-Number of calls: 0
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx:133:31)]]></failure>
+Number of calls: 1
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx:70:26)
+    at runNextTicks (node:internal/process/task_queues:60:5)
+    at listOnTimeout (node:internal/timers:538:9)
+    at processTimers (node:internal/timers:512:7)]]></failure>
     </testCase>
-    <testCase name="SubjectCard component should call handleEditClick when Edit button is clicked" duration="923">
-      <failure message="TypeError: Invalid attempt to destructure non-iterable instance."><![CDATA[TypeError: Invalid attempt to destructure non-iterable instance.
-In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
-    at _nonIterableRest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@babel\runtime\helpers\nonIterableRest.js:2:9)
-    at _slicedToArray (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@babel\runtime\helpers\slicedToArray.js:6:103)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\rc-textarea\lib\TextArea.js:71:52
-    at renderWithHooks (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:16305:18)
-    at updateForwardRef (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19226:20)
-    at beginWork (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21636:16)
-    at beginWork$1 (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
-    at performUnitOfWork (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
-    at workLoopSync (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
-    at renderRootSync (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
-    at recoverFromConcurrentError (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25850:20)
-    at performConcurrentWorkOnRoot (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25750:22)
-    at flushActQueue (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
-    at act (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
-    at Object.eventWrapper (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:78:28)
-    at fireEvent (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:12:35)
-    at Function.fireEvent.<computed> [as click] (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:110:36)
-    at Function.click (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\fire-event.js:18:52)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx:164:15)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    <testCase name="ResourcesTable opens the file on resource link click" duration="465">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: "http://localhost:8082/api/v1/subjects/example/components/example/resources/file=Resource 1", {"responseType": "arraybuffer"}
+Received
+       1
+          "http://localhost:8082/api/v1/subjects/example/components/example/resources",
+          Object {
+        -   "responseType": "arraybuffer",
+        +   "headers": Object {
+        +     "Authorization": "Bearer null",
+        +   },
+          },
+       2
+          "http://localhost:8082/api/v1/subjects/example/components/example/resources/file=Resource 1",
+          Object {
+        +   "headers": Object {
+        +     "Authorization": "Bearer null",
+        +   },
+            "responseType": "arraybuffer",
+          },
+
+Number of calls: 2
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx:104:23)
+    at runNextTicks (node:internal/process/task_queues:60:5)
+    at listOnTimeout (node:internal/timers:538:9)
+    at processTimers (node:internal/timers:512:7)]]></failure>
     </testCase>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FileTransfer.test.tsx">
-    <testCase name="FileTransfer component renders the component with the correct props" duration="316"/>
-    <testCase name="FileTransfer component uploads a file successfully" duration="261"/>
-    <testCase name="FileTransfer component displays an error message when file upload fails" duration="121"/>
-    <testCase name="FileTransfer component clears the file list when clearFileList prop changes" duration="99"/>
-    <testCase name="FileTransfer component calls onDrop when files are dropped onto the component" duration="132"/>
-    <testCase name="FileTransfer component uploads a file successfully and calls onUploadProgress" duration="119"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\RemindersCard\ReminderItem.test.tsx">
-    <testCase name="ReminderItem renders the title and description" duration="258"/>
-    <testCase name="ReminderItem renders the due date" duration="74"/>
-    <testCase name="ReminderItem renders delete reminder button" duration="34"/>
-    <testCase name="ReminderItem clicking delete reminder button opens delete confirmation modal" duration="586"/>
-    <testCase name="ReminderItem clicking cancel button in delete confirmation modal closes modal" duration="173"/>
-    <testCase name="ReminderItem clicking pencil icon will make the description editable" duration="191"/>
-    <testCase name="ReminderItem clicking pencil icon will make the due date editable" duration="111"/>
-    <testCase name="ReminderItem changing the value in an input will fire onChange method in description editable" duration="259"/>
-    <testCase name="ReminderItem changing the value in an input will fire onChange method in date editable" duration="54"/>
-    <testCase name="ReminderItem close the delete modal when clicking the x button" duration="774"/>
-    <testCase name="ReminderItem display description and due date" duration="374"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoModal.test.tsx">
-    <testCase name="ModalTitle should render properly when not in edit mode" duration="246"/>
-    <testCase name="ModalTitle should not render a pencil icon when in edit mode" duration="5"/>
-    <testCase name="ModalTitle should go into edit mode on icon click" duration="73"/>
-    <testCase name="ModalFooter should render properly when in edit mode" duration="89"/>
-    <testCase name="ModalFooter should render properly when not in edit mode" duration="41"/>
-    <testCase name="ModalFooter should call onSave when save button is clicked" duration="43"/>
-    <testCase name="ModalFooter should call onCancel when cancel button is clicked" duration="45"/>
-    <testCase name="ModalFooter should call onLogout when logout button is clicked" duration="46"/>
-    <testCase name="UserProfileAvatar should render properly when not editing and with an avatar" duration="9"/>
-    <testCase name="UserProfileAvatar should render properly when not editing and without an avatar" duration="5"/>
-    <testCase name="UserProfileAvatar should convert selected file to base64 when done uploading" duration="130"/>
-    <testCase name="UserProfileAvatar should reject non-image file before uploading" duration="27"/>
-    <testCase name="UserInfoModal should update admin(1) profile on save" duration="394"/>
-    <testCase name="UserInfoModal should update teacher(2) profile on save" duration="312"/>
-    <testCase name="UserInfoModal should update student(3) profile on save" duration="182"/>
-    <testCase name="UserInfoModal should not update user profile on cancel" duration="225"/>
-    <testCase name="UserInfoModal should redirect on logout" duration="162"/>
-    <testCase name="UserInfoModal should close the modal on cancel" duration="981"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx">
-    <testCase name="Modal that pops up and has a text area renders the modal" duration="515"/>
-    <testCase name="Modal that pops up and has a text area should render the modal with edit and close buttons" duration="404"/>
-    <testCase name="Modal that pops up and has a text area should show the edit textarea when Edit button is clicked" duration="298"/>
-    <testCase name="Modal that pops up and has a text area should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="236"/>
-    <testCase name="Modal that pops up and has a text area should render the modal correctly" duration="113"/>
-    <testCase name="Modal that pops up and has a text area should allow the user to edit the description" duration="183">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx">
+    <testCase name="Modal that pops up and has a text area renders the modal" duration="882"/>
+    <testCase name="Modal that pops up and has a text area should render the modal with edit and close buttons" duration="599"/>
+    <testCase name="Modal that pops up and has a text area should show the edit textarea when Edit button is clicked" duration="630"/>
+    <testCase name="Modal that pops up and has a text area should set a new description when Save button is clicked and close the modal when Close button is clicked" duration="482"/>
+    <testCase name="Modal that pops up and has a text area should render the modal correctly" duration="144"/>
+    <testCase name="Modal that pops up and has a text area should allow the user to edit the description" duration="463">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
 Expected: "New Description"
 
 Number of calls: 0
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx:121:38)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx:121:38)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Modal that pops up and has a text area should handle errors when saving the description" duration="1216">
+    <testCase name="Modal that pops up and has a text area should handle errors when saving the description" duration="1372">
       <failure message="TypeError: Cannot read properties of undefined (reading &apos;data&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'data')
-    at fetchData (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\PieChart.tsx:54:30)
+    at fetchData (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\PieChart.tsx:55:30)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
       <failure message="TypeError: Cannot read properties of undefined (reading &apos;data&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'data')
-    at fetchData (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\SelectedSubject.tsx:51:25)
+    at fetchData (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\SelectedSubject.tsx:51:25)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
@@ -304,38 +211,18 @@ Ignored nodes: comments, script, style
     </div>
   </body>
 </html>...
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx:147:38
-    at runWithExpensiveErrorDiagnosticsDisabled (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:47:12)
-    at checkCallback (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:127:77)
-    at checkRealTimersCallback (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:121:16)
-    at Timeout.task [as _onTimeout] (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\browser\Window.js:516:19)
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\MyVerticallyCenteredModal.test.tsx:147:38
+    at runWithExpensiveErrorDiagnosticsDisabled (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:47:12)
+    at checkCallback (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:127:77)
+    at checkRealTimersCallback (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:121:16)
+    at Timeout.task [as _onTimeout] (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jsdom\lib\jsdom\browser\Window.js:516:19)
     at listOnTimeout (node:internal/timers:569:17)
     at processTimers (node:internal/timers:512:7)]]></failure>
     </testCase>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectForm.test.tsx">
-    <testCase name="SubjectForm should render the form correctly" duration="1351"/>
-    <testCase name="SubjectForm should trigger onChange handlers correctly" duration="3316"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\RemindersCard\RemindersCard.test.tsx">
-    <testCase name="RemindersCardBody should render the titles and the descriptions of the reminders" duration="426"/>
-    <testCase name="RemindersCardBody should render information regarding reminders properly" duration="363"/>
-    <testCase name="RemindersCardBody opens add reminder modal" duration="1984"/>
-    <testCase name="RemindersCardBody add reminder" duration="1138"/>
-    <testCase name="RemindersCardBody delete reminder function" duration="1041"/>
-    <testCase name="RemindersCardBody delete reminder axios" duration="240"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
-    <testCase name="Accordion should render Acoordion component" duration="278"/>
-    <testCase name="Accordion should open the add modal when add button is clicked" duration="699"/>
-    <testCase name="Accordion should close the add modal when cancel button is clicked" duration="399"/>
-    <testCase name="Accordion should save the new component and update the state when form is submitted" duration="2688"/>
-    <testCase name="Accordion renders the Accordion component with the correct props" duration="39"/>
-    <testCase name="Accordion should  open the modal for the new component" duration="231"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx">
-    <testCase name="FileTransfer component calls the onCancel function and updates state correctly" duration="559"/>
-    <testCase name="FileTransfer component calls axios.put with correct data when save button is clicked" duration="219">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx">
+    <testCase name="FileTransfer component calls the onCancel function and updates state correctly" duration="868"/>
+    <testCase name="FileTransfer component calls axios.put with correct data when save button is clicked" duration="366">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
 - Expected
@@ -346,10 +233,10 @@ Ignored nodes: comments, script, style
 + {"headers": {"Authorization": "Bearer null"}},
 
 Number of calls: 1
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx:71:26)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx:71:26)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
     </testCase>
-    <testCase name="FileTransfer component logs an error message when axios.put throws an error" duration="193">
+    <testCase name="FileTransfer component logs an error message when axios.put throws an error" duration="338">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
 - Expected
@@ -360,80 +247,26 @@ Number of calls: 1
 + {"headers": {"Authorization": "Bearer null"}},
 
 Number of calls: 1
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx:107:26)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\EvaluationEdit.test.tsx:107:26)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
     </testCase>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\UserInfoModal\UserAvatar.test.tsx">
-    <testCase name="UserAvatar should render the user placeholder icon" duration="92"/>
-    <testCase name="UserAvatar should render a custom user avatar" duration="73"/>
-    <testCase name="UserAvatar should call the onClick function when clicked" duration="37"/>
-    <testCase name="UserAvatar should call setAvatar with correct image URL" duration="36"/>
-    <testCase name="UserAvatar should call setAvatar with correct image URL for no image" duration="30"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PieChart.test.tsx">
-    <testCase name="PieChart component renders PieChart component" duration="69"/>
-    <testCase name="PieChart component fetches the data from the API" duration="8"/>
-    <testCase name="PieChart component clicking on one segment of the pieChart opens the description of that component" duration="9"/>
-    <testCase name="PieChart component clicking on the description button opens the description of that component" duration="7"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PhotoUpload.test.tsx">
-    <testCase name="PhotoUpload component should render the component" duration="222"/>
-    <testCase name="PhotoUpload component renders an upload button with text when fileList is empty" duration="102"/>
-    <testCase name="PhotoUpload component should call onPreview when a picture is clicked" duration="163"/>
-    <testCase name="PhotoUpload component should allow the user to select and upload a file" duration="115"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\InsertData\__test__\Form.test.js">
-    <testCase name="FormInfo Component renders without crashing" duration="608"/>
-    <testCase name="FormInfo Component submits form with entered data" duration="270"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx">
-    <testCase name="ResourcesTable renders the component" duration="836"/>
-    <testCase name="ResourcesTable deletes a resource on button click" duration="438">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js">
+    <testCase name="Register component renders form with expected fields and links" duration="4592"/>
+    <testCase name="Register component form validation works as expected" duration="4770"/>
+    <testCase name="Register component form submit calls api post with correct data and navigates to login page on success" duration="1260">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
-Expected: "http://localhost:8082/api/v1/subjects/example/components/example/resources/title=Resource 1"
-Received: "http://localhost:8082/api/v1/subjects/example/components/example/resources/title=Resource 1", {"headers": {"Authorization": "Bearer null"}}
+Expected: "/login"
 
-Number of calls: 1
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx:70:26)
+Number of calls: 0
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js:85:26)
     at runNextTicks (node:internal/process/task_queues:60:5)
     at listOnTimeout (node:internal/timers:538:9)
     at processTimers (node:internal/timers:512:7)]]></failure>
     </testCase>
-    <testCase name="ResourcesTable opens the file on resource link click" duration="251">
-      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
-
-Expected: "http://localhost:8082/api/v1/subjects/example/components/example/resources/file=Resource 1", {"responseType": "arraybuffer"}
-Received
-       1
-          "http://localhost:8082/api/v1/subjects/example/components/example/resources",
-          Object {
-        -   "responseType": "arraybuffer",
-        +   "headers": Object {
-        +     "Authorization": "Bearer null",
-        +   },
-          },
-       2
-          "http://localhost:8082/api/v1/subjects/example/components/example/resources/file=Resource 1",
-          Object {
-        +   "headers": Object {
-        +     "Authorization": "Bearer null",
-        +   },
-            "responseType": "arraybuffer",
-          },
-
-Number of calls: 2
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\ResourcesTable.test.tsx:104:23)
-    at runNextTicks (node:internal/process/task_queues:60:5)
-    at listOnTimeout (node:internal/timers:538:9)
-    at processTimers (node:internal/timers:512:7)]]></failure>
-    </testCase>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js">
-    <testCase name="should render welcome back title" duration="680"/>
-    <testCase name="renders form with expected fields" duration="199">
-      <failure message="TestingLibraryElementError: Unable to find a label with the text of: /id/i"><![CDATA[TestingLibraryElementError: Unable to find a label with the text of: /id/i
+    <testCase name="Register component api failure displays error toast" duration="1960">
+      <failure message="Error: Unable to find an element with the text: Registration failed. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: Registration failed. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style
 <body>
@@ -454,7 +287,7 @@ Ignored nodes: comments, script, style
           Welcome Back!
         </h1>
         <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
+          class="ant-form-item css-dev-only-do-not-override-yp8pcc ant-form-item-with-help ant-form-item-has-error"
         >
           <div
             class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
@@ -469,8 +302,10 @@ Ignored nodes: comments, script, style
                   class="ant-form-item-control-input-content"
                 >
                   <input
+                    aria-describedby="register_ID_help"
+                    aria-invalid="true"
                     aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
+                    class="ant-input ant-input-status-error css-dev-only-do-not-override-yp8pcc"
                     id="register_ID"
                     placeholder="Please input your ID"
                     type="text"
@@ -478,11 +313,33 @@ Ignored nodes: comments, script, style
                   />
                 </div>
               </div>
+              <div
+                style="display: flex; flex-wrap: nowrap;"
+              >
+                <div
+                  class="ant-form-item-explain ant-form-item-explain-connected css-dev-only-do-not-override-yp8pcc"
+                  id="register_ID_help"
+                  role="alert"
+                >
+                  <div
+                    class="ant-form-item-explain-error"
+                  >
+                    Please input your ID!
+                  </div>
+                </div>
+                <div
+                  style="width: 0px; height: 24px;"
+                />
+              </div>
             </div>
           </div>
+          <div
+            class="ant-form-item-margin-offset"
+            style="margin-bottom: -24px;"
+          />
         </div>
         <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
+          class="ant-form-item css-dev-only-do-not-override-yp8pcc ant-form-item-with-help ant-form-item-has-error"
         >
           <div
             class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
@@ -497,8 +354,10 @@ Ignored nodes: comments, script, style
                   class="ant-form-item-control-input-content"
                 >
                   <input
+                    aria-describedby="register_email_help"
+                    aria-invalid="true"
                     aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
+                    class="ant-input ant-input-status-error css-dev-only-do-not-override-yp8pcc"
                     id="register_email"
                     placeholder="Please input your E-mail!"
                     type="text"
@@ -506,11 +365,33 @@ Ignored nodes: comments, script, style
                   />
                 </div>
               </div>
+              <div
+                style="display: flex; flex-wrap: nowrap;"
+              >
+                <div
+                  class="ant-form-item-explain ant-form-item-explain-connected css-dev-only-do-not-override-yp8pcc"
+                  id="register_email_help"
+                  role="alert"
+                >
+                  <div
+                    class="ant-form-item-explain-error"
+                  >
+                    Please input your E-mail!
+                  </div>
+                </div>
+                <div
+                  style="width: 0px; height: 24px;"
+                />
+              </div>
             </div>
           </div>
+          <div
+            class="ant-form-item-margin-offset"
+            style="margin-bottom: -24px;"
+          />
         </div>
         <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
+          class="ant-form-item css-dev-only-do-not-override-yp8pcc ant-form-item-with-help ant-form-item-has-feedback ant-form-item-has-error"
         >
           <div
             class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
@@ -525,961 +406,56 @@ Ignored nodes: comments, script, style
                   class="ant-form-item-control-input-content"
                 >
                   <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
+                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-status-error ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
                   >
                     <input
+                      aria-describedby="register_password_help"
+                      aria-invalid="true"
                       aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_password"
-                      placeholder="Please input your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_confirm"
-                      placeholder="Please confirm your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <button
-            class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-primary ant-btn-block registerButton"
-            type="submit"
-          >
-            <span>
-              Register
-            </span>
-          </button>
-          <div
-            class="info"
-          >
-            <a
-              href="http://localhost:3000/sendMail"
-            >
-              <p
-                style="margin-left: 70px; margin-top: 10px; font-size: 16px;"
-              >
-                 Forgot password?
-              </p>
-            </a>
-          </div>
-          <div
-            class="registerContainer"
-          >
-            <p>
-              Already have an acoount?
-            </p>
-            <button
-              class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-default registerButton"
-              type="submit"
-            >
-              <a
-                href="http://localhost:3000/login"
-              >
-                Log in
-              </a>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
-    at Object.getElementError (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:37:19)
-    at getAllByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\queries\label-text.js:103:38)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
-    at getByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js:64:28)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+   ...
+    at waitForWrapper (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js:95:18)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at runNextTicks (node:internal/process/task_queues:60:5)
+    at listOnTimeout (node:internal/timers:538:9)
+    at processTimers (node:internal/timers:512:7)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="Register component password confirmation mismatch shows error" duration="3289"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx">
+    <testCase name="UpdateGrade component should render a button to open the modal" duration="503"/>
+    <testCase name="UpdateGrade component should render a modal when the button is clicked" duration="3065"/>
+    <testCase name="UpdateGrade component should submit the form data when the update button is clicked" duration="7359">
+      <failure message="Error: thrown: &quot;Exceeded timeout of 5000 ms for a test."><![CDATA[Error: thrown: "Exceeded timeout of 5000 ms for a test.
+Use jest.setTimeout(newTimeout) to increase the timeout value, if this is a long-running test."
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx:37:3
+    at _dispatchDescribe (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\index.js:98:26)
+    at describe (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\index.js:60:5)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx:10:1)
+    at Runtime._execModule (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runtime\build\index.js:1646:24)
+    at Runtime._loadModule (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runtime\build\index.js:1185:12)
+    at Runtime.requireModule (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runtime\build\index.js:1009:12)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:13)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="error message if the ID field is empty" duration="1752"/>
-    <testCase name="error message if the e-mail field is empty" duration="1012"/>
-    <testCase name="error message if an invalid email is entered" duration="171">
-      <failure message="TestingLibraryElementError: Unable to find a label with the text of: E-mail"><![CDATA[TestingLibraryElementError: Unable to find a label with the text of: E-mail
-
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <div
-      class="appBg"
-    >
-      <div
-        class="topBar"
-      />
-      <form
-        class="ant-form ant-form-horizontal css-dev-only-do-not-override-yp8pcc registerForm"
-        id="register"
-      >
-        <h1
-          class="ant-typography titluForm css-dev-only-do-not-override-yp8pcc"
-        >
-          Welcome Back!
-        </h1>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
-                    id="register_ID"
-                    placeholder="Please input your ID"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
-                    id="register_email"
-                    placeholder="Please input your E-mail!"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_password"
-                      placeholder="Please input your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_confirm"
-                      placeholder="Please confirm your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <button
-            class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-primary ant-btn-block registerButton"
-            type="submit"
-          >
-            <span>
-              Register
-            </span>
-          </button>
-          <div
-            class="info"
-          >
-            <a
-              href="http://localhost:3000/sendMail"
-            >
-              <p
-                style="margin-left: 70px; margin-top: 10px; font-size: 16px;"
-              >
-                 Forgot password?
-              </p>
-            </a>
-          </div>
-          <div
-            class="registerContainer"
-          >
-            <p>
-              Already have an acoount?
-            </p>
-            <button
-              class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-default registerButton"
-              type="submit"
-            >
-              <a
-                href="http://localhost:3000/login"
-              >
-                Log in
-              </a>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
-    at Object.getElementError (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:37:19)
-    at getAllByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\queries\label-text.js:103:38)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
-    at getByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js:106:29)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at runNextTicks (node:internal/process/task_queues:60:5)
-    at processTimers (node:internal/timers:509:9)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="error message if the password field is empty" duration="924"/>
-    <testCase name="error message if the confirm password field is empty" duration="700"/>
-    <testCase name="error message when passwords do not match" duration="842"/>
-    <testCase name="error message if the password does not meet the required pattern" duration="801"/>
-    <testCase name="should display error message if server returns an error" duration="128">
-      <failure message="TestingLibraryElementError: Unable to find a label with the text of: ID"><![CDATA[TestingLibraryElementError: Unable to find a label with the text of: ID
-
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <div
-      class="appBg"
-    >
-      <div
-        class="topBar"
-      />
-      <form
-        class="ant-form ant-form-horizontal css-dev-only-do-not-override-yp8pcc registerForm"
-        id="register"
-      >
-        <h1
-          class="ant-typography titluForm css-dev-only-do-not-override-yp8pcc"
-        >
-          Welcome Back!
-        </h1>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
-                    id="register_ID"
-                    placeholder="Please input your ID"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
-                    id="register_email"
-                    placeholder="Please input your E-mail!"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_password"
-                      placeholder="Please input your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_confirm"
-                      placeholder="Please confirm your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <button
-            class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-primary ant-btn-block registerButton"
-            type="submit"
-          >
-            <span>
-              Register
-            </span>
-          </button>
-          <div
-            class="info"
-          >
-            <a
-              href="http://localhost:3000/sendMail"
-            >
-              <p
-                style="margin-left: 70px; margin-top: 10px; font-size: 16px;"
-              >
-                 Forgot password?
-              </p>
-            </a>
-          </div>
-          <div
-            class="registerContainer"
-          >
-            <p>
-              Already have an acoount?
-            </p>
-            <button
-              class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-default registerButton"
-              type="submit"
-            >
-              <a
-                href="http://localhost:3000/login"
-              >
-                Log in
-              </a>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
-    at Object.getElementError (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:37:19)
-    at getAllByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\queries\label-text.js:103:38)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
-    at getByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js:177:29)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at runNextTicks (node:internal/process/task_queues:60:5)
-    at processTimers (node:internal/timers:509:9)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-    </testCase>
-    <testCase name="should navigate to login page after successful registration" duration="133">
-      <failure message="TestingLibraryElementError: Unable to find a label with the text of: ID"><![CDATA[TestingLibraryElementError: Unable to find a label with the text of: ID
-
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <div
-      class="appBg"
-    >
-      <div
-        class="topBar"
-      />
-      <form
-        class="ant-form ant-form-horizontal css-dev-only-do-not-override-yp8pcc registerForm"
-        id="register"
-      >
-        <h1
-          class="ant-typography titluForm css-dev-only-do-not-override-yp8pcc"
-        >
-          Welcome Back!
-        </h1>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
-                    id="register_ID"
-                    placeholder="Please input your ID"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    aria-required="true"
-                    class="ant-input css-dev-only-do-not-override-yp8pcc"
-                    id="register_email"
-                    placeholder="Please input your E-mail!"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_password"
-                      placeholder="Please input your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="ant-form-item css-dev-only-do-not-override-yp8pcc"
-        >
-          <div
-            class="ant-row ant-form-item-row css-dev-only-do-not-override-yp8pcc"
-          >
-            <div
-              class="ant-col ant-form-item-control css-dev-only-do-not-override-yp8pcc"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <span
-                    class="ant-input-affix-wrapper ant-input-password ant-input-affix-wrapper-has-feedback css-dev-only-do-not-override-yp8pcc"
-                  >
-                    <input
-                      aria-required="true"
-                      class="ant-input css-dev-only-do-not-override-yp8pcc"
-                      id="register_confirm"
-                      placeholder="Please confirm your password!"
-                      type="password"
-                      value=""
-                    />
-                    <span
-                      class="ant-input-suffix"
-                    >
-                      <span
-                        aria-label="eye-invisible"
-                        class="anticon anticon-eye-invisible ant-input-password-icon"
-                        role="img"
-                        tabindex="-1"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye-invisible"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                          />
-                          <path
-                            d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <button
-            class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-primary ant-btn-block registerButton"
-            type="submit"
-          >
-            <span>
-              Register
-            </span>
-          </button>
-          <div
-            class="info"
-          >
-            <a
-              href="http://localhost:3000/sendMail"
-            >
-              <p
-                style="margin-left: 70px; margin-top: 10px; font-size: 16px;"
-              >
-                 Forgot password?
-              </p>
-            </a>
-          </div>
-          <div
-            class="registerContainer"
-          >
-            <p>
-              Already have an acoount?
-            </p>
-            <button
-              class="ant-btn css-dev-only-do-not-override-yp8pcc ant-btn-default registerButton"
-              type="submit"
-            >
-              <a
-                href="http://localhost:3000/login"
-              >
-                Log in
-              </a>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
-    at Object.getElementError (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:37:19)
-    at getAllByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\queries\label-text.js:103:38)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
-    at getByLabelText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Register\__test__\Register.test.js:198:29)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at runNextTicks (node:internal/process/task_queues:60:5)
-    at processTimers (node:internal/timers:509:9)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Home\Home.test.tsx">
-    <testCase name="Home renders Home component" duration="67"/>
-    <testCase name="Home renders image" duration="13"/>
-  </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx">
-    <testCase name="Subjects component renders the component" duration="265">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx">
+    <testCase name="Subjects component renders the component" duration="433">
       <failure message="TestingLibraryElementError: Unable to find an element with the text: Math. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[TestingLibraryElementError: Unable to find an element with the text: Math. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style
@@ -1561,50 +537,50 @@ Ignored nodes: comments, script, style
     </div>
   </div>
 </body>
-    at Object.getElementError (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:37:19)
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
-    at C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
-    at getByText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:39:26)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at Object.getElementError (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\config.js:37:19)
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
+    at getByText (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:39:26)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Subjects component fetches the data from the API" duration="154">
+    <testCase name="Subjects component fetches the data from the API" duration="156">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
 Expected: "http://localhost:8082/api/v1/subjects"
-Received: "http://localhost:8082/api/v1/subjects", {"headers": {"Authorization": "Bearer token-value"}}
+Received: "http://localhost:8082/api/v1/subjects", {"headers": {"Authorization": "Bearer token"}}
 
 Number of calls: 1
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:54:23)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:54:23)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Subjects component &apos;no&apos; button doesn&apos;t delete the card" duration="1078">
+    <testCase name="Subjects component &apos;no&apos; button doesn&apos;t delete the card" duration="1133">
       <failure message="Error: Unable to find an element with the text: Delete. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: Delete. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style
@@ -1822,25 +798,25 @@ Ignored nodes: comments, script, style
     </div>
   </div>
 </body>
-    at waitForWrapper (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
-    at findAllByText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:66:39)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at waitForWrapper (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
+    at findAllByText (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:66:39)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
     at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Subjects component delete button trigger axios.delete" duration="1079">
+    <testCase name="Subjects component delete button trigger axios.delete" duration="1183">
       <failure message="Error: Unable to find an element with the text: Delete. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: Delete. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style
@@ -2058,24 +1034,24 @@ Ignored nodes: comments, script, style
     </div>
   </div>
 </body>
-    at waitForWrapper (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
-    at findAllByText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:93:39)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at waitForWrapper (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
+    at findAllByText (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:93:39)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Subjects component edit button opens form" duration="1064">
+    <testCase name="Subjects component edit button opens form" duration="1215">
       <failure message="Error: Unable to find an element with the text: Edit. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: Edit. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style
@@ -2293,108 +1269,286 @@ Ignored nodes: comments, script, style
     </div>
   </div>
 </body>
-    at waitForWrapper (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
-    at findAllByText (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:109:37)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    at waitForWrapper (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\wait-for.js:166:27)
+    at findAllByText (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\query-helpers.js:86:33)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:109:37)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Subjects component should return the token from local storage" duration="60">
-      <failure message="TypeError: (0 , _Subjects.extractToken) is not a function"><![CDATA[TypeError: (0 , _Subjects.extractToken) is not a function
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:130:24)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    <testCase name="Subjects component should return the token from local storage" duration="271">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "token-value"
+Received: "token"
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:130:28)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
-    <testCase name="Subjects component should return null when no token is found in local storage" duration="42">
-      <failure message="TypeError: (0 , _Subjects.extractToken) is not a function"><![CDATA[TypeError: (0 , _Subjects.extractToken) is not a function
-    at Object.<anonymous> (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Subjects.test.tsx:136:24)
-    at Promise.then.completed (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
+    <testCase name="Subjects component should return null when no token is found in local storage" duration="175"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.test.tsx">
+    <testCase name="UserHeader should render properly if it stundent" duration="496"/>
+    <testCase name="UserHeader should render properly if it is not student" duration="185"/>
+    <testCase name="UserInfoFields should render properly" duration="13"/>
+    <testCase name="NetworkCard should render properly for url param all" duration="1518">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
+    </testCase>
+    <testCase name="NetworkCard should render properly for no url param" duration="633">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;status&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'status')
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\NetworkCard\NetworkCard.tsx:153:26]]></failure>
+    </testCase>
+    <testCase name="NetworkCard should handle error when fetching data" duration="12"/>
+    <testCase name="RenderCard set avatar on image load" duration="179"/>
+    <testCase name="RenderCard hovering over card" duration="200"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx">
+    <testCase name="SubjectCard component renders subject card with mock image" duration="760"/>
+    <testCase name="SubjectCard component should show delete confirmation dialog and delete subject" duration="527">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: true
+
+Number of calls: 0
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx:133:31)
+    at runNextTicks (node:internal/process/task_queues:60:5)
+    at processTimers (node:internal/timers:509:9)]]></failure>
+    </testCase>
+    <testCase name="SubjectCard component should call handleEditClick when Edit button is clicked" duration="1277">
+      <failure message="TypeError: Invalid attempt to destructure non-iterable instance."><![CDATA[TypeError: Invalid attempt to destructure non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
+    at _nonIterableRest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@babel\runtime\helpers\nonIterableRest.js:2:9)
+    at _slicedToArray (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@babel\runtime\helpers\slicedToArray.js:6:103)
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\rc-textarea\lib\TextArea.js:71:52
+    at renderWithHooks (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:16305:18)
+    at updateForwardRef (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:19226:20)
+    at beginWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:21636:16)
+    at beginWork$1 (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
+    at performUnitOfWork (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
+    at workLoopSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
+    at renderRootSync (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
+    at recoverFromConcurrentError (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25850:20)
+    at performConcurrentWorkOnRoot (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react-dom\cjs\react-dom.development.js:25750:22)
+    at flushActQueue (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2667:24)
+    at act (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\react\cjs\react.development.js:2582:11)
+    at C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\act-compat.js:63:25
+    at Object.eventWrapper (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\pure.js:78:28)
+    at fireEvent (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:12:35)
+    at Function.fireEvent.<computed> [as click] (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:110:36)
+    at Function.click (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\@testing-library\react\dist\fire-event.js:18:52)
+    at Object.<anonymous> (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectCard.test.tsx:164:15)
+    at Promise.then.completed (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:391:28)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
-    at _callCircusTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
-    at _runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
-    at _runTestsForDescribeBlock (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
-    at run (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-    at jestAdapter (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-    at runTestInternal (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
-    at runTest (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
-    at Object.worker (C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    at callAsyncCircusFn (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:218:40)
+    at runNextTicks (node:internal/process/task_queues:60:5)
+    at processTimers (node:internal/timers:509:9)
+    at _runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
     </testCase>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoInput.test.tsx">
-    <testCase name="UserInfoInput should render properly" duration="27"/>
-    <testCase name="UserInfoInput should be editable when in edit mode" duration="286"/>
-    <testCase name="UserInfoInput should not be editable when not in edit mode" duration="11"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\RemindersContext.test.tsx">
+    <testCase name="RemindersContext should call saveNewReminder when click on submit button" duration="249"/>
+    <testCase name="RemindersContext should render the component without errors" duration="8"/>
+    <testCase name="RemindersContext posts logged user" duration="176"/>
+    <testCase name="RemindersContext fetches reminders from server and sets state" duration="160"/>
+    <testCase name="RemindersContext saves a new reminder" duration="78"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
-    <testCase name="CardGrid renders the correct number of subject cards" duration="259"/>
-    <testCase name="CardGrid pressing the card sends the user to the course&apos;s page" duration="125"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\AddReminderModal.test.tsx">
+    <testCase name="AddReminderModal should render modal title, description field and due date field" duration="1041"/>
+    <testCase name="AddReminderModal changing the value in an input will fire onChange method" duration="1119"/>
+    <testCase name="AddReminderModal close the modal when clicking the x button" duration="9164"/>
+    <testCase name="AddReminderModal renders the DatePicker component" duration="285"/>
+    <testCase name="AddReminderModal should call onCancel when cancel button is clicked" duration="330"/>
+    <testCase name="ModalFooter should render properly when in edit mode" duration="168"/>
+    <testCase name="ModalFooter should call saveNewReminder when save button is clicked" duration="196"/>
+    <testCase name="ModalFooter should call onCancel when cancel button is clicked" duration="127"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\AddGradeComponent.test.tsx">
-    <testCase name="AddGrade renders the Add Grade button" duration="230"/>
-    <testCase name="AddGrade opens the modal when Add Grade button is clicked" duration="424"/>
-    <testCase name="AddGrade closes the modal when cancel button is clicked" duration="291"/>
-    <testCase name="AddGrade adds a new grade when Add button is clicked" duration="243"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
+    <testCase name="FormModal renders modal title" duration="1467"/>
+    <testCase name="FormModal should render the submit button" duration="498"/>
+    <testCase name="FormModal submits the form data" duration="6794"/>
+    <testCase name="FormModal cancels the form data" duration="4946"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\components\RemindersCard\AddReminderModal.test.tsx">
-    <testCase name="AddReminderModal should render modal title, description field and due date field" duration="914"/>
-    <testCase name="AddReminderModal changing the value in an input will fire onChange method" duration="865"/>
-    <testCase name="AddReminderModal close the modal when clicking the x button" duration="7469"/>
-    <testCase name="AddReminderModal renders the DatePicker component" duration="134"/>
-    <testCase name="AddReminderModal should call onCancel when cancel button is clicked" duration="173"/>
-    <testCase name="ModalFooter should render properly when in edit mode" duration="64"/>
-    <testCase name="ModalFooter should call saveNewReminder when save button is clicked" duration="51"/>
-    <testCase name="ModalFooter should call onCancel when cancel button is clicked" duration="49"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Login\__test__\Login.test.js">
+    <testCase name="check register button functionality" duration="1402"/>
+    <testCase name="validate password input" duration="1166"/>
+    <testCase name="should render welcome back title" duration="205"/>
+    <testCase name="renders form with expected fields" duration="916"/>
+    <testCase name="validate email input" duration="830"/>
+    <testCase name="store JWT token in local storage" duration="659"/>
+    <testCase name="redirect to home if user is authenticated" duration="219"/>
+    <testCase name="no redirect if user is not authenticated" duration="195"/>
+    <testCase name="should handle login failure without token" duration="755"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\SendEmail\__test__\SendMail.test.js">
-    <testCase name="SendMail Component submits form with entered data" duration="310"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoModal.test.tsx">
+    <testCase name="ModalTitle should render properly when not in edit mode" duration="232"/>
+    <testCase name="ModalTitle should not render a pencil icon when in edit mode" duration="5"/>
+    <testCase name="ModalTitle should go into edit mode on icon click" duration="111"/>
+    <testCase name="ModalFooter should render properly when in edit mode" duration="103"/>
+    <testCase name="ModalFooter should render properly when not in edit mode" duration="79"/>
+    <testCase name="ModalFooter should call onSave when save button is clicked" duration="63"/>
+    <testCase name="ModalFooter should call onCancel when cancel button is clicked" duration="53"/>
+    <testCase name="ModalFooter should call onLogout when logout button is clicked" duration="64"/>
+    <testCase name="UserProfileAvatar should render properly when not editing and with an avatar" duration="10"/>
+    <testCase name="UserProfileAvatar should render properly when not editing and without an avatar" duration="11"/>
+    <testCase name="UserProfileAvatar should convert selected file to base64 when done uploading" duration="119"/>
+    <testCase name="UserProfileAvatar should reject non-image file before uploading" duration="44"/>
+    <testCase name="UserInfoModal should update admin(1) profile on save" duration="521"/>
+    <testCase name="UserInfoModal should update teacher(2) profile on save" duration="324"/>
+    <testCase name="UserInfoModal should update student(3) profile on save" duration="349"/>
+    <testCase name="UserInfoModal should not update user profile on cancel" duration="390"/>
+    <testCase name="UserInfoModal should redirect on logout" duration="319"/>
+    <testCase name="UserInfoModal should close the modal on cancel" duration="1023"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\DeleteGradeComponent.test.tsx">
-    <testCase name="DeleteGrade component clicking delete button shows confirmation modal" duration="494"/>
-    <testCase name="DeleteGrade component clicking delete button and confirming should delete grade and close modal" duration="199"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\RemindersCard.test.tsx">
+    <testCase name="RemindersCardBody should render the titles and the descriptions of the reminders" duration="275"/>
+    <testCase name="RemindersCardBody should render information regarding reminders properly" duration="428"/>
+    <testCase name="RemindersCardBody opens add reminder modal" duration="2350"/>
+    <testCase name="RemindersCardBody add reminder" duration="1332"/>
+    <testCase name="RemindersCardBody delete reminder function" duration="918"/>
+    <testCase name="RemindersCardBody delete reminder axios" duration="168"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\AddSubjectCard.test.tsx">
-    <testCase name="clicking on the add card button calls setSubjectModal with true" duration="408"/>
-    <testCase name="when role is &apos;STUDENT&apos;, the component renders null" duration="3"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SubjectForm.test.tsx">
+    <testCase name="SubjectForm should render the form correctly" duration="1564"/>
+    <testCase name="SubjectForm should trigger onChange handlers correctly" duration="3006"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\ResetPassword\__test__\Reset.test.js">
-    <testCase name="Reset Component renders without crashing" duration="183"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\Accordion.test.tsx">
+    <testCase name="Accordion should render Acoordion component" duration="330"/>
+    <testCase name="Accordion should open the add modal when add button is clicked" duration="913"/>
+    <testCase name="Accordion should close the add modal when cancel button is clicked" duration="529"/>
+    <testCase name="Accordion should save the new component and update the state when form is submitted" duration="3242"/>
+    <testCase name="Accordion renders the Accordion component with the correct props" duration="96"/>
+    <testCase name="Accordion should  open the modal for the new component" duration="629"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\UpdateGradeComponent.test.tsx">
-    <testCase name="UpdateGrade component should render a button to open the modal" duration="191"/>
-    <testCase name="UpdateGrade component should render a modal when the button is clicked" duration="1242"/>
-    <testCase name="UpdateGrade component should submit the form data when the update button is clicked" duration="1481"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\CatalogComponent.test.tsx">
+    <testCase name="Catalog renders student&apos;s name and grades table" duration="721"/>
+    <testCase name="Catalog fetches and stores response data correctly" duration="204"/>
+    <testCase name="Catalog exports grades as CSV" duration="215"/>
+    <testCase name="Catalog displays the correct number of grades per page based on pagination" duration="376"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FormModal.test.tsx">
-    <testCase name="FormModal renders modal title" duration="835"/>
-    <testCase name="FormModal should render the submit button" duration="332"/>
-    <testCase name="FormModal submits the form data" duration="4212"/>
-    <testCase name="FormModal cancels the form data" duration="1167"/>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\AddGradeComponent.test.tsx">
+    <testCase name="AddGrade renders the Add Grade button" duration="427"/>
+    <testCase name="AddGrade opens the modal when Add Grade button is clicked" duration="1379"/>
+    <testCase name="AddGrade closes the modal when cancel button is clicked" duration="444"/>
+    <testCase name="AddGrade adds a new grade when Add button is clicked" duration="463"/>
   </file>
-  <file path="C:\Users\Dragos\Desktop\Project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SelectedSubject.test.tsx">
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Catalog\__tests__\DeleteGradeComponent.test.tsx">
+    <testCase name="DeleteGrade component clicking delete button shows confirmation modal" duration="793"/>
+    <testCase name="DeleteGrade component clicking delete button and confirming should delete grade and close modal" duration="486"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\RemindersCard\ReminderItem.test.tsx">
+    <testCase name="ReminderItem renders the title and description" duration="207"/>
+    <testCase name="ReminderItem renders the due date" duration="57"/>
+    <testCase name="ReminderItem renders delete reminder button" duration="53"/>
+    <testCase name="ReminderItem clicking delete reminder button opens delete confirmation modal" duration="428"/>
+    <testCase name="ReminderItem clicking cancel button in delete confirmation modal closes modal" duration="147"/>
+    <testCase name="ReminderItem clicking pencil icon will make the description editable" duration="109"/>
+    <testCase name="ReminderItem clicking pencil icon will make the due date editable" duration="80"/>
+    <testCase name="ReminderItem changing the value in an input will fire onChange method in description editable" duration="95"/>
+    <testCase name="ReminderItem changing the value in an input will fire onChange method in date editable" duration="95"/>
+    <testCase name="ReminderItem close the delete modal when clicking the x button" duration="631"/>
+    <testCase name="ReminderItem display description and due date" duration="404"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\InsertData\__test__\Form.test.js">
+    <testCase name="FormInfo Component renders without crashing" duration="624"/>
+    <testCase name="FormInfo Component submits form with entered data" duration="492"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\SendEmail\__test__\SendMail.test.js">
+    <testCase name="SendMail Component submits form with entered data" duration="2350"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\AddSubjectCard.test.tsx">
+    <testCase name="clicking on the add card button calls setSubjectModal with true" duration="2835"/>
+    <testCase name="when role is &apos;STUDENT&apos;, the component renders null" duration="8"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\TeacherInfo\TeacherInfoCard.test.tsx">
+    <testCase name="TeacherInfoCard renders the teacher name" duration="305"/>
+    <testCase name="TeacherInfoCard renders the course titles" duration="116"/>
+    <testCase name="CourseCard should render properly" duration="3404"/>
+    <testCase name="CoursesCard should render properly" duration="600"/>
+    <testCase name="CourseInputInfo changing the value in an input will fire onChange method in property editable" duration="131"/>
+    <testCase name="CourseInputInfo save the value of the editable input" duration="86"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\CardGrid.test.tsx">
+    <testCase name="CardGrid renders the correct number of subject cards" duration="573"/>
+    <testCase name="CardGrid pressing the card sends the user to the course&apos;s page" duration="183"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\UserInfoModal\UserInfoInput.test.tsx">
+    <testCase name="UserInfoInput should render properly" duration="58"/>
+    <testCase name="UserInfoInput should be editable when in edit mode" duration="437"/>
+    <testCase name="UserInfoInput should not be editable when not in edit mode" duration="7"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\FileTransfer.test.tsx">
+    <testCase name="FileTransfer component renders the component with the correct props" duration="309"/>
+    <testCase name="FileTransfer component uploads a file successfully" duration="349"/>
+    <testCase name="FileTransfer component displays an error message when file upload fails" duration="187"/>
+    <testCase name="FileTransfer component clears the file list when clearFileList prop changes" duration="122"/>
+    <testCase name="FileTransfer component calls onDrop when files are dropped onto the component" duration="225"/>
+    <testCase name="FileTransfer component uploads a file successfully and calls onUploadProgress" duration="119"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\components\UserInfoModal\UserAvatar.test.tsx">
+    <testCase name="UserAvatar should render the user placeholder icon" duration="243"/>
+    <testCase name="UserAvatar should render a custom user avatar" duration="64"/>
+    <testCase name="UserAvatar should call the onClick function when clicked" duration="69"/>
+    <testCase name="UserAvatar should call setAvatar with correct image URL" duration="53"/>
+    <testCase name="UserAvatar should call setAvatar with correct image URL for no image" duration="36"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\ResetPassword\__test__\Reset.test.js">
+    <testCase name="Reset Component renders without crashing" duration="913"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PhotoUpload.test.tsx">
+    <testCase name="PhotoUpload component should render the component" duration="519"/>
+    <testCase name="PhotoUpload component renders an upload button with text when fileList is empty" duration="108"/>
+    <testCase name="PhotoUpload component should call onPreview when a picture is clicked" duration="213"/>
+    <testCase name="PhotoUpload component should allow the user to select and upload a file" duration="222"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Home\Home.test.tsx">
+    <testCase name="Home renders Home component" duration="90"/>
+    <testCase name="Home renders image" duration="16"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\PieChart.test.tsx">
+    <testCase name="PieChart component renders PieChart component" duration="64"/>
+    <testCase name="PieChart component fetches the data from the API" duration="10"/>
+    <testCase name="PieChart component clicking on one segment of the pieChart opens the description of that component" duration="10"/>
+    <testCase name="PieChart component clicking on the description button opens the description of that component" duration="9"/>
+  </file>
+  <file path="C:\Users\Ana-Maria\ip_project\fe-labs-and-courses-management\src\pages\Subject\__tests__\SelectedSubject.test.tsx">
   </file>
 </testExecutions>
