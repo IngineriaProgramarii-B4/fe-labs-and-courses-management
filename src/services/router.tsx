@@ -5,7 +5,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/Login/Login";
 import LoginProtected from "../pages/LoginProtected/LoginProtected";
 import NetworkCard from "../components/NetworkCard/NetworkCard";
-import Subjects from "../pages/Subject/Subjects";
+import {Subjects} from "../pages/Subject/Subjects";
 import SelectedSubject from "../pages/Subject/SelectedSubject";
 import Register from "../pages/Register/Register";
 import Reset from "../pages/ResetPassword/Reset";

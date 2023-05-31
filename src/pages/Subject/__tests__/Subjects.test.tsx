@@ -1,7 +1,7 @@
 import axios from "axios";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Subjects from "../Subjects";
+import {Subjects} from "../Subjects";
 import SubjectCard from "../SubjectCard";
 import CardGrid from "../CardGrid";
 import { extractToken } from "../Subjects";
@@ -117,7 +117,7 @@ describe("Subjects component", () => {
   beforeEach(() => {
     jest
       .spyOn(window.localStorage.__proto__, "getItem")
-      .mockReturnValue("token-value");
+      .mockReturnValue("token");
   });
 
   afterEach(() => {
