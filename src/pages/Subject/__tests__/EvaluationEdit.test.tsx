@@ -70,7 +70,11 @@ describe("FileTransfer component", () => {
     await waitFor(() => expect(axiosPutMock).toHaveBeenCalledTimes(1));
     expect(axiosPutMock).toHaveBeenCalledWith(
       "http://localhost:8082/api/v1/subjects/Math/evaluationMethods/component=Course",
-      { component: "Course", description: "New description", value: 0.5 }
+      { component: "Course", description: "New description", value: 0.5 }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
     expect(setIsModified).toHaveBeenCalledTimes(1);
     expect(setIsVisible).toHaveBeenCalledTimes(1);
@@ -106,7 +110,11 @@ describe("FileTransfer component", () => {
     await waitFor(() => expect(axiosPutMock).toHaveBeenCalledTimes(1));
     expect(axiosPutMock).toHaveBeenCalledWith(
       "http://localhost:8082/api/v1/subjects/Math/evaluationMethods/component=Course",
-      { component: "Course", description: "Exam", value: 0.5 }
+      { component: "Course", description: "Exam", value: 0.5 }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
     expect(setIsModified).not.toHaveBeenCalled();
     expect(setIsVisible).not.toHaveBeenCalled();
@@ -116,5 +124,4 @@ describe("FileTransfer component", () => {
     axiosPutMock.mockRestore();
     consoleSpy.mockRestore();
   });
-
 });

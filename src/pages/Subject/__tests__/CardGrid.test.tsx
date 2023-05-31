@@ -16,6 +16,7 @@ const mockProps = {
       year: 2022,
       semester: 1,
       credits: 5,
+      hoursOfStudy: 40
     },
     {
       id: 2,
@@ -24,6 +25,7 @@ const mockProps = {
       year: 2022,
       semester: 2,
       credits: 4,
+      hoursOfStudy: 40
     },
   ],
   setCards: jest.fn(),
