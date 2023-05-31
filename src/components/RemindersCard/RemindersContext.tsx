@@ -30,17 +30,14 @@ export default function RemindersContextProvider({
     }
   });
   const getData = () => {
-    console.log(localStorage.getItem("token"));
     axiosInstance
       .post("/users/loggedUser", localStorage.getItem("token"))
       .then((res) => {
         setLoggedUser(res.data.username);
         setUserId(res.data.id);
-        console.log(res.data.id);
         return res.data.id;
       })
       .then((id) => {
-        console.log(id);
         axiosInstance
           .get(`/reminders/${id}`)
           .then((res) => {

@@ -50,7 +50,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
         },
       }
     );
-
+      setSelectedComponent("");
     const allData = response.data;
     const formattedData = allData.map((item: any) => {
       setDescriptions((prev: any) => {

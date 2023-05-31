@@ -6,7 +6,8 @@ import mockedAvatar from "../../mockedData/mockedAvatar.jpg";
 import axios from "axios";
 import { useJwt } from "react-jwt";
 import { useLocation } from "react-router-dom";
-
+import hat from "../../img/hat.png";
+const linkStyles = { color: "white" };
 function Navbar() {
   let location = useLocation();
   const [current, setCurrent] = useState("Home");
@@ -55,39 +56,46 @@ function Navbar() {
 
   const items = [
     {
+      key: "0",
+      icon: (
+        <Link to="/home">
+          <img src={hat} className="w-12" alt={"Home"} />{" "}
+        </Link>
+      ),
+      disabled: true,
+    },
+    {
       key: "1",
       title: "Home",
       label: <Link to="/home">Home</Link>,
+      style: linkStyles,
     },
     {
       key: "2",
-      title: "Home",
+      title: "Subjects",
       label: <Link to="/subjects">Subjects</Link>,
+      style: linkStyles,
     },
     {
       key: "3",
       title: "Network",
       label: <Link to="/network/all">Network</Link>,
-    },
-    {
-      key: "4",
-      title: "Home",
-      label: <Link to={`/catalog/${id}`}>Catalog</Link>,
+      style: linkStyles,
     },
     {
       key: "5",
-      title: "Home",
+      title: "Reminders",
       label: <Link to="/reminders">Reminders</Link>,
+      style: linkStyles,
     },
     {
       key: "6",
-      title: "Home",
+      title: "Avatar",
       label: <UserInfoModal avatar={mockedAvatar} />,
       disabled: true,
       style: { marginLeft: "auto", cursor: "default" },
     },
   ];
-
   const modifiedItems =
     role === "TEACHER" ? items.filter((item) => item.key !== "4") : items;
 
