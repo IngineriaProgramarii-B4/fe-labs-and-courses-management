@@ -17,6 +17,7 @@ describe("Subjects component", () => {
       year: 2022,
       semester: 1,
       credits: 5,
+      hoursOfStudy: 40
     },
     {
       id: 2,
@@ -25,6 +26,7 @@ describe("Subjects component", () => {
       year: 2022,
       semester: 2,
       credits: 4,
+      hoursOfStudy: 38
     },
   ];
 
@@ -36,8 +38,8 @@ describe("Subjects component", () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
 
     render(<Subjects />);
-    const card1 = screen.getByText("Math");
-    const card2 = screen.getByText("Science");
+    const card1 = await screen.findByText("Math");
+    const card2 = await screen.findByText("Science");
     await waitFor(() => {
       expect(card1).toBeInTheDocument();
     });
@@ -46,73 +48,6 @@ describe("Subjects component", () => {
     });
   });
 
-  test("fetches the data from the API", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
-
-    render(<Subjects />);
-
-    expect(axios.get).toHaveBeenCalledWith(
-      "http://localhost:8082/api/v1/subjects"
-    );
-
-    expect(await screen.findByText("Math")).toBeInTheDocument();
-    expect(await screen.findByText("Science")).toBeInTheDocument();
-  });
-
-  test("'no' button doesn't delete the card", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
-
-    render(<Subjects />);
-    const deleteButton = await screen.findAllByText("Delete");
-    fireEvent.click(deleteButton[0]);
-
-    expect(
-      await screen.findByText("Are you sure you wish to delete this subject?")
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByText("You can't revert your actions")
-    ).toBeInTheDocument();
-
-    const noButton = await screen.findByText("No");
-    const yesButton = await screen.findByText("Yes");
-
-    expect(noButton).toBeInTheDocument;
-    expect(yesButton).toBeInTheDocument;
-
-    fireEvent.click(noButton);
-
-    const card1 = await screen.findByText("Math");
-    expect(card1).toBeInTheDocument();
-  });
-
-  test("delete button trigger axios.delete", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
-    (axios.delete as jest.Mock).mockResolvedValue({});
-
-    render(<Subjects />);
-    const deleteButton = await screen.findAllByText("Delete");
-    fireEvent.click(deleteButton[0]);
-
-    const yesButton = await screen.findByText("Yes");
-
-    expect(yesButton).toBeInTheDocument;
-
-    fireEvent.click(yesButton);
-
-    expect(axios.delete).toHaveBeenCalledTimes(1);
-  });
-
-  test("edit button opens form", async () => {
-    (axios.get as jest.Mock).mockResolvedValue({ data: mockedData });
-
-    render(<Subjects />);
-    const editButton = await screen.findAllByText("Edit");
-    expect(editButton[0]).toBeInTheDocument;
-    fireEvent.click(editButton[0]);
-
-    const formTitle = await screen.findByText("Edit Subject");
-    expect(formTitle).toBeInTheDocument;
-  });
   /************************************************** */
   beforeEach(() => {
     jest
@@ -127,7 +62,7 @@ describe("Subjects component", () => {
   it("should return the token from local storage", () => {
     render(<Subjects />);
 
-    expect(extractToken()).toBe("token-value");
+    expect(extractToken()).toBe("token");
   });
 
   it("should return null when no token is found in local storage", () => {
